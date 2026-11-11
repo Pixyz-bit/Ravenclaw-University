@@ -43,7 +43,9 @@ public partial class UniversityDbContext : DbContext
         modelBuilder.Entity<AcademyInfoTable>(entity =>
         {
             entity.HasKey(e => e.AcademyInfoId).HasName("PK__AcademyI__488BB1F170D17403");
+
             entity.ToTable("AcademyInfoTable");
+
             entity.Property(e => e.HeroImg).HasMaxLength(500);
         });
 
@@ -104,7 +106,10 @@ public partial class UniversityDbContext : DbContext
 
             entity.ToTable("UserTable");
 
+            entity.Property(e => e.FirstName).HasMaxLength(100);
             entity.Property(e => e.IsActive).HasDefaultValue(true);
+            entity.Property(e => e.LastName).HasMaxLength(100);
+            entity.Property(e => e.MiddleName).HasMaxLength(100);
             entity.Property(e => e.PasswordHash).HasMaxLength(500);
             entity.Property(e => e.ProfileImg).HasMaxLength(500);
             entity.Property(e => e.Role).HasMaxLength(20);

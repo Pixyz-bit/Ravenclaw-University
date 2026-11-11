@@ -38,7 +38,8 @@ Work through the remaining stages in order. See STATUS.md for verification limit
 - [x] Choose student self-registration; admin provisioning remains separate.
 - [x] User applied the personal fields; live metadata comparison verified the updated table definitions.
 - [x] Consolidate all applied changes into Schema.sql and remove the completed incremental script.
-- [ ] Refresh/verify the generated UserTable entity and mapping for the four new fields.
+- [x] Refresh/verify the generated UserTable entity and mapping for the four new fields.
+- [x] Build and verify an EF read of personal-detail columns without displaying account data or changing records.
 - [ ] Create registration view/model/action with names, optional birthday, username, password, and confirmation.
 - [ ] Force Student role server-side; validate inputs, reject duplicate usernames, hash passwords, and protect registration POSTs.
 - [ ] Implement an explicit, controlled first-admin creation flow using framework password hashing.

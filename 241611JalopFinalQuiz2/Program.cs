@@ -25,10 +25,27 @@ if (args.Contains("--check-database", StringComparer.OrdinalIgnoreCase))
             .OrderBy(info => info.AcademyInfoId)
             .FirstOrDefaultAsync();
 
-        Console.WriteLine("Database read check passed: AcademyInfoTable queried successfully.");
+        Console.WriteLine("AcademyInfoTable read passed.");
         Console.WriteLine(universityInfo is null
             ? "The table is empty; the database connection still works."
             : "A university information record exists. Its contents were not displayed.");
+
+        // Verify the profile columns without selecting passwords or displaying data.
+        await context.UserTables
+            .AsNoTracking()
+            .OrderBy(user => user.UserId)
+            .Select(user => new
+            {
+                user.LastName,
+                user.FirstName,
+                user.MiddleName,
+                user.Birthday
+            })
+            .Take(1)
+            .ToListAsync();
+
+        Console.WriteLine("UserTable personal-detail columns read passed. No account data was displayed.");
+        Console.WriteLine("Database read check passed.");
     }
     catch (Exception exception)
     {

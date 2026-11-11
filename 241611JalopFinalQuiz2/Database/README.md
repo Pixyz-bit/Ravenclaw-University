@@ -29,9 +29,10 @@ The user applied LastName, FirstName, MiddleName (NVARCHAR(100)), and Birthday
 on 2026-11-11. They are included in Schema.sql. The completed incremental script
 was removed; its history remains available in Git.
 
-Refresh the generated UserTable entity and max-length mappings using database-first
-tooling. The generated model has not yet been updated for the four new fields.
-Review generated changes before replacing existing code; do not run migrations.
+The generated UserTable entity and max-length mappings were refreshed from the
+live database using a temporary scaffold, reviewed, and integrated. Nullable
+names use string? with 100-character limits; Birthday uses DateOnly?. Build and
+an EF read of the four fields passed. No migrations were run.
 
 Student self-registration is approved but not implemented. Require first/last
 name in the registration view model, allow optional middle name/birthday, reject
@@ -46,15 +47,16 @@ dotnet run --no-launch-profile -- --check-database
 ```
 
 This uses the same configured UniversityDbContext as the application. It reads
-at most one row from AcademyInfoTable without change tracking and does not
-display its contents or query account records. An empty table is a successful
-check. It exits without starting the website. Exit code 0 means success; code 1
+at most one row from AcademyInfoTable without change tracking, then at most one
+projection of LastName, FirstName, MiddleName, and Birthday from UserTable. It
+does not select password hashes or display record contents. Empty tables are
+successful checks. It exits without starting the website. Exit code 0 means success; code 1
 means the check failed. No database or table is created, and no data is changed.
 
 Verified 2026-11-11 against the local Ravenclaw University Db: query passed;
-AcademyInfoTable was empty. The agent's restricted environment denied SQL access;
-the check passed when run with local SQL access. This validates the configured
-connection and this table's mapping, not every table in the schema.
+AcademyInfoTable was empty and the UserTable personal-detail query succeeded.
+The agent's restricted environment denied SQL access; the check passed when run
+with local SQL access. This validates these reads, not every mapping in the schema.
 
 ## Tables
 

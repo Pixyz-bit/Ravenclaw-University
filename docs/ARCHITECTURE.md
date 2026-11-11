@@ -41,8 +41,11 @@ after WebApplication.CreateBuilder and before builder.Build. Register MVC once.
 
 For a repeatable local read check, run the application with --check-database.
 Program.cs creates a service scope, resolves the registered UniversityDbContext,
-and reads at most one AcademyInfoTable record with AsNoTracking. It reports only
-success and whether the table is empty, never record contents. It exits before
+and reads at most one AcademyInfoTable record with AsNoTracking, followed by at
+most one projection of LastName, FirstName, MiddleName, and Birthday from UserTable.
+The names have 100-character mappings; the nullable birthday uses DateOnly?.
+It does not select password hashes or display account values. It reports only
+success and whether the university-info table is empty. It exits before
 starting the HTTP server. Failure returns a nonzero process exit code. This
 diagnostic does not call SaveChanges, run migrations, or create a database.
 

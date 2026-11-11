@@ -4,6 +4,12 @@ Last verified: 2026-11-11.
 
 ## Completed
 
+- Refreshed UserTable and UniversityDbContext from a temporary database-first
+  scaffold after the personal-details update. Names map to nullable strings with
+  100-character limits; Birthday maps to DateOnly?.
+- Build passed with zero warnings/errors. Extended --check-database verified a
+  read of all four personal-detail columns without selecting password hashes,
+  displaying account values, or changing data. The command exited successfully.
 - Existing ASP.NET Core MVC net9.0 starter inspected.
 - User-supplied schema compared against the final agreed eight-table design.
 - Database/Schema.sql and Database/README.md created in the MVC project.
@@ -43,13 +49,13 @@ Last verified: 2026-11-11.
 - Student self-registration selected. The user applied the four personal fields;
   live metadata verified all eight tables and the enabled Role CHECK on 2026-11-11.
   Schema.sql is the sole consolidated schema; the completed update script was removed.
-  Generated UserTable and its mapping still lack the four new fields and must be
-  refreshed. Registration UI/action are not implemented.
+  Generated UserTable and its mapping now include the four new fields.
+  Registration UI/action are not implemented.
 - Login, account provisioning, active-account checks, and role restrictions are not implemented.
 - No content administration or database-backed page rendering exists yet.
 - The agent did not create or alter the live database. Metadata comparison
-  verified the eight table definitions; only AcademyInfoTable has been queried
-  through EF Core, so the remaining runtime entity mappings still need testing.
+  verified the eight table definitions. EF reads verified AcademyInfoTable and the
+  four UserTable personal-detail columns; other runtime mappings still need testing.
 - Local default SQL Server was running and the database was accessible during
   verification; future connection failures should be checked against current state.
 - Login and content pages remain pending even though the database read works.
@@ -58,10 +64,9 @@ Last verified: 2026-11-11.
 
 ## Next implementation work
 
-1. Refresh/verify the generated UserTable model and mapping for the applied fields.
-2. Implement student registration, login, and Admin/Student authorization before exposing content.
-3. Provide an explicit way to provision the first admin using a password hasher.
-4. Build content views and admin editing using the documented design and schema.
+1. Implement student registration, login, and Admin/Student authorization before exposing content.
+2. Provide an explicit way to provision the first admin using a password hasher.
+3. Build content views and admin editing using the documented design and schema.
 
 Update this file after completed progress. Use Git history for commit identifiers
 and detailed change history rather than maintaining duplicate commit logs here.
