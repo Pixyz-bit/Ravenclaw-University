@@ -1,0 +1,50 @@
+@{
+    var controller = ViewContext.RouteData.Values["controller"]?.ToString();
+    var dashboardActive = controller == "Admin";
+    var activeSection = Model is ContentEditorViewModel editor ? editor.Section
+        : Model is ContentListViewModel list ? list.Section : (ContentSection?)null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] — Ravenclaw University Administration</title>
+    <link rel="icon" type="image/png" href="~/images/branding/ravenclaw-university-crest.png" asp-append-version="true" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Lato:wght@400;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body class="admin-body">
+    <a class="skip-link" href="#main-content">Skip to administration content</a>
+    <aside class="admin-sidebar">
+        <a class="wordmark" asp-controller="Admin" asp-action="Index"><img class="university-logo" src="~/images/branding/ravenclaw-university-crest.png" asp-append-version="true" width="1123" height="1401" alt="" /><span>Ravenclaw<br />University</span></a>
+        <p class="admin-sidebar-label">Administration</p>
+        <details class="admin-navigation" open>
+            <summary>Navigation</summary>
+            <nav aria-label="Administration navigation">
+                <a class="admin-nav-link @(dashboardActive ? "is-active" : "")" aria-current="@(dashboardActive ? "page" : null)" asp-controller="Admin" asp-action="Index"><span class="admin-nav-number" aria-hidden="true">00</span>Dashboard</a>
+                <p class="admin-nav-heading">University content</p>
+                @foreach (var contentSection in Enum.GetValues<ContentSection>())
+                {
+                    var active = activeSection == contentSection;
+                    <a class="admin-nav-link @(active ? "is-active" : "")" aria-current="@(active ? "page" : null)" asp-controller="AdminContent" asp-action="Index" asp-route-section="@contentSection"><span class="admin-nav-number" aria-hidden="true">@(((int)contentSection + 1).ToString("00"))</span>@ContentSections.Label(contentSection)</a>
+                }
+            </nav>
+        </details>
+        <div class="admin-sidebar-bottom">
+            <a class="admin-site-link" asp-controller="Home" asp-action="Index">View university <span aria-hidden="true">↗</span></a>
+            <form asp-controller="Account" asp-action="Logout" method="post"><button class="button button-outline" type="submit">Sign out</button></form>
+        </div>
+    </aside>
+    <div class="admin-workspace">
+        <header class="admin-topbar"><span>Administration <span aria-hidden="true">/</span> @ViewData["Title"]</span><span class="admin-account" title="@User.Identity?.Name">@User.Identity?.Name <span class="role-label">Admin</span></span></header>
+        <main id="main-content" class="admin-main">@RenderBody()</main>
+        <footer class="admin-footer">© @DateTime.UtcNow.Year Ravenclaw University · Administration</footer>
+    </div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/js/admin-navigation.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

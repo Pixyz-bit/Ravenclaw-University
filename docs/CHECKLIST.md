@@ -59,6 +59,7 @@ Work through the remaining stages in order. See STATUS.md for verification limit
 ## 4. Shared interface and student-facing content
 
 - [x] Build a consistent university header, navigation, footer, page titles, and logout control.
+- [x] Match the supplied navbar reference with centered section links and a circular account menu; collapse navigation on phones.
 - [x] Obtain approval for the cleaned transparent crest and use it as the main logo in shared layouts and favicon.
 - [x] Remove the student-access caption and verify normal login/signup forms fit desktop and phone viewports without scrolling.
 - [x] Load Cormorant Garamond/Lato with fallback fonts for the implemented account layouts.
@@ -74,6 +75,7 @@ Work through the remaining stages in order. See STATUS.md for verification limit
 ## 5. Admin content management
 
 - [x] Build an admin navigation/dashboard linking to the content editors.
+- [x] Give administration its own layout with sidebar navigation, current-page indication, and a mobile disclosure menu.
 - [x] Edit the single university-info record, including the hero image selection.
 - [x] Add, edit, and delete core value titles.
 - [x] Add, edit, and delete gallery image references and alternative text.

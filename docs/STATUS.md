@@ -4,6 +4,17 @@ Last verified: 2026-11-11.
 
 ## Completed
 
+- Separated administration into its own layout with a persistent desktop sidebar,
+  seven content links, an active-page indicator, and collapsible phone navigation.
+- Updated the university navbar to the supplied reference: crest/name left,
+  Home/About/Academics/Contact/Leadership links, circular account menu right,
+  rounded upper border, and bottom divider. Existing brand colors remain.
+- All 69 isolated account/content checks passed. Desktop and 390px browser checks
+  verified the navbar, account actions, sidebar, and active section without
+  horizontal overflow. No university records or database definitions changed.
+- Rebuilt the normal application output with zero warnings/errors and restarted
+  the owned development server on localhost:5182 with the new navigation layouts.
+  The disposable preview completed cleanup successfully.
 - Implemented the database-backed five-section homepage, protected admin dashboard,
   and seven content editors. University/contact creation is serialized and limited
   to one row; the other sections support add/edit/delete.

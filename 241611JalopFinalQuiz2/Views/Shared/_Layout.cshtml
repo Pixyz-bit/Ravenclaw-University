@@ -14,20 +14,29 @@
 <body class="portal-body">
     <a class="skip-link" href="#main-content">Skip to content</a>
     <header class="portal-header">
-        <a class="wordmark" asp-controller="Home" asp-action="Index"><img class="university-logo" src="~/images/branding/ravenclaw-university-crest.png" asp-append-version="true" width="1123" height="1401" alt="" aria-hidden="true" /><span>Ravenclaw<br />University</span></a>
-        <nav class="portal-nav" aria-label="Main navigation">
-            @if (User.Identity?.IsAuthenticated == true)
-            {
-                <a asp-controller="Home" asp-action="Index">University</a>
+        <a class="wordmark" asp-controller="Home" asp-action="Index"><img class="university-logo" src="~/images/branding/ravenclaw-university-crest.png" asp-append-version="true" width="1123" height="1401" alt="" aria-hidden="true" /><span>Ravenclaw University</span></a>
+        @if (User.Identity?.IsAuthenticated == true)
+        {
+            <details class="site-navigation" open>
+                <summary>Menu</summary>
+                <nav class="portal-nav" aria-label="Main navigation">
+                <a asp-controller="Home" asp-action="Index">Home</a>
                 <a asp-controller="Home" asp-action="Index" asp-fragment="about">About</a>
                 <a asp-controller="Home" asp-action="Index" asp-fragment="academics">Academics</a>
                 <a asp-controller="Home" asp-action="Index" asp-fragment="contact">Contact</a>
-                <a asp-controller="Home" asp-action="Index" asp-fragment="leadership">Founder</a>
-                @if (User.IsInRole("Admin")) { <a asp-controller="Admin" asp-action="Index">Administration</a> }
-                <form asp-controller="Account" asp-action="Logout" method="post"><button class="button button-outline" type="submit">Sign out</button></form>
-            }
-            else { <a asp-controller="Account" asp-action="Login">Sign in</a> }
-        </nav>
+                <a asp-controller="Home" asp-action="Index" asp-fragment="leadership">Leadership</a>
+                </nav>
+            </details>
+            <details class="account-menu">
+                <summary aria-label="Account options"><svg viewBox="0 0 24 24" width="25" height="25" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="8" r="3.5" /><path d="M5 21v-2a7 7 0 0 1 14 0v2" /></svg></summary>
+                <div class="account-dropdown">
+                    <span class="account-dropdown-name">@User.Identity?.Name</span>
+                    @if (User.IsInRole("Admin")) { <a asp-controller="Admin" asp-action="Index">Administration</a> }
+                    <form asp-controller="Account" asp-action="Logout" method="post"><button type="submit">Sign out</button></form>
+                </div>
+            </details>
+        }
+        else { <a asp-controller="Account" asp-action="Login">Sign in</a> }
     </header>
     <main id="main-content" class="portal-main">@RenderBody()</main>
     <footer class="portal-footer">© @DateTime.UtcNow.Year Ravenclaw University <span>Where Wisdom Takes Flight.</span></footer>

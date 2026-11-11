@@ -8,6 +8,8 @@ Recorded 2026-11-11 from the project conversation.
 | Official institution name: Ravenclaw University | Explicit user correction; use consistently in branding and future work |
 | Approved transparent Ravenclaw crest is the main university logo | User approved the imagegen-cleaned supplied crest and authorized website integration after preview |
 | First content version is one authenticated page with section anchors | Implements the original five sections; separate detail pages can be added if requested |
+| Admin area has a separate sidebar layout | Explicit user request; Dashboard and each content section have dedicated navigation with an active state |
+| University navbar follows the supplied reference | Brand left, five central links, circular account control right; admin access moves into the account dropdown |
 | University and contact records are singletons in editor logic | Serializable creation prevents duplicates; existing rows are edited |
 | Use Font Awesome Free 6.7.2 for optional social icons | Supported classes are allowlisted; platform labels remain readable without the CDN |
 | Database name: Ravenclaw University Db | Explicit user naming request |

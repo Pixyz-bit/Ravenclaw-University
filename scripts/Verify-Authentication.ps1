@@ -128,6 +128,7 @@ try {
     Assert-Check ($denied.Status -eq 302 -and $denied.Location -like '*AccessDenied*') 'Student cannot access admin by URL'
     Assert-Check ((Send-Request $anonymous '/Account/AccessDenied').Status -eq 403) 'Access-denied page returns 403'
     if ($IncludeContent) {
+        Assert-Check (-not (Send-Request $anonymous '/').Body.Contains('admin-sidebar')) 'Student university page keeps its own layout'
         Assert-Check ((Send-Request $anonymous '/AdminContent/Index?section=Programs').Location -like '*AccessDenied*') 'Student cannot access content editors'
         Assert-Check ((Send-Request $anonymous '/AdminContent/Edit' @{Section='Programs';Title='Tampered'}).Location -like '*AccessDenied*') 'Student cannot POST content changes'
         Assert-Check ((Invoke-TestSql 'SELECT COUNT(*) FROM dbo.ProgramsTable;') -eq '0') 'Rejected student request changed no content'
@@ -147,6 +148,11 @@ try {
     $adminLogin = Submit-Form $admin '/Account/Login' @{ Username='verification.student'; Password='Test-Only-Scholar-2026' }
     Assert-Check ($adminLogin.Status -eq 302 -and (Send-Request $admin '/Admin').Status -eq 200) 'Admin can access administration'
     if ($IncludeContent) {
+        $adminDashboard = Send-Request $admin '/Admin'
+        Assert-Check ($adminDashboard.Body.Contains('aria-label="Administration navigation"') -and -not $adminDashboard.Body.Contains('aria-label="Main navigation"')) 'Admin dashboard uses a separate sidebar layout'
+        $programList = Send-Request $admin '/AdminContent/Index?section=Programs'
+        $activeLinks = [regex]::Matches($programList.Body,'<a\b[^>]*aria-current="page"[^>]*>.*?</a>',[Text.RegularExpressions.RegexOptions]::Singleline)
+        Assert-Check ($activeLinks.Count -eq 1 -and $activeLinks[0].Value.Contains('Academic programs')) 'Content sidebar marks only the current section active'
         $sections = @(
             @{Name='University';Table='AcademyInfoTable';Key='AcademyInfoId';Fields=@{Description='Verification university description';Mission='Verification mission';Vision='Verification vision';ImagePath='/images/branding/ravenclaw-university-crest.png'}},
             @{Name='Contacts';Table='ContactsTable';Key='ContactId';Fields=@{Address='Verification campus';Email='office@university.example';Telephone='+63 912 345 6789';OfficeHours='Monday to Friday'}},

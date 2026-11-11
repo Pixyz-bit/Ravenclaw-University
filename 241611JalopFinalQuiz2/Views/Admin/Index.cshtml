@@ -2,12 +2,15 @@
 <section class="portal-panel editor-panel">
     <p class="eyebrow">Administration</p>
     <h1>Welcome, @User.Identity?.Name.</h1>
-    <p>Manage the information students see on the university page.</p>
-    <a class="button button-primary" asp-controller="Home" asp-action="Index">View university portal</a>
+    <p>Manage the information students see on the university page. Choose a section from the sidebar to get started.</p>
 </section>
-<div class="dashboard-list">
-    @foreach (var contentSection in Enum.GetValues<ContentSection>())
-    {
-        <a class="dashboard-link" asp-controller="AdminContent" asp-action="Index" asp-route-section="@contentSection"><span>@ContentSections.Label(contentSection)</span><span aria-hidden="true">→</span></a>
-    }
-</div>
+<section class="admin-guide">
+    <p class="eyebrow">Your publishing workflow</p>
+    <h2>Start with the essentials.</h2>
+    <ol>
+        <li><strong>Introduce the university.</strong><span>Update the description, mission, vision, and hero image.</span></li>
+        <li><strong>Build out your content.</strong><span>Add programs, core values, gallery images, and founder information.</span></li>
+        <li><strong>Review the student experience.</strong><span>Open the university page to check your saved changes.</span></li>
+    </ol>
+    <div class="row-actions"><a class="button button-primary" asp-controller="AdminContent" asp-action="Index" asp-route-section="University">Edit university information</a><a class="button button-secondary" asp-controller="Home" asp-action="Index">Preview university</a></div>
+</section>

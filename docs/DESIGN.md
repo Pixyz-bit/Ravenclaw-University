@@ -34,7 +34,7 @@ Navigation -> Hero -> About -> Academics and Student Services -> Contact ->
 Leadership and Administration -> Footer. The implemented version uses one
 authenticated homepage with section anchors; separate detail pages remain optional.
 
-- Navy navigation and footer; alternate navy and ivory content sections.
+- Ivory framed university navbar, navy admin sidebar and footer; alternate navy and ivory content sections.
 - Large architectural hero image with readable overlay and left-aligned headline.
   Use Ravenclaw University consistently in the logo text, headings, navigation,
   page titles, login screen, and footer when those surfaces are implemented.
@@ -56,8 +56,11 @@ navy primary action. Below 850px the story panel reduces to the wordmark.
 Registration retains compact two-column name/password rows on phones; below
 350px those rows stack for readability. Login controls are at least 48px high;
 registration controls are at least 44px high. Errors are inline and textual, and
-there is a keyboard skip link. Shared authenticated
-navigation includes University, Admin-only Administration, and POST Sign out.
+there is a keyboard skip link. The university navbar follows the user's reference:
+brand at left, centered Home/About/Academics/Contact/Leadership links, and a circular
+account control at right. Its dropdown has the username, Admin-only Administration
+link, and POST Sign out. Use an ivory background, dark outlined frame, and rounded
+upper corners. Below 1001px, a native Menu disclosure shows the navigation links.
 Desktop and mobile forms were visually inspected; later content sections must
 reuse these tokens consistently.
 
@@ -75,6 +78,17 @@ controls, a supported icon selector, inline errors, and POST delete confirmation
 University/contact sections allow editing one record with no UI deletes. Unavailable
 images use a text fallback; the crest is not used as fake campus photography.
 
+## Separate administration shell
+
+Admin and AdminContent views use _AdminLayout through folder-specific _ViewStart
+files. The university navbar is not rendered in this shell. A 272px navy sidebar
+contains the approved crest, Dashboard, and all seven content sections. The current
+page uses a blue active background and aria-current=page, including edit/delete
+and validation states. View university and POST Sign out sit below navigation.
+The ivory workspace has a contextual topbar/account label and Lato headings.
+Below 901px, native sidebar disclosure collapses initially with JavaScript and
+remains usable without JavaScript. The dashboard provides a short publishing guide.
+
 ## Approved main logo (2026-11-11)
 
 The user approved the cleaned transparent crest preview as the main university logo
@@ -87,8 +101,9 @@ shield and bird, helmet/mantling, and original gold RAVENCLAW ribbon preserved.
 The website name beside it remains Ravenclaw University. Do not redraw, recolor,
 stretch, or replace it without an explicit request. No opaque backdrop or shadow.
 
-Both account and authenticated layouts use this asset beside the university name,
-at 64 × 80px on desktop and 48 × 60px below 850px, with object-fit:contain. It also
+All layouts use this asset beside the university name with object-fit:contain.
+Account layouts use 64 × 80px on desktop and 48 × 60px below 850px; the university
+navbar uses 52 × 66px, or 42 × 54px below 1001px; the admin sidebar uses 44 × 56px. It also
 serves as the PNG favicon. Explicit dimensions reserve space. The linked wordmark
 gets its accessible name from the adjacent text, so the image has empty alt text;
 standalone instances must provide descriptive alternative text. On viewports

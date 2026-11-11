@@ -10,6 +10,8 @@
 - UniversityContentService assembles the read-only homepage. ContentEditorService
   explicitly maps seven content sections to entities. AdminContentController handles
   protected forms. No repository layer or schema change is needed.
+- Views/Admin and Views/AdminContent select _AdminLayout with nested _ViewStart
+  files. University views continue using _Layout; account views use _AccountLayout.
 - wwwroot contains public static assets, never database scripts or private docs.
 
 ## Database

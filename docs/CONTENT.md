@@ -8,6 +8,9 @@ were added. Schema.sql remains unchanged and is the sole consolidated schema.
 ## Using the editors
 
 Sign in as an Admin and open Administration. The dashboard links to seven sections:
+The admin area has its own sidebar layout, separate from the university navbar.
+Dashboard and the seven content pages are linked persistently, with the current
+section highlighted. On phones the navigation can be expanded from its disclosure.
 
 | Editor | Database table | Behavior |
 | --- | --- | --- |
