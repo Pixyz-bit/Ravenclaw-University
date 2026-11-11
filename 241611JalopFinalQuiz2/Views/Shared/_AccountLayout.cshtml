@@ -4,6 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] — Ravenclaw University</title>
+    <link rel="icon" type="image/png" href="~/images/branding/ravenclaw-university-crest.png" asp-append-version="true" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Lato:wght@400;700&display=swap" rel="stylesheet" />
@@ -13,7 +14,7 @@
     <a class="skip-link" href="#main-content">Skip to form</a>
     <div class="account-shell">
         <aside class="account-story" aria-label="Ravenclaw University">
-            <a class="wordmark" asp-controller="Account" asp-action="Login"><span class="monogram" aria-hidden="true">RU</span><span>Ravenclaw<br />University</span></a>
+            <a class="wordmark" asp-controller="Account" asp-action="Login"><img class="university-logo" src="~/images/branding/ravenclaw-university-crest.png" asp-append-version="true" width="1123" height="1401" alt="" aria-hidden="true" /><span>Ravenclaw<br />University</span></a>
             <div class="story-copy">
                 <span class="eyebrow">The university portal</span>
                 <p class="story-title">Where Wisdom<br /><em>Takes Flight.</em></p>
@@ -21,7 +22,6 @@
                 <div class="story-rule" aria-hidden="true"></div>
                 <span class="story-caption">Wisdom · Integrity · Discovery</span>
             </div>
-            <p class="story-footer">Ravenclaw University · Student access</p>
         </aside>
         <main id="main-content" class="account-content">@RenderBody()</main>
     </div>

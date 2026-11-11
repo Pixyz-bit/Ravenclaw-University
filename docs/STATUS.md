@@ -4,6 +4,14 @@ Last verified: 2026-11-11.
 
 ## Completed
 
+- Integrated the user-approved transparent crest into both shared wordmarks and
+  the favicon; documented the canonical asset and kept the original PNG unchanged.
+- Removed the requested student-access caption and compacted account forms.
+  Browser checks confirmed no normal-form scrolling at 1280x720, 1280x600,
+  390x844, and 375x667; fields/actions remain visible and crest loads correctly.
+- Logo/layout build passed with zero warnings/errors using a separate ignored
+  output directory. The default output was locked by the user's running app;
+  it was not stopped. Restart that app to load newly compiled Razor layouts.
 - Implemented student registration, login/logout, cookie authentication, fallback
   login protection, and Admin-only starter administration. Registration forces
   Student; active status/roles are revalidated per authenticated request.

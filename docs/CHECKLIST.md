@@ -59,6 +59,8 @@ Work through the remaining stages in order. See STATUS.md for verification limit
 ## 4. Shared interface and student-facing content
 
 - [x] Build a consistent university header, navigation, footer, page titles, and logout control.
+- [x] Obtain approval for the cleaned transparent crest and use it as the main logo in shared layouts and favicon.
+- [x] Remove the student-access caption and verify normal login/signup forms fit desktop and phone viewports without scrolling.
 - [x] Load Cormorant Garamond/Lato with fallback fonts for the implemented account layouts.
 - [ ] Select and load the social icon library for content pages.
 - [ ] Prepare approved preselected images, descriptive alternative text, and missing-image fallbacks.
