@@ -11,8 +11,10 @@ for compatibility with the documented schema.
 - Active students may view content only.
 - Active admins may view, add, edit, and delete applicable website content.
 - Inactive users must be denied access. Enforce roles on the server.
-- Login must be reachable without authentication. Registration and account
-  provisioning behavior have not been specified.
+- Login and student registration must be reachable without authentication.
+- Students register themselves. Registration sets Role to Student on the server;
+  never accept a role or active-status selection from the registration form.
+- Admin accounts use a separate controlled provisioning flow.
 - Store framework-generated password hashes, not plaintext passwords.
 
 ## Content
@@ -25,6 +27,10 @@ for compatibility with the documented schema.
 - Contact: address, email, telephone, office hours, and editable social links.
 - Social links may specify an icon class; the matching library must be available.
 - User accounts include username, role, optional profile image, and active status.
+- UserTable also stores LastName, FirstName, MiddleName (each up to 100 characters),
+  and Birthday (date only). Storage permits NULL to preserve existing accounts.
+  New registration requires first and last name; middle name and birthday are
+  optional for now. Validate a supplied birthday as an actual, nonfuture date.
 
 AcademyName, AcademyHistory, and core value descriptions were deliberately
 removed from the database. The static Ravenclaw University name appears in branding.

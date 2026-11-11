@@ -35,7 +35,11 @@ Work through the remaining stages in order. See STATUS.md for verification limit
 
 ## 3. Login and access control (next milestone)
 
-- [ ] Choose account provisioning: admin-created accounts or student registration; registration is not yet specified.
+- [x] Choose student self-registration; admin provisioning remains separate.
+- [x] Document UserTable personal fields and prepare the existing-database ALTER script.
+- [ ] Apply Updates/001_AddUserPersonalDetails.sql and refresh/verify the generated UserTable entity and mapping.
+- [ ] Create registration view/model/action with names, optional birthday, username, password, and confirmation.
+- [ ] Force Student role server-side; validate inputs, reject duplicate usernames, hash passwords, and protect registration POSTs.
 - [ ] Implement an explicit, controlled first-admin creation flow using framework password hashing.
 - [ ] Add LoginViewModel and AccountController with login/logout actions.
 - [ ] Create an accessible login view matching the documented design.
@@ -77,7 +81,8 @@ Work through the remaining stages in order. See STATUS.md for verification limit
 - [ ] Populate approved university content after explicitly authorizing the data changes; no invented statistics.
 - [ ] Test admin CRUD and student read-only behavior across all content types.
 - [ ] Test direct URL and form requests so hidden buttons cannot bypass roles.
-- [ ] Test password handling, duplicate usernames, inactive sessions, logout, and safe redirects.
+- [ ] Test registration, optional profile fields, future birthdays, role tampering,
+  password handling, duplicate usernames, inactive sessions, logout, and safe redirects.
 - [ ] Test missing/invalid inputs, URL schemes, empty tables, and unavailable database behavior.
 - [ ] Verify responsive layouts, mobile navigation, keyboard focus, labels, contrast, and reduced motion.
 - [ ] Check image paths, icon rendering, links, official naming, and safe text rendering.

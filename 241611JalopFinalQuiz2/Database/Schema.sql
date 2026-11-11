@@ -43,6 +43,10 @@ CREATE TABLE dbo.UserTable
         CHECK (Role IN (N'Admin', N'Student')),
     Username NVARCHAR(100) NOT NULL,
     PasswordHash NVARCHAR(500) NOT NULL,
+    LastName NVARCHAR(100) NULL,
+    FirstName NVARCHAR(100) NULL,
+    MiddleName NVARCHAR(100) NULL,
+    Birthday DATE NULL,
     ProfileImg NVARCHAR(500) NULL,
     IsActive BIT NOT NULL DEFAULT (1)
 );

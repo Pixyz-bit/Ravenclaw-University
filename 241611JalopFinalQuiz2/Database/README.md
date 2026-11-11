@@ -20,6 +20,24 @@ If the database or tables already exist, do not run this creation script.
 Use a separate, reviewed ALTER script for changes to an existing database.
 Saving the schema file does not execute SQL or modify a live database.
 
+### Pending existing-database update
+
+Run Updates/001_AddUserPersonalDetails.sql against the existing database to add
+LastName, FirstName, MiddleName (NVARCHAR(100)), and Birthday (DATE) to UserTable.
+All four columns allow NULL so existing accounts need no invented names/dates.
+The script checks for existing columns and adds missing columns in a transaction;
+it does not correct incompatible definitions of columns that already exist.
+Schema.sql already includes these columns for a fresh installation.
+
+This update has been prepared but not applied by the agent. After applying it,
+refresh the UserTable entity and max-length mappings using database-first tooling.
+Review generated changes before replacing existing code; do not run migrations.
+The generated model currently reflects the old live schema.
+
+Student self-registration is approved but not implemented. Require first/last
+name in the registration view model, allow optional middle name/birthday, reject
+future birthdays, and assign Role=Student server-side. Provision admins separately.
+
 ## Verifying the application connection
 
 From the MVC project directory (the folder containing the .csproj), run:
@@ -46,7 +64,7 @@ connection and this table's mapping, not every table in the schema.
 | AcademyInfoTable | Hero image, university description, mission, and vision | AcademyInfoId |
 | ContactsTable | Address, email, telephone, and office hours | ContactId |
 | AboutImagesTable | Gallery image paths and alternative text | AboutImageId |
-| UserTable | Login accounts, roles, profile image, and active status | UserId |
+| UserTable | Login accounts, names, birthday, roles, profile image, and active status | UserId |
 | FounderTable | Founder name, birthday, biography, and message | FounderId |
 | CoreValuesTable | Individually managed core value titles | CoreValueId |
 | ProgramsTable | Subjects/programs, descriptions, and images | SubjectId |
