@@ -26,15 +26,16 @@ column names remain unchanged; a branding correction does not require a database
 migration or a SQL identifier rename.
 
 The user selected EF Core database-first scaffolding from existing SQL tables.
-SQL Server and Design package references (9.*) are present. Generation is pending:
-Data/ will hold UniversityDbContext and Models/ will hold entities. A separate
+SQL Server and Design package references (9.*) are present. Data/ contains the
+generated UniversityDbContext and Models/ contains the eight entities. A separate
 Repositories/ layer is optional, not a requirement. Continue using SQL scripts
 for schema changes; do not introduce migrations as a competing schema authority.
 
 appsettings.json contains ConnectionStrings:UniversityDb for the local Windows-
 authenticated database connection. Keep exactly one root JSON object and merge
 new settings into it rather than appending another object. Generated context
-code should omit OnConfiguring; register it in Program.cs after generation.
+code omits OnConfiguring. Program.cs registers the context with UseSqlServer
+after WebApplication.CreateBuilder and before builder.Build. Register MVC once.
 
 ## Authentication
 
@@ -42,5 +43,5 @@ Role values are Admin and Student. MVC must require authentication for content
 and admin authorization for every content mutation. Use framework password
 hashing and anti-forgery protection for state-changing forms.
 
-No authentication scheme or DbContext is currently configured in the application.
+DbContext is registered; no authentication scheme is configured in the application.
 UseAuthorization in the starter pipeline alone does not implement login.

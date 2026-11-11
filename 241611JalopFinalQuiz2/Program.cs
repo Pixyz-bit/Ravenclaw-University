@@ -1,7 +1,14 @@
+using Microsoft.EntityFrameworkCore;
+using _241611JalopFinalQuiz2.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddDbContext<UniversityDbContext>(options =>
+    options.UseSqlServer(
+        builder.Configuration.GetConnectionString("UniversityDb")
+    ));
 
 var app = builder.Build();
 
