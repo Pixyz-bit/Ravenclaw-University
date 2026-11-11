@@ -37,6 +37,13 @@ new settings into it rather than appending another object. Generated context
 code omits OnConfiguring. Program.cs registers the context with UseSqlServer
 after WebApplication.CreateBuilder and before builder.Build. Register MVC once.
 
+For a repeatable local read check, run the application with --check-database.
+Program.cs creates a service scope, resolves the registered UniversityDbContext,
+and reads at most one AcademyInfoTable record with AsNoTracking. It reports only
+success and whether the table is empty, never record contents. It exits before
+starting the HTTP server. Failure returns a nonzero process exit code. This
+diagnostic does not call SaveChanges, run migrations, or create a database.
+
 ## Authentication
 
 Role values are Admin and Student. MVC must require authentication for content

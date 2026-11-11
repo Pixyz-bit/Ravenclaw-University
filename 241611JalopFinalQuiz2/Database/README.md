@@ -18,7 +18,26 @@ send directly through application code.
 
 If the database or tables already exist, do not run this creation script.
 Use a separate, reviewed ALTER script for changes to an existing database.
-This documentation task did not execute SQL or modify a live database.
+Saving the schema file does not execute SQL or modify a live database.
+
+## Verifying the application connection
+
+From the MVC project directory (the folder containing the .csproj), run:
+
+```powershell
+dotnet run --no-launch-profile -- --check-database
+```
+
+This uses the same configured UniversityDbContext as the application. It reads
+at most one row from AcademyInfoTable without change tracking and does not
+display its contents or query account records. An empty table is a successful
+check. It exits without starting the website. Exit code 0 means success; code 1
+means the check failed. No database or table is created, and no data is changed.
+
+Verified 2026-11-11 against the local Ravenclaw University Db: query passed;
+AcademyInfoTable was empty. The agent's restricted environment denied SQL access;
+the check passed when run with local SQL access. This validates the configured
+connection and this table's mapping, not every table in the schema.
 
 ## Tables
 

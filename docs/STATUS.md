@@ -28,26 +28,31 @@ Last verified: 2026-11-11.
 - Fixed Program.cs registration order: create builder, register MVC and DbContext,
   then build the app. Removed duplicate MVC registration.
 - dotnet build --no-restore passed after integration with zero warnings/errors.
+- Added an explicit --check-database command that reads AcademyInfoTable through
+  the registered UniversityDbContext and exits without starting the website.
+- Verified the EF Core read against localhost / Ravenclaw University Db. The
+  table exists and is empty. No records or schema were changed. Build passed
+  with zero warnings/errors. Restricted execution failed with access denied;
+  the same diagnostic succeeded with local SQL Server access.
 
 ## Not implemented / not verified
 
 - The application still has the starter Home page and controller.
 - Login, account provisioning, active-account checks, and role restrictions are not implemented.
 - No content administration or database-backed page rendering exists yet.
-- No live database was created, altered, or validated during documentation.
-- Earlier local SQL services were shown running by the user; current connectivity
-  and the live database schema must be checked when needed, not assumed.
-- Generated models and the context compile. Application-level database reads
-  have not yet been tested; generation does not implement login or content pages.
+- No live database was created or altered during this work. The read check
+  verifies AcademyInfoTable, not the mappings of all eight tables.
+- Local default SQL Server was running and the database was accessible during
+  verification; future connection failures should be checked against current state.
+- Login and content pages remain pending even though the database read works.
 - The initial documentation commit contained only docs, schema, skill, and ignore
   rules. The subsequent source baseline adds the existing starter application.
 
 ## Next implementation work
 
-1. Verify the intended SQL instance and existing database schema without changing data.
-2. Verify a read through UniversityDbContext; retain SQL scripts as schema authority.
-3. Implement login and Admin/Student authorization before exposing content.
-4. Build content views and admin editing using the documented design and schema.
+1. Implement login and Admin/Student authorization before exposing content.
+2. Provide an explicit way to provision the first admin using a password hasher.
+3. Build content views and admin editing using the documented design and schema.
 
 Update this file after completed progress. Use Git history for commit identifiers
 and detailed change history rather than maintaining duplicate commit logs here.
