@@ -13,9 +13,11 @@
 
 Use Microsoft SQL Server. Database/Schema.sql inside the application is the
 fresh-database creation source of truth. It is not executed automatically.
-For an existing database, prepare a separate ALTER script rather than rerunning
-CREATE DATABASE or dropping data. No live database changes have been performed
-as part of the documentation work.
+Schema.sql is the only maintained schema file and contains every applied change.
+Do not retain incremental schema scripts. Never rerun CREATE DATABASE or drop data
+to update the existing database. After a future authorized database change, update
+the consolidated schema and regenerate affected models. The agent's verification
+uses read-only queries; the user applied the personal-details change.
 
 Eight independent tables serve one university. There are no foreign keys or extra
 indexes; SQL Server creates primary-key indexes. Keep one university-info row and

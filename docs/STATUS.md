@@ -40,15 +40,16 @@ Last verified: 2026-11-11.
 ## Not implemented / not verified
 
 - The application still has the starter Home page and controller.
-- Student self-registration selected. UserTable personal fields are documented
-  in Schema.sql and Updates/001_AddUserPersonalDetails.sql is prepared, not run.
-  Generated UserTable and its EF mapping still represent the previous live schema;
-  refresh them after applying the ALTER script. Names/birthday registration rules
-  are recorded in REQUIREMENTS.md; the registration UI/action are not implemented.
+- Student self-registration selected. The user applied the four personal fields;
+  live metadata verified all eight tables and the enabled Role CHECK on 2026-11-11.
+  Schema.sql is the sole consolidated schema; the completed update script was removed.
+  Generated UserTable and its mapping still lack the four new fields and must be
+  refreshed. Registration UI/action are not implemented.
 - Login, account provisioning, active-account checks, and role restrictions are not implemented.
 - No content administration or database-backed page rendering exists yet.
-- No live database was created or altered during this work. The read check
-  verifies AcademyInfoTable, not the mappings of all eight tables.
+- The agent did not create or alter the live database. Metadata comparison
+  verified the eight table definitions; only AcademyInfoTable has been queried
+  through EF Core, so the remaining runtime entity mappings still need testing.
 - Local default SQL Server was running and the database was accessible during
   verification; future connection failures should be checked against current state.
 - Login and content pages remain pending even though the database read works.
@@ -57,7 +58,7 @@ Last verified: 2026-11-11.
 
 ## Next implementation work
 
-1. Apply the UserTable personal-fields update and refresh/verify the generated mapping.
+1. Refresh/verify the generated UserTable model and mapping for the applied fields.
 2. Implement student registration, login, and Admin/Student authorization before exposing content.
 3. Provide an explicit way to provision the first admin using a password hasher.
 4. Build content views and admin editing using the documented design and schema.

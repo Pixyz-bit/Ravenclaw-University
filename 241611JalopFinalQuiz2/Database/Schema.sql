@@ -1,4 +1,6 @@
 -- Ravenclaw University Db: schema for a fresh database.
+-- Single consolidated schema, including all applied changes as of 2026-11-11.
+-- Verified against live column metadata, primary keys, identities, and role CHECK.
 -- Run once in SSMS or the MSSQL extension. This is not an update script.
 -- GO separates batches and is handled by those tools.
 
@@ -43,12 +45,12 @@ CREATE TABLE dbo.UserTable
         CHECK (Role IN (N'Admin', N'Student')),
     Username NVARCHAR(100) NOT NULL,
     PasswordHash NVARCHAR(500) NOT NULL,
+    ProfileImg NVARCHAR(500) NULL,
+    IsActive BIT NOT NULL DEFAULT (1),
     LastName NVARCHAR(100) NULL,
     FirstName NVARCHAR(100) NULL,
     MiddleName NVARCHAR(100) NULL,
-    Birthday DATE NULL,
-    ProfileImg NVARCHAR(500) NULL,
-    IsActive BIT NOT NULL DEFAULT (1)
+    Birthday DATE NULL
 );
 GO
 

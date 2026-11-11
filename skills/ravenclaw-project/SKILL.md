@@ -20,6 +20,8 @@ unless a separate schema change is explicitly requested.
   explicit user design changes so later work follows the new direction.
 - Preserve the simplified single-university schema unless the user requests changes.
   Exact SQL and database rules live in the application's Database/ folder.
+  Maintain a single consolidated Schema.sql containing all applied changes;
+  do not retain incremental schema/update files.
 - Distinguish proposed behavior from implemented and verified behavior. Document
   decisions and update docs/STATUS.md as work progresses.
 - Commit each completed, meaningfully verified unit of progress to Git. Review

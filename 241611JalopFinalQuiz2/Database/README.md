@@ -5,7 +5,8 @@ Database: `Ravenclaw University Db` (Microsoft SQL Server).
 The official institution and website name is Ravenclaw University. Existing
 Academy-prefixed SQL table and column names remain unchanged for compatibility.
 
-`Schema.sql` documents the current single-university schema. It belongs beside
+`Schema.sql` is the single consolidated schema, including all applied changes.
+Do not keep separate incremental schema/update files. It belongs beside
 Controllers, Models, and Views, outside the publicly served wwwroot folder.
 The application does not execute this file automatically.
 
@@ -17,22 +18,20 @@ and its eight tables. GO is a client batch separator, not a SQL statement to
 send directly through application code.
 
 If the database or tables already exist, do not run this creation script.
-Use a separate, reviewed ALTER script for changes to an existing database.
+Do not rerun it against the current database. Future database changes must also
+be incorporated into this file so it always describes the complete current schema.
 Saving the schema file does not execute SQL or modify a live database.
 
-### Pending existing-database update
+### Verified personal-details update
 
-Run Updates/001_AddUserPersonalDetails.sql against the existing database to add
-LastName, FirstName, MiddleName (NVARCHAR(100)), and Birthday (DATE) to UserTable.
-All four columns allow NULL so existing accounts need no invented names/dates.
-The script checks for existing columns and adds missing columns in a transaction;
-it does not correct incompatible definitions of columns that already exist.
-Schema.sql already includes these columns for a fresh installation.
+The user applied LastName, FirstName, MiddleName (NVARCHAR(100)), and Birthday
+(DATE) to UserTable. Live SQL Server metadata confirmed these nullable fields
+on 2026-11-11. They are included in Schema.sql. The completed incremental script
+was removed; its history remains available in Git.
 
-This update has been prepared but not applied by the agent. After applying it,
-refresh the UserTable entity and max-length mappings using database-first tooling.
+Refresh the generated UserTable entity and max-length mappings using database-first
+tooling. The generated model has not yet been updated for the four new fields.
 Review generated changes before replacing existing code; do not run migrations.
-The generated model currently reflects the old live schema.
 
 Student self-registration is approved but not implemented. Require first/last
 name in the registration view model, allow optional middle name/birthday, reject
@@ -96,7 +95,11 @@ SQL Server creates indexes for the primary keys.
 
 ## Comparison with the supplied schema
 
-All eight tables, column types, sizes, identity keys, and nullable fields match
-the supplied definition. The agreed CHECK constraint restricting Role to
-Admin or Student has been restored; it was absent from the supplied script.
-CREATE DATABASE, USE, and GO statements were added for fresh-database setup.
+Verified 2026-11-11 against live database metadata: all eight tables, 38 columns,
+column types, sizes, identity settings (seed/increment 1), nullability, primary keys,
+and the IsActive default match the user's supplied definition and Schema.sql.
+No foreign keys exist. Constraint names may differ because SQL Server generates them.
+
+The user's pasted export omits the Role CHECK, but the live database contains an
+enabled, trusted constraint permitting Admin or Student only. Schema.sql retains
+it to reflect the actual database. CREATE DATABASE, USE, and GO provide fresh setup.

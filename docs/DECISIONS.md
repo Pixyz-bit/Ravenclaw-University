@@ -17,7 +17,8 @@ Recorded 2026-11-11 from the project conversation.
 | One UserTable with Admin/Student roles | Every visitor logs in; only admins edit |
 | Student self-registration | Explicit user choice; server assigns Student and never exposes admin role selection |
 | Add LastName, FirstName, MiddleName, Birthday to UserTable | User-requested account details; nullable storage preserves existing accounts |
-| Require first/last name in new registration; optional middle name/birthday | Initial form policy; database-first update must be applied before regenerating entities |
+| Require first/last name in new registration; optional middle name/birthday | Initial form policy; applied database fields still need an EF model refresh |
+| Maintain one consolidated Schema.sql only | Explicit user request; include all applied changes and remove completed incremental scripts |
 | Restrict Role with a CHECK constraint | Restores the previously agreed role constraint |
 | Reject duplicate usernames in application logic for now | No unique constraint in the simplified schema |
 | Database scripts belong in the MVC project's Database/ folder | Keep them outside wwwroot |

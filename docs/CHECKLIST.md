@@ -36,8 +36,9 @@ Work through the remaining stages in order. See STATUS.md for verification limit
 ## 3. Login and access control (next milestone)
 
 - [x] Choose student self-registration; admin provisioning remains separate.
-- [x] Document UserTable personal fields and prepare the existing-database ALTER script.
-- [ ] Apply Updates/001_AddUserPersonalDetails.sql and refresh/verify the generated UserTable entity and mapping.
+- [x] User applied the personal fields; live metadata comparison verified the updated table definitions.
+- [x] Consolidate all applied changes into Schema.sql and remove the completed incremental script.
+- [ ] Refresh/verify the generated UserTable entity and mapping for the four new fields.
 - [ ] Create registration view/model/action with names, optional birthday, username, password, and confirmation.
 - [ ] Force Student role server-side; validate inputs, reject duplicate usernames, hash passwords, and protect registration POSTs.
 - [ ] Implement an explicit, controlled first-admin creation flow using framework password hashing.

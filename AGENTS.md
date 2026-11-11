@@ -25,3 +25,5 @@ workflow. This applies to the entire repository.
 Database definitions live in 241611JalopFinalQuiz2/Database/Schema.sql; database
 rules are explained in its adjacent README.md. Keep these as the schema source
 of truth rather than duplicating column lists in other documentation.
+Keep only one consolidated Schema.sql covering all applied changes; do not retain
+incremental schema scripts. Verify differences before changing an existing database.
