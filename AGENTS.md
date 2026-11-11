@@ -1,5 +1,9 @@
 # Ravenclaw project instructions
 
+The official institution and website name is Ravenclaw University. Use that name
+in UI, content, documentation, and future work. Existing SQL identifiers such as
+AcademyInfoTable are retained for compatibility; they are not the public brand.
+
 Before working, read docs/README.md and docs/STATUS.md, then the documents
 relevant to the request. Read skills/ravenclaw-project/SKILL.md for the project
 workflow. This applies to the entire repository.

@@ -17,12 +17,16 @@ For an existing database, prepare a separate ALTER script rather than rerunning
 CREATE DATABASE or dropping data. No live database changes have been performed
 as part of the documentation work.
 
-Eight independent tables serve one academy. There are no foreign keys or extra
-indexes; SQL Server creates primary-key indexes. Keep one academy-info row and
+Eight independent tables serve one university. There are no foreign keys or extra
+indexes; SQL Server creates primary-key indexes. Keep one university-info row and
 one contact row through application logic. See Database/README.md for details.
 
+The public name is Ravenclaw University. Existing Academy-prefixed table and
+column names remain unchanged; a branding correction does not require a database
+migration or a SQL identifier rename.
+
 EF Core and DbContext were explained but not yet installed or implemented.
-If selected, a Data/ folder can hold AcademyDbContext and Models/ can hold
+If selected, a Data/ folder can hold UniversityDbContext and Models/ can hold
 entities. A separate Repositories/ layer is optional, not a requirement.
 Do not use migrations and manual schema scripts as competing schema authorities.
 Choose a workflow explicitly before introducing either scaffolding or migrations.

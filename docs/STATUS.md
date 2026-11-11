@@ -9,6 +9,8 @@ Last verified: 2026-11-11.
 - Database/Schema.sql and Database/README.md created in the MVC project.
 - Missing Admin/Student role CHECK restored in the documented schema.
 - Project context documents and a project workflow skill created.
+- Official institution name established as Ravenclaw University throughout
+  context documents and AI instructions. Existing SQL identifiers are unchanged.
 - AI workflow requires relevant skills, design consistency, and progress commits.
 - Git initialized; generated output and local secrets excluded via .gitignore.
 - Existing MVC application and .github instructions included in the source baseline.

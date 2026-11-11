@@ -1,8 +1,9 @@
 # Requirements
 
-Build a dynamic ASP.NET Core MVC website for the fictional Ravenclaw Academy.
-The SQL Server database is named Ravenclaw University Db; this database name
-does not change the website's established Academy branding.
+Build a dynamic ASP.NET Core MVC website for the fictional Ravenclaw University.
+The SQL Server database is named Ravenclaw University Db. Use Ravenclaw University
+for all public branding. Existing Academy-prefixed SQL identifiers are retained
+for compatibility with the documented schema.
 
 ## Access
 
@@ -17,8 +18,8 @@ does not change the website's established Academy branding.
 ## Content
 
 - Hero: preselected background image.
-- About: academy description, mission, vision, independently managed core value
-  titles, and academy photographs.
+- About: university description, mission, vision, independently managed core value
+  titles, and university photographs.
 - Academics: subjects/programs with names, descriptions, and images.
 - Founder: name, optional birthday, description, and founder message.
 - Contact: address, email, telephone, office hours, and editable social links.
@@ -26,7 +27,7 @@ does not change the website's established Academy branding.
 - User accounts include username, role, optional profile image, and active status.
 
 AcademyName, AcademyHistory, and core value descriptions were deliberately
-removed from the database. A static academy name can still appear in branding.
+removed from the database. The static Ravenclaw University name appears in branding.
 Do not invent factual founder dates or credentials. Earlier program examples,
 history, statistics, and imagery are planning material, not verified content.
 

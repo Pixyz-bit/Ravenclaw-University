@@ -1,6 +1,7 @@
 # Design direction
 
-Authority: the user's supplied Ravenclaw Academy blueprint and later corrections.
+Authority: the user's supplied blueprint and later corrections. The official
+institution and website name is Ravenclaw University; earlier naming is superseded.
 Status: planning reference; a custom interface has not yet been implemented.
 
 ## Identity
@@ -10,6 +11,7 @@ clear academic content, generous spacing, and restrained ornamentation.
 
 | Token | Value |
 | --- | --- |
+| Institution name | Ravenclaw University |
 | Midnight navy | #101D34 |
 | Royal blue | #244468 |
 | Antique gold | #C3A568 |
@@ -32,6 +34,8 @@ the final page/route split remains undecided.
 
 - Navy navigation and footer; alternate navy and ivory content sections.
 - Large architectural hero image with readable overlay and left-aligned headline.
+  Use Ravenclaw University consistently in the logo text, headings, navigation,
+  page titles, login screen, and footer when those surfaces are implemented.
 - Thin gold dividers, consistent image proportions, and subtle hover effects.
 - Two-column program layouts and formal founder/profile compositions.
 - On narrow screens, stack columns and provide accessible menu controls.

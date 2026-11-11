@@ -5,8 +5,10 @@ Recorded 2026-11-11 from the project conversation.
 | Decision | Reason / consequence |
 | --- | --- |
 | Keep ASP.NET Core MVC and SQL Server | User's chosen stack |
+| Official institution name: Ravenclaw University | Explicit user correction; use consistently in branding and future work |
 | Database name: Ravenclaw University Db | Explicit user naming request |
-| Single academy with independent content tables | User requested removing AcademyId relationships |
+| Single university with independent content tables | User requested removing AcademyId relationships |
+| Retain existing Academy-prefixed SQL identifiers | Public branding changes without altering the database schema |
 | No extra indexes or unnecessary tables | Keep the first version simple |
 | Remove AcademyName and AcademyHistory columns | Explicit user correction |
 | Core values store titles only | User removed the description column |

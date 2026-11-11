@@ -2,7 +2,10 @@
 
 Database: `Ravenclaw University Db` (Microsoft SQL Server).
 
-`Schema.sql` documents the current single-academy schema. It belongs beside
+The official institution and website name is Ravenclaw University. Existing
+Academy-prefixed SQL table and column names remain unchanged for compatibility.
+
+`Schema.sql` documents the current single-university schema. It belongs beside
 Controllers, Models, and Views, outside the publicly served wwwroot folder.
 The application does not execute this file automatically.
 
@@ -21,7 +24,7 @@ This documentation task did not execute SQL or modify a live database.
 
 | Table | Purpose | Primary key |
 | --- | --- | --- |
-| AcademyInfoTable | Hero image, academy description, mission, and vision | AcademyInfoId |
+| AcademyInfoTable | Hero image, university description, mission, and vision | AcademyInfoId |
 | ContactsTable | Address, email, telephone, and office hours | ContactId |
 | AboutImagesTable | Gallery image paths and alternative text | AboutImageId |
 | UserTable | Login accounts, roles, profile image, and active status | UserId |
@@ -36,7 +39,7 @@ SQL Server creates indexes for the primary keys.
 
 ## Content and application rules
 
-- All content belongs to a single academy, so the tables are independent.
+- All content belongs to a single university, so the tables are independent.
 - Keep one record each in AcademyInfoTable and ContactsTable through application logic.
   The database does not enforce this row limit.
 - AcademyName and AcademyHistory are intentionally omitted.

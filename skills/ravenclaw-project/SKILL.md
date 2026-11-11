@@ -1,6 +1,6 @@
 ---
 name: ravenclaw-project
-description: Maintain Ravenclaw Academy project context, established design, and Git progress when implementing or documenting this repository. Use for work in this project, not unrelated applications.
+description: Maintain Ravenclaw University project context, established design, and Git progress when implementing or documenting this repository. Use for work in this project, not unrelated applications.
 ---
 
 # Ravenclaw project workflow
@@ -9,12 +9,16 @@ Locate the repository root containing AGENTS.md and docs/README.md. Read the
 documentation index and current status, then the requirements, architecture,
 design, or database references relevant to the task.
 
+Use Ravenclaw University as the official institution and website name. This
+supersedes earlier branding. Keep existing Academy-prefixed SQL identifiers
+unless a separate schema change is explicitly requested.
+
 - Use every available skill necessary for the requested work. Read its SKILL.md
   before applying it; do not invoke unrelated skills or expand the task to fit a skill.
 - Follow docs/DESIGN.md and established UI components. Maintain typography,
   colors, spacing, imagery, and interaction consistency across pages. Record
   explicit user design changes so later work follows the new direction.
-- Preserve the simplified single-academy schema unless the user requests changes.
+- Preserve the simplified single-university schema unless the user requests changes.
   Exact SQL and database rules live in the application's Database/ folder.
 - Distinguish proposed behavior from implemented and verified behavior. Document
   decisions and update docs/STATUS.md as work progresses.

@@ -1,5 +1,7 @@
 # Project context
 
+Official project and institution name: **Ravenclaw University**.
+
 Read this folder at the start of work and update it when decisions or code change.
 Current user instructions take priority over these documents.
 
