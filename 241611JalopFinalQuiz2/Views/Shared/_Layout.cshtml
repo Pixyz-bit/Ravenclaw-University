@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Lato:wght@400;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
 </head>
 <body class="portal-body">
     <a class="skip-link" href="#main-content">Skip to content</a>
@@ -18,6 +19,10 @@
             @if (User.Identity?.IsAuthenticated == true)
             {
                 <a asp-controller="Home" asp-action="Index">University</a>
+                <a asp-controller="Home" asp-action="Index" asp-fragment="about">About</a>
+                <a asp-controller="Home" asp-action="Index" asp-fragment="academics">Academics</a>
+                <a asp-controller="Home" asp-action="Index" asp-fragment="contact">Contact</a>
+                <a asp-controller="Home" asp-action="Index" asp-fragment="leadership">Founder</a>
                 @if (User.IsInRole("Admin")) { <a asp-controller="Admin" asp-action="Index">Administration</a> }
                 <form asp-controller="Account" asp-action="Logout" method="post"><button class="button button-outline" type="submit">Sign out</button></form>
             }
@@ -27,6 +32,7 @@
     <main id="main-content" class="portal-main">@RenderBody()</main>
     <footer class="portal-footer">© @DateTime.UtcNow.Year Ravenclaw University <span>Where Wisdom Takes Flight.</span></footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

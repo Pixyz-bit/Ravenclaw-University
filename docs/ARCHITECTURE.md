@@ -7,6 +7,9 @@
 - Framework: ASP.NET Core MVC targeting net9.0; nullable reference types enabled.
 - Root namespace: _241611JalopFinalQuiz2.
 - Controllers handle HTTP requests; Models hold application data; Views hold Razor UI.
+- UniversityContentService assembles the read-only homepage. ContentEditorService
+  explicitly maps seven content sections to entities. AdminContentController handles
+  protected forms. No repository layer or schema change is needed.
 - wwwroot contains public static assets, never database scripts or private docs.
 
 ## Database

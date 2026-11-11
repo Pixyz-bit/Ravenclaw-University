@@ -1,0 +1,10 @@
+@model ContentEditorViewModel
+@{ ViewData["Title"]="Delete content"; }
+<section class="editor-panel">
+    <p class="eyebrow">@ContentSections.Label(Model.Section)</p><h1>Delete this entry?</h1>
+    <p><strong>@Model.Title</strong></p><p>This removes the entry from the university page. The image file itself is kept.</p>
+    <form asp-action="Delete" method="post">
+        <input asp-for="Section" type="hidden" /><input asp-for="Id" type="hidden" />
+        <div class="row-actions"><button class="button button-danger" type="submit">Delete entry</button><a class="button button-secondary" asp-action="Index" asp-route-section="@Model.Section">Keep entry</a></div>
+    </form>
+</section>

@@ -11,6 +11,7 @@ GitHub: https://github.com/Pixyz-bit/Ravenclaw-University (branch: main).
 | --- | --- |
 | CHECKLIST.md | Completed milestones, remaining implementation, testing, and delivery |
 | AUTHENTICATION.md | Registration/login, first-admin command, session rules, and verification |
+| CONTENT.md | University homepage, seven content editors, image rules, and CRUD verification |
 | REQUIREMENTS.md | Scope, content, and admin/student access |
 | DESIGN.md | Agreed visual direction and consistency rules |
 | ARCHITECTURE.md | MVC structure, database location, and implementation boundaries |

@@ -2,6 +2,8 @@ using System.Diagnostics;
 using _241611JalopFinalQuiz2.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
+using _241611JalopFinalQuiz2.Services;
+using _241611JalopFinalQuiz2.ViewModels;
 
 namespace _241611JalopFinalQuiz2.Controllers
 {
@@ -9,15 +11,23 @@ namespace _241611JalopFinalQuiz2.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly UniversityContentService _content;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, UniversityContentService content)
         {
             _logger = logger;
+            _content = content;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            try { return View(await _content.ReadAsync(HttpContext.RequestAborted)); }
+            catch (Exception exception)
+            {
+                _logger.LogError(exception, "University content could not be loaded.");
+                Response.StatusCode = 503;
+                return View(new UniversityPageViewModel { Unavailable = true });
+            }
         }
 
         public IActionResult Privacy()

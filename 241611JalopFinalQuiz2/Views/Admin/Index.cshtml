@@ -1,8 +1,13 @@
 @{ ViewData["Title"] = "Administration"; }
-<section class="portal-panel">
+<section class="portal-panel editor-panel">
     <p class="eyebrow">Administration</p>
     <h1>Welcome, @User.Identity?.Name.</h1>
-    <p>You are signed in as an administrator. This area is protected by your account role.</p>
-    <p>University content editors will be added in the next implementation stage.</p>
+    <p>Manage the information students see on the university page.</p>
     <a class="button button-primary" asp-controller="Home" asp-action="Index">View university portal</a>
 </section>
+<div class="dashboard-list">
+    @foreach (var contentSection in Enum.GetValues<ContentSection>())
+    {
+        <a class="dashboard-link" asp-controller="AdminContent" asp-action="Index" asp-route-section="@contentSection"><span>@ContentSections.Label(contentSection)</span><span aria-hidden="true">→</span></a>
+    }
+</div>

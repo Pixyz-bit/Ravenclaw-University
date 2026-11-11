@@ -1,7 +1,8 @@
 # Accounts and access
 
 Implemented: student self-registration, login/logout, cookie sessions, and an
-Admin-only starter page. Content editing and university content pages are pending.
+Admin-only dashboard. Content editing and the university homepage are documented
+in CONTENT.md.
 No schema changes were needed; Schema.sql remains the single schema source.
 
 ## Run locally
@@ -37,8 +38,8 @@ Its interactive terminal/password-entry path still requires a manual check.
 
 - Fallback authorization requires login for MVC content by default. Only login,
   registration, the generic error handler, and public static assets are anonymous.
-- /Admin uses server-side Admin authorization. Its starter view explicitly says
-  content editors are pending; it does not perform database editing yet.
+- /Admin and /AdminContent use server-side Admin authorization. Students can read
+  university content but cannot access editors or POST content mutations.
 - Passwords use ASP.NET Core PasswordHasher. Hashes are upgraded on login when needed.
 - Usernames are trimmed and compared case-insensitively with explicit SQL collation.
   Duplicate checks/inserts use a serializable transaction because the agreed

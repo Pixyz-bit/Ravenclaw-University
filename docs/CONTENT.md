@@ -1,0 +1,85 @@
+# University content and administration
+
+The first content implementation is one authenticated homepage with five sections:
+hero, About, academics, contact, and founder information. Navigation links jump to
+the corresponding sections. No enrollment, inquiry form, uploads, or extra tables
+were added. Schema.sql remains unchanged and is the sole consolidated schema.
+
+## Using the editors
+
+Sign in as an Admin and open Administration. The dashboard links to seven sections:
+
+| Editor | Database table | Behavior |
+| --- | --- | --- |
+| University information | AcademyInfoTable | Create once, then edit description, mission, vision, and hero image |
+| Contact information | ContactsTable | Create once, then edit address, email, telephone, and office hours |
+| Core values | CoreValuesTable | Add/edit/delete individual titles |
+| About gallery | AboutImagesTable | Add/edit/delete image paths and descriptions |
+| Academic programs | ProgramsTable | Add/edit/delete subjects, descriptions, and images |
+| Founder information | FounderTable | Add/edit/delete names, optional birthdays, biographies, and messages |
+| Social links | SocialLinksTable | Add/edit/delete platform names, HTTPS URLs, and supported icons |
+
+AdminContentController protects every editor action with the Admin role. Dedicated
+ContentEditorViewModel inputs and explicit section-to-entity mapping prevent account
+data or arbitrary tables from being edited. Save/delete require POST and antiforgery
+validation. GET delete displays a confirmation and does not modify a record.
+
+The university/contact editors enforce one record through a serializable check-and-
+save transaction. Existing externally created duplicates are not automatically deleted;
+the homepage uses the lowest ID, and admins can see existing rows in the editor.
+These two singleton sections cannot be deleted through the UI. Other deletes remove
+only the database entry, never a physical image file.
+
+## Images and links
+
+Choose a path under /images/ or a complete HTTPS image URL. The approved crest is
+available in the image field's suggestions. No other campus/program photographs
+have been supplied or generated. Administrators can reference preselected assets
+placed under wwwroot/images. Local path traversal and backslashes are rejected.
+Image descriptions provide alternative text; unavailable images get a readable
+fallback. Remote images are loaded by the browser, not fetched by the server.
+
+Social links require HTTPS and use an allowlist of optional Font Awesome Free
+6.7.2 icon classes (Facebook, Instagram, YouTube, LinkedIn, X, website). The shared
+layout loads the stylesheet from cdnjs; platform names remain readable if the CDN
+is unavailable. No arbitrary HTML or icon markup is accepted.
+
+Text is rendered with Razor encoding and preserved line breaks, not Html.Raw.
+Validation follows SQL lengths, required content titles, email/phone formats,
+supported icons, and nonfuture founder birthdays using Asia/Manila's date.
+
+## Reading and errors
+
+UniversityContentService reads all seven content tables using AsNoTracking and
+sequential queries on one DbContext. It never queries user accounts for content.
+HomeController renders UniversityPageViewModel with clear unpublished/empty states.
+No founder dates, campus history, statistics, or programs were seeded into the
+university database. The approved crest is the fallback hero visual.
+
+Empty content remains a valid page. Database-operation errors show generic retry
+feedback and HTTP 503 rather than exception details. Authentication continues to
+fail closed when account validation cannot reach the database.
+
+## Verification
+
+From the repository root, run:
+
+```powershell
+.\scripts\Verify-Authentication.ps1 -IncludeContent
+```
+
+This builds into a separate temporary output folder, creates a disposable database
+from Schema.sql, and starts a temporary local server without locking the user's
+normal build. In addition to the 28 authentication checks, it verifies content CRUD,
+student rejection on GET/POST, singleton protection, required fields, HTTPS links,
+image-path validation, missing IDs/sections, antiforgery, and stored-text escaping.
+Verified 2026-11-11: 66 checks passed, with zero build warnings/errors. Homepage,
+dashboard, and editor layouts were inspected on desktop and 390px phones without
+horizontal overflow. Final full accessibility and database-outage QA remain pending.
+
+Use -Preview to keep the disposable server available for visual inspection after
+checks. It prints a test-only URL and fixture login; press Enter afterward to stop
+the server and drop its GUID-named test database. In redirected/noninteractive
+execution, it prints PREVIEW_STOP_FILE; create that exact file to request cleanup.
+Never use those fixture credentials
+as university credentials. The university database is not modified by verification.

@@ -2,8 +2,8 @@
 
 Authority: the user's supplied blueprint and later corrections. The official
 institution and website name is Ravenclaw University; earlier naming is superseded.
-Status: account layouts and a minimal protected portal/admin shell are implemented;
-university content pages and content editors are still planned.
+Status: account layouts, the five-section university homepage, and protected content
+editors are implemented. Real content and campus/program imagery still need entering.
 
 ## Identity
 
@@ -24,15 +24,15 @@ clear academic content, generous spacing, and restrained ornamentation.
 | Motto | Where Wisdom Takes Flight. |
 
 Cormorant Garamond and Lato load through Google Fonts, with local serif/sans-serif
-fallbacks. The approved university crest is installed; content images and social icon
-libraries remain pending. Gold is primarily a decorative accent;
+fallbacks. The approved university crest is installed; content imagery remains pending.
+Font Awesome Free 6.7.2 loads social icons through cdnjs. Gold is primarily a decorative accent;
 ensure readable text contrast rather than assuming every palette pairing works.
 
 ## Composition
 
 Navigation -> Hero -> About -> Academics and Student Services -> Contact ->
-Leadership and Administration -> Footer. A separate About page was discussed;
-the final page/route split remains undecided.
+Leadership and Administration -> Footer. The implemented version uses one
+authenticated homepage with section anchors; separate detail pages remain optional.
 
 - Navy navigation and footer; alternate navy and ivory content sections.
 - Large architectural hero image with readable overlay and left-aligned headline.
@@ -59,7 +59,21 @@ registration controls are at least 44px high. Errors are inline and textual, and
 there is a keyboard skip link. Shared authenticated
 navigation includes University, Admin-only Administration, and POST Sign out.
 Desktop and mobile forms were visually inspected; later content sections must
-reuse these tokens without treating the starter portal as finished content.
+reuse these tokens consistently.
+
+## University content and editors
+
+The homepage uses a split navy hero with the approved crest as a fallback visual,
+ivory reading sections, thin dividers, two-column mission/vision and program layouts,
+gallery images, contact details, and founder biographies/messages. Unpublished content
+is labeled rather than invented. Razor encodes text and retains paragraph breaks.
+Navigation wraps on smaller screens; page sections stack below 700px.
+
+Administration uses flat divided lists and explicit Edit/Delete actions. Editors use
+Lato for operational headings, visible labels, native text/date/URL inputs, textarea
+controls, a supported icon selector, inline errors, and POST delete confirmation.
+University/contact sections allow editing one record with no UI deletes. Unavailable
+images use a text fallback; the crest is not used as fake campus photography.
 
 ## Approved main logo (2026-11-11)
 

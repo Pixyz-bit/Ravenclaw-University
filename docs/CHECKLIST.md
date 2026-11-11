@@ -13,7 +13,7 @@ Work through the remaining stages in order. See STATUS.md for verification limit
 - [x] Inspect the ASP.NET Core MVC net9.0 starter and existing folder structure.
 - [x] Create project context, requirements, architecture, design, decisions, and status documents.
 - [x] Create AGENTS.md and a project skill requiring relevant skills, design consistency, and commits.
-- [ ] Finalize a single landing page versus separate About/program pages before creating routes.
+- [x] Implement the first version as one authenticated homepage with section anchors.
 
 ## 2. Database and EF Core
 
@@ -30,9 +30,9 @@ Work through the remaining stages in order. See STATUS.md for verification limit
 - [x] Build successfully with zero warnings/errors.
 - [x] Add and run --check-database through the registered DbContext.
 - [x] Verify AcademyInfoTable can be queried; it was empty and no data was changed.
-- [ ] Verify the remaining seven table mappings against the documented schema; report mismatches before changes.
+- [x] Exercise all content/account table mappings in disposable integration checks against the consolidated schema.
 - [x] Implement and verify case-insensitive duplicate-username prevention.
-- [ ] Enforce single academy-info/contact records in content-management logic.
+- [x] Enforce single academy-info/contact creation in content-management logic.
 
 ## 3. Login and access control
 
@@ -62,37 +62,38 @@ Work through the remaining stages in order. See STATUS.md for verification limit
 - [x] Obtain approval for the cleaned transparent crest and use it as the main logo in shared layouts and favicon.
 - [x] Remove the student-access caption and verify normal login/signup forms fit desktop and phone viewports without scrolling.
 - [x] Load Cormorant Garamond/Lato with fallback fonts for the implemented account layouts.
-- [ ] Select and load the social icon library for content pages.
+- [x] Load Font Awesome Free 6.7.2 and allowlist the supported social icons.
 - [ ] Prepare approved preselected images, descriptive alternative text, and missing-image fallbacks.
-- [ ] Render the hero background and established university branding.
-- [ ] Render description, mission, vision, core value titles, and About image gallery.
-- [ ] Render subjects/programs with descriptions and images.
-- [ ] Render founder name, optional birthday, biography, and message using verified or clearly fictional content.
-- [ ] Render address, email, telephone, office hours, and social links with icons.
-- [ ] Add clear empty-content and database-error states without exposing account data or connection details.
+- [x] Render the configured hero image with approved-crest fallback and university branding.
+- [x] Render description, mission, vision, core value titles, and About image gallery.
+- [x] Render subjects/programs with descriptions and images.
+- [x] Render entered founder names, optional birthdays, biographies, and messages; do not seed invented facts.
+- [x] Render address, email, telephone, office hours, and supported social icons.
+- [x] Add empty-content and generic database-error states without exposing account data or connection details.
 
 ## 5. Admin content management
 
-- [ ] Build an admin navigation/dashboard linking to the content editors.
-- [ ] Edit the single university-info record, including the hero image selection.
-- [ ] Add, edit, and delete core value titles.
-- [ ] Add, edit, and delete gallery image references and alternative text.
-- [ ] Add, edit, and delete programs with descriptions and image selection.
-- [ ] Manage founder details and the founder message.
-- [ ] Edit the single contact-information record.
-- [ ] Add, edit, and delete social platforms, safe URLs, and supported icon identifiers.
-- [ ] Use dedicated form/view models, server validation, anti-forgery protection, and POST mutations.
-- [ ] Handle missing IDs, delete confirmations, success/error feedback, and persistence after refresh.
+- [x] Build an admin navigation/dashboard linking to the content editors.
+- [x] Edit the single university-info record, including the hero image selection.
+- [x] Add, edit, and delete core value titles.
+- [x] Add, edit, and delete gallery image references and alternative text.
+- [x] Add, edit, and delete programs with descriptions and image selection.
+- [x] Manage founder details and the founder message.
+- [x] Edit the single contact-information record.
+- [x] Add, edit, and delete social platforms, safe URLs, and supported icon identifiers.
+- [x] Use dedicated form/view models, server validation, anti-forgery protection, and POST mutations.
+- [x] Handle missing IDs, delete confirmations, success/error feedback, and persistence after refresh.
 
 ## 6. Content and quality verification
 
 - [ ] Populate approved university content after explicitly authorizing the data changes; no invented statistics.
-- [ ] Test admin CRUD and student read-only behavior across all content types.
+- [x] Test admin CRUD and student rejection on content editor GET/POST routes.
 - [x] Test direct access to the current protected portal/admin routes and account form requests.
 - [x] Test registration, optional profile fields, future birthdays, role tampering,
   password handling, duplicate usernames, inactive sessions, logout, and safe redirects.
 - [ ] Test missing/invalid inputs, URL schemes, empty tables, and unavailable database behavior.
 - [ ] Verify responsive layouts, mobile navigation, keyboard focus, labels, contrast, and reduced motion.
+- [x] Visually inspect homepage, dashboard, and editor layouts on desktop/mobile; no horizontal overflow at 390px.
 - [ ] Check image paths, icon rendering, links, official naming, and safe text rendering.
 - [ ] Run the final build and meaningful authorization/data-access tests; record results and limitations.
 

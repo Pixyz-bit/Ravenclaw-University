@@ -19,6 +19,8 @@ builder.Services.AddDbContext<UniversityDbContext>(options =>
     ));
 builder.Services.AddScoped<IPasswordHasher<UserTable>, PasswordHasher<UserTable>>();
 builder.Services.AddScoped<AccountService>();
+builder.Services.AddScoped<UniversityContentService>();
+builder.Services.AddScoped<ContentEditorService>();
 builder.Services.AddScoped<UniversityCookieEvents>();
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>

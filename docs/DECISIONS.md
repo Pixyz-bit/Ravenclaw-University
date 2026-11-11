@@ -7,6 +7,9 @@ Recorded 2026-11-11 from the project conversation.
 | Keep ASP.NET Core MVC and SQL Server | User's chosen stack |
 | Official institution name: Ravenclaw University | Explicit user correction; use consistently in branding and future work |
 | Approved transparent Ravenclaw crest is the main university logo | User approved the imagegen-cleaned supplied crest and authorized website integration after preview |
+| First content version is one authenticated page with section anchors | Implements the original five sections; separate detail pages can be added if requested |
+| University and contact records are singletons in editor logic | Serializable creation prevents duplicates; existing rows are edited |
+| Use Font Awesome Free 6.7.2 for optional social icons | Supported classes are allowlisted; platform labels remain readable without the CDN |
 | Database name: Ravenclaw University Db | Explicit user naming request |
 | Single university with independent content tables | User requested removing AcademyId relationships |
 | Retain existing Academy-prefixed SQL identifiers | Public branding changes without altering the database schema |

@@ -1,4 +1,10 @@
-﻿// Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
-
-// Write your JavaScript code.
+// Keep failed content images readable without changing or fetching database content.
+document.querySelectorAll('[data-content-image]').forEach(image => {
+    const showFallback = () => {
+        image.hidden = true;
+        const fallback = image.parentElement.querySelector('[data-image-fallback]');
+        if (fallback) fallback.hidden = false;
+    };
+    image.addEventListener('error', showFallback);
+    if (image.complete && image.naturalWidth === 0) showFallback();
+});

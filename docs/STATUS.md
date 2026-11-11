@@ -4,6 +4,18 @@ Last verified: 2026-11-11.
 
 ## Completed
 
+- Implemented the database-backed five-section homepage, protected admin dashboard,
+  and seven content editors. University/contact creation is serialized and limited
+  to one row; the other sections support add/edit/delete.
+- Added validation, confirmations, safe image/HTTPS link handling, optional social
+  icons, encoded text, empty states, and generic database error feedback.
+- All 66 isolated account/content checks passed, including CRUD for all seven
+  sections, singleton rules, CSRF, roles, and stored text escaping. Build passed
+  without warnings/errors. University records and Schema.sql were unchanged.
+- Visually inspected the homepage, dashboard, and program editor at desktop and
+  390px phone widths with no horizontal overflow. Disposable previews were stopped
+  and their databases removed. Rebuilt/restarted the main app on localhost:5182
+  with the new content screens; no data was seeded into the university database.
 - Restarted the verified stale web process on localhost:5182, rebuilt the normal
   output successfully, and confirmed the live login HTML no longer contains the
   student-access caption. Source removal alone had not updated the running process.
@@ -68,17 +80,16 @@ Last verified: 2026-11-11.
 
 ## Not implemented / not verified
 
-- Home and Admin are minimal protected starter pages; full university content and
-  management forms are not implemented.
+- University pages and editors are implemented; approved images, real content,
+  and verified founder facts still need entering through the editors.
 - Student self-registration selected. The user applied the four personal fields;
   live metadata verified all eight tables and the enabled Role CHECK on 2026-11-11.
   Schema.sql is the sole consolidated schema; the completed update script was removed.
   Generated UserTable and its mapping now include the four new fields.
   Registration UI/action and login are implemented.
-- No content administration or database-backed page rendering exists yet.
 - The agent did not create or alter the live database. Metadata comparison
-  verified the eight table definitions. EF reads verified AcademyInfoTable and the
-  four UserTable personal-detail columns; other runtime mappings still need testing.
+  verified the eight table definitions. Isolated integration checks now exercise
+  reads/writes for all seven content tables and account access using the existing schema.
 - Local default SQL Server was running and the database was accessible during
   verification; future connection failures should be checked against current state.
 - First-admin interactive terminal entry, final accessibility audit, and deployed
@@ -89,8 +100,8 @@ Last verified: 2026-11-11.
 ## Next implementation work
 
 1. User creates the first admin through the documented interactive command.
-2. Build university content views and admin editing using the documented design and schema.
-3. Verify remaining content-table runtime mappings and complete responsive/accessibility QA.
+2. Enter approved university content and preselected imagery using the admin editors.
+3. Complete final accessibility, unavailable-database, and fresh-checkout QA before submission.
 
 Update this file after completed progress. Use Git history for commit identifiers
 and detailed change history rather than maintaining duplicate commit logs here.

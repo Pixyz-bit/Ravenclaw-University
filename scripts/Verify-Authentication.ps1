@@ -1,4 +1,4 @@
-param([string]$Server = 'localhost')
+param([string]$Server = 'localhost', [switch]$IncludeContent, [switch]$Preview)
 
 $ErrorActionPreference = 'Stop'
 $repoDir = Split-Path $PSScriptRoot -Parent
@@ -11,9 +11,11 @@ $oldEnvironment = $env:ASPNETCORE_ENVIRONMENT
 $serverProcess = $null
 $databaseCreated = $false
 $clients = [Collections.Generic.List[IDisposable]]::new()
+$script:passedChecks = 0
 
 function Assert-Check([bool]$Condition, [string]$Message) {
     if (-not $Condition) { throw "FAILED: $Message" }
+    $script:passedChecks++
     Write-Output "PASS: $Message"
 }
 function Invoke-TestSql([string]$Query) {
@@ -49,6 +51,9 @@ function Send-Request($Client, [string]$Path, [hashtable]$Fields = $null) {
 }
 function Submit-Form($Client, [string]$Path, [hashtable]$Fields) {
     $page = Send-Request $Client $Path
+    for ($redirect=0; $redirect -lt 3 -and $page.Status -eq 302 -and $page.Location.StartsWith('/'); $redirect++) {
+        $page = Send-Request $Client $page.Location
+    }
     $token = [regex]::Match($page.Body, 'name="__RequestVerificationToken"[^>]*value="([^"]+)"')
     if (-not $token.Success) { throw "Missing antiforgery token at $Path" }
     $Fields['__RequestVerificationToken'] = [Net.WebUtility]::HtmlDecode($token.Groups[1].Value)
@@ -60,7 +65,8 @@ function Student-Fields([string]$Username) {
 }
 
 try {
-    & dotnet build $projectFile --no-restore
+    $testOutput = Join-Path $tempDir 'app'
+    & dotnet build $projectFile --no-restore --output $testOutput
     if ($LASTEXITCODE -ne 0) { throw 'Build failed.' }
     $schema = Get-Content (Join-Path $repoDir '241611JalopFinalQuiz2\Database\Schema.sql') -Raw
     $schema.Replace('Ravenclaw University Db', $databaseName) | Set-Content (Join-Path $tempDir 'schema.sql')
@@ -74,7 +80,8 @@ try {
     $script:baseUrl = "http://127.0.0.1:$port"
     $env:ConnectionStrings__UniversityDb = "Server=$Server;Database=$databaseName;Trusted_Connection=True;Encrypt=True;TrustServerCertificate=True;"
     $env:ASPNETCORE_ENVIRONMENT = 'Development'
-    $serverProcess = Start-Process -FilePath 'dotnet' -ArgumentList "run --no-build --no-launch-profile --project `"$projectFile`" --urls $script:baseUrl" -WindowStyle Hidden -PassThru -RedirectStandardOutput (Join-Path $tempDir 'server.log') -RedirectStandardError (Join-Path $tempDir 'server-error.log')
+    $testAssembly = Join-Path $testOutput '241611JalopFinalQuiz2.dll'
+    $serverProcess = Start-Process -FilePath 'dotnet' -ArgumentList "`"$testAssembly`" --urls $script:baseUrl" -WorkingDirectory (Split-Path $projectFile -Parent) -WindowStyle Hidden -PassThru -RedirectStandardOutput (Join-Path $tempDir 'server.log') -RedirectStandardError (Join-Path $tempDir 'server-error.log')
     $anonymous = New-TestClient
     $ready = $false
     for ($attempt=0; $attempt -lt 40; $attempt++) {
@@ -120,6 +127,11 @@ try {
     $denied = Send-Request $anonymous '/Admin'
     Assert-Check ($denied.Status -eq 302 -and $denied.Location -like '*AccessDenied*') 'Student cannot access admin by URL'
     Assert-Check ((Send-Request $anonymous '/Account/AccessDenied').Status -eq 403) 'Access-denied page returns 403'
+    if ($IncludeContent) {
+        Assert-Check ((Send-Request $anonymous '/AdminContent/Index?section=Programs').Location -like '*AccessDenied*') 'Student cannot access content editors'
+        Assert-Check ((Send-Request $anonymous '/AdminContent/Edit' @{Section='Programs';Title='Tampered'}).Location -like '*AccessDenied*') 'Student cannot POST content changes'
+        Assert-Check ((Invoke-TestSql 'SELECT COUNT(*) FROM dbo.ProgramsTable;') -eq '0') 'Rejected student request changed no content'
+    }
     Assert-Check ((Send-Request $anonymous '/Account/Logout' @{}).Status -eq 400) 'Logout rejects a missing antiforgery token'
     Assert-Check ((Send-Request $anonymous '/Account/Logout').Status -ne 200) 'Logout cannot be performed with GET'
     $homeResponse = Send-Request $anonymous '/'
@@ -134,6 +146,58 @@ try {
     $admin = New-TestClient
     $adminLogin = Submit-Form $admin '/Account/Login' @{ Username='verification.student'; Password='Test-Only-Scholar-2026' }
     Assert-Check ($adminLogin.Status -eq 302 -and (Send-Request $admin '/Admin').Status -eq 200) 'Admin can access administration'
+    if ($IncludeContent) {
+        $sections = @(
+            @{Name='University';Table='AcademyInfoTable';Key='AcademyInfoId';Fields=@{Description='Verification university description';Mission='Verification mission';Vision='Verification vision';ImagePath='/images/branding/ravenclaw-university-crest.png'}},
+            @{Name='Contacts';Table='ContactsTable';Key='ContactId';Fields=@{Address='Verification campus';Email='office@university.example';Telephone='+63 912 345 6789';OfficeHours='Monday to Friday'}},
+            @{Name='Values';Table='CoreValuesTable';Key='CoreValueId';Fields=@{Title='Verification wisdom'}},
+            @{Name='Photos';Table='AboutImagesTable';Key='AboutImageId';Fields=@{ImagePath='/images/branding/ravenclaw-university-crest.png';AltText='Verification crest'}},
+            @{Name='Programs';Table='ProgramsTable';Key='SubjectId';Fields=@{Title='Verification astronomy';Description='Verification program description';ImagePath='/images/branding/ravenclaw-university-crest.png'}},
+            @{Name='Founders';Table='FounderTable';Key='FounderId';Fields=@{Title='Verification founder';Description='Verification biography';Birthday='1900-04-16';Message='Verification founder message'}},
+            @{Name='SocialLinks';Table='SocialLinksTable';Key='SocialLinkId';Fields=@{Title='Verification website';Url='https://university.example';IconClass='fa-solid fa-globe'}}
+        )
+        foreach ($contentSection in $sections) {
+            $name=$contentSection.Name
+            $fields=$contentSection.Fields.Clone(); $fields.Section=$name; $fields.Id='0'
+            $created = Submit-Form $admin "/AdminContent/Edit?section=$name" $fields
+            Assert-Check ($created.Status -eq 302 -and (Invoke-TestSql "SELECT COUNT(*) FROM dbo.[$($contentSection.Table)];") -eq '1') "Admin can create $name content"
+            $recordId = Invoke-TestSql "SELECT TOP(1) [$($contentSection.Key)] FROM dbo.[$($contentSection.Table)];"
+            $fields.Id=$recordId
+            if ($fields.ContainsKey('Description')) { $fields.Description='Updated verification description' }
+            elseif ($fields.ContainsKey('Title')) { $fields.Title='Updated verification title' }
+            elseif ($fields.ContainsKey('AltText')) { $fields.AltText='Updated verification image' }
+            else { $fields.Address='Updated verification campus' }
+            $updated = Submit-Form $admin "/AdminContent/Edit?section=$name&id=$recordId" $fields
+            Assert-Check ($updated.Status -eq 302 -and (Send-Request $admin "/AdminContent/Index?section=$name").Status -eq 200) "Admin can edit and list $name content"
+            $contentSection.RecordId=$recordId
+        }
+        $rendered = Send-Request $admin '/'
+        Assert-Check ($rendered.Status -eq 200 -and $rendered.Body.Contains('Updated verification description') -and $rendered.Body.Contains('Updated verification title') -and $rendered.Body.Contains('Updated verification campus')) 'University page renders persisted content from the tables'
+        $singleton = Submit-Form $admin '/AdminContent/Edit?section=University' @{Section='University';Id='0';Description='Duplicate'}
+        Assert-Check ($singleton.Status -eq 200 -and $singleton.Body.Contains('already exists') -and (Invoke-TestSql 'SELECT COUNT(*) FROM dbo.AcademyInfoTable;') -eq '1') 'University singleton cannot be duplicated'
+        $singleton = Submit-Form $admin '/AdminContent/Edit?section=Contacts' @{Section='Contacts';Id='0';Address='Duplicate'}
+        Assert-Check ($singleton.Status -eq 200 -and (Invoke-TestSql 'SELECT COUNT(*) FROM dbo.ContactsTable;') -eq '1') 'Contact singleton cannot be duplicated'
+        $badLink = Submit-Form $admin '/AdminContent/Edit?section=SocialLinks' @{Section='SocialLinks';Title='Bad link';Url='javascript:alert(1)'}
+        Assert-Check ($badLink.Status -eq 200 -and (Invoke-TestSql 'SELECT COUNT(*) FROM dbo.SocialLinksTable;') -eq '1') 'Unsafe social URL is rejected'
+        $badImage = Submit-Form $admin '/AdminContent/Edit?section=Photos' @{Section='Photos';ImagePath='/images/../appsettings.json'}
+        Assert-Check ($badImage.Status -eq 200 -and (Invoke-TestSql 'SELECT COUNT(*) FROM dbo.AboutImagesTable;') -eq '1') 'Image traversal is rejected'
+        $emptyValue = Submit-Form $admin '/AdminContent/Edit?section=Values' @{Section='Values';Title=' '}
+        Assert-Check ($emptyValue.Status -eq 200 -and (Invoke-TestSql 'SELECT COUNT(*) FROM dbo.CoreValuesTable;') -eq '1') 'Blank required content title is rejected'
+        Assert-Check ((Send-Request $admin '/AdminContent/Edit' @{Section='Programs';Title='No token'}).Status -eq 400) 'Content save requires an antiforgery token'
+        Assert-Check ((Send-Request $admin '/AdminContent/Edit?section=999').Status -eq 404) 'Unknown content section is rejected'
+        Assert-Check ((Send-Request $admin '/AdminContent/Edit?section=Programs&id=99999').Status -eq 404) 'Missing content record returns 404'
+        $xss = Submit-Form $admin '/AdminContent/Edit?section=Programs' @{Section='Programs';Title='<script>alert(1)</script>';Description='Text only'}
+        $encoded = Send-Request $admin '/'
+        Assert-Check ($xss.Status -eq 302 -and $encoded.Body.Contains('&lt;script&gt;') -and -not $encoded.Body.Contains('<script>alert(1)</script>')) 'Stored content renders as escaped text'
+        foreach ($contentSection in $sections | Where-Object {$_.Name -notin @('University','Contacts')}) {
+            $name=$contentSection.Name; $recordId=$contentSection.RecordId
+            $confirmation=Send-Request $admin "/AdminContent/Delete?section=$name&id=$recordId"
+            Assert-Check ($confirmation.Status -eq 200 -and (Invoke-TestSql "SELECT COUNT(*) FROM dbo.[$($contentSection.Table)] WHERE [$($contentSection.Key)]=$recordId;") -eq '1') "GET delete only confirms $name"
+            $removed=Submit-Form $admin "/AdminContent/Delete?section=$name&id=$recordId" @{Section=$name;Id=$recordId}
+            Assert-Check ($removed.Status -eq 302 -and (Invoke-TestSql "SELECT COUNT(*) FROM dbo.[$($contentSection.Table)] WHERE [$($contentSection.Key)]=$recordId;") -eq '0') "Admin can delete $name content"
+        }
+        Assert-Check ((Send-Request $admin '/AdminContent/Delete?section=University&id=1').Status -eq 404) 'Single university record cannot be deleted through content editor'
+    }
     Invoke-TestSql "UPDATE dbo.UserTable SET Role=N'Student' WHERE Username=N'verification.student';" | Out-Null
     Assert-Check ((Send-Request $admin '/Admin').Status -eq 302) 'Role change invalidates an existing admin session'
     Submit-Form $anonymous '/Account/Login' @{ Username='verification.student'; Password='Test-Only-Scholar-2026' } | Out-Null
@@ -145,7 +209,20 @@ try {
     }
     Assert-Check $throttled 'Repeated account POST requests are rate limited'
     Assert-Check ((Send-Request $anonymous '/Account/Login').Status -eq 200) 'Login GET remains available after POST throttling'
-    Write-Output 'Authentication verification passed. All mutations were confined to the disposable test database.'
+    Write-Output "Verification passed ($script:passedChecks checks). All mutations were confined to the disposable test database."
+    if ($Preview) {
+        # Explicit disposable-fixture preview only; never changes the university database.
+        Invoke-TestSql "UPDATE dbo.UserTable SET IsActive=1, Role=N'Admin' WHERE Username=N'verification.student'; DELETE FROM dbo.ProgramsTable WHERE SubjectName=N'<script>alert(1)</script>';" | Out-Null
+        Write-Output "PREVIEW_URL=$script:baseUrl"
+        Write-Output 'Disposable preview login: verification.student / Test-Only-Scholar-2026'
+        if ([Console]::IsInputRedirected) {
+            $stopFile=Join-Path $tempDir 'stop-preview'
+            Write-Output "PREVIEW_STOP_FILE=$stopFile"
+            while (-not (Test-Path -LiteralPath $stopFile)) { Start-Sleep -Milliseconds 500 }
+        } else {
+            Read-Host 'Press Enter to stop the preview and remove the test database' | Out-Null
+        }
+    }
 }
 finally {
     foreach ($client in $clients) { $client.Dispose() }
