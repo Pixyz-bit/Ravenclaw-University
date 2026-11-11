@@ -4,6 +4,16 @@ Last verified: 2026-11-11.
 
 ## Completed
 
+- Split all seven admin content editors into dedicated named controllers, form
+  ViewModels, and Index views, retaining the existing EF entities and database.
+  University information directly displays hero image, description, mission,
+  and vision. Legacy AdminContent GET links redirect to the matching new page;
+  generic POST editors and ContentEditorService were retired.
+- All 104 isolated account/content checks passed; the form build had no warnings
+  or errors. Desktop and 390px checks confirmed the University/program form layout
+  and four schema-backed university inputs with no horizontal overflow.
+- Rebuilt normal output and restarted localhost:5182 with the dedicated editors.
+  Disposable verification previews and their databases were cleaned up.
 - Corrected the university navbar after the user rejected the literal sketch frame:
   full-width navy, ivory wordmark/links, fine gold rule, compact crest, and an
   inner container aligned with the page. Removed conflicting old header rules.

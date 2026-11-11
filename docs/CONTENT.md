@@ -7,7 +7,7 @@ were added. Schema.sql remains unchanged and is the sole consolidated schema.
 
 ## Using the editors
 
-Sign in as an Admin and open Administration. The dashboard links to seven sections:
+Sign in as an Admin and open Administration. The sidebar links to seven sections.
 The admin area has its own sidebar layout, separate from the university navbar.
 Dashboard and the seven content pages are linked persistently, with the current
 section highlighted. On phones the navigation can be expanded from its disclosure.
@@ -22,14 +22,32 @@ section highlighted. On phones the navigation can be expanded from its disclosur
 | Founder information | FounderTable | Add/edit/delete names, optional birthdays, biographies, and messages |
 | Social links | SocialLinksTable | Add/edit/delete platform names, HTTPS URLs, and supported icons |
 
-AdminContentController protects every editor action with the Admin role. Dedicated
-ContentEditorViewModel inputs and explicit section-to-entity mapping prevent account
-data or arbitrary tables from being edited. Save/delete require POST and antiforgery
-validation. GET delete displays a confirmation and does not modify a record.
+Each section now has one named controller, one form ViewModel, and one Index view.
+The matching database-first EF entity remains in Models/. Every controller requires
+the Admin role. Fields map explicitly to that section's entity. Save/delete require
+POST and antiforgery validation. GET delete displays a confirmation without writing.
+
+| Section | Controller / ViewModel / view folder prefix |
+| --- | --- |
+| University information | UniversityInformation |
+| Contact information | ContactInformation |
+| Core values | CoreValues |
+| About gallery | AboutGallery |
+| Academic programs | AcademicPrograms |
+| Founder information | FounderInformation |
+| Social links | SocialLinks |
+
+For example, follow Controllers/UniversityInformationController.cs to
+ViewModels/UniversityInformationViewModel.cs and Views/UniversityInformation/Index.cshtml.
+That form edits Models/AcademyInfoTable.cs. University information directly displays
+all four content inputs; the identity ID is managed internally. Other collection
+pages put the add/edit form and published entries in their own single Index view.
+Old /AdminContent?section=University links redirect to /UniversityInformation;
+old generic POST endpoints have been retired.
 
 The university/contact editors enforce one record through a serializable check-and-
 save transaction. Existing externally created duplicates are not automatically deleted;
-the homepage uses the lowest ID, and admins can see existing rows in the editor.
+the homepage and singleton editors use the lowest ID.
 These two singleton sections cannot be deleted through the UI. Other deletes remove
 only the database entry, never a physical image file.
 
@@ -76,8 +94,10 @@ from Schema.sql, and starts a temporary local server without locking the user's
 normal build. In addition to the 28 authentication checks, it verifies content CRUD,
 student rejection on GET/POST, singleton protection, required fields, HTTPS links,
 image-path validation, missing IDs/sections, antiforgery, and stored-text escaping.
-Verified 2026-11-11: 66 checks passed, with zero build warnings/errors. Homepage,
-dashboard, and editor layouts were inspected on desktop and 390px phones without
+Verified 2026-11-11: 104 checks passed after splitting all seven MVC editors, with
+zero build warnings/errors. The checks exercise every dedicated route, student and
+anonymous rejection, creation/editing, singleton updates, and safe delete behavior.
+University and program forms were inspected on desktop/390px phones without
 horizontal overflow. Final full accessibility and database-outage QA remain pending.
 
 Use -Preview to keep the disposable server available for visual inspection after

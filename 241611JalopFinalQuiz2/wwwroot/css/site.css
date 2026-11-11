@@ -261,3 +261,5 @@ textarea:focus-visible,select:focus-visible { outline:3px solid var(--blue); out
  .account-menu { padding-left:12px; }
 }
 @media(prefers-reduced-motion:reduce) { .portal-header .portal-nav>a::after { transition:none; } }
+.saved-entries-heading { margin-top:48px; font-family:var(--body); font-size:1.3rem; font-weight:700; } .editor-panel .content-row h3 { font-family:var(--body); font-size:1rem; margin:0; overflow-wrap:anywhere; }
+.editor-panel>h2 { font-family:var(--body); font-size:1.3rem; font-weight:700; }

@@ -7,11 +7,16 @@
 - Framework: ASP.NET Core MVC targeting net9.0; nullable reference types enabled.
 - Root namespace: _241611JalopFinalQuiz2.
 - Controllers handle HTTP requests; Models hold application data; Views hold Razor UI.
-- UniversityContentService assembles the read-only homepage. ContentEditorService
-  explicitly maps seven content sections to entities. AdminContentController handles
-  protected forms. No repository layer or schema change is needed.
-- Views/Admin and Views/AdminContent select _AdminLayout with nested _ViewStart
-  files. University views continue using _Layout; account views use _AccountLayout.
+- UniversityContentService assembles the read-only homepage. Each admin content
+  section has its own named controller, ViewModel, and Views/<Section>/Index.cshtml.
+  Each controller maps its form fields directly to its existing EF entity and uses
+  UniversityDbContext. No repository layer or schema change is needed.
+- AdminContentController retains GET redirects for old bookmarks only. Shared
+  ContentSections contains sidebar labels/routes; AdminContentValidation contains
+  reusable input validators and the sidebar section interface, not CRUD behavior.
+- Views/Admin selects _AdminLayout through _ViewStart. Each dedicated content view
+  selects that same layout explicitly. University views use _Layout; account views
+  use _AccountLayout.
 - wwwroot contains public static assets, never database scripts or private docs.
 
 ## Database

@@ -38,7 +38,8 @@ Its interactive terminal/password-entry path still requires a manual check.
 
 - Fallback authorization requires login for MVC content by default. Only login,
   registration, the generic error handler, and public static assets are anonymous.
-- /Admin and /AdminContent use server-side Admin authorization. Students can read
+- /Admin, the seven dedicated content controllers, and legacy /AdminContent links
+  use server-side Admin authorization. Students can read
   university content but cannot access editors or POST content mutations.
 - Passwords use ASP.NET Core PasswordHasher. Hashes are upgraded on login when needed.
 - Usernames are trimmed and compared case-insensitively with explicit SQL collation.

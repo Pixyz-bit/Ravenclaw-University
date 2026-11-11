@@ -81,14 +81,21 @@ images use a text fallback; the crest is not used as fake campus photography.
 
 ## Separate administration shell
 
-Admin and AdminContent views use _AdminLayout through folder-specific _ViewStart
-files. The university navbar is not rendered in this shell. A 272px navy sidebar
+Admin uses _AdminLayout through its folder-specific _ViewStart. Each dedicated
+content section selects _AdminLayout in its own Index view. The university navbar
+is not rendered in this shell. A 272px navy sidebar
 contains the approved crest, Dashboard, and all seven content sections. The current
 page uses a blue active background and aria-current=page, including edit/delete
 and validation states. View university and POST Sign out sit below navigation.
 The ivory workspace has a contextual topbar/account label and Lato headings.
 Below 901px, native sidebar disclosure collapses initially with JavaScript and
 remains usable without JavaScript. The dashboard provides a short publishing guide.
+
+Each content section has its own view, form model, and controller. University and
+contact settings open directly to a single save form. The other five sections show
+an add/edit form followed by published entries on the same page. Delete confirmation
+uses that section's view; no shared conditional editor switches between sections.
+Keep the established field, button, status, sidebar, and responsive form styling.
 
 ## Approved main logo (2026-11-11)
 

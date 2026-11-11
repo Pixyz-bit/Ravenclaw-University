@@ -76,6 +76,7 @@ Work through the remaining stages in order. See STATUS.md for verification limit
 
 - [x] Build an admin navigation/dashboard linking to the content editors.
 - [x] Give administration its own layout with sidebar navigation, current-page indication, and a mobile disclosure menu.
+- [x] Split all seven sections into dedicated controllers, form ViewModels, and Index views; show university settings directly as four editable fields.
 - [x] Edit the single university-info record, including the hero image selection.
 - [x] Add, edit, and delete core value titles.
 - [x] Add, edit, and delete gallery image references and alternative text.

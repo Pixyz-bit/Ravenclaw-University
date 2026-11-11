@@ -9,7 +9,7 @@ else
     <section class="university-hero">
         <div class="hero-copy"><p class="eyebrow">Ravenclaw University</p><h1>Where Wisdom<br /><em>Takes Flight.</em></h1><p>A place for curious minds. Explore our university and its academic programs.</p><a class="button button-gold" href="#academics">Explore academics <span aria-hidden="true">→</span></a></div>
         <div class="hero-visual image-frame">
-            @if (!string.IsNullOrWhiteSpace(Model.University?.HeroImg) && ContentEditorViewModel.IsSafeImage(Model.University.HeroImg))
+            @if (!string.IsNullOrWhiteSpace(Model.University?.HeroImg) && SafeImageAttribute.IsSafeImage(Model.University.HeroImg))
             {
                 <img class="@(Model.University.HeroImg == "/images/branding/ravenclaw-university-crest.png" ? "hero-crest" : "")" src="@Model.University.HeroImg" alt="Ravenclaw University" data-content-image />
                 <span class="media-fallback" data-image-fallback hidden>Ravenclaw University</span>
@@ -35,7 +35,7 @@ else
                 @foreach (var photo in Model.Photos)
                 {
                     <figure><div class="image-frame">
-                        @if (ContentEditorViewModel.IsSafeImage(photo.ImagePath)) { <img src="@photo.ImagePath" alt="@(photo.AltText ?? "University gallery image")" loading="lazy" data-content-image /><span class="media-fallback" data-image-fallback hidden>Image unavailable</span> }
+                        @if (SafeImageAttribute.IsSafeImage(photo.ImagePath)) { <img src="@photo.ImagePath" alt="@(photo.AltText ?? "University gallery image")" loading="lazy" data-content-image /><span class="media-fallback" data-image-fallback hidden>Image unavailable</span> }
                         else { <span class="media-fallback">Image unavailable</span> }
                     </div>@if (!string.IsNullOrWhiteSpace(photo.AltText)) { <figcaption>@photo.AltText</figcaption> }</figure>
                 }
@@ -54,7 +54,7 @@ else
                         @if (!string.IsNullOrWhiteSpace(program.ImagePath))
                         {
                             <div class="image-frame">
-                                @if (ContentEditorViewModel.IsSafeImage(program.ImagePath)) { <img src="@program.ImagePath" alt="@program.SubjectName" loading="lazy" data-content-image /><span class="media-fallback" data-image-fallback hidden>Program image unavailable</span> }
+                                @if (SafeImageAttribute.IsSafeImage(program.ImagePath)) { <img src="@program.ImagePath" alt="@program.SubjectName" loading="lazy" data-content-image /><span class="media-fallback" data-image-fallback hidden>Program image unavailable</span> }
                                 else { <span class="media-fallback">Program image unavailable</span> }
                             </div>
                         }

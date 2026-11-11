@@ -1,0 +1,26 @@
+@model ContactInformationViewModel
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "Contact information";
+}
+<section class="editor-panel">
+    <p class="eyebrow">University content</p>
+    <h1>Contact information</h1>
+    @if (TempData["StatusMessage"] is string message) { <div class="status-message" role="status">@message</div> }
+    <div asp-validation-summary="All" class="validation-summary" role="alert"></div>
+
+
+        <form asp-action="Index" asp-route-id="" asp-route-confirmDelete="" method="post">
+            <input asp-for="Id" type="hidden" />
+            <div class="field"><label asp-for="AcademyAddress"></label><textarea asp-for="AcademyAddress" rows="4" maxlength="500"></textarea><span asp-validation-for="AcademyAddress" class="field-error"></span></div>
+            <div class="field"><label asp-for="Email"></label><input asp-for="Email" type="email" maxlength="254" /><span asp-validation-for="Email" class="field-error"></span></div>
+            <div class="field"><label asp-for="Telephone"></label><input asp-for="Telephone" type="tel" maxlength="50" /><span asp-validation-for="Telephone" class="field-error"></span></div>
+            <div class="field"><label asp-for="OfficeHours"></label><textarea asp-for="OfficeHours" rows="4" maxlength="300"></textarea><span asp-validation-for="OfficeHours" class="field-error"></span></div>
+            <div class="row-actions">
+                <button class="button button-primary" type="submit" disabled="@(ViewData["Unavailable"] is true)">Save changes</button>
+                <a class="button button-secondary" asp-controller="Home" asp-action="Index">View university</a>
+            </div>
+        </form>
+
+</section>
+@section Scripts { <partial name="_ValidationScriptsPartial" /> }

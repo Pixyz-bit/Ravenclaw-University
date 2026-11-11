@@ -1,0 +1,53 @@
+@model SocialLinksViewModel
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "Social links";
+}
+<section class="editor-panel">
+    <p class="eyebrow">University content</p>
+    <h1>Social links</h1>
+    @if (TempData["StatusMessage"] is string message) { <div class="status-message" role="status">@message</div> }
+    <div asp-validation-summary="All" class="validation-summary" role="alert"></div>
+    @if (Model.ConfirmDelete)
+    {
+        <h2>Delete this entry?</h2>
+        <p>@Model.PlatformName</p>
+        <p>This removes the entry from the university page.</p>
+        <form asp-action="Delete" method="post">
+            <input asp-for="Id" type="hidden" />
+            <div class="row-actions"><button class="button button-danger" type="submit">Delete entry</button><a class="button button-secondary" asp-action="Index" asp-route-id="" asp-route-confirmDelete="">Cancel</a></div>
+        </form>
+    }
+    else
+    {
+        <h2>@(Model.Id == 0 ? "Add entry" : "Edit entry")</h2>
+        <form asp-action="Index" asp-route-id="" asp-route-confirmDelete="" method="post">
+            <input asp-for="Id" type="hidden" />
+            <div class="field"><label asp-for="PlatformName"></label><input asp-for="PlatformName" maxlength="50" /><span asp-validation-for="PlatformName" class="field-error"></span></div>
+            <div class="field"><label asp-for="Url"></label><input asp-for="Url" type="url" maxlength="500" /><span asp-validation-for="Url" class="field-error"></span></div>
+            <div class="field"><label asp-for="IconClass"></label><select asp-for="IconClass">@foreach (var icon in ContentSections.Icons) { <option value="@icon.Key">@icon.Value</option> }</select><span asp-validation-for="IconClass" class="field-error"></span></div>
+            <div class="row-actions">
+                <button class="button button-primary" type="submit" disabled="@(ViewData["Unavailable"] is true)">Save changes</button>
+                <a class="button button-secondary" asp-action="Index" asp-route-id="" asp-route-confirmDelete="">Cancel</a>
+            </div>
+        </form>
+    }
+    @if (ViewData["Unavailable"] is not true)
+    {
+        <h2 class="saved-entries-heading">Published entries</h2>
+        @if (Model.Items.Count == 0) { <p class="empty-copy">No entries yet. Use the form above to add the first one.</p> }
+        <div class="content-list">
+            @foreach (var item in Model.Items)
+            {
+                <article class="content-row">
+                    <div><h3>@item.PlatformName</h3></div>
+                    <div class="row-actions">
+                        <a class="button button-secondary" asp-action="Index" asp-route-id="@item.SocialLinkId">Edit</a>
+                        <a class="button button-secondary" asp-action="Index" asp-route-id="@item.SocialLinkId" asp-route-confirmDelete="true">Delete</a>
+                    </div>
+                </article>
+            }
+        </div>
+    }
+</section>
+@section Scripts { <partial name="_ValidationScriptsPartial" /> }

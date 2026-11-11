@@ -1,8 +1,7 @@
 @{
     var controller = ViewContext.RouteData.Values["controller"]?.ToString();
     var dashboardActive = controller == "Admin";
-    var activeSection = Model is ContentEditorViewModel editor ? editor.Section
-        : Model is ContentListViewModel list ? list.Section : (ContentSection?)null;
+    var activeSection = (Model as IAdminSectionViewModel)?.Section;
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -19,22 +18,22 @@
 <body class="admin-body">
     <a class="skip-link" href="#main-content">Skip to administration content</a>
     <aside class="admin-sidebar">
-        <a class="wordmark" asp-controller="Admin" asp-action="Index"><img class="university-logo" src="~/images/branding/ravenclaw-university-crest.png" asp-append-version="true" width="1123" height="1401" alt="" /><span>Ravenclaw<br />University</span></a>
+        <a class="wordmark" asp-controller="Admin" asp-action="Index" asp-route-id="" asp-route-confirmDelete=""><img class="university-logo" src="~/images/branding/ravenclaw-university-crest.png" asp-append-version="true" width="1123" height="1401" alt="" /><span>Ravenclaw<br />University</span></a>
         <p class="admin-sidebar-label">Administration</p>
         <details class="admin-navigation" open>
             <summary>Navigation</summary>
             <nav aria-label="Administration navigation">
-                <a class="admin-nav-link @(dashboardActive ? "is-active" : "")" aria-current="@(dashboardActive ? "page" : null)" asp-controller="Admin" asp-action="Index"><span class="admin-nav-number" aria-hidden="true">00</span>Dashboard</a>
+                <a class="admin-nav-link @(dashboardActive ? "is-active" : "")" aria-current="@(dashboardActive ? "page" : null)" asp-controller="Admin" asp-action="Index" asp-route-id="" asp-route-confirmDelete=""><span class="admin-nav-number" aria-hidden="true">00</span>Dashboard</a>
                 <p class="admin-nav-heading">University content</p>
                 @foreach (var contentSection in Enum.GetValues<ContentSection>())
                 {
                     var active = activeSection == contentSection;
-                    <a class="admin-nav-link @(active ? "is-active" : "")" aria-current="@(active ? "page" : null)" asp-controller="AdminContent" asp-action="Index" asp-route-section="@contentSection"><span class="admin-nav-number" aria-hidden="true">@(((int)contentSection + 1).ToString("00"))</span>@ContentSections.Label(contentSection)</a>
+                    <a class="admin-nav-link @(active ? "is-active" : "")" aria-current="@(active ? "page" : null)" asp-controller="@ContentSections.ControllerName(contentSection)" asp-action="Index" asp-route-id="" asp-route-confirmDelete=""><span class="admin-nav-number" aria-hidden="true">@(((int)contentSection + 1).ToString("00"))</span>@ContentSections.Label(contentSection)</a>
                 }
             </nav>
         </details>
         <div class="admin-sidebar-bottom">
-            <a class="admin-site-link" asp-controller="Home" asp-action="Index">View university <span aria-hidden="true">↗</span></a>
+            <a class="admin-site-link" asp-controller="Home" asp-action="Index" asp-route-id="" asp-route-confirmDelete="">View university <span aria-hidden="true">↗</span></a>
             <form asp-controller="Account" asp-action="Logout" method="post"><button class="button button-outline" type="submit">Sign out</button></form>
         </div>
     </aside>

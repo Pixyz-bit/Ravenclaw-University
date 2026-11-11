@@ -1,0 +1,38 @@
+@model UniversityInformationViewModel
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "University information";
+}
+<section class="editor-panel">
+    <p class="eyebrow">University content</p>
+    <h1>University information</h1>
+    <p class="muted">Update the introduction, mission, vision, and main image students see on the university page.</p>
+    @if (TempData["StatusMessage"] is string message)
+    {
+        <div class="status-message" role="status">@message</div>
+    }
+    <form asp-controller="UniversityInformation" asp-action="Index" asp-route-id="" asp-route-confirmDelete="" method="post">
+        <div asp-validation-summary="All" class="validation-summary" role="alert"></div>
+        <div class="field">
+            <label asp-for="HeroImg"></label>
+            <input asp-for="HeroImg" maxlength="500" list="university-images" aria-describedby="hero-image-help" />
+            <datalist id="university-images"><option value="/images/branding/ravenclaw-university-crest.png">Approved university crest</option></datalist>
+            <small id="hero-image-help">Choose an image path under /images/ or an HTTPS image URL. Leave blank to use the university crest.</small>
+            <span asp-validation-for="HeroImg" class="field-error"></span>
+        </div>
+        <div class="field">
+            <label asp-for="AcademyDescription"></label>
+            <textarea asp-for="AcademyDescription" rows="5"></textarea>
+            <span asp-validation-for="AcademyDescription" class="field-error"></span>
+        </div>
+        <div class="form-grid">
+            <div class="field"><label asp-for="Mission"></label><textarea asp-for="Mission" rows="5"></textarea><span asp-validation-for="Mission" class="field-error"></span></div>
+            <div class="field"><label asp-for="Vision"></label><textarea asp-for="Vision" rows="5"></textarea><span asp-validation-for="Vision" class="field-error"></span></div>
+        </div>
+        <div class="row-actions">
+            <button class="button button-primary" type="submit" disabled="@(ViewData["Unavailable"] is true)">Save changes</button>
+            <a class="button button-secondary" asp-controller="Home" asp-action="Index">View university</a>
+        </div>
+    </form>
+</section>
+@section Scripts { <partial name="_ValidationScriptsPartial" /> }

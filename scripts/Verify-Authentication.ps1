@@ -130,7 +130,7 @@ try {
     if ($IncludeContent) {
         Assert-Check (-not (Send-Request $anonymous '/').Body.Contains('admin-sidebar')) 'Student university page keeps its own layout'
         Assert-Check ((Send-Request $anonymous '/AdminContent/Index?section=Programs').Location -like '*AccessDenied*') 'Student cannot access content editors'
-        Assert-Check ((Send-Request $anonymous '/AdminContent/Edit' @{Section='Programs';Title='Tampered'}).Location -like '*AccessDenied*') 'Student cannot POST content changes'
+        Assert-Check ((Send-Request $anonymous '/AcademicPrograms' @{SubjectName='Tampered'}).Location -like '*AccessDenied*') 'Student cannot POST content changes'
         Assert-Check ((Invoke-TestSql 'SELECT COUNT(*) FROM dbo.ProgramsTable;') -eq '0') 'Rejected student request changed no content'
     }
     Assert-Check ((Send-Request $anonymous '/Account/Logout' @{}).Status -eq 400) 'Logout rejects a missing antiforgery token'
@@ -150,56 +150,68 @@ try {
     if ($IncludeContent) {
         $adminDashboard = Send-Request $admin '/Admin'
         Assert-Check ($adminDashboard.Body.Contains('aria-label="Administration navigation"') -and -not $adminDashboard.Body.Contains('aria-label="Main navigation"')) 'Admin dashboard uses a separate sidebar layout'
-        $programList = Send-Request $admin '/AdminContent/Index?section=Programs'
+        $programList = Send-Request $admin '/AcademicPrograms'
         $activeLinks = [regex]::Matches($programList.Body,'<a\b[^>]*aria-current="page"[^>]*>.*?</a>',[Text.RegularExpressions.RegexOptions]::Singleline)
         Assert-Check ($activeLinks.Count -eq 1 -and $activeLinks[0].Value.Contains('Academic programs')) 'Content sidebar marks only the current section active'
+        $universityPage = Send-Request $admin '/UniversityInformation'
+        Assert-Check ($universityPage.Status -eq 200 -and $universityPage.Body.Contains('name="HeroImg"') -and $universityPage.Body.Contains('name="AcademyDescription"') -and $universityPage.Body.Contains('name="Mission"') -and $universityPage.Body.Contains('name="Vision"')) 'University page directly displays all four schema-backed inputs'
+        Assert-Check ((Send-Request $admin '/AdminContent?section=University').Location -like '/UniversityInformation*') 'Existing University information link redirects to its dedicated editor'
         $sections = @(
-            @{Name='University';Table='AcademyInfoTable';Key='AcademyInfoId';Fields=@{Description='Verification university description';Mission='Verification mission';Vision='Verification vision';ImagePath='/images/branding/ravenclaw-university-crest.png'}},
-            @{Name='Contacts';Table='ContactsTable';Key='ContactId';Fields=@{Address='Verification campus';Email='office@university.example';Telephone='+63 912 345 6789';OfficeHours='Monday to Friday'}},
-            @{Name='Values';Table='CoreValuesTable';Key='CoreValueId';Fields=@{Title='Verification wisdom'}},
-            @{Name='Photos';Table='AboutImagesTable';Key='AboutImageId';Fields=@{ImagePath='/images/branding/ravenclaw-university-crest.png';AltText='Verification crest'}},
-            @{Name='Programs';Table='ProgramsTable';Key='SubjectId';Fields=@{Title='Verification astronomy';Description='Verification program description';ImagePath='/images/branding/ravenclaw-university-crest.png'}},
-            @{Name='Founders';Table='FounderTable';Key='FounderId';Fields=@{Title='Verification founder';Description='Verification biography';Birthday='1900-04-16';Message='Verification founder message'}},
-            @{Name='SocialLinks';Table='SocialLinksTable';Key='SocialLinkId';Fields=@{Title='Verification website';Url='https://university.example';IconClass='fa-solid fa-globe'}}
+            @{Name='University';Controller='UniversityInformation';Table='AcademyInfoTable';Key='AcademyInfoId';Fields=@{AcademyDescription='Verification university description';Mission='Verification mission';Vision='Verification vision';HeroImg='/images/branding/ravenclaw-university-crest.png'}},
+            @{Name='Contacts';Controller='ContactInformation';Table='ContactsTable';Key='ContactId';Fields=@{AcademyAddress='Verification campus';Email='office@university.example';Telephone='+63 912 345 6789';OfficeHours='Monday to Friday'}},
+            @{Name='Values';Controller='CoreValues';Table='CoreValuesTable';Key='CoreValueId';Fields=@{Title='Verification title'}},
+            @{Name='Photos';Controller='AboutGallery';Table='AboutImagesTable';Key='AboutImageId';Fields=@{ImagePath='/images/branding/ravenclaw-university-crest.png';AltText='Verification image'}},
+            @{Name='Programs';Controller='AcademicPrograms';Table='ProgramsTable';Key='SubjectId';Fields=@{SubjectName='Verification title';Description='Verification description';ImagePath='/images/branding/ravenclaw-university-crest.png'}},
+            @{Name='Founders';Controller='FounderInformation';Table='FounderTable';Key='FounderId';Fields=@{FounderName='Verification title';Birthday='1900-01-01';Description='Verification description';FounderMessage='Verification title'}},
+            @{Name='SocialLinks';Controller='SocialLinks';Table='SocialLinksTable';Key='SocialLinkId';Fields=@{PlatformName='Verification title';Url='https://university.example';IconClass='fa-solid fa-globe'}}
         )
         foreach ($contentSection in $sections) {
-            $name=$contentSection.Name
-            $fields=$contentSection.Fields.Clone(); $fields.Section=$name; $fields.Id='0'
-            $created = Submit-Form $admin "/AdminContent/Edit?section=$name" $fields
-            Assert-Check ($created.Status -eq 302 -and (Invoke-TestSql "SELECT COUNT(*) FROM dbo.[$($contentSection.Table)];") -eq '1') "Admin can create $name content"
-            $recordId = Invoke-TestSql "SELECT TOP(1) [$($contentSection.Key)] FROM dbo.[$($contentSection.Table)];"
+            $name=$contentSection.Name; $route='/'+$contentSection.Controller; $fields=$contentSection.Fields.Clone()
+            Assert-Check ((Send-Request $anonymous $route).Location -like '*Login*') "Anonymous cannot access $name editor"
+            $studentClient = New-TestClient
+            $studentLogin = Submit-Form $studentClient '/Account/Login' @{Username='profile.student';Password='Test-Only-Scholar-2026'}
+            Assert-Check ((Send-Request $studentClient $route).Location -like '*AccessDenied*') "Student cannot access $name editor"
+            Assert-Check ((Send-Request $studentClient $route @{}).Location -like '*AccessDenied*') "Student cannot POST $name editor"
+            $created = Submit-Form $admin $route $fields
+            $recordId = Invoke-TestSql "SELECT TOP(1) [$($contentSection.Key)] FROM dbo.[$($contentSection.Table)] ORDER BY [$($contentSection.Key)] DESC;"
+            Assert-Check ($created.Status -eq 302 -and [int]$recordId -gt 0) "Admin can create $name content"
             $fields.Id=$recordId
-            if ($fields.ContainsKey('Description')) { $fields.Description='Updated verification description' }
+            if ($fields.ContainsKey('AcademyDescription')) { $fields.AcademyDescription='Updated verification description' }
+            elseif ($fields.ContainsKey('Description')) { $fields.Description='Updated verification description' }
             elseif ($fields.ContainsKey('Title')) { $fields.Title='Updated verification title' }
             elseif ($fields.ContainsKey('AltText')) { $fields.AltText='Updated verification image' }
-            else { $fields.Address='Updated verification campus' }
-            $updated = Submit-Form $admin "/AdminContent/Edit?section=$name&id=$recordId" $fields
-            Assert-Check ($updated.Status -eq 302 -and (Send-Request $admin "/AdminContent/Index?section=$name").Status -eq 200) "Admin can edit and list $name content"
+            elseif ($fields.ContainsKey('AcademyAddress')) { $fields.AcademyAddress='Updated verification campus' }
+            $updated = Submit-Form $admin "${route}?id=$recordId" $fields
+            Assert-Check ($updated.Status -eq 302 -and (Send-Request $admin $route).Status -eq 200) "Admin can edit and list $name content"
+            Assert-Check ((Send-Request $admin $route @{}).Status -eq 400) "$name save requires an antiforgery token"
             $contentSection.RecordId=$recordId
         }
         $rendered = Send-Request $admin '/'
         Assert-Check ($rendered.Status -eq 200 -and $rendered.Body.Contains('Updated verification description') -and $rendered.Body.Contains('Updated verification title') -and $rendered.Body.Contains('Updated verification campus')) 'University page renders persisted content from the tables'
-        $singleton = Submit-Form $admin '/AdminContent/Edit?section=University' @{Section='University';Id='0';Description='Duplicate'}
-        Assert-Check ($singleton.Status -eq 200 -and $singleton.Body.Contains('already exists') -and (Invoke-TestSql 'SELECT COUNT(*) FROM dbo.AcademyInfoTable;') -eq '1') 'University singleton cannot be duplicated'
-        $singleton = Submit-Form $admin '/AdminContent/Edit?section=Contacts' @{Section='Contacts';Id='0';Address='Duplicate'}
-        Assert-Check ($singleton.Status -eq 200 -and (Invoke-TestSql 'SELECT COUNT(*) FROM dbo.ContactsTable;') -eq '1') 'Contact singleton cannot be duplicated'
-        $badLink = Submit-Form $admin '/AdminContent/Edit?section=SocialLinks' @{Section='SocialLinks';Title='Bad link';Url='javascript:alert(1)'}
+        $singleton = Submit-Form $admin '/UniversityInformation' @{HeroImg='';AcademyDescription='Updated verification description';Mission='Verification mission';Vision='Verification vision'}
+        Assert-Check ($singleton.Status -eq 302 -and (Invoke-TestSql 'SELECT COUNT(*) FROM dbo.AcademyInfoTable;') -eq '1') 'University settings update the single existing record'
+        $singleton = Submit-Form $admin '/ContactInformation' @{AcademyAddress='Updated verification campus'}
+        Assert-Check ($singleton.Status -eq 302 -and (Invoke-TestSql 'SELECT COUNT(*) FROM dbo.ContactsTable;') -eq '1') 'Contact settings update the single existing record'
+        $badHero = Submit-Form $admin '/UniversityInformation' @{HeroImg='/images/../appsettings.json'}
+        Assert-Check ($badHero.Status -eq 200 -and $badHero.Body.Contains('without traversal')) 'Unsafe university hero path is rejected'
+        $badLink = Submit-Form $admin '/SocialLinks' @{PlatformName='Bad link';Url='javascript:alert(1)'}
         Assert-Check ($badLink.Status -eq 200 -and (Invoke-TestSql 'SELECT COUNT(*) FROM dbo.SocialLinksTable;') -eq '1') 'Unsafe social URL is rejected'
-        $badImage = Submit-Form $admin '/AdminContent/Edit?section=Photos' @{Section='Photos';ImagePath='/images/../appsettings.json'}
+        $badImage = Submit-Form $admin '/AboutGallery' @{ImagePath='/images/../appsettings.json'}
         Assert-Check ($badImage.Status -eq 200 -and (Invoke-TestSql 'SELECT COUNT(*) FROM dbo.AboutImagesTable;') -eq '1') 'Image traversal is rejected'
-        $emptyValue = Submit-Form $admin '/AdminContent/Edit?section=Values' @{Section='Values';Title=' '}
+        $emptyValue = Submit-Form $admin '/CoreValues' @{Title=' '}
         Assert-Check ($emptyValue.Status -eq 200 -and (Invoke-TestSql 'SELECT COUNT(*) FROM dbo.CoreValuesTable;') -eq '1') 'Blank required content title is rejected'
-        Assert-Check ((Send-Request $admin '/AdminContent/Edit' @{Section='Programs';Title='No token'}).Status -eq 400) 'Content save requires an antiforgery token'
         Assert-Check ((Send-Request $admin '/AdminContent/Edit?section=999').Status -eq 404) 'Unknown content section is rejected'
-        Assert-Check ((Send-Request $admin '/AdminContent/Edit?section=Programs&id=99999').Status -eq 404) 'Missing content record returns 404'
-        $xss = Submit-Form $admin '/AdminContent/Edit?section=Programs' @{Section='Programs';Title='<script>alert(1)</script>';Description='Text only'}
+        Assert-Check ((Send-Request $admin '/AcademicPrograms?id=99999').Status -eq 404) 'Missing content record returns 404'
+        $xss = Submit-Form $admin '/AcademicPrograms' @{SubjectName='<script>alert(1)</script>';Description='Text only'}
         $encoded = Send-Request $admin '/'
         Assert-Check ($xss.Status -eq 302 -and $encoded.Body.Contains('&lt;script&gt;') -and -not $encoded.Body.Contains('<script>alert(1)</script>')) 'Stored content renders as escaped text'
         foreach ($contentSection in $sections | Where-Object {$_.Name -notin @('University','Contacts')}) {
-            $name=$contentSection.Name; $recordId=$contentSection.RecordId
-            $confirmation=Send-Request $admin "/AdminContent/Delete?section=$name&id=$recordId"
-            Assert-Check ($confirmation.Status -eq 200 -and (Invoke-TestSql "SELECT COUNT(*) FROM dbo.[$($contentSection.Table)] WHERE [$($contentSection.Key)]=$recordId;") -eq '1') "GET delete only confirms $name"
-            $removed=Submit-Form $admin "/AdminContent/Delete?section=$name&id=$recordId" @{Section=$name;Id=$recordId}
+            $name=$contentSection.Name; $recordId=$contentSection.RecordId; $route='/'+$contentSection.Controller
+            $confirmation=Send-Request $admin "${route}?id=$recordId&confirmDelete=true"
+            Assert-Check ($confirmation.Status -eq 200 -and $confirmation.Body.Contains('Delete this entry?') -and (Invoke-TestSql "SELECT COUNT(*) FROM dbo.[$($contentSection.Table)] WHERE [$($contentSection.Key)]=$recordId;") -eq '1') "GET delete only confirms $name"
+            Assert-Check ((Send-Request $admin "$route/Delete" @{Id=$recordId}).Status -eq 400) "$name delete requires an antiforgery token"
+            $pageToken=[regex]::Match($confirmation.Body, 'name="__RequestVerificationToken"[^>]*value="([^"]+)"').Groups[1].Value
+            $removed=Send-Request $admin "$route/Delete" @{Id=$recordId;__RequestVerificationToken=[Net.WebUtility]::HtmlDecode($pageToken)}
             Assert-Check ($removed.Status -eq 302 -and (Invoke-TestSql "SELECT COUNT(*) FROM dbo.[$($contentSection.Table)] WHERE [$($contentSection.Key)]=$recordId;") -eq '0') "Admin can delete $name content"
         }
         Assert-Check ((Send-Request $admin '/AdminContent/Delete?section=University&id=1').Status -eq 404) 'Single university record cannot be deleted through content editor'
