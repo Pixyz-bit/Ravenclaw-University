@@ -30,6 +30,8 @@ Last verified: 2026-11-11.
 - dotnet build --no-restore passed after integration with zero warnings/errors.
 - Added an explicit --check-database command that reads AcademyInfoTable through
   the registered UniversityDbContext and exits without starting the website.
+- Created CHECKLIST.md covering completed work and remaining implementation,
+  authentication, content management, quality verification, and delivery.
 - Verified the EF Core read against localhost / Ravenclaw University Db. The
   table exists and is empty. No records or schema were changed. Build passed
   with zero warnings/errors. Restricted execution failed with access denied;

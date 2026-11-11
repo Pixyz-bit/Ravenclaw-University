@@ -9,6 +9,7 @@ GitHub: https://github.com/Pixyz-bit/Ravenclaw-University (branch: main).
 
 | Document | Read for |
 | --- | --- |
+| CHECKLIST.md | Completed milestones, remaining implementation, testing, and delivery |
 | REQUIREMENTS.md | Scope, content, and admin/student access |
 | DESIGN.md | Agreed visual direction and consistency rules |
 | ARCHITECTURE.md | MVC structure, database location, and implementation boundaries |
