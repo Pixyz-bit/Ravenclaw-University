@@ -11,6 +11,9 @@ Last verified: 2026-11-11.
 - Project context documents and a project workflow skill created.
 - AI workflow requires relevant skills, design consistency, and progress commits.
 - Git initialized; generated output and local secrets excluded via .gitignore.
+- Existing MVC application and .github instructions included in the source baseline.
+- GitHub repository: https://github.com/Pixyz-bit/Ravenclaw-University.
+  The development branch is main; origin points to this repository.
 - Documentation links and skill frontmatter checked manually; staged whitespace
   checks passed. The bundled skill validator could not run because Python was unavailable.
 
@@ -24,9 +27,8 @@ Last verified: 2026-11-11.
 - Earlier local SQL services were shown running by the user; current connectivity
   and the live database schema must be checked when needed, not assumed.
 - No application build was run for these documentation-only changes.
-- Existing application and .github files were left untracked in the initial
-  documentation commit; that commit contains only documentation, schema, skill,
-  and ignore rules. Establish a source baseline before relying on Git for app recovery.
+- The initial documentation commit contained only docs, schema, skill, and ignore
+  rules. The subsequent source baseline adds the existing starter application.
 
 ## Next implementation work
 

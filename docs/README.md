@@ -3,6 +3,8 @@
 Read this folder at the start of work and update it when decisions or code change.
 Current user instructions take priority over these documents.
 
+GitHub: https://github.com/Pixyz-bit/Ravenclaw-University (branch: main).
+
 | Document | Read for |
 | --- | --- |
 | REQUIREMENTS.md | Scope, content, and admin/student access |
