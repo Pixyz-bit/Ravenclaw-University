@@ -1,5 +1,13 @@
 using Microsoft.EntityFrameworkCore;
 using _241611JalopFinalQuiz2.Data;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using _241611JalopFinalQuiz2.Models;
+using _241611JalopFinalQuiz2.Security;
+using _241611JalopFinalQuiz2.Services;
+using Microsoft.AspNetCore.RateLimiting;
+using System.Threading.RateLimiting;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,8 +17,47 @@ builder.Services.AddDbContext<UniversityDbContext>(options =>
     options.UseSqlServer(
         builder.Configuration.GetConnectionString("UniversityDb")
     ));
+builder.Services.AddScoped<IPasswordHasher<UserTable>, PasswordHasher<UserTable>>();
+builder.Services.AddScoped<AccountService>();
+builder.Services.AddScoped<UniversityCookieEvents>();
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.LoginPath = "/Account/Login";
+        options.AccessDeniedPath = "/Account/AccessDenied";
+        options.Cookie.Name = "RavenclawUniversity.Auth";
+        options.Cookie.HttpOnly = true;
+        options.Cookie.SameSite = SameSiteMode.Lax;
+        options.Cookie.SecurePolicy = builder.Environment.IsDevelopment()
+            ? CookieSecurePolicy.SameAsRequest : CookieSecurePolicy.Always;
+        options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
+        options.SlidingExpiration = false;
+        options.EventsType = typeof(UniversityCookieEvents);
+    });
+builder.Services.AddAuthorization(options =>
+    options.FallbackPolicy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build());
+builder.Services.AddRateLimiter(options =>
+{
+    options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
+    options.AddPolicy("account-forms", context => RateLimitPartition.GetFixedWindowLimiter(
+        context.Connection.RemoteIpAddress?.ToString() ?? "unknown",
+        _ => new FixedWindowRateLimiterOptions
+        {
+            PermitLimit = 30, Window = TimeSpan.FromMinutes(1), QueueLimit = 0
+        }));
+    options.OnRejected = async (context, cancellationToken) =>
+        await context.HttpContext.Response.WriteAsync(
+            "Too many account requests. Wait a minute, then try again.", cancellationToken);
+});
 
 var app = builder.Build();
+
+if (args.Contains("--create-admin", StringComparer.OrdinalIgnoreCase))
+{
+    Environment.ExitCode = await FirstAdminCommand.RunAsync(app.Services);
+    await app.DisposeAsync();
+    return;
+}
 
 // Explicit local diagnostic: query through the registered context, then exit.
 // This does not start the website or change database records.
@@ -68,9 +115,11 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseRouting();
 
+app.UseRateLimiter();
+app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapStaticAssets();
+app.MapStaticAssets().AllowAnonymous();
 
 app.MapControllerRoute(
     name: "default",

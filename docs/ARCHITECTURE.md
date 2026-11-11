@@ -55,5 +55,10 @@ Role values are Admin and Student. MVC must require authentication for content
 and admin authorization for every content mutation. Use framework password
 hashing and anti-forgery protection for state-changing forms.
 
-DbContext is registered; no authentication scheme is configured in the application.
-UseAuthorization in the starter pipeline alone does not implement login.
+Cookie authentication and a fallback login policy are configured in Program.cs.
+AccountController handles anonymous login/registration and protected POST logout.
+AdminController requires Admin. HomeController requires login through the fallback.
+AccountService handles password hashing/verification and serialized account creation;
+UniversityCookieEvents revalidates active status and roles on each request.
+FirstAdminCommand provides an interactive, local-only first-admin bootstrap.
+See AUTHENTICATION.md for setup, limits, and the disposable-database HTTP verifier.

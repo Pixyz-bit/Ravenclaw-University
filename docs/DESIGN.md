@@ -2,7 +2,8 @@
 
 Authority: the user's supplied blueprint and later corrections. The official
 institution and website name is Ravenclaw University; earlier naming is superseded.
-Status: planning reference; a custom interface has not yet been implemented.
+Status: account layouts and a minimal protected portal/admin shell are implemented;
+university content pages and content editors are still planned.
 
 ## Identity
 
@@ -17,13 +18,13 @@ clear academic content, generous spacing, and restrained ornamentation.
 | Antique gold | #C3A568 |
 | Ivory | #F4F0E6 |
 | Charcoal | #343B45 |
-| Heading font direction | Cormorant Garamond or Cinzel; select one consistently |
+| Heading font | Cormorant Garamond (500/600), Georgia fallback |
 | Body font direction | Lato |
 | Content width | Approximately 1200px |
 | Motto | Where Wisdom Takes Flight. |
 
-Fonts and image/icon libraries are proposed, not installed dependencies. Check
-availability before implementation. Gold is primarily a decorative accent;
+Cormorant Garamond and Lato load through Google Fonts, with local serif/sans-serif
+fallbacks. Images and social icon libraries are not installed. Gold is primarily a decorative accent;
 ensure readable text contrast rather than assuming every palette pairing works.
 
 ## Composition
@@ -45,3 +46,15 @@ Use preselected images as requested. Do not generate imagery unless the user ask
 Preserve established tokens and reusable components across student and admin
 screens; admin screens should prioritize clear editing tasks. Later explicit user
 choices override this planning reference and should be recorded here.
+
+## Implemented account surface (2026-11-11)
+
+Shared account layout uses a navy editorial panel with an RU typographic monogram,
+motto, and fine architectural arch; ivory form panel uses visible labels and a
+navy primary action. Registration uses two columns on desktop and one on mobile.
+Below 850px the story panel reduces to the wordmark; below 480px all fields stack.
+Inputs/buttons have 48px minimum height, errors are inline and textual, and there
+is a keyboard skip link. No images or animations were generated. Shared authenticated
+navigation includes University, Admin-only Administration, and POST Sign out.
+Desktop and mobile forms were visually inspected; later content sections must
+reuse these tokens without treating the starter portal as finished content.

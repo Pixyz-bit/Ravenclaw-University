@@ -1,0 +1,25 @@
+@model _241611JalopFinalQuiz2.ViewModels.LoginViewModel
+@{ Layout = "_AccountLayout"; ViewData["Title"] = "Sign in"; }
+<div class="account-form-wrap">
+    <p class="eyebrow">Welcome back</p>
+    <h1>Continue your journey.</h1>
+    <p class="intro">Sign in to access Ravenclaw University.</p>
+    @if (TempData["StatusMessage"] is string message) { <div class="status-message" role="status">@message</div> }
+    <form asp-action="Login" method="post">
+        <input asp-for="ReturnUrl" type="hidden" />
+        <div asp-validation-summary="ModelOnly" class="validation-summary" role="alert"></div>
+        <div class="field">
+            <label asp-for="Username"></label>
+            <input asp-for="Username" autocomplete="username" maxlength="100" aria-required="true" aria-describedby="username-error" />
+            <span asp-validation-for="Username" id="username-error" class="field-error"></span>
+        </div>
+        <div class="field">
+            <label asp-for="Password"></label>
+            <input asp-for="Password" autocomplete="current-password" maxlength="128" aria-required="true" aria-describedby="password-error" />
+            <span asp-validation-for="Password" id="password-error" class="field-error"></span>
+        </div>
+        <button class="button button-primary" type="submit">Sign in <span aria-hidden="true">→</span></button>
+    </form>
+    <p class="account-switch">New to the university? <a asp-action="Register">Create a student account</a></p>
+</div>
+@section Scripts { <partial name="_ValidationScriptsPartial" /> }

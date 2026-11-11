@@ -31,32 +31,36 @@ Work through the remaining stages in order. See STATUS.md for verification limit
 - [x] Add and run --check-database through the registered DbContext.
 - [x] Verify AcademyInfoTable can be queried; it was empty and no data was changed.
 - [ ] Verify the remaining seven table mappings against the documented schema; report mismatches before changes.
-- [ ] Confirm duplicate-username prevention and single academy-info/contact record rules in application logic.
+- [x] Implement and verify case-insensitive duplicate-username prevention.
+- [ ] Enforce single academy-info/contact records in content-management logic.
 
-## 3. Login and access control (next milestone)
+## 3. Login and access control
 
 - [x] Choose student self-registration; admin provisioning remains separate.
 - [x] User applied the personal fields; live metadata comparison verified the updated table definitions.
 - [x] Consolidate all applied changes into Schema.sql and remove the completed incremental script.
 - [x] Refresh/verify the generated UserTable entity and mapping for the four new fields.
 - [x] Build and verify an EF read of personal-detail columns without displaying account data or changing records.
-- [ ] Create registration view/model/action with names, optional birthday, username, password, and confirmation.
-- [ ] Force Student role server-side; validate inputs, reject duplicate usernames, hash passwords, and protect registration POSTs.
-- [ ] Implement an explicit, controlled first-admin creation flow using framework password hashing.
-- [ ] Add LoginViewModel and AccountController with login/logout actions.
-- [ ] Create an accessible login view matching the documented design.
-- [ ] Verify usernames/password hashes and reject inactive accounts with generic failure messages.
-- [ ] Configure cookie authentication and include user ID and role claims.
-- [ ] Add authentication middleware before authorization and protect content routes by default.
-- [ ] Restrict every admin page and mutation to the Admin role on the server.
-- [ ] Implement POST logout, anti-forgery checks, local return-URL validation, and access-denied behavior.
-- [ ] Define session expiration and make deactivated-account access consistent with the requirement.
-- [ ] Verify logged-out, active student, active admin, inactive, and invalid-login behavior.
+- [x] Create registration view/model/action with names, optional birthday, username, password, and confirmation.
+- [x] Force Student role server-side; validate inputs, reject duplicate usernames, hash passwords, and protect registration POSTs.
+- [x] Implement an explicit, controlled first-admin creation flow using framework password hashing.
+- [ ] Manually verify interactive first-admin password entry and create the intended university admin.
+- [x] Add LoginViewModel and AccountController with login/logout actions.
+- [x] Create labeled, responsive login/registration views matching the documented design.
+- [x] Verify usernames/password hashes and reject inactive accounts with generic failure messages.
+- [x] Configure cookie authentication and include user ID and role claims.
+- [x] Add authentication middleware before authorization and protect content routes by default.
+- [x] Restrict the current admin controller to Admin on the server; extend this to future mutation controllers.
+- [x] Implement POST logout, anti-forgery checks, local return-URL validation, and access-denied behavior.
+- [x] Define session expiration and make deactivated-account access consistent with the requirement.
+- [x] Verify logged-out, active student, active admin, inactive, and invalid-login behavior.
+- [x] Add and verify account POST rate limiting.
 
 ## 4. Shared interface and student-facing content
 
-- [ ] Build a consistent university header, navigation, footer, page titles, and logout control.
-- [ ] Select and load the heading/body fonts and social icon library consistently.
+- [x] Build a consistent university header, navigation, footer, page titles, and logout control.
+- [x] Load Cormorant Garamond/Lato with fallback fonts for the implemented account layouts.
+- [ ] Select and load the social icon library for content pages.
 - [ ] Prepare approved preselected images, descriptive alternative text, and missing-image fallbacks.
 - [ ] Render the hero background and established university branding.
 - [ ] Render description, mission, vision, core value titles, and About image gallery.
@@ -82,8 +86,8 @@ Work through the remaining stages in order. See STATUS.md for verification limit
 
 - [ ] Populate approved university content after explicitly authorizing the data changes; no invented statistics.
 - [ ] Test admin CRUD and student read-only behavior across all content types.
-- [ ] Test direct URL and form requests so hidden buttons cannot bypass roles.
-- [ ] Test registration, optional profile fields, future birthdays, role tampering,
+- [x] Test direct access to the current protected portal/admin routes and account form requests.
+- [x] Test registration, optional profile fields, future birthdays, role tampering,
   password handling, duplicate usernames, inactive sessions, logout, and safe redirects.
 - [ ] Test missing/invalid inputs, URL schemes, empty tables, and unavailable database behavior.
 - [ ] Verify responsive layouts, mobile navigation, keyboard focus, labels, contrast, and reduced motion.
@@ -98,7 +102,8 @@ Work through the remaining stages in order. See STATUS.md for verification limit
 - [x] Commit subsequent naming, configuration, EF Core setup, and diagnostic progress locally.
 - [ ] Continue updating context/checklist documents and committing each completed, verified unit.
 - [ ] Push later commits when requested; later local commits are not yet uploaded.
-- [ ] Document fresh setup, tool restore, connection configuration, first-admin creation, and verification commands.
+- [x] Document first-admin creation and repeatable authentication verification commands.
+- [ ] Complete the fresh-checkout setup guide with tool restore and environment configuration.
 - [ ] Verify a fresh checkout can restore/build and connect to a separately prepared database.
 - [ ] Prepare a demonstration of student viewing and admin editing for submission.
 - [ ] If publishing is requested: choose hosting, configure environment-specific secrets/database access,

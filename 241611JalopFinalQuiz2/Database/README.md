@@ -34,9 +34,9 @@ live database using a temporary scaffold, reviewed, and integrated. Nullable
 names use string? with 100-character limits; Birthday uses DateOnly?. Build and
 an EF read of the four fields passed. No migrations were run.
 
-Student self-registration is approved but not implemented. Require first/last
-name in the registration view model, allow optional middle name/birthday, reject
-future birthdays, and assign Role=Student server-side. Provision admins separately.
+Student self-registration is implemented: first/last name are required; middle name
+and birthday are optional. Future birthdays are rejected and Role=Student is set
+server-side. See ../../docs/AUTHENTICATION.md for first-admin creation and tests.
 
 ## Verifying the application connection
 

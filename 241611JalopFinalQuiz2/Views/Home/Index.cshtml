@@ -1,8 +1,10 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "University portal";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<section class="portal-panel">
+    <p class="eyebrow">Ravenclaw University</p>
+    <h1>Welcome, @User.Identity?.Name.</h1>
+    <p>You are signed in to the university portal.</p>
+    <p>University information and academic programs will appear here as the content pages are built.</p>
+</section>

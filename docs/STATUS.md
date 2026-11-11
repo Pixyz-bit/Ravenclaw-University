@@ -4,6 +4,18 @@ Last verified: 2026-11-11.
 
 ## Completed
 
+- Implemented student registration, login/logout, cookie authentication, fallback
+  login protection, and Admin-only starter administration. Registration forces
+  Student; active status/roles are revalidated per authenticated request.
+- Implemented interactive --create-admin bootstrap; no university admin account
+  has been created by the agent. Interactive terminal entry still needs a manual check.
+- Added serializable duplicate-name prevention, generic login errors, anti-forgery
+  checks, safe local redirects, 30-minute sessions, and account POST rate limiting.
+- Built navy/ivory/gold account pages and minimal protected portal/admin shells.
+- Build passed with zero warnings/errors and 28 isolated HTTP/database checks passed.
+  Disposable test databases were removed; university records/schema were unchanged.
+- Visually inspected desktop and mobile login/registration. Authentication setup
+  and repeatable verification are documented in AUTHENTICATION.md.
 - Refreshed UserTable and UniversityDbContext from a temporary database-first
   scaffold after the personal-details update. Names map to nullable strings with
   100-character limits; Birthday maps to DateOnly?.
@@ -45,28 +57,29 @@ Last verified: 2026-11-11.
 
 ## Not implemented / not verified
 
-- The application still has the starter Home page and controller.
+- Home and Admin are minimal protected starter pages; full university content and
+  management forms are not implemented.
 - Student self-registration selected. The user applied the four personal fields;
   live metadata verified all eight tables and the enabled Role CHECK on 2026-11-11.
   Schema.sql is the sole consolidated schema; the completed update script was removed.
   Generated UserTable and its mapping now include the four new fields.
-  Registration UI/action are not implemented.
-- Login, account provisioning, active-account checks, and role restrictions are not implemented.
+  Registration UI/action and login are implemented.
 - No content administration or database-backed page rendering exists yet.
 - The agent did not create or alter the live database. Metadata comparison
   verified the eight table definitions. EF reads verified AcademyInfoTable and the
   four UserTable personal-detail columns; other runtime mappings still need testing.
 - Local default SQL Server was running and the database was accessible during
   verification; future connection failures should be checked against current state.
-- Login and content pages remain pending even though the database read works.
+- First-admin interactive terminal entry, final accessibility audit, and deployed
+  HTTPS behavior are not verified. Deployment has not been requested or performed.
 - The initial documentation commit contained only docs, schema, skill, and ignore
   rules. The subsequent source baseline adds the existing starter application.
 
 ## Next implementation work
 
-1. Implement student registration, login, and Admin/Student authorization before exposing content.
-2. Provide an explicit way to provision the first admin using a password hasher.
-3. Build content views and admin editing using the documented design and schema.
+1. User creates the first admin through the documented interactive command.
+2. Build university content views and admin editing using the documented design and schema.
+3. Verify remaining content-table runtime mappings and complete responsive/accessibility QA.
 
 Update this file after completed progress. Use Git history for commit identifiers
 and detailed change history rather than maintaining duplicate commit logs here.
