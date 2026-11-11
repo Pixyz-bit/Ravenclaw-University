@@ -25,11 +25,16 @@ The public name is Ravenclaw University. Existing Academy-prefixed table and
 column names remain unchanged; a branding correction does not require a database
 migration or a SQL identifier rename.
 
-EF Core and DbContext were explained but not yet installed or implemented.
-If selected, a Data/ folder can hold UniversityDbContext and Models/ can hold
-entities. A separate Repositories/ layer is optional, not a requirement.
-Do not use migrations and manual schema scripts as competing schema authorities.
-Choose a workflow explicitly before introducing either scaffolding or migrations.
+The user selected EF Core database-first scaffolding from existing SQL tables.
+SQL Server and Design package references (9.*) are present. Generation is pending:
+Data/ will hold UniversityDbContext and Models/ will hold entities. A separate
+Repositories/ layer is optional, not a requirement. Continue using SQL scripts
+for schema changes; do not introduce migrations as a competing schema authority.
+
+appsettings.json contains ConnectionStrings:UniversityDb for the local Windows-
+authenticated database connection. Keep exactly one root JSON object and merge
+new settings into it rather than appending another object. Generated context
+code should omit OnConfiguring; register it in Program.cs after generation.
 
 ## Authentication
 
@@ -37,5 +42,5 @@ Role values are Admin and Student. MVC must require authentication for content
 and admin authorization for every content mutation. Use framework password
 hashing and anti-forgery protection for state-changing forms.
 
-No authentication scheme, EF Core provider, or DbContext is currently configured.
+No authentication scheme or DbContext is currently configured in the application.
 UseAuthorization in the starter pipeline alone does not implement login.
