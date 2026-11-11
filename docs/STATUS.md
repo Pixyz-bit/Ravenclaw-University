@@ -4,6 +4,9 @@ Last verified: 2026-11-11.
 
 ## Completed
 
+- Restarted the verified stale web process on localhost:5182, rebuilt the normal
+  output successfully, and confirmed the live login HTML no longer contains the
+  student-access caption. Source removal alone had not updated the running process.
 - Integrated the user-approved transparent crest into both shared wordmarks and
   the favicon; documented the canonical asset and kept the original PNG unchanged.
 - Removed the requested student-access caption and compacted account forms.
