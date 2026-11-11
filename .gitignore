@@ -1,0 +1,25 @@
+# Visual Studio and .NET generated files
+.vs/
+**/bin/
+**/obj/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+TestResults/
+*.log
+
+# Local secrets and environment overrides
+.env
+.env.*
+!.env.example
+**/appsettings.Local.json
+**/secrets.json
+*.pfx
+*.p12
+
+# Local SQL Server data and backups
+*.mdf
+*.ndf
+*.ldf
+*.bak
