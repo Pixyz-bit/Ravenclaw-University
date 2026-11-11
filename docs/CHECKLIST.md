@@ -59,7 +59,7 @@ Work through the remaining stages in order. See STATUS.md for verification limit
 ## 4. Shared interface and student-facing content
 
 - [x] Build a consistent university header, navigation, footer, page titles, and logout control.
-- [x] Match the supplied navbar reference with centered section links and a circular account menu; collapse navigation on phones.
+- [x] Refine the navbar to the established navy/gold design after the user rejected the literal sketch frame; keep section links, circular account menu, and mobile disclosure.
 - [x] Obtain approval for the cleaned transparent crest and use it as the main logo in shared layouts and favicon.
 - [x] Remove the student-access caption and verify normal login/signup forms fit desktop and phone viewports without scrolling.
 - [x] Load Cormorant Garamond/Lato with fallback fonts for the implemented account layouts.

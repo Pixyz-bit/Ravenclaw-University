@@ -56,7 +56,7 @@ p { max-width:65ch; }
 .validation-summary ul { padding-left:20px; margin:0; }
 .validation-summary-valid,.field-validation-valid { display:none; }
 .portal-body { min-height:100dvh; display:flex; flex-direction:column; }
-.portal-header { padding:24px max(24px,calc((100vw - 1200px)/2)); background:var(--navy); border-bottom:1px solid var(--gold); display:flex; align-items:center; justify-content:space-between; gap:24px; }
+
 .portal-nav { display:flex; align-items:center; gap:24px; flex-wrap:wrap; }
 .portal-nav>a { color:var(--ivory); text-decoration:none; }
 .portal-nav form { margin:0; }
@@ -74,7 +74,7 @@ p { max-width:65ch; }
  .account-content { padding:20px 24px; }
  .wordmark { font-size:1.35rem; }
  .university-logo { width:48px; height:60px; }
- .portal-header { align-items:flex-start; flex-direction:column; padding:24px; }
+
  .portal-nav { gap:20px; }
  .portal-main { padding:40px 24px; }
 }
@@ -164,7 +164,7 @@ textarea:focus-visible,select:focus-visible { outline:3px solid var(--blue); out
 .row-actions { display:flex; gap:12px; align-items:center; flex-wrap:wrap; }
 .button-secondary { border-color:var(--line); color:var(--navy); background:transparent; }
 .button-danger { background:var(--error); color:var(--ivory); }
-@media(max-width:1000px) { .portal-header { flex-direction:column; align-items:flex-start; } .portal-nav { gap:16px; } }
+
 @media(max-width:700px) {
  .university-hero,.mission-grid,.gallery-grid,.program-grid,.contact-grid { grid-template-columns:1fr; }
  .hero-visual { min-height:260px; }
@@ -220,31 +220,44 @@ textarea:focus-visible,select:focus-visible { outline:3px solid var(--blue); out
  .admin-main { padding:28px 24px; }
  .admin-footer { padding:20px 24px; }
 }
-/* University navbar follows the approved reference: brand / centered links / account. */
-.portal-header { display:grid; grid-template-columns:auto minmax(0,1fr) auto; align-items:center; gap:24px; margin:18px 24px 0; padding:10px 24px; border:2px solid var(--navy); border-radius:24px 24px 0 0; background:var(--ivory); }
-.portal-header .wordmark { color:var(--navy); font-size:1.5rem; gap:12px; white-space:nowrap; }
-.portal-header .university-logo { width:52px; height:66px; }
-.portal-header .portal-nav { display:flex; justify-content:center; gap:clamp(14px,1.8vw,28px); flex-wrap:nowrap; }
-.portal-header .portal-nav>a { color:var(--navy); min-height:44px; display:inline-flex; align-items:center; font-size:.95rem; }
-.portal-header :focus-visible { outline-color:var(--blue); }
+/* University navigation uses the established navy, ivory, and antique-gold identity. */
+.portal-header { background:var(--navy); border-bottom:1px solid var(--gold); }
+.portal-header-inner { max-width:1200px; margin:0 auto; padding:14px 24px; display:grid; grid-template-columns:auto minmax(0,1fr) auto; align-items:center; gap:32px; }
+.portal-header .wordmark { color:var(--ivory); font-size:1.55rem; gap:12px; white-space:nowrap; }
+.portal-header .university-logo { width:44px; height:56px; }
+.portal-header .portal-nav { justify-content:flex-end; gap:26px; flex-wrap:nowrap; }
+.portal-header .portal-nav>a { display:inline-flex; align-items:center; position:relative; min-height:44px; color:#d0d5df; font-size:.9rem; }
+.portal-header .portal-nav>a::after { content:""; position:absolute; bottom:3px; left:0; right:0; height:2px; background:var(--gold); transform:scaleX(0); transition:transform 160ms ease-out; }
+.portal-header .portal-nav>a:hover,.portal-header .portal-nav>a:focus-visible { color:var(--ivory); }
+.portal-header .portal-nav>a:hover::after,.portal-header .portal-nav>a:focus-visible::after { transform:scaleX(1); }
+.portal-header :focus-visible { outline-color:var(--gold); }
 .site-navigation { min-width:0; }
 .site-navigation>summary { display:none; }
-.account-menu { position:relative; }
-.account-menu>summary { display:grid; place-items:center; list-style:none; width:48px; height:48px; border:2px solid var(--navy); border-radius:50%; color:var(--navy); cursor:pointer; }
+.account-menu { position:relative; padding-left:24px; border-left:1px solid #c3a56840; }
+.account-menu>summary { display:grid; place-items:center; list-style:none; width:44px; height:44px; border:1px solid #c3a56880; border-radius:50%; color:var(--ivory); cursor:pointer; }
 .account-menu>summary::-webkit-details-marker { display:none; }
-.account-menu>summary:hover { background:#e5dfd2; }
-.account-dropdown { position:absolute; z-index:20; right:0; top:calc(100% + 12px); min-width:210px; max-width:calc(100vw - 48px); padding:12px; background:var(--ivory); border:1px solid var(--line); border-radius:6px; box-shadow:0 12px 28px #101d3420; }
-.account-dropdown-name { display:block; padding:8px; color:var(--muted); font-size:.8rem; overflow-wrap:anywhere; }
+.account-menu>summary:hover,.account-menu[open]>summary { background:var(--blue); border-color:var(--gold); }
+.account-dropdown { position:absolute; z-index:20; right:0; top:calc(100% + 16px); min-width:220px; max-width:calc(100vw - 48px); padding:12px; background:var(--ivory); border:1px solid var(--line); border-top:2px solid var(--gold); box-shadow:0 12px 28px #101d3420; }
+.account-dropdown-name { display:block; padding:8px; color:var(--muted); font-size:.8rem; overflow-wrap:anywhere; border-bottom:1px solid var(--line); margin-bottom:4px; }
 .account-dropdown a,.account-dropdown button { display:flex; align-items:center; width:100%; min-height:44px; border:0; padding:10px 8px; color:var(--navy); text-decoration:none; background:transparent; cursor:pointer; text-align:left; font-size:.9rem; }
 .account-dropdown a:hover,.account-dropdown button:hover { background:#e5dfd2; }
+.account-dropdown :focus-visible { outline-color:var(--blue); }
 .account-dropdown form { margin:0; }
 @media(max-width:1000px) {
- .portal-header { grid-template-columns:minmax(0,1fr) auto; gap:8px 16px; padding:12px 20px; margin:12px 12px 0; border-radius:20px 20px 0 0; }
- .portal-header .wordmark { grid-column:1; grid-row:1; font-size:1.3rem; gap:8px; white-space:normal; }
- .portal-header .university-logo { width:42px; height:54px; }
- .account-menu { grid-column:2; grid-row:1; }
- .account-menu>summary { width:44px; height:44px; }
- .site-navigation { grid-column:1/-1; grid-row:2; }
- .site-navigation>summary { display:list-item; cursor:pointer; min-height:44px; padding:10px 0; font-size:.85rem; color:var(--navy); }
- .portal-header .portal-nav { justify-content:flex-start; flex-wrap:wrap; gap:0 24px; padding:4px 0 12px; }
+ .portal-header-inner { grid-template-columns:minmax(0,1fr) auto; gap:0 16px; padding:12px 24px; }
+ .portal-header .wordmark { grid-column:1; grid-row:1; font-size:1.4rem; gap:10px; white-space:normal; }
+ .account-menu { grid-column:2; grid-row:1; padding-left:16px; }
+ .site-navigation { grid-column:1/-1; grid-row:2; margin-top:10px; border-top:1px solid #c3a56840; }
+ .site-navigation>summary { display:flex; align-items:center; gap:10px; cursor:pointer; min-height:44px; padding:10px 0 0; font-size:.85rem; color:var(--ivory); list-style:none; }
+ .site-navigation>summary::-webkit-details-marker { display:none; }
+ .menu-lines { width:18px; height:12px; border-top:1px solid var(--gold); border-bottom:1px solid var(--gold); position:relative; }
+ .menu-lines::after { content:""; position:absolute; left:0; right:0; top:4px; border-top:1px solid var(--gold); }
+ .portal-header .portal-nav { justify-content:flex-start; flex-wrap:wrap; gap:0 28px; padding:12px 0 4px; }
 }
+@media(max-width:480px) {
+ .portal-header-inner { padding:12px 20px; }
+ .portal-header .wordmark { font-size:1.2rem; }
+ .portal-header .university-logo { width:36px; height:46px; }
+ .account-menu { padding-left:12px; }
+}
+@media(prefers-reduced-motion:reduce) { .portal-header .portal-nav>a::after { transition:none; } }

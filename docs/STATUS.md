@@ -4,6 +4,13 @@ Last verified: 2026-11-11.
 
 ## Completed
 
+- Corrected the university navbar after the user rejected the literal sketch frame:
+  full-width navy, ivory wordmark/links, fine gold rule, compact crest, and an
+  inner container aligned with the page. Removed conflicting old header rules.
+  Verified at 1280px, 1920px, and 390px, including mobile menu and Escape dismissal
+  of account actions. Build and all 69 isolated checks passed.
+- Pushed the previous 13 local progress commits through 33b6609 to origin/main
+  at the user's request before continuing the navbar correction.
 - Separated administration into its own layout with a persistent desktop sidebar,
   seven content links, an active-page indicator, and collapsible phone navigation.
 - Updated the university navbar to the supplied reference: crest/name left,

@@ -34,7 +34,7 @@ Navigation -> Hero -> About -> Academics and Student Services -> Contact ->
 Leadership and Administration -> Footer. The implemented version uses one
 authenticated homepage with section anchors; separate detail pages remain optional.
 
-- Ivory framed university navbar, navy admin sidebar and footer; alternate navy and ivory content sections.
+- Full-width navy university navbar, navy admin sidebar and footer; alternate navy and ivory content sections.
 - Large architectural hero image with readable overlay and left-aligned headline.
   Use Ravenclaw University consistently in the logo text, headings, navigation,
   page titles, login screen, and footer when those surfaces are implemented.
@@ -56,11 +56,12 @@ navy primary action. Below 850px the story panel reduces to the wordmark.
 Registration retains compact two-column name/password rows on phones; below
 350px those rows stack for readability. Login controls are at least 48px high;
 registration controls are at least 44px high. Errors are inline and textual, and
-there is a keyboard skip link. The university navbar follows the user's reference:
-brand at left, centered Home/About/Academics/Contact/Leadership links, and a circular
+there is a keyboard skip link. The university navbar uses the established identity:
+brand at left, Home/About/Academics/Contact/Leadership links at right, and a circular
 account control at right. Its dropdown has the username, Admin-only Administration
-link, and POST Sign out. Use an ivory background, dark outlined frame, and rounded
-upper corners. Below 1001px, a native Menu disclosure shows the navigation links.
+link, and POST Sign out. Use a full-width midnight-navy background, ivory text,
+and a fine gold bottom rule. Align the inner content to the 1200px page container.
+Below 1001px, a native hamburger/Menu disclosure shows the navigation links.
 Desktop and mobile forms were visually inspected; later content sections must
 reuse these tokens consistently.
 
@@ -103,7 +104,7 @@ stretch, or replace it without an explicit request. No opaque backdrop or shadow
 
 All layouts use this asset beside the university name with object-fit:contain.
 Account layouts use 64 × 80px on desktop and 48 × 60px below 850px; the university
-navbar uses 52 × 66px, or 42 × 54px below 1001px; the admin sidebar uses 44 × 56px. It also
+navbar uses 44 × 56px, or 36 × 46px below 481px; the admin sidebar uses 44 × 56px. It also
 serves as the PNG favicon. Explicit dimensions reserve space. The linked wordmark
 gets its accessible name from the adjacent text, so the image has empty alt text;
 standalone instances must provide descriptive alternative text. On viewports

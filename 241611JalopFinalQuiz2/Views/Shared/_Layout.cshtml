@@ -14,11 +14,12 @@
 <body class="portal-body">
     <a class="skip-link" href="#main-content">Skip to content</a>
     <header class="portal-header">
+      <div class="portal-header-inner">
         <a class="wordmark" asp-controller="Home" asp-action="Index"><img class="university-logo" src="~/images/branding/ravenclaw-university-crest.png" asp-append-version="true" width="1123" height="1401" alt="" aria-hidden="true" /><span>Ravenclaw University</span></a>
         @if (User.Identity?.IsAuthenticated == true)
         {
             <details class="site-navigation" open>
-                <summary>Menu</summary>
+                <summary><span class="menu-lines" aria-hidden="true"></span>Menu</summary>
                 <nav class="portal-nav" aria-label="Main navigation">
                 <a asp-controller="Home" asp-action="Index">Home</a>
                 <a asp-controller="Home" asp-action="Index" asp-fragment="about">About</a>
@@ -37,6 +38,7 @@
             </details>
         }
         else { <a asp-controller="Account" asp-action="Login">Sign in</a> }
+      </div>
     </header>
     <main id="main-content" class="portal-main">@RenderBody()</main>
     <footer class="portal-footer">© @DateTime.UtcNow.Year Ravenclaw University <span>Where Wisdom Takes Flight.</span></footer>
