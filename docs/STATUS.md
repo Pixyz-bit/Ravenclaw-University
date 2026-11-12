@@ -39,6 +39,26 @@ Last verified: 2026-11-12.
 
 ## Completed
 
+- User retained the title-only program-card reveal after cancelling the requested
+  rollback. Mobile uses the native details tap toggle; keyboard reveal is scoped
+  to focus-visible so touch focus alone does not keep a closed card expanded.
+  The existing 945f67c card implementation remains, alongside the flat gallery work.
+  Browser verification at 375px confirmed click opens/description visible, a second
+  click closes/description hidden, and no horizontal document overflow. Final local
+  build passed with zero warnings/errors. Login, CSS, and both updated scripts
+  returned HTTP 200 after restart. CSS compilation and JavaScript syntax checks
+  passed. Visual checks used temporary compiled Razor fixtures rather than live SQL.
+
+- Changed Gallery to a flat, scroll-driven composition at the user's request.
+  The section is exactly 200dvh with a sticky viewport stage below the navbar.
+  Removed the time-based frame loop and pointer parallax; alternating column
+  offsets derive from clamped page-scroll progress. Scroll updates coalesce into
+  one requested frame, with no self-scheduled idle loop. Existing images, dialog,
+  and keyboard/reduced-motion grids remain. Build passed with zero warnings/errors;
+  JavaScript syntax and design-detector checks passed. Compiled Razor fixture QA
+  confirmed a flat 2D plane, changing offsets after scrolling, 1440px section height
+  at a 720px viewport and 1624px at 812px, and no mobile document overflow.
+
 - Implemented the requested program-card reveal: subject name only at rest;
   hover/focus/native touch toggle raises name and description over a fading navy
   gradient. Removed the arrow, View description label, and separate description box

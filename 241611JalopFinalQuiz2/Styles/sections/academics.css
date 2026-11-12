@@ -272,14 +272,14 @@
 .program-card>summary::after {
     @apply pointer-events-none [background:linear-gradient(0deg,#101d34_0%,#101d34d9_30%,#101d3400_90%)] opacity-[.55] [transition:opacity_500ms_cubic-bezier(.16,1,.3,1)];
 }
-.program-card[open] .program-card-caption,.program-card:focus-within .program-card-caption {
+.program-card[open] .program-card-caption,.program-card:has(:focus-visible) .program-card-caption {
     @apply [transform:translateY(0)];
 }
-.program-card[open] .program-card-copy,.program-card:focus-within .program-card-copy {
+.program-card[open] .program-card-copy,.program-card:has(:focus-visible) .program-card-copy {
     @apply opacity-100 visible;
 }
-.program-card[open]>summary::after,.program-card:focus-within>summary::after { @apply opacity-100; }
-@media(hover:hover) {
+.program-card[open]>summary::after,.program-card:has(:focus-visible)>summary::after { @apply opacity-100; }
+@media(hover:hover) and (min-width:601px) {
     .program-card:hover .program-card-caption { @apply [transform:translateY(0)]; }
     .program-card:hover .program-card-copy { @apply opacity-100 visible; }
     .program-card:hover>summary::after { @apply opacity-100; }

@@ -192,6 +192,10 @@ together over a bottom-heavy navy gradient fading upward. Caption transforms use
 are measured for originals and carousel copies so the resting name stays visible.
 Long descriptions scroll, can receive keyboard focus, and remain database-backed.
 Reduced motion removes these transitions. Automatic program browsing is retained.
+On mobile/touch, tapping the image toggles the native details open state to reveal
+the description; tapping again closes it. Focus-based reveals use focus-visible
+so ordinary touch focus does not hold a closed card open. Keyboard users still
+reveal the caption when navigating to the summary or description.
 
 ## Contact footer
 
@@ -214,34 +218,22 @@ Styles/sections/contact.css own markup and Tailwind styles. The layout's optiona
 Footer section avoids duplicate footers; unavailable-content and other pages keep
 the small fallback footer.
 
-## Drifting university gallery
+## Scroll-driven university gallery
 
-The user supplied React Bits DriftWall source and requested a new section. Gallery
-follows Academics, using a Razor partial, a vanilla-JavaScript enhancement, and its
-own Tailwind source file rather than adding a React runtime to MVC. Five alternating
-columns (three on phones) drift at varied speeds inside a tilted 3D plane, with
-pointer parallax and lift on hover. Hover slows
-that column; opening an image pauses the tracks. Animation stops offscreen or
-when the document is hidden. Navy/gold styling matches the university; imagery
-comes from About gallery uploads, then approved illustrations.
+The user's latest request supersedes the angled, automatically drifting treatment.
+Gallery occupies exactly 200dvh, with a sticky gallery-stage filling the viewport
+below the measured navbar. Its plane is flat, using translation only with no
+perspective, rotation, pointer parallax, or hover lift. Alternating column offsets
+follow clamped page-scroll progress; scrolling back reverses the effect, and idle
+columns remain fixed. Scroll events coalesce into a single requested frame rather
+than a self-scheduled animation loop. Resize rebuilds at the current progress.
 
-Selecting an image opens a native dialog with its title and full image. Escape or
-Close image dismisses it. Keyboard focus exposes an ordinary image grid; reduced
-motion and no-JavaScript browsing also use this grid. Duplicate visual tiles are
-hidden from assistive technology and excluded from tab order. Focus rings and
-normal image links remain available. Styles live in sections/gallery.css.
-
-The gallery wall now fills a viewport below the sticky navbar, with its heading
-overlaid above a full-width navy gradient restricted to the top (at most 380px or
-65% of the section). It fades from dark blue to fully transparent downward for text
-readability. The gradient hides during keyboard image browsing. Tiles remain fully
-opaque with their original colors; canvas masks and per-image tint layers stay
-removed. Column/tile sizes scale from the section width
-to cover wide screens. Keyboard/reduced-motion grids keep readable spacing. A
-420px minimum preserves access in very short windows; the section can then scroll.
-For the static/no-JavaScript and reduced-motion grid, a content-sized heading row
-reserves the actual wrapped text height, followed by a 24px image-grid gap. Keyboard
-focus hides that heading and releases its row so the grid can fill the section.
+Images still come from About gallery uploads, then the approved illustrations.
+The heading keeps its localized top navy gradient and images retain their colors.
+Selecting an image opens the native full-image dialog, with Close/Escape support.
+Keyboard browsing reveals the accessible static grid; reduced motion and no-JS
+retain the same static fallback. Styles live in sections/gallery.css and behavior
+in drift-wall.js. All image sources and MVC/EF content paths remain established.
 
 ## The Hogwarts Collegiate Circle
 

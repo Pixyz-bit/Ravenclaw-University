@@ -5,3 +5,7 @@ Read it before changing UI; maintain its established tokens and account layouts.
 
 Last refined: 2026-11-12. The canonical reference documents the unified public
 section palette and shared typography roles.
+
+Later refinements: title-only program cards with hover/keyboard reveal and mobile
+tap toggles; flat, scroll-driven gallery across two viewport heights. See the
+canonical reference for the current interaction rules.

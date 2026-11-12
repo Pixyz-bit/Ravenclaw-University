@@ -1,14 +1,15 @@
 /* MVC/Tailwind adaptation of the user-supplied React Bits DriftWall reference. */
 @layer components {
+    .gallery-stage { @apply sticky top-[var(--portal-header-height,85px)] h-[calc(100dvh_-_var(--portal-header-height,85px))] w-full; }
     .gallery-section {
-        @apply relative bg-navy text-ivory h-[calc(100dvh_-_var(--portal-header-height,85px))] min-h-[420px] p-0 scroll-mt-[-16px];
+        @apply relative bg-navy text-ivory h-[200dvh] min-h-0 p-0 scroll-mt-[-16px];
     }
 
     .gallery-heading {
         @apply absolute top-0 left-0 right-0 z-10 max-w-[1200px] [margin:0_auto] [padding:clamp(24px,4dvh,48px)_24px_48px] pointer-events-none [text-shadow:0_2px_12px_var(--color-navy)];
     }
 
-    .gallery-section::after {
+    .gallery-stage::after {
         @apply content-[''] absolute top-0 left-0 right-0 z-1 h-[min(65%,380px)] pointer-events-none [background:linear-gradient(180deg,#101d34f2_0%,#101d34a6_40%,#101d3400_100%)];
     }
 
@@ -25,19 +26,19 @@
     }
 
     /* Let wrapped headings size the static/reduced-motion grid's reserved space. */
-    .gallery-section:has(.drift-wall:not(.is-enhanced)) {
+    .gallery-stage:has(.drift-wall:not(.is-enhanced)) {
         @apply grid [grid-template-rows:auto_minmax(0,1fr)];
     }
 
-    .gallery-section:has(.drift-wall:not(.is-enhanced)) .gallery-heading {
+    .gallery-stage:has(.drift-wall:not(.is-enhanced)) .gallery-heading {
         @apply relative w-full pb-0;
     }
 
-    .gallery-section:has(.drift-wall:not(.is-enhanced))::after {
+    .gallery-stage:has(.drift-wall:not(.is-enhanced))::after {
         @apply hidden;
     }
 
-    .gallery-section:has(.drift-wall:not(.is-enhanced) .drift-wall__items:focus-within) {
+    .gallery-stage:has(.drift-wall:not(.is-enhanced) .drift-wall__items:focus-within) {
         @apply [grid-template-rows:0_minmax(0,1fr)];
     }
 
@@ -45,11 +46,11 @@
         @apply absolute inset-0 w-full h-full overflow-hidden [--dw-tile-w:200px] [--dw-tile-h:132px] [--dw-gap:18px] [--dw-radius:14px] [--dw-lift:64px];
     }
 
-    .gallery-section:has(.drift-wall__items:focus-within) .gallery-heading {
+    .gallery-stage:has(.drift-wall__items:focus-within) .gallery-heading {
         @apply invisible;
     }
 
-    .gallery-section:has(.drift-wall__items:focus-within)::after {
+    .gallery-stage:has(.drift-wall__items:focus-within)::after {
         @apply hidden;
     }
 
@@ -94,7 +95,7 @@
     }
 
     .drift-wall__canvas {
-        @apply absolute inset-0 overflow-hidden [perspective:1200px] [perspective-origin:50%_50%];
+        @apply absolute inset-0 overflow-hidden;
     }
 
     .drift-wall__canvas[hidden] {
@@ -102,19 +103,19 @@
     }
 
     .drift-wall__plane {
-        @apply absolute top-[50%] left-[50%] flex [transform-style:preserve-3d] [transform-origin:50%_50%] will-change-transform;
+        @apply absolute top-[50%] left-[50%] flex [transform-origin:50%_50%] will-change-transform;
     }
 
     .drift-wall__col {
-        @apply relative w-[calc(var(--dw-tile-w)_+_var(--dw-gap))] shrink-0 [transform-style:preserve-3d];
+        @apply relative w-[calc(var(--dw-tile-w)_+_var(--dw-gap))] shrink-0;
     }
 
     .drift-wall__track {
-        @apply flex flex-col [transform-style:preserve-3d] will-change-transform;
+        @apply flex flex-col will-change-transform;
     }
 
     .drift-wall__tile {
-        @apply relative block w-full h-[calc(var(--dw-tile-h)_+_var(--dw-gap))] shrink-0 [transform-style:preserve-3d];
+        @apply relative block w-full h-[calc(var(--dw-tile-h)_+_var(--dw-gap))] shrink-0;
     }
 
     .drift-wall__inner {

@@ -6,11 +6,17 @@ the corresponding sections. Admin image uploads and account management are now
 implemented. No enrollment, inquiry form, or extra tables were added. Schema.sql
 remains unchanged and is the sole consolidated schema.
 
+The gallery's latest treatment is flat and page-scroll driven across a 200dvh
+section, with a viewport-sized sticky stage below navigation. Column offsets follow
+scroll progress rather than elapsed time; idle scrolling tracks do not advance.
+Perspective, rotation, and pointer parallax are removed. Existing image sources,
+dialogs, keyboard access, and reduced-motion/static fallbacks remain.
+
 The standalone gallery follows Academics and reuses AboutImagesTable through the
 existing About gallery editor. When no safe gallery images exist, the approved
-university illustrations appear. The DriftWall reference is adapted to Razor,
-Tailwind, and vanilla JavaScript: perspective columns drift in alternating
-directions, hover lifts an image, and selecting one opens its full-size preview.
+university illustrations appear. The original DriftWall reference is adapted to
+Razor, Tailwind, and vanilla JavaScript with the latest scroll-driven treatment;
+selecting an image opens its full-size preview.
 Keyboard and reduced-motion browsing use an ordinary image grid. No new database
 table, controller, or React runtime is needed for this read-only section.
 
