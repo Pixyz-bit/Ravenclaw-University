@@ -1,22 +1,24 @@
 @model UniversityPageViewModel
-@{ ViewData["Title"]="University"; }
+@{ ViewData["Title"]="University"; ViewData["MainClass"] = Model.Unavailable ? null : "university-main"; }
 @if (Model.Unavailable)
 {
     <section class="empty-state" role="alert"><h1>University information is temporarily unavailable.</h1><p>Please try again in a moment.</p><a class="button button-primary" asp-action="Index">Try again</a></section>
 }
 else
 {
-    <section class="university-hero">
-        <div class="hero-copy"><p class="eyebrow">Ravenclaw University</p><h1>Where Wisdom<br /><em>Takes Flight.</em></h1><p>A place for curious minds. Explore our university and its academic programs.</p><a class="button button-gold" href="#academics">Explore academics <span aria-hidden="true">→</span></a></div>
-        <div class="hero-visual image-frame">
+    <section id="home" class="university-hero" aria-labelledby="hero-header">
             @if (!string.IsNullOrWhiteSpace(Model.University?.HeroImg) && SafeImageAttribute.IsSafeImage(Model.University.HeroImg))
             {
-                <img class="@(Model.University.HeroImg == "/images/branding/ravenclaw-university-crest.png" ? "hero-crest" : "")" src="@Model.University.HeroImg" alt="Ravenclaw University" data-content-image />
-                <span class="media-fallback" data-image-fallback hidden>Ravenclaw University</span>
+                <img class="hero-background @(Model.University.HeroImg == "/images/branding/ravenclaw-university-crest.png" ? "hero-background-crest" : "")" src="@Model.University.HeroImg" alt="" aria-hidden="true" fetchpriority="high" data-content-image />
             }
-            else { <img class="hero-crest" src="~/images/branding/ravenclaw-university-crest.png" alt="Ravenclaw University crest" /> }
+            else { <img class="hero-background hero-background-crest" src="~/images/branding/ravenclaw-university-crest.png" alt="" aria-hidden="true" /> }
+        <div class="hero-copy">
+            <p class="eyebrow">Ravenclaw University</p>
+            <h1 id="hero-header" class="hero-header">Where Wisdom<br /><em>Takes Flight.</em></h1>
+            <p class="hero-description">A place for curious minds. Explore our university and its academic programs.</p>
         </div>
     </section>
+    <div class="university-content">
     @if (User.IsInRole("Admin")) { <p class="admin-note">You are viewing the student-facing page. <a asp-controller="Admin" asp-action="Index">Manage university content →</a></p> }
     <section id="about" class="university-section">
         <div class="section-heading"><p class="eyebrow">About the university</p><h2>Knowledge begins with curiosity.</h2></div>
@@ -101,4 +103,5 @@ else
             </article>
         }
     </section>
+    </div>
 }

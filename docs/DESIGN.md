@@ -67,8 +67,16 @@ reuse these tokens consistently.
 
 ## University content and editors
 
-The homepage uses a split navy hero with the approved crest as a fallback visual,
-ivory reading sections, thin dividers, two-column mission/vision and program layouts,
+The homepage opens with a full-width hero at least 100dvh tall, below the unchanged
+navbar. The uploaded hero image covers the background; a navy-black overlay fades
+from dark on the left to lighter on the right. A left-aligned hero header and short
+description sit over the image, vertically centered in a 1200px inner container.
+Keep the established serif/italic ivory-and-gold motto and Lato supporting text.
+There are no hero CTA buttons, carousel controls, or decorative reference branding.
+If no hero image is configured, the approved crest is a contained background at
+the right; unavailable images leave the navy gradient readable. The hero may grow
+on short screens/zoom rather than clip text. Subsequent content retains the centered
+1200px reading width and ivory sections, thin dividers, mission/vision and program layouts,
 gallery images, contact details, and founder biographies/messages. Unpublished content
 is labeled rather than invented. Razor encodes text and retains paragraph breaks.
 Navigation wraps on smaller screens; page sections stack below 700px.

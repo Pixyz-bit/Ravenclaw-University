@@ -14,6 +14,7 @@ Recorded 2026-11-11 from the project conversation.
 | Admins can manage existing accounts | User requested Account management; search/edit details, profile, role/status with self-lockout protection; passwords and account creation/deletion remain separate |
 | Each of seven admin content sections has a dedicated controller, form ViewModel, and Index view | User requested a clear one-to-one MVC structure for learning; retain existing database-first entities and use direct DbContext mapping |
 | University navbar uses the established navy design | User rejected the literal rounded outlined sketch implementation. Use a full-width navy bar, ivory text, fine gold divider, constrained aligned inner content, and a circular account control |
+| Hero follows the supplied reference composition | Full-width, viewport-height background; dark-left/light-right overlay; left-aligned header and supporting description; no CTA buttons. Reference navbar/branding are excluded |
 | University and contact records are singletons in editor logic | Serializable creation prevents duplicates; existing rows are edited |
 | Use Font Awesome Free 6.7.2 for optional social icons | Supported classes are allowlisted; platform labels remain readable without the CDN |
 | Database name: Ravenclaw University Db | Explicit user naming request |

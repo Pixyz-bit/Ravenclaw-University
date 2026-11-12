@@ -40,7 +40,7 @@
         else { <a asp-controller="Account" asp-action="Login">Sign in</a> }
       </div>
     </header>
-    <main id="main-content" class="portal-main">@RenderBody()</main>
+    <main id="main-content" class="portal-main @ViewData["MainClass"]">@RenderBody()</main>
     <footer class="portal-footer">© @DateTime.UtcNow.Year Ravenclaw University <span>Where Wisdom Takes Flight.</span></footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

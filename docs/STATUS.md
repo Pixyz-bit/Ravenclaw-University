@@ -4,6 +4,13 @@ Last verified: 2026-11-12.
 
 ## Completed
 
+- Updated the hero to the supplied reference composition: full-width, minimum
+  100dvh height, uploaded background, left-dark/right-light overlay, left-aligned
+  hero header and description, and no CTA buttons. The navbar is unchanged.
+  Subsequent sections retain their centered reading width; no schema changes.
+- Build and all 126 checks passed. Browser measurements verified 720px/844px/480px
+  hero heights at matching desktop/phone/short viewports, no horizontal overflow,
+  and zero hero links/buttons. Disposable preview cleanup completed.
 - Completed desktop (1280px) and phone (390px) visual checks of Account management
   list/edit, sidebar navigation, and hero/gallery/program image uploaders. All nine
   admin links remain visible on desktop; the sidebar disclosure works on phones.
