@@ -4,6 +4,12 @@ Last verified: 2026-11-12.
 
 ## Completed
 
+- At the user's explicit request, added six sample programs to the local university
+  database on 2026-11-12: Astronomy, Charms, Transfiguration, Potions, Herbology, and
+  Defence Against the Dark Arts. The table was empty; SQL confirmed six inserts
+  with sample descriptions and existing illustration paths. SeedPrograms.sql is an
+  optional idempotent content script; Schema.sql and table definitions are unchanged.
+  Shared-memory prelogin timed out; the local named-pipe connection succeeded.
 - Implemented reference-based About and Academics layouts after inspecting the live
   Digital Original site and pasted markup. About uses four sticky scroll-switched
   chapters with overlapping image pairs and mobile swipe/dots. Academics uses a

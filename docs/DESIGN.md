@@ -100,7 +100,8 @@ light circular arrow hover feedback. Its track loops slowly while visible, pause
 on hover, focus, open descriptions, manual pause, or reduced-motion preference,
 and supports drag/swipe. Duplicate visual laps are hidden from assistive technology.
 The pause control is an accessibility addition to the reference. All program data
-continues coming from ProgramsTable; no production demo programs are inserted.
+continues coming from ProgramsTable. The user authorized six sample subjects on
+2026-11-12; their descriptions explicitly identify them as sample content.
 
 Administration uses flat divided lists and explicit Edit/Delete actions. Editors use
 Lato for operational headings, visible labels, native text/date/URL inputs, textarea

@@ -60,6 +60,13 @@ with local SQL access. This validates these reads, not every mapping in the sche
 
 ## Tables
 
+Optional sample program content is in SeedPrograms.sql. It adds six clearly labelled
+fictional sample subjects with existing university illustrations, skipping matching
+subject names case-insensitively. The user authorized applying it on 2026-11-12;
+six records were inserted into the local university database. This file contains
+data inserts only, is not run automatically, and is not a schema migration.
+Schema.sql remains the single consolidated schema definition.
+
 | Table | Purpose | Primary key |
 | --- | --- | --- |
 | AcademyInfoTable | Hero image, university description, mission, and vision | AcademyInfoId |

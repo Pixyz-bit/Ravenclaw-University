@@ -98,7 +98,10 @@ Academics uses a dark looping row of portrait image cards from ProgramsTable,
 with edge fades, image-zoom/arrow hover feedback, drag/swipe navigation, and native
 description disclosures. Motion pauses on hover/focus/open cards, manual pause, and
 reduced-motion preference. Duplicate visual laps are hidden from screen readers.
-No demo records are written to the university database. -IncludeContent -Preview
+The user separately authorized six sample programs in the university database on
+2026-11-12. Each has a description beginning "Sample program:" and can be edited or
+deleted in Admin. Database/SeedPrograms.sql can add the same subjects to a new setup
+without overwriting matching records. -IncludeContent -Preview
 adds clearly labelled programs to its disposable database after integration checks,
 so the visual preview can exercise scrolling even when production programs are empty.
 
