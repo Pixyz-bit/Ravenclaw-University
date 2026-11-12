@@ -4,6 +4,19 @@ Last verified: 2026-11-12.
 
 ## Latest error check
 
+- Follow-up after the About cleanup: server logs confirm intermittent SQL pre-login
+  timeouts affecting real sign-ins. An encrypted EF named-pipe read passed once but
+  another timed out post-login; TCP localhost:1433 also timed out. Original connection
+  settings and encryption are retained because changing transport did not establish
+  a reliable fix. Local SQL Server connection stability remains unresolved.
+- Fixed the EF unordered Take(2) warning in AccountService.AuthenticateAsync by
+  ordering matching usernames by UserId. Duplicate-username rejection remains.
+  Build passed with zero warnings/errors, and about-story.js passed syntax checks.
+  Isolated registration, login, role/CSRF, content CRUD/upload/validation checks
+  progressed through program deletion before another SQL login timeout interrupted
+  the suite. Its server log has no EF unordered-query warning. This run does not
+  establish a full integration pass. No university records were altered.
+
 - Build passed with zero warnings/errors after stopping the owned local server;
   the first build attempt hit MSB3027/MSB3021 because that server locked apphost.exe.
 - All eight public JavaScript files passed node --check. The configured EF database

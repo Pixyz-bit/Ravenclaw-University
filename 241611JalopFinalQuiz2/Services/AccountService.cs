@@ -15,6 +15,7 @@ public class AccountService(UniversityDbContext database, IPasswordHasher<UserTa
     {
         var matches = await database.UserTables
             .Where(user => EF.Functions.Collate(user.Username, UsernameCollation) == username.Trim())
+            .OrderBy(user => user.UserId)
             .Take(2).ToListAsync();
         // Fail closed if legacy data contains duplicate usernames.
         if (matches.Count != 1) return null;
