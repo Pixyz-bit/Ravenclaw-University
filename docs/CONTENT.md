@@ -88,6 +88,20 @@ supported icons, and nonfuture founder birthdays using Asia/Manila's date.
 
 ## Reading and errors
 
+About now follows the reference's sticky desktop composition: four chapters show
+the stored introduction, mission, vision, and core value titles. Uploaded gallery
+photos are used in overlapping main/inset image pairs; approved university
+illustrations fill empty photo slots. On smaller screens, chapters form a swipeable
+rail with navigation dots. No-JS content remains readable.
+
+Academics uses a dark looping row of portrait image cards from ProgramsTable,
+with edge fades, image-zoom/arrow hover feedback, drag/swipe navigation, and native
+description disclosures. Motion pauses on hover/focus/open cards, manual pause, and
+reduced-motion preference. Duplicate visual laps are hidden from screen readers.
+No demo records are written to the university database. -IncludeContent -Preview
+adds clearly labelled programs to its disposable database after integration checks,
+so the visual preview can exercise scrolling even when production programs are empty.
+
 UniversityContentService reads all seven content tables using AsNoTracking and
 sequential queries on one DbContext. It never queries user accounts for content.
 HomeController renders UniversityPageViewModel with clear unpublished/empty states.

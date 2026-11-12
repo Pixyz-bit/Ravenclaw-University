@@ -1,0 +1,59 @@
+@model UniversityPageViewModel
+@{
+    var steps = new[]
+    {
+        (Title: "A place for curious minds", Text: Model.University?.AcademyDescription ?? "University information will be published here.", Link: "Explore academics", Target: "#academics"),
+        (Title: "Our mission", Text: Model.University?.Mission ?? "Our mission statement will be published here.", Link: "Contact the university", Target: "#contact"),
+        (Title: "Our vision", Text: Model.University?.Vision ?? "Our vision statement will be published here.", Link: "Meet our leadership", Target: "#leadership"),
+        (Title: "Our core values", Text: Model.Values.Count > 0 ? string.Join(" · ", Model.Values.Select(value => value.Title)) : "Core values have not been published yet.", Link: "Explore academics", Target: "#academics")
+    };
+    var photos = Model.Photos.Where(photo => SafeImageAttribute.IsSafeImage(photo.ImagePath)).Select(photo => (Path: photo.ImagePath, Alt: photo.AltText ?? "University gallery image")).ToArray();
+    var illustrations = new[] { "/images/hero/ravenclaw-common-room.png", "/images/hero/portrait-stairwell.png", "/images/hero/ravenclaw-eagle-wall.png", "/images/hero/great-hall.png" };
+    (string Path, string Alt) Picture(int index) => photos.Length > 0 ? photos[index % photos.Length] : (illustrations[index % illustrations.Length], "Ravenclaw University illustration");
+}
+<section id="about" class="about-section" aria-labelledby="about-title" data-about-story>
+  <div class="about-container">
+    <header class="about-heading"><p class="eyebrow">About the university</p><h2 id="about-title">Knowledge begins with curiosity.</h2></header>
+    <div class="about-story-desktop">
+        <div class="about-copy-column">
+            <div class="about-markers" aria-hidden="true">@for (var i = 0; i < steps.Length; i++) { <div class="about-marker" data-about-marker="@i"></div> }</div>
+            <div class="about-copy-stack">
+                @for (var i = 0; i < steps.Length; i++)
+                {
+                    <article class="about-copy-item @(i == 0 ? "is-active" : "")" data-about-copy="@i">
+                        <span class="about-number">@((i + 1).ToString("00"))</span><h3>@steps[i].Title</h3>
+                        <div class="about-prose"><p class="prose">@steps[i].Text</p></div>
+                        <a class="about-link" href="@steps[i].Target">@steps[i].Link <span aria-hidden="true">→</span></a>
+                    </article>
+                }
+            </div>
+        </div>
+        <div class="about-visual-column">
+            <div class="about-image-stack">
+                @for (var i = 0; i < steps.Length; i++)
+                {
+                    var main = Picture(i); var secondary = Picture(i + 1);
+                    <div class="about-image-pair @(i == 0 ? "is-active" : "")" data-about-pair="@i" aria-hidden="@(i == 0 ? "false" : "true")">
+                        <div class="about-main-photo"><img src="@main.Path" alt="@main.Alt" loading="lazy" decoding="async" /></div>
+                        <div class="about-second-photo"><img src="@secondary.Path" alt="" loading="lazy" decoding="async" /></div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="about-mobile">
+        <div class="about-mobile-rail" tabindex="0" role="region" aria-label="About Ravenclaw University" data-about-rail>
+            @for (var i = 0; i < steps.Length; i++)
+            {
+                var main = Picture(i); var secondary = Picture(i + 1);
+                <article class="about-mobile-step" id="about-mobile-@i">
+                    <div class="about-mobile-images"><div class="about-main-photo"><img src="@main.Path" alt="@main.Alt" loading="lazy" decoding="async" /></div><div class="about-second-photo"><img src="@secondary.Path" alt="" loading="lazy" decoding="async" /></div></div>
+                    <span class="about-number">@((i + 1).ToString("00"))</span><h3>@steps[i].Title</h3><p class="prose">@steps[i].Text</p>
+                    <a class="about-link" href="@steps[i].Target">@steps[i].Link <span aria-hidden="true">→</span></a>
+                </article>
+            }
+        </div>
+        <div class="about-dots" role="group" aria-label="About section slides" hidden>@for (var i = 0; i < steps.Length; i++) { <button type="button" data-about-dot="@i" aria-label="Show @steps[i].Title" aria-controls="about-mobile-@i" aria-current="@(i == 0 ? "true" : "false")"><span></span></button> }</div>
+    </div>
+  </div>
+</section>

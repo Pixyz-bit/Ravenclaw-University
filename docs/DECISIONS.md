@@ -16,6 +16,7 @@ Recorded 2026-11-11 from the project conversation.
 | University navbar uses the established navy design | User rejected the literal rounded outlined sketch implementation. Use a full-width navy bar, ivory text, fine gold divider, constrained aligned inner content, and a circular account control |
 | Hero follows the supplied reference composition | Full-width, viewport-height background; dark-left/light-right overlay; left-aligned header and supporting description; no CTA buttons. Reference navbar/branding are excluded |
 | Hero uses only the selected common-room image | Latest user correction supersedes the multi-image gallery; no selectors or rotation, and custom hero uploads do not override the selected background |
+| About and Academics follow the Digital Original reference | User requested sticky scroll-switched About chapters with overlapping images and a looping portrait-card showcase with matching hover/drag behavior; university content stays database-backed |
 | University and contact records are singletons in editor logic | Serializable creation prevents duplicates; existing rows are edited |
 | Use Font Awesome Free 6.7.2 for optional social icons | Supported classes are allowlisted; platform labels remain readable without the CDN |
 | Database name: Ravenclaw University Db | Explicit user naming request |

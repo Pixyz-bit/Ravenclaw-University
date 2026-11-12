@@ -78,6 +78,30 @@ gallery images, contact details, and founder biographies/messages. Unpublished c
 is labeled rather than invented. Razor encodes text and retains paragraph breaks.
 Navigation wraps on smaller screens; page sections stack below 700px.
 
+## About and Academics reference (2026-11-12)
+
+The user supplied Digital Original's Creator showcase and How it works sections,
+and explicitly requested their layout/scroll/hover treatment. These two sections
+use Lato headings, warm white (#f7f5f3) and near-charcoal (#131211), larger section
+containers up to 1552px, and 16px image corners to follow that reference. Other
+sections retain the university design tokens.
+
+About presents four database-backed chapters: introduction, mission, vision, and
+core values. On desktop, text and overlapping square image pairs remain sticky as
+vertical scrolling crossfades the active chapter. Main photo width is 78%; lower-left
+inset width is 46%, bottom -12%. Below 1024px, a swipeable snap rail and dots replace
+the sticky composition. Uploaded About photos take priority; approved illustrations
+provide a visual fallback without inventing university facts. No-JS content remains
+readable; reduced motion disables transition effects.
+
+Academics uses portrait program-image cards on a full-width dark section, with
+bottom titles, descriptions on activation, 5% image hover zoom over 700ms, and
+light circular arrow hover feedback. Its track loops slowly while visible, pauses
+on hover, focus, open descriptions, manual pause, or reduced-motion preference,
+and supports drag/swipe. Duplicate visual laps are hidden from assistive technology.
+The pause control is an accessibility addition to the reference. All program data
+continues coming from ProgramsTable; no production demo programs are inserted.
+
 Administration uses flat divided lists and explicit Edit/Delete actions. Editors use
 Lato for operational headings, visible labels, native text/date/URL inputs, textarea
 controls, a supported icon selector, inline errors, and POST delete confirmation.

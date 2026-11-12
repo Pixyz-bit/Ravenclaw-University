@@ -4,6 +4,15 @@ Last verified: 2026-11-12.
 
 ## Completed
 
+- Implemented reference-based About and Academics layouts after inspecting the live
+  Digital Original site and pasted markup. About uses four sticky scroll-switched
+  chapters with overlapping image pairs and mobile swipe/dots. Academics uses a
+  looping portrait-card strip, hover zoom/arrow feedback, edge fades, drag/swipe,
+  pause/reduced-motion handling, and program-description disclosures.
+- Build and 126 isolated checks passed. Browser checks verified About chapter/image
+  changes, mobile dot navigation, program scrolling/descriptions, and no horizontal
+  overflow at 1280px/390px. Minor final spacing/edge-fade and resize alignment changes
+  were verified by a subsequent build. Preview fixture content is disposable only.
 - Replaced the hero gallery with only the latest user-attached common-room image,
   verified byte-for-byte by SHA-256. Removed slideshow controls/logic/styles and
   kept the navbar-height observer in hero-layout.js. Existing database records and

@@ -284,6 +284,18 @@ try {
     if ($Preview) {
         # Explicit disposable-fixture preview only; never changes the university database.
         Invoke-TestSql "UPDATE dbo.UserTable SET IsActive=1, Role=N'Admin' WHERE Username=N'verification.student'; DELETE FROM dbo.ProgramsTable WHERE SubjectName=N'<script>alert(1)</script>';" | Out-Null
+        if ($IncludeContent) {
+            Invoke-TestSql @'
+IF NOT EXISTS (SELECT 1 FROM dbo.ProgramsTable)
+INSERT INTO dbo.ProgramsTable (SubjectName, Description, ImagePath) VALUES
+(N'Preview: Astronomy', N'Disposable visual-preview content for testing the program cards and descriptions.', N'/images/hero/ravenclaw-common-room.png'),
+(N'Preview: History', N'Disposable visual-preview content. This is not university production data.', N'/images/hero/portrait-stairwell.png'),
+(N'Preview: Literature', N'Disposable visual-preview content for the horizontal program showcase.', N'/images/hero/great-hall.png'),
+(N'Preview: Philosophy', N'Disposable visual-preview content for testing keyboard access and hover behavior.', N'/images/hero/ravenclaw-eagle-wall.png'),
+(N'Preview: Natural sciences', N'Disposable visual-preview content for testing responsive card layout.', N'/images/hero/ravenclaw-common-room.png'),
+(N'Preview: Mathematics', N'Disposable visual-preview content for testing the looping track.', N'/images/hero/portrait-stairwell.png');
+'@ | Out-Null
+        }
         Write-Output "PREVIEW_URL=$script:baseUrl"
         Write-Output 'Disposable preview login: verification.student / Test-Only-Scholar-2026'
         if ([Console]::IsInputRedirected) {
