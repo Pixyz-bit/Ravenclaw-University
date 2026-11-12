@@ -69,6 +69,10 @@ account control at right. Its dropdown has the username, Admin-only Administrati
 link, and POST Sign out. Use a full-width midnight-navy background, ivory text,
 and a fine gold bottom rule. Align the inner content to the 1200px page container.
 Below 1001px, a native hamburger/Menu disclosure shows the navigation links.
+The public navbar stays sticky at the viewport top while scrolling, above section
+content. Its measured height supplies anchor scroll padding and the minimum About
+sticky offset so headings and images remain visible beneath it. Mobile menu height
+changes are observed; page scrolling remains natural without section snapping.
 Desktop and mobile forms were visually inspected; later content sections must
 reuse these tokens consistently.
 
@@ -103,7 +107,8 @@ readable; reduced motion disables transition effects.
 
 The complete desktop About composition is bounded by the available dynamic
 viewport height. Its image-pair width accounts for the lower inset's 12% extension,
-and both columns share a responsive sticky top offset (24–120px). Smaller desktop
+and both columns share a responsive sticky top offset, at least the navbar height
+plus 16px and otherwise between 24–120px. Smaller desktop
 heights reduce the image pair and heading size; long prose scrolls inside its text
 area rather than pushing controls or images below the viewport.
 

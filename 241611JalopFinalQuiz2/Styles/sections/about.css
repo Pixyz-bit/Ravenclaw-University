@@ -228,7 +228,7 @@
 
 @media(min-width:1024px) {
     .about-section {
-        @apply [--about-sticky-top:clamp(24px,calc(50dvh_-_240px),120px)] [--about-visual-height:calc(100dvh_-_var(--about-sticky-top)_-_48px)];
+        @apply [--about-sticky-top:max(calc(var(--portal-header-height,85px)_+_16px),clamp(24px,calc(50dvh_-_240px),120px))] [--about-visual-height:calc(100dvh_-_var(--about-sticky-top)_-_48px)];
     }
 }
 

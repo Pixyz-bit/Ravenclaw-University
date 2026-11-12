@@ -4,6 +4,14 @@ Last verified: 2026-11-12.
 
 ## Completed
 
+- Made the public navbar sticky at the viewport top on desktop and mobile. Shared
+  measured header height now supplies section scroll padding and About's minimum
+  sticky offset. The keyboard skip link stays above the navbar. No scroll snapping
+  was added. Browser checks at 1366×600 and 390×844 verified the navbar remains at
+  top=0, desktop About images/text clear the header, section links remain usable,
+  and the mobile menu closes after navigation without horizontal overflow.
+  Tailwind build, JavaScript syntax check, and all 126 isolated checks passed.
+
 - Converted application styles to Tailwind CSS v4 with reusable @apply files in
   Styles/base, components, layouts, and sections. Added locked npm dependencies,
   CSS build/watch commands, automatic dotnet build integration, and a source guide.

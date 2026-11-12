@@ -29,7 +29,15 @@
 }
 
 .portal-header {
-    @apply bg-navy [border-bottom:1px_solid_var(--color-gold)];
+    @apply sticky top-0 z-40 bg-navy [border-bottom:1px_solid_var(--color-gold)];
+}
+
+html:has(.portal-header) {
+    @apply [scroll-padding-top:calc(var(--portal-header-height,85px)_+_16px)];
+}
+
+.portal-body>.skip-link {
+    @apply z-50;
 }
 
 .portal-header-inner {
