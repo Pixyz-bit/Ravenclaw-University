@@ -33,6 +33,11 @@ Last verified: 2026-11-12.
 
 ## Completed
 
+- Removed the visible About chapter numbers/total and decorative gold line on
+  desktop and mobile, including their unused Tailwind rules. Invisible scroll
+  markers and chapter transitions remain unchanged. Build passed with zero
+  warnings/errors; source checks confirm no about-number markup/styles remain.
+
 - Homepage navbar now hides while the contact footer intersects the viewport,
   returning when it leaves. Hidden navigation is inert and cannot take keyboard
   focus. The transparent hero/solid content states are preserved; reduced motion

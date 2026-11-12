@@ -32,18 +32,6 @@
         @apply font-heading text-[clamp(2rem,min(4.5vw,8dvh),4.25rem)] font-medium leading-[1.06] tracking-[-.035em] [margin:clamp(16px,2.8dvh,28px)_0_clamp(16px,2.5dvh,24px)] text-navy shrink-0 max-w-[17ch];
     }
 
-    .about-number {
-        @apply inline-flex items-center gap-[12px] text-[.75rem] font-bold tracking-[.14em] text-blue shrink-0;
-    }
-
-    .about-number::before {
-        @apply content-[''] block w-[40px] h-[1px] bg-gold mr-[4px];
-    }
-
-    .about-number-total {
-        @apply text-muted font-normal tracking-[.08em];
-    }
-
     .about-prose {
         @apply min-h-0 max-h-[min(280px,40dvh)] overflow-auto [flex:0_1_auto];
     }
