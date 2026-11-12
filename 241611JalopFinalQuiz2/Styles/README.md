@@ -24,6 +24,7 @@ Styles/
     about.css                Sticky chapters, overlapping images, mobile rail
     gallery.css              DriftWall gallery, static fallback, image dialog
     collegiate.css           Curved rope, five house pennants, responsive banner row
+    contact.css              Simple address/hours, contact details, social links
 ```
 
 Run from the repository root:

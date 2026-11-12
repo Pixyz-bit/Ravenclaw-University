@@ -4,6 +4,19 @@ Last verified: 2026-11-12.
 
 ## Completed
 
+- Implemented the approved simple contact layout in _UniversityContact.cshtml with
+  reusable sections/contact.css. Desktop places address/office hours left and email/
+  telephone right; phones stack all details. A divider separates published social
+  links under Follow us. Existing CMS records, allowed icons, safe URLs, and empty
+  field labels are retained; no schema changes or inquiry form were introduced.
+- Build and all 126 isolated checks passed with zero warnings/errors. Browser QA
+  at 1280×720 and 375×667 verified two/one columns, mailto/tel/HTTPS link targets,
+  visible social icons, mobile navigation, and no horizontal document overflow.
+  Full preview contact/social details were added only to the disposable test DB.
+  The final local rebuild initially failed with a Windows insufficient-resources
+  SDK resolver error. A single-process retry with build servers/workload discovery
+  disabled succeeded with zero warnings/errors; no project settings were changed.
+
 - Added the requested top-only blue gallery gradient: dark navy at the top fades
   to transparent within the upper 65%/380px. Removed the prior heading-only neutral
   fade. Image tiles remain untinted and fully opaque, and keyboard browsing hides

@@ -57,31 +57,7 @@ else
     <partial name="_UniversityGallery" model="Model" />
     <partial name="_CollegiateCircle" />
     <div class="university-content">
-    <section id="contact" class="university-section">
-        <div class="section-heading"><p class="eyebrow">Contact</p><h2>Start a conversation.</h2></div>
-        @if (Model.Contact is null) { <p class="empty-copy">Contact details have not been published yet.</p> }
-        else
-        {
-            <dl class="contact-grid">
-                <div><dt>University address</dt><dd class="prose">@(Model.Contact.AcademyAddress ?? "Not published yet")</dd></div>
-                <div><dt>Email</dt><dd>@if (!string.IsNullOrWhiteSpace(Model.Contact.Email)) { <a href="mailto:@Model.Contact.Email">@Model.Contact.Email</a> } else { <span>Not published yet</span> }</dd></div>
-                <div><dt>Telephone</dt><dd>@if (!string.IsNullOrWhiteSpace(Model.Contact.Telephone)) { <a href="tel:@Model.Contact.Telephone">@Model.Contact.Telephone</a> } else { <span>Not published yet</span> }</dd></div>
-                <div><dt>Office hours</dt><dd class="prose">@(Model.Contact.OfficeHours ?? "Not published yet")</dd></div>
-            </dl>
-        }
-        @if (Model.SocialLinks.Count>0)
-        {
-            <div class="social-links" aria-label="University social links">
-                @foreach (var social in Model.SocialLinks)
-                {
-                    @if (Uri.TryCreate(social.Url,UriKind.Absolute,out var uri) && uri.Scheme==Uri.UriSchemeHttps)
-                    {
-                        <a href="@social.Url" target="_blank" rel="noopener noreferrer">@if (!string.IsNullOrWhiteSpace(social.IconClass) && ContentSections.Icons.ContainsKey(social.IconClass)) { <i class="@social.IconClass" aria-hidden="true"></i> } @social.PlatformName <span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a>
-                    }
-                }
-            </div>
-        }
-    </section>
+    <partial name="_UniversityContact" model="Model" />
     <section id="leadership" class="university-section leadership-section">
         <div class="section-heading"><p class="eyebrow">Founder information</p><h2>The vision behind the university.</h2></div>
         @if (Model.Founders.Count==0) { <p class="empty-copy">Founder information will be published here.</p> }

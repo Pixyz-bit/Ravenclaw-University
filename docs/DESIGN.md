@@ -130,6 +130,18 @@ and a scrollable description. The section anchor aligns directly below the navba
 A 360px section minimum preserves readable content in very short/zoomed windows,
 where normal vertical scrolling remains available instead of clipping controls.
 
+## Simple contact layout
+
+The user approved a simple text-art contact layout. The Contact anchor uses an
+ivory surface, the heading "Get in touch.", and one short introductory sentence.
+Desktop has two columns: university address and office hours on the left; email
+and telephone under Contact details on the right. Below 701px these stack into
+one column. A thin divider separates Follow us and published social links.
+Email/telephone links retain mailto/tel actions; social links retain allowed icons,
+HTTPS-only URLs, and accessible new-tab labels. Unpublished fields are labeled.
+No inquiry form, map, new database fields, or additional route is introduced.
+Reusable markup is _UniversityContact.cshtml; Tailwind rules are sections/contact.css.
+
 ## Drifting university gallery
 
 The user supplied React Bits DriftWall source and requested a new section. Gallery

@@ -1,0 +1,52 @@
+@model UniversityPageViewModel
+@{
+    var contact = Model.Contact;
+    var socialLinks = Model.SocialLinks.Where(social => Uri.TryCreate(social.Url, UriKind.Absolute, out var uri) && uri.Scheme == Uri.UriSchemeHttps).ToList();
+}
+<section id="contact" class="university-section contact-section" aria-labelledby="contact-title">
+    <header class="section-heading contact-heading">
+        <p class="eyebrow">Contact</p>
+        <h2 id="contact-title">Get in touch.</h2>
+        <p>We’re here to answer your questions.</p>
+    </header>
+    <div class="contact-columns">
+        <div class="contact-column">
+            <div>
+                <h3>University address</h3>
+                <p class="prose">@(string.IsNullOrWhiteSpace(contact?.AcademyAddress) ? "Not published yet" : contact.AcademyAddress)</p>
+            </div>
+            <div>
+                <h3>Office hours</h3>
+                <p class="prose">@(string.IsNullOrWhiteSpace(contact?.OfficeHours) ? "Not published yet" : contact.OfficeHours)</p>
+            </div>
+        </div>
+        <div class="contact-column">
+            <h3>Contact details</h3>
+            <dl class="contact-methods">
+                <div>
+                    <dt>Email</dt>
+                    <dd>@if (!string.IsNullOrWhiteSpace(contact?.Email)) { <a href="mailto:@contact.Email">@contact.Email</a> } else { <span>Not published yet</span> }</dd>
+                </div>
+                <div>
+                    <dt>Telephone</dt>
+                    <dd>@if (!string.IsNullOrWhiteSpace(contact?.Telephone)) { <a href="tel:@contact.Telephone">@contact.Telephone</a> } else { <span>Not published yet</span> }</dd>
+                </div>
+            </dl>
+        </div>
+    </div>
+    @if (socialLinks.Count > 0)
+    {
+        <div class="contact-socials">
+            <h3>Follow us</h3>
+            <div class="social-links" aria-label="University social links">
+                @foreach (var social in socialLinks)
+                {
+                    <a href="@social.Url" target="_blank" rel="noopener noreferrer">
+                        @if (!string.IsNullOrWhiteSpace(social.IconClass) && ContentSections.Icons.ContainsKey(social.IconClass)) { <i class="@social.IconClass" aria-hidden="true"></i> }
+                        @social.PlatformName <span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span>
+                    </a>
+                }
+            </div>
+        </div>
+    }
+</section>

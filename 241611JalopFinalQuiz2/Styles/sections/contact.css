@@ -1,0 +1,68 @@
+/* Simple public contact layout, reusing the existing contact/social records. */
+@layer components {
+    .contact-heading {
+        @apply mb-[40px];
+    }
+
+    .contact-heading>p:last-child {
+        @apply text-muted [margin:0];
+    }
+
+    .contact-columns {
+        @apply grid [grid-template-columns:repeat(2,minmax(0,1fr))] gap-[clamp(32px,6vw,80px)] max-w-[960px];
+    }
+
+    .contact-column {
+        @apply min-w-0;
+    }
+
+    .contact-column>div+div {
+        @apply mt-[32px];
+    }
+
+    .contact-section h3 {
+        @apply font-body text-[.8rem] font-bold uppercase tracking-[.1em] leading-[1.5] [margin:0_0_12px];
+    }
+
+    .contact-column p {
+        @apply m-0 [overflow-wrap:anywhere];
+    }
+
+    .contact-methods {
+        @apply m-0;
+    }
+
+    .contact-methods>div+div {
+        @apply mt-[24px];
+    }
+
+    .contact-methods dt {
+        @apply text-muted text-[.85rem];
+    }
+
+    .contact-methods dd {
+        @apply m-0 [overflow-wrap:anywhere];
+    }
+
+    .contact-methods a {
+        @apply inline-flex items-center min-h-[44px] max-w-full [overflow-wrap:anywhere];
+    }
+
+    .contact-socials {
+        @apply mt-[40px] pt-[24px] [border-top:1px_solid_var(--color-line)];
+    }
+
+    .contact-socials .social-links {
+        @apply m-0 [gap:8px_24px];
+    }
+
+    @media(max-width:700px) {
+        .contact-columns {
+            @apply [grid-template-columns:minmax(0,1fr)];
+        }
+
+        .contact-heading {
+            @apply mb-[32px];
+        }
+    }
+}
