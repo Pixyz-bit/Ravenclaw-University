@@ -28,6 +28,10 @@
         @apply min-w-0;
     }
 
+    .about-copy-column {
+        @apply bg-ivory;
+    }
+
     .about-markers,.about-mobile {
         @apply hidden;
     }
@@ -37,11 +41,19 @@
     }
 
     .about-copy-item h3,.about-mobile-step h3 {
-        @apply font-body text-[clamp(22px,4.5dvh,32px)] font-normal leading-[1.15] tracking-[-.03em] [margin:clamp(12px,2dvh,20px)_0] text-inherit shrink-0;
+        @apply font-heading text-[clamp(2rem,min(4.5vw,8dvh),4.25rem)] font-medium leading-[1.06] tracking-[-.035em] [margin:clamp(16px,2.8dvh,28px)_0_clamp(16px,2.5dvh,24px)] text-navy shrink-0 max-w-[17ch];
     }
 
     .about-number {
-        @apply text-[15px] shrink-0;
+        @apply inline-flex items-center gap-[12px] text-[.75rem] font-bold tracking-[.14em] text-blue shrink-0;
+    }
+
+    .about-number::before {
+        @apply content-[''] block w-[40px] h-[1px] bg-gold mr-[4px];
+    }
+
+    .about-number-total {
+        @apply text-muted font-normal tracking-[.08em];
     }
 
     .about-prose {
@@ -49,19 +61,23 @@
     }
 
     .about-copy-item .prose {
-        @apply text-[18px] leading-[1.65] text-muted max-w-[28rem] m-0;
+        @apply text-[18px] leading-[1.8] text-muted max-w-[40ch] m-0;
     }
 
     .about-link {
-        @apply inline-flex items-center gap-[16px] text-inherit min-h-[44px] mt-[clamp(12px,2dvh,20px)] no-underline text-[16px] shrink-0;
+        @apply inline-flex items-center self-start gap-[16px] text-navy min-h-[44px] mt-[clamp(20px,3.5dvh,36px)] no-underline text-[.9rem] font-bold shrink-0;
     }
 
     .about-link span {
-        @apply [transition:transform_300ms_ease-out];
+        @apply grid place-items-center w-[44px] h-[44px] rounded-[50%] [border:1px_solid_var(--color-line)] text-[20px] font-normal [transition:transform_250ms_ease-out,background-color_250ms_ease-out,color_250ms_ease-out,border-color_250ms_ease-out];
     }
 
     .about-link:hover span {
-        @apply [transform:translateX(4px)];
+        @apply [transform:translateX(3px)] bg-blue text-ivory border-blue;
+    }
+
+    .about-link:focus-visible span {
+        @apply bg-blue text-ivory border-blue;
     }
 
     .about-image-stack {
@@ -124,7 +140,7 @@
         }
 
         .about-mobile-rail {
-            @apply flex gap-[24px] overflow-x-auto snap-x snap-mandatory [scrollbar-width:none] pb-[24px];
+            @apply flex items-start gap-[24px] overflow-x-auto overflow-y-hidden snap-x snap-mandatory [scrollbar-width:none] pb-[24px];
         }
 
         .about-mobile-step {
@@ -136,7 +152,7 @@
         }
 
         .about-mobile-step h3 {
-            @apply text-[24px] mt-[12px];
+            @apply text-[2.25rem] mt-[20px];
         }
 
         .about-mobile-step .prose {

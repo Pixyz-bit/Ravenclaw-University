@@ -22,11 +22,33 @@ if (aboutStory) {
     update();
     const rail = aboutStory.querySelector('[data-about-rail]');
     const dots = [...aboutStory.querySelectorAll('[data-about-dot]')];
+    let activeSlide = 0;
+    const sizeRail = () => {
+        if (desktop.matches) { rail.style.height = ''; return; }
+        const style = getComputedStyle(rail);
+        const slide = rail.children[activeSlide];
+        const height = slide.offsetHeight + parseFloat(style.paddingTop) + parseFloat(style.paddingBottom);
+        const previousHeight = parseFloat(rail.style.height) || height;
+        const bounds = rail.getBoundingClientRect();
+        rail.style.height = `${height}px`;
+        if (height < previousHeight - 1 && bounds.top < 0 && bounds.bottom > 0) {
+            // Keep the chosen chapter in view when a much taller chapter collapses.
+            requestAnimationFrame(() => slide.scrollIntoView({block:'start',inline:'nearest',behavior:'instant'}));
+        }
+    };
     dots.forEach((dot, i) => dot.addEventListener('click', () => rail.scrollTo({ left: rail.children[i].offsetLeft - rail.children[0].offsetLeft, behavior: reduced.matches ? 'instant' : 'smooth' })));
     rail.addEventListener('scroll', () => {
         let active = 0; let distance = Infinity;
         [...rail.children].forEach((slide, i) => { const current = Math.abs(slide.getBoundingClientRect().left - rail.getBoundingClientRect().left - 24); if (current < distance) { distance = current; active = i; } });
         dots.forEach((dot, i) => dot.setAttribute('aria-current', String(i === active)));
+        activeSlide = active;
+        sizeRail();
     }, { passive: true });
+    const mobileResize = new ResizeObserver(sizeRail);
+    [...rail.children].forEach(slide => mobileResize.observe(slide));
+    window.addEventListener('resize', sizeRail, { passive:true });
+    desktop.addEventListener('change', sizeRail);
+    window.addEventListener('pagehide', () => mobileResize.disconnect(), {once:true});
+    sizeRail();
     aboutStory.querySelector('.about-dots').hidden = false;
 }

@@ -21,7 +21,7 @@
                 @for (var i = 0; i < steps.Length; i++)
                 {
                     <article class="about-copy-item @(i == 0 ? "is-active" : "")" data-about-copy="@i">
-                        <span class="about-number">@((i + 1).ToString("00"))</span><h3>@steps[i].Title</h3>
+                        <span class="about-number">@((i + 1).ToString("00"))<span class="about-number-total">/ @steps.Length.ToString("00")</span></span><h3>@steps[i].Title</h3>
                         <div class="about-prose"><p class="prose">@steps[i].Text</p></div>
                         <a class="about-link" href="@steps[i].Target">@steps[i].Link <span aria-hidden="true">→</span></a>
                     </article>
@@ -47,7 +47,7 @@
                 var main = Picture(i);
                 <article class="about-mobile-step" id="about-mobile-@i">
                     <div class="about-mobile-image"><img src="@main.Path" alt="@main.Alt" loading="lazy" decoding="async" /></div>
-                    <span class="about-number">@((i + 1).ToString("00"))</span><h3>@steps[i].Title</h3><p class="prose">@steps[i].Text</p>
+                    <span class="about-number">@((i + 1).ToString("00"))<span class="about-number-total">/ @steps.Length.ToString("00")</span></span><h3>@steps[i].Title</h3><p class="prose">@steps[i].Text</p>
                     <a class="about-link" href="@steps[i].Target">@steps[i].Link <span aria-hidden="true">→</span></a>
                 </article>
             }

@@ -4,6 +4,17 @@ Last verified: 2026-11-12.
 
 ## Completed
 
+- Refined About chapter panels with ivory, navy Cormorant Garamond titles, a gold
+  hairline and current/total chapter marker, more readable paragraph spacing, and
+  bold contextual links with circular arrows and blue hover/focus feedback. The
+  50/50 split and desktop chapter scrolling are retained; no published text changed.
+- Build and 126 isolated checks passed. Browser QA verified the empty Vision state
+  at 1366×768, keyboard link feedback, and long-copy fit at 1280×480 with the link
+  inside the viewport. At 375×667 verified mobile typography and dot navigation.
+  Follow-up mobile rail sizing now adapts to the active chapter and keeps shorter
+  slides in view after long ones; browser checks and JavaScript syntax validation
+  passed for this adjustment. All preview data changes were disposable only.
+
 - Changed About to a full-width 50/50 desktop split: text left, one edge-to-edge
   image per chapter right, both sticky below the navbar and filling its remaining
   viewport height. Removed overlapping/inset photos and obsolete pair selectors.

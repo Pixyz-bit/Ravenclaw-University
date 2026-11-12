@@ -93,7 +93,8 @@ Navigation wraps on smaller screens; page sections stack below 700px.
 
 The user supplied Digital Original's Creator showcase and How it works sections,
 and explicitly requested their layout/scroll/hover treatment. These two sections
-use Lato headings, warm white (#f7f5f3) and near-charcoal (#131211). Academics uses
+use warm white (#f7f5f3) and near-charcoal (#131211). Academics and the About section
+heading use Lato; About chapter titles now use Cormorant Garamond. Academics uses
 containers up to 1552px; About now uses the user's full-width equal split. Mobile
 images retain rounded corners. Other sections retain the university design tokens.
 
@@ -113,6 +114,14 @@ that navbar height. The introductory section heading stays above the story.
 Smaller desktop heights scale text spacing; long prose scrolls inside its text area
 rather than pushing controls below the viewport. Chapter count, scroll markers,
 crossfades, mobile dots, and reduced-motion behavior are retained.
+
+The About text panel uses ivory with a gold hairline chapter marker, current/total
+numbering (for example 03 / 04), larger navy serif titles, and comfortable Lato body
+text. Its contextual link pairs a bold label with a bordered circular arrow; hover
+and keyboard focus fill the arrow in blue. Typography and spacing scale with height
+so the panel remains usable on short desktop screens. Existing content stays unchanged.
+On phones the rail height follows the active chapter; switching from long copy to
+a shorter chapter keeps the selected content in view instead of leaving blank space.
 
 Academics uses portrait program-image cards on a full-width dark section, with
 bottom titles, descriptions on activation, 5% image hover zoom over 700ms, and
