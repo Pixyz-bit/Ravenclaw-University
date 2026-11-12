@@ -54,6 +54,13 @@ only the database entry, never a physical image file.
 
 ## Images and links
 
+The hero includes the four user-approved generated scenes in wwwroot/images/hero:
+revised Ravenclaw common room, portrait stairwell, Great Hall, and the brighter eagle
+wall. The first generated common-room attempt is excluded. Manual bottom-right
+selectors support keyboard navigation and reduced motion; there is no auto-rotation.
+A custom uploaded hero image is an additional final slide, preserving the editor.
+Generated source PNGs are copied unchanged; no live database updates are needed.
+
 Hero, gallery, program, and account-profile fields use multipart file uploaders
 with local previews. Choose PNG, JPEG, or WebP files up to 5 MB. The server checks
 extensions, file signatures, and size; SVG/HTML and mismatched signatures are rejected.

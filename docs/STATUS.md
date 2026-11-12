@@ -4,6 +4,19 @@ Last verified: 2026-11-12.
 
 ## Completed
 
+- Integrated the four approved generated hero scenes, excluding the first rejected
+  common-room version. Manual selectors, lazy image loading, pressed/status feedback,
+  keyboard navigation, and reduced-motion fades preserve the established hero copy.
+  A custom admin upload remains an additional slide. No database changes were made.
+- Verified all four images load and switching/keyboard navigation works; desktop
+  and phone gallery checks had no horizontal overflow. All 126 checks passed before
+  the subsequent combined-navbar/hero sizing adjustment.
+- Updated hero sizing to subtract the measured navbar height from 100dvh, with
+  ResizeObserver updates, responsive heading size/spacing, and reserved control space.
+  Final build passed with no warnings/errors and the app was started on localhost:5182.
+  Final viewport measurements remain unverified: fresh disposable previews failed
+  on a SQL login timeout and a later 20-second HTTP/database timeout. The latter
+  preview cleaned up its database/files; no university records were changed.
 - Updated the hero to the supplied reference composition: full-width, minimum
   100dvh height, uploaded background, left-dark/right-light overlay, left-aligned
   hero header and description, and no CTA buttons. The navbar is unchanged.

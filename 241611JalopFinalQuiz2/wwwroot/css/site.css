@@ -118,15 +118,14 @@ textarea:focus-visible,select:focus-visible { outline:3px solid var(--blue); out
 .university-section h3 { font-family:var(--heading); font-size:1.8rem; line-height:1.2; font-weight:600; color:var(--navy); }
 .portal-main.university-main { width:100%; margin:0; padding:0; }
 .university-content { width:min(1200px,100%); margin-inline:auto; padding:0 24px; }
-.university-hero { position:relative; isolation:isolate; display:flex; align-items:center; width:100%; min-height:100vh; min-height:100dvh; overflow:hidden; background:#162b43; color:var(--ivory); }
+.university-hero { position:relative; isolation:isolate; display:flex; align-items:center; width:100%; min-height:calc(100vh - var(--portal-header-height,85px)); min-height:calc(100dvh - var(--portal-header-height,85px)); overflow:hidden; background:#162b43; color:var(--ivory); }
 .university-hero::after { content:""; position:absolute; inset:0; z-index:1; pointer-events:none; background:linear-gradient(90deg,rgba(10,19,34,.96) 0%,rgba(10,19,34,.86) 32%,rgba(10,19,34,.48) 65%,rgba(10,19,34,.12) 100%); }
 .hero-background { position:absolute; inset:0; z-index:0; width:100%; height:100%; object-fit:cover; object-position:center; }
-.hero-background-crest { inset:12% 4% 12% auto; width:52%; height:76%; object-fit:contain; object-position:right center; }
-.hero-copy { position:relative; z-index:2; width:min(1200px,100%); margin-inline:auto; padding:80px 24px; }
+.hero-copy { position:relative; z-index:2; width:min(1200px,100%); margin-inline:auto; padding:clamp(24px,6vh,72px) 24px 88px; }
 .hero-copy .eyebrow { color:var(--gold); margin:0 0 24px; }
-.hero-copy .hero-header { color:var(--ivory); font-size:clamp(3.25rem,6vw,6rem); line-height:1.08; font-weight:600; max-width:15ch; margin:0; text-wrap:balance; }
+.hero-copy .hero-header { color:var(--ivory); font-size:clamp(2.75rem,min(6vw,10vh),6rem); line-height:1.08; font-weight:600; max-width:15ch; margin:0; text-wrap:balance; }
 .hero-copy .hero-header em { color:var(--gold); font-weight:500; }
-.hero-copy .hero-description { color:#ebe8df; max-width:45ch; font-size:clamp(1rem,1.25vw,1.2rem); line-height:1.75; margin:32px 0 0; }
+.hero-copy .hero-description { color:#ebe8df; max-width:45ch; font-size:clamp(1rem,1.25vw,1.2rem); line-height:1.75; margin:24px 0 0; }
 .button-gold { background:var(--gold); color:var(--navy); margin-top:20px; }
 .image-frame { background:#e5dfd2; position:relative; min-height:190px; display:grid; place-items:center; overflow:hidden; }
 .image-frame img { width:100%; height:100%; object-fit:cover; display:block; }
@@ -169,9 +168,9 @@ textarea:focus-visible,select:focus-visible { outline:3px solid var(--blue); out
 
 @media(max-width:700px) {
  .mission-grid,.gallery-grid,.program-grid,.contact-grid { grid-template-columns:1fr; }
- .hero-copy { padding:64px 24px; }
+ .university-hero { --portal-header-height:124px; }
+ .hero-copy { padding:clamp(24px,6vh,48px) 24px 88px; }
  .university-hero::after { background:linear-gradient(90deg,rgba(10,19,34,.94),rgba(10,19,34,.65)); }
- .hero-background-crest { width:85%; right:-20%; opacity:.45; }
  .university-section { padding:40px 0; }
  .mission-grid { gap:12px; }
  .editor-heading,.content-row { align-items:flex-start; flex-direction:column; }
@@ -266,3 +265,13 @@ textarea:focus-visible,select:focus-visible { outline:3px solid var(--blue); out
 .field input[type=checkbox] { width:20px; height:20px; min-height:20px; accent-color:var(--blue); }
 .account-search { display:flex; align-items:flex-end; flex-wrap:wrap; gap:12px; }
 .account-search .field { flex:1; min-width:180px; margin:0; }
+.hero-slide { opacity:0; transition:opacity 450ms ease-out; }
+.hero-slide.is-current { opacity:1; }
+.hero-controls { position:absolute; z-index:3; bottom:24px; right:max(24px,calc((100% - 1152px)/2)); display:flex; align-items:center; gap:4px; }
+.hero-controls[hidden] { display:none; }
+.hero-image-button { display:grid; place-items:center; width:44px; height:44px; padding:0; border:0; background:transparent; cursor:pointer; }
+.hero-image-button span { width:16px; height:4px; border-radius:2px; background:#f4f0e680; }
+.hero-image-button[aria-pressed=true] span { width:28px; background:var(--gold); }
+.hero-image-button:hover span { background:var(--ivory); }
+.hero-image-button:focus-visible { outline-color:var(--gold); }
+@media(prefers-reduced-motion:reduce) { .hero-slide { transition:none; } }
