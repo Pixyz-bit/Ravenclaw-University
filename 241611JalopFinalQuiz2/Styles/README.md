@@ -21,7 +21,7 @@ Styles/
   sections/
     university.css           Hero, contact, founder, content containers
     academics.css            Program cards and automatic carousel
-    about.css                Sticky chapters, overlapping images, mobile rail
+    about.css                Sticky 50/50 text/image chapters and mobile rail
     gallery.css              DriftWall gallery, static fallback, image dialog
     collegiate.css           Curved rope, five house pennants, responsive banner row
     contact.css              Simple address/hours, contact details, social links

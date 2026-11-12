@@ -4,7 +4,7 @@ if (aboutStory) {
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
     const markers = [...aboutStory.querySelectorAll('[data-about-marker]')];
     const copies = [...aboutStory.querySelectorAll('[data-about-copy]')];
-    const pairs = [...aboutStory.querySelectorAll('[data-about-pair]')];
+    const images = [...aboutStory.querySelectorAll('[data-about-image]')];
     let pending = false;
     const update = () => {
         pending = false;
@@ -13,7 +13,7 @@ if (aboutStory) {
         let active = 0;
         markers.forEach((marker, index) => { if (marker.getBoundingClientRect().top <= window.innerHeight * .5) active = index; });
         copies.forEach((copy, i) => { copy.classList.toggle('is-active', i === active); copy.inert = i !== active; });
-        pairs.forEach((pair, i) => { pair.classList.toggle('is-active', i === active); pair.setAttribute('aria-hidden', String(i !== active)); });
+        images.forEach((image, i) => { image.classList.toggle('is-active', i === active); image.setAttribute('aria-hidden', String(i !== active)); });
     };
     const schedule = () => { if (!pending) { pending = true; requestAnimationFrame(update); } };
     window.addEventListener('scroll', schedule, { passive: true });

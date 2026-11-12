@@ -93,24 +93,26 @@ Navigation wraps on smaller screens; page sections stack below 700px.
 
 The user supplied Digital Original's Creator showcase and How it works sections,
 and explicitly requested their layout/scroll/hover treatment. These two sections
-use Lato headings, warm white (#f7f5f3) and near-charcoal (#131211), larger section
-containers up to 1552px, and 16px image corners to follow that reference. Other
-sections retain the university design tokens.
+use Lato headings, warm white (#f7f5f3) and near-charcoal (#131211). Academics uses
+containers up to 1552px; About now uses the user's full-width equal split. Mobile
+images retain rounded corners. Other sections retain the university design tokens.
 
 About presents four database-backed chapters: introduction, mission, vision, and
-core values. On desktop, text and overlapping square image pairs remain sticky as
-vertical scrolling crossfades the active chapter. Main photo width is 78%; lower-left
-inset width is 46%, bottom -12%. Below 1024px, a swipeable snap rail and dots replace
-the sticky composition. Uploaded About photos take priority; approved illustrations
+core values. On desktop, a full-width 50/50 composition keeps text on the left and
+one edge-to-edge image on the right. Both panels remain sticky below the navbar as
+vertical scrolling crossfades the active chapter. Each image fills its entire half
+using object-fit:cover; there is no inset/overlapping photo. Below 1024px, a swipeable
+snap rail and dots retain one image above each text chapter. Uploaded About photos
+take priority; approved illustrations
 provide a visual fallback without inventing university facts. No-JS content remains
 readable; reduced motion disables transition effects.
 
-The complete desktop About composition is bounded by the available dynamic
-viewport height. Its image-pair width accounts for the lower inset's 12% extension,
-and both columns share a responsive sticky top offset, at least the navbar height
-plus 16px and otherwise between 24–120px. Smaller desktop
-heights reduce the image pair and heading size; long prose scrolls inside its text
-area rather than pushing controls or images below the viewport.
+The desktop story spans the full available page width with equal columns and no
+gap. Panel height is 100dvh minus the measured navbar height, and sticky top equals
+that navbar height. The introductory section heading stays above the story.
+Smaller desktop heights scale text spacing; long prose scrolls inside its text area
+rather than pushing controls below the viewport. Chapter count, scroll markers,
+crossfades, mobile dots, and reduced-motion behavior are retained.
 
 Academics uses portrait program-image cards on a full-width dark section, with
 bottom titles, descriptions on activation, 5% image hover zoom over 700ms, and

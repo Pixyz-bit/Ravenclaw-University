@@ -4,6 +4,18 @@ Last verified: 2026-11-12.
 
 ## Completed
 
+- Changed About to a full-width 50/50 desktop split: text left, one edge-to-edge
+  image per chapter right, both sticky below the navbar and filling its remaining
+  viewport height. Removed overlapping/inset photos and obsolete pair selectors.
+  Four chapter markers, synchronized image/text crossfades, mobile swipe/dots, and
+  reduced-motion handling remain. Mobile has one image above each chapter's text.
+- Build and 126 isolated checks passed with zero warnings/errors. Shared-memory SQL
+  login timed out on the first attempt; the local named-pipe retry succeeded.
+  Browser QA at 1366×768 and 1280×480 verified equal panel widths, image coverage
+  from navbar bottom to viewport bottom, and mission/vision changes on scrolling.
+  At 375×667, verified one image per slide, working mission dot, and no horizontal
+  document overflow. Verification used only disposable databases.
+
 - Implemented the approved simple contact layout in _UniversityContact.cshtml with
   reusable sections/contact.css. Desktop places address/office hours left and email/
   telephone right; phones stack all details. A divider separates published social

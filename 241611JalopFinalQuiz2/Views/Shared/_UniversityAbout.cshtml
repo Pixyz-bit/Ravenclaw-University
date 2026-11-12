@@ -32,10 +32,9 @@
             <div class="about-image-stack">
                 @for (var i = 0; i < steps.Length; i++)
                 {
-                    var main = Picture(i); var secondary = Picture(i + 1);
-                    <div class="about-image-pair @(i == 0 ? "is-active" : "")" data-about-pair="@i" aria-hidden="@(i == 0 ? "false" : "true")">
-                        <div class="about-main-photo"><img src="@main.Path" alt="@main.Alt" loading="lazy" decoding="async" /></div>
-                        <div class="about-second-photo"><img src="@secondary.Path" alt="" loading="lazy" decoding="async" /></div>
+                    var main = Picture(i);
+                    <div class="about-image-slide @(i == 0 ? "is-active" : "")" data-about-image="@i" aria-hidden="@(i == 0 ? "false" : "true")">
+                        <img src="@main.Path" alt="@main.Alt" loading="lazy" decoding="async" />
                     </div>
                 }
             </div>
@@ -45,9 +44,9 @@
         <div class="about-mobile-rail" tabindex="0" role="region" aria-label="About Ravenclaw University" data-about-rail>
             @for (var i = 0; i < steps.Length; i++)
             {
-                var main = Picture(i); var secondary = Picture(i + 1);
+                var main = Picture(i);
                 <article class="about-mobile-step" id="about-mobile-@i">
-                    <div class="about-mobile-images"><div class="about-main-photo"><img src="@main.Path" alt="@main.Alt" loading="lazy" decoding="async" /></div><div class="about-second-photo"><img src="@secondary.Path" alt="" loading="lazy" decoding="async" /></div></div>
+                    <div class="about-mobile-image"><img src="@main.Path" alt="@main.Alt" loading="lazy" decoding="async" /></div>
                     <span class="about-number">@((i + 1).ToString("00"))</span><h3>@steps[i].Title</h3><p class="prose">@steps[i].Text</p>
                     <a class="about-link" href="@steps[i].Target">@steps[i].Link <span aria-hidden="true">→</span></a>
                 </article>
