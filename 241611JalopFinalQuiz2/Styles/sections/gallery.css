@@ -1,11 +1,11 @@
 /* MVC/Tailwind adaptation of the user-supplied React Bits DriftWall reference. */
 @layer components {
     .gallery-section {
-        @apply bg-navy text-ivory [padding:clamp(40px,6vw,80px)_0] scroll-mt-[24px];
+        @apply relative bg-navy text-ivory h-[calc(100dvh_-_var(--portal-header-height,85px))] min-h-[420px] p-0 scroll-mt-[-16px];
     }
 
     .gallery-heading {
-        @apply max-w-[1200px] [margin:0_auto_24px] [padding:0_24px];
+        @apply absolute top-0 left-0 right-0 z-10 max-w-[1200px] [margin:0_auto] [padding:clamp(24px,4dvh,48px)_24px_48px] pointer-events-none [text-shadow:0_2px_16px_#081222];
     }
 
     .gallery-heading .eyebrow {
@@ -21,11 +21,31 @@
     }
 
     .drift-wall {
-        @apply relative w-full h-[clamp(380px,65dvh,720px)] overflow-hidden [--dw-tile-w:200px] [--dw-tile-h:132px] [--dw-gap:18px] [--dw-radius:14px] [--dw-lift:64px] [--dw-dim:.78];
+        @apply absolute inset-0 w-full h-full overflow-hidden [--dw-tile-w:200px] [--dw-tile-h:132px] [--dw-gap:18px] [--dw-radius:14px] [--dw-lift:64px] [--dw-dim:.78];
+    }
+
+    .gallery-section::after {
+        @apply content-[''] absolute inset-0 z-1 pointer-events-none [background:linear-gradient(180deg,#101d34ed,transparent_50%)];
+    }
+
+    .gallery-section:has(.drift-wall__items:focus-within) .gallery-heading {
+        @apply invisible;
+    }
+
+    .gallery-section:has(.drift-wall__items:focus-within)::after {
+        @apply hidden;
     }
 
     .drift-wall__items {
         @apply grid [grid-template-columns:repeat(auto-fit,minmax(220px,1fr))] [grid-auto-rows:minmax(160px,240px)] gap-[18px] max-w-[1200px] [margin:0_auto] p-[24px] h-full overflow-y-auto;
+    }
+
+    .drift-wall:not(.is-enhanced) .drift-wall__items {
+        @apply pt-[240px];
+    }
+
+    .drift-wall:not(.is-enhanced) .drift-wall__items:focus-within {
+        @apply pt-[24px];
     }
 
     .drift-wall__source {

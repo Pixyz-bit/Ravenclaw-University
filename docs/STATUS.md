@@ -4,6 +4,21 @@ Last verified: 2026-11-12.
 
 ## Completed
 
+- Added The Hogwarts Collegiate Circle after Gallery, adapting the supplied hanging
+  flags layout with a curved gold rope and five newly generated matching pennants.
+  Order is Gryffindor, Slytherin, Hogwarts, Ravenclaw, Hufflepuff; Hogwarts is centered
+  and slightly larger. Its original quartered H-monogram crest matches the set.
+  All five PNGs are 793×1983 RGBA with transparency, stored under images/collegiate.
+  GENERATED_ASSETS.md records the built-in image-generation prompts and provenance.
+- Made Gallery fill 100dvh minus the sticky navbar, with heading overlay and columns
+  scaled to its full width. Keyboard image browsing remains a visible static grid.
+  Browser checks at 1366×768 and 375×667 verified matching section/wall bounds from
+  the navbar bottom to viewport bottom, without horizontal document overflow.
+- All 126 isolated checks and build passed with zero warnings/errors. Browser QA
+  verified all five banner images load, central Hogwarts placement, phone centering
+  and native arrow-key scrolling, plus the full-height gallery's keyboard fallback.
+  Subsequent image dimension metadata was corrected to the verified PNG dimensions.
+
 - Added a standalone DriftWall gallery after Academics, adapted from the user's
   supplied reference to Razor, Tailwind, and vanilla JavaScript. It uses About
   gallery uploads or approved illustration fallbacks, five drifting columns on

@@ -147,6 +147,28 @@ motion and no-JavaScript browsing also use this grid. Duplicate visual tiles are
 hidden from assistive technology and excluded from tab order. Focus rings and
 normal image links remain available. Styles live in sections/gallery.css.
 
+The gallery wall now fills a viewport below the sticky navbar, with its heading
+overlaid above a readable navy fade. Column/tile sizes scale from the section width
+to cover wide screens. Keyboard/reduced-motion grids keep readable spacing. A
+420px minimum preserves access in very short windows; the section can then scroll.
+
+## The Hogwarts Collegiate Circle
+
+This new section follows Gallery and uses the supplied curved-rope/pennant layout
+reference. The term "Collegiate Circle" replaces "sister universities" in the UI.
+Five freshly generated, transparent 793×1983 PNG banners share flat heraldic
+linework, geometric starburst fields, pointed bottoms, blackletter names, double
+borders, and print grain. Order: Gryffindor, Slytherin, Hogwarts, Ravenclaw,
+Hufflepuff. Hogwarts is centered and slightly larger, with an original H monogram
+on a quartered shield; the main university crest remains the approved original.
+
+A gold curved rope and small pegs connect the banners. Gentle spring-based sway
+reacts to the pointer and stops for reduced motion, offscreen content, or hidden
+tabs. Below 760px the row scrolls horizontally and starts centered on Hogwarts;
+native arrow-key scrolling and a short hint keep all five accessible. No external
+links or claimed real-world partnerships are introduced. Asset provenance and
+final built-in image-generation prompts are recorded in GENERATED_ASSETS.md.
+
 Administration uses flat divided lists and explicit Edit/Delete actions. Editors use
 Lato for operational headings, visible labels, native text/date/URL inputs, textarea
 controls, a supported icon selector, inline errors, and POST delete confirmation.

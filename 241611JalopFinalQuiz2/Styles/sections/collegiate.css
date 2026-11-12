@@ -1,0 +1,95 @@
+@layer components {
+    .collegiate-section {
+        @apply bg-ivory text-navy [padding:clamp(40px,5vw,72px)_0] scroll-mt-[24px] [--banner-height:clamp(280px,45dvh,440px)];
+    }
+
+    .collegiate-heading {
+        @apply max-w-[1200px] [margin:0_auto_20px] [padding:0_24px] text-center;
+    }
+
+    .collegiate-heading .eyebrow {
+        @apply text-blue [margin:0_0_12px];
+    }
+
+    .collegiate-heading h2 {
+        @apply text-[clamp(2rem,4vw,3.4rem)] [margin:0_0_16px];
+    }
+
+    .collegiate-heading>p:last-child {
+        @apply text-muted [margin:0_auto];
+    }
+
+    .collegiate-hint {
+        @apply hidden;
+    }
+
+    .collegiate-scroll {
+        @apply w-full overflow-x-auto overflow-y-hidden [scrollbar-width:thin] [scrollbar-color:var(--color-gold)_transparent] [scroll-padding-inline:24px];
+    }
+
+    .collegiate-scroll:focus-visible {
+        @apply [outline:3px_solid_var(--color-blue)] [outline-offset:-4px];
+    }
+
+    .collegiate-stage {
+        @apply relative min-w-[760px] max-w-[1200px] [margin:0_auto] [padding:0_24px_24px];
+    }
+
+    .collegiate-rope {
+        @apply absolute top-0 left-0 w-full h-[100px] fill-none [stroke:var(--color-gold)] [stroke-width:3] pointer-events-none;
+    }
+
+    .collegiate-banners {
+        @apply relative grid [grid-template-columns:repeat(5,minmax(0,1fr))] gap-[20px];
+    }
+
+    .collegiate-banner {
+        @apply m-0 pt-[var(--banner-hang,28px)] text-center;
+    }
+
+    .collegiate-banner:nth-child(2),.collegiate-banner:nth-child(4) {
+        @apply [--banner-hang:46px];
+    }
+
+    .collegiate-banner:nth-child(3) {
+        @apply [--banner-hang:52px];
+    }
+
+    .collegiate-pennant {
+        @apply relative [width:min(100%,calc(var(--banner-height)*.4))] [margin:0_auto] [transform-origin:50%_0] [filter:drop-shadow(0_10px_10px_#101d341a)];
+    }
+
+    .collegiate-pennant::before,.collegiate-pennant::after {
+        @apply content-[''] absolute z-1 top-[2px] w-[5px] h-[18px] rounded-[2px] [background:#8c7145] [border:1px_solid_#665334];
+    }
+
+    .collegiate-pennant::before {
+        @apply left-[8%] [transform:rotate(-5deg)];
+    }
+
+    .collegiate-pennant::after {
+        @apply right-[8%] [transform:rotate(5deg)];
+    }
+
+    .collegiate-pennant img {
+        @apply block w-full h-[var(--banner-height)] object-contain select-none;
+    }
+
+    .collegiate-banner.is-central {
+        @apply [--banner-height:clamp(302px,48.6dvh,475px)];
+    }
+
+    .collegiate-banner figcaption {
+        @apply font-heading text-[1.3rem] font-semibold [margin:12px_0_0];
+    }
+
+    .collegiate-banner.is-central figcaption {
+        @apply text-[1.5rem];
+    }
+
+    @media(max-width:760px) {
+        .collegiate-hint {
+            @apply block [margin:0_auto_16px] [padding:0_24px] text-center text-[.8rem] text-muted;
+        }
+    }
+}

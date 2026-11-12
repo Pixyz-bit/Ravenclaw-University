@@ -52,6 +52,9 @@ document.querySelectorAll('[data-university-gallery]').forEach(section => {
         canvas.hidden = reduced.matches;
         if (reduced.matches) { updateRunning(); return; }
         const count = wall.clientWidth < 601 ? 3 : 5;
+        const tileWidth = Math.max(150, wall.clientWidth / count * 1.1);
+        wall.style.setProperty('--dw-tile-w', `${tileWidth}px`);
+        wall.style.setProperty('--dw-tile-h', `${tileWidth * .66}px`);
         const style = getComputedStyle(wall);
         const unit = parseFloat(style.getPropertyValue('--dw-tile-h')) + parseFloat(style.getPropertyValue('--dw-gap'));
         for (let index = 0; index < count; index++) {

@@ -14,6 +14,11 @@ directions, hover lifts an image, and selecting one opens its full-size preview.
 Keyboard and reduced-motion browsing use an ordinary image grid. No new database
 table, controller, or React runtime is needed for this read-only section.
 
+The Hogwarts Collegiate Circle follows the gallery. It is a static illustrated
+five-pennant display with Hogwarts in the center, not an additional database table
+or editor. The five new generated assets are in wwwroot/images/collegiate; their
+prompts and provenance are in docs/GENERATED_ASSETS.md.
+
 ## Using the editors
 
 Sign in as an Admin and open Administration. The sidebar links to seven sections.

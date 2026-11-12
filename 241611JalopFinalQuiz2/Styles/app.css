@@ -13,6 +13,7 @@
 @import "./sections/academics.css";
 @import "./sections/about.css";
 @import "./sections/gallery.css";
+@import "./sections/collegiate.css";
 
 @source "../Views";
 @source "../wwwroot/js";

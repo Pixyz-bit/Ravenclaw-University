@@ -23,6 +23,7 @@ Styles/
     academics.css            Program cards and automatic carousel
     about.css                Sticky chapters, overlapping images, mobile rail
     gallery.css              DriftWall gallery, static fallback, image dialog
+    collegiate.css           Curved rope, five house pennants, responsive banner row
 ```
 
 Run from the repository root:
