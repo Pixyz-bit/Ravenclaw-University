@@ -35,19 +35,19 @@
 }
 
 .section-heading h2 {
-    @apply text-[clamp(2.2rem,4vw,3.4rem)] max-w-[22ch];
+    @apply max-w-[22ch] mb-[20px];
 }
 
 .section-heading .eyebrow {
-    @apply text-blue;
+    @apply text-blue [margin:0_0_12px];
 }
 
 .university-section {
     @apply [padding:64px_0] scroll-mt-[24px] [border-bottom:1px_solid_var(--color-line)];
 }
 
-.university-section h3 {
-    @apply font-heading text-[1.8rem] leading-[1.2] font-semibold text-navy;
+.university-section .university-subtitle {
+    @apply text-navy [margin:0_0_16px];
 }
 
 .portal-main.university-main {
@@ -87,7 +87,7 @@
 }
 
 .hero-copy .hero-description {
-    @apply text-ivory max-w-[45ch] text-[clamp(1rem,1.25vw,1.2rem)] leading-[1.75] [margin:24px_0_0];
+    @apply text-ivory max-w-[45ch] text-university-copy [margin:24px_0_0];
 }
 
 .image-frame {

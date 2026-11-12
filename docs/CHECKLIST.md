@@ -10,7 +10,7 @@ remain suggestions, not approved changes. Existing MVC/EF content sources and
 interaction behavior remain the implementation foundation.
 
 - [x] Unify section surfaces, text colors, and accents around the university palette.
-- [ ] Establish a shared Cormorant Garamond/Lato typography hierarchy with responsive titles and readable body copy.
+- [x] Establish a shared Cormorant Garamond/Lato typography hierarchy with responsive titles and readable body copy.
 - [ ] Consider more selective motion across About, programs, gallery, and pennants (suggestion only).
 - [ ] Consider content-led section heights and a more natural page rhythm (suggestion only).
 - [ ] Consider clearer program summaries and browsing controls (suggestion only).
@@ -20,6 +20,13 @@ interaction behavior remain the implementation foundation.
 Verification for the approved work: compile Tailwind and MVC; inspect desktop,
 short desktop, and mobile layouts; check contrast, heading consistency, overflow,
 and existing program/About/navigation interactions. Record any limits in STATUS.md.
+
+The approved visual work passed Tailwind/MVC builds, contrast and design-detector
+checks, and Razor-fixture inspection at desktop, short desktop, and mobile sizes.
+Program descriptions, mobile menu navigation, long About copy, and keyboard/static
+gallery layouts were checked. Full SQL integration is unconfirmed because of the
+existing intermittent SQL timeout. Mobile About dot navigation also has an existing
+intermediate-chapter issue reproduced with the previous stylesheet; see STATUS.md.
 
 ## 1. Planning and project foundation
 

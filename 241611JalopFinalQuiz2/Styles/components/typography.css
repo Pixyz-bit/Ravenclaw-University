@@ -1,0 +1,18 @@
+/* Shared public content roles; account and administration keep their compact UI scale. */
+@layer components {
+    .university-section-title {
+        @apply font-heading text-university-title leading-[1.12] tracking-[-.025em] font-medium text-balance m-0;
+    }
+
+    .university-subtitle {
+        @apply font-heading text-university-subtitle leading-[1.2] font-semibold tracking-[-.015em];
+    }
+
+    .university-main {
+        @apply text-university-copy leading-[1.75];
+    }
+
+    .university-main .eyebrow {
+        @apply text-[.75rem] leading-[1.5] tracking-[.14em];
+    }
+}

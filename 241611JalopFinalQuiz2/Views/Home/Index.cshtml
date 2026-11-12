@@ -17,7 +17,7 @@ else
     <partial name="_UniversityAbout" model="Model" />
     <section id="academics" class="academics-showcase" aria-labelledby="academics-title">
         <div class="academics-heading">
-            <div><p class="eyebrow">Academics</p><h2 id="academics-title">Find your field of discovery.</h2></div>
+            <div><p class="eyebrow">Academics</p><h2 id="academics-title" class="university-section-title">Find your field of discovery.</h2></div>
         </div>
         @if (Model.Programs.Count == 0)
         {
@@ -42,7 +42,7 @@ else
                         </summary>
                         <div class="program-description" tabindex="0" role="region" aria-label="@program.SubjectName description">
                             <p class="eyebrow">About this program</p>
-                            <h3>@program.SubjectName</h3>
+                            <h3 class="university-subtitle">@program.SubjectName</h3>
                             <p class="prose">@(string.IsNullOrWhiteSpace(program.Description) ? "A description has not been published yet." : program.Description)</p>
                         </div>
                     </details>
@@ -55,11 +55,11 @@ else
     <partial name="_CollegiateCircle" />
     <div class="university-content">
     <section id="leadership" class="university-section leadership-section">
-        <div class="section-heading"><p class="eyebrow">Founder information</p><h2>The vision behind the university.</h2></div>
+        <div class="section-heading"><p class="eyebrow">Founder information</p><h2 class="university-section-title">The vision behind the university.</h2></div>
         @if (Model.Founders.Count==0) { <p class="empty-copy">Founder information will be published here.</p> }
         @foreach (var founder in Model.Founders)
         {
-            <article class="founder-entry"><h3>@founder.FounderName</h3>
+            <article class="founder-entry"><h3 class="university-subtitle">@founder.FounderName</h3>
                 @if (founder.Birthday.HasValue) { <p class="founder-date">Born <time datetime="@founder.Birthday.Value.ToString("yyyy-MM-dd")">@founder.Birthday.Value.ToString("MMMM d, yyyy",System.Globalization.CultureInfo.InvariantCulture)</time></p> }
                 <p class="prose">@founder.Description</p>
                 @if (!string.IsNullOrWhiteSpace(founder.FounderMessage)) { <h4>A message from the founder</h4><blockquote class="prose">@founder.FounderMessage</blockquote> }

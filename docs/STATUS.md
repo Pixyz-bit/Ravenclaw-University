@@ -4,6 +4,12 @@ Last verified: 2026-11-12.
 
 ## Latest error check
 
+- During the palette/typography pass, the existing isolated verifier built with
+  zero warnings/errors and passed 13 authentication checks before an HTTP request
+  exceeded its 20-second timeout. The disposable database was cleaned up. The
+  restricted initial attempt could not access the SQL named pipe; the local-access
+  retry reached the checks above. This is not a full integration pass.
+
 - Follow-up after the About cleanup: server logs confirm intermittent SQL pre-login
   timeouts affecting real sign-ins. An encrypted EF named-pipe read passed once but
   another timed out post-login; TCP localhost:1433 also timed out. Original connection
@@ -33,13 +39,33 @@ Last verified: 2026-11-12.
 
 ## Completed
 
+- Added shared public section-title/subtitle classes and responsive typography
+  tokens: Cormorant Garamond h2s at 36–56px/1.12, h3s at 24–32px/1.2, and Lato
+  body copy at 17–18px/1.75. About (both variants), Academics, Gallery, Collegiate
+  Circle, and Leadership now share the same h2 hierarchy; footer Contact uses the
+  secondary scale. Account/admin form sizing remains unchanged. Removed the
+  competing Academics sans-serif/size overrides and aligned section-label spacing.
+- Tailwind and MVC builds passed with zero warnings/errors; the design detector
+  returned no findings. Browser checks used the actual compiled Razor homepage
+  and partials, rendered offline with temporary fixture ViewModels, existing images,
+  CSS, and scripts. At 1366×768, 1280×480, and 375×812, headings shared the expected
+  font/size and the document had no horizontal overflow. Long About copy retained
+  internal scrolling with its link visible on the short desktop. Mobile navigation
+  and the long-title program description worked. Static gallery heading space now
+  follows wrapped text; its image grid has a verified 24px gap, and keyboard focus
+  releases the heading row. These fixture checks do not verify live SQL data.
+- Final local rebuild passed with zero warnings/errors. Restarted the university
+  with its existing http Development profile; login and the updated stylesheet
+  returned HTTP 200 at localhost:5182. Temporary visual-fixture servers were stopped;
+  generated previews/builds/screenshots remain ignored under TestResults.
+
 - Unified About and Academics with the existing ivory/navy university palette;
   Academics edge fades and hover colors now match its navy surface. Shared
   on-navy secondary text is used by the gallery and fallback footer. Hero image,
   section layouts, motion, MVC views, EF content sources, and database remain
   unchanged. Tailwind compilation and diff whitespace checks passed. All seven
   solid foreground/background combinations checked exceed 4.5:1 contrast.
-  Responsive visual verification and the shared typography unit are still pending.
+  Responsive visual verification was completed with the typography unit above.
   Added a checklist separating the two approved refinements from the five other
   recommendations, which remain suggestions only.
 
@@ -384,6 +410,11 @@ Last verified: 2026-11-12.
   the same diagnostic succeeded with local SQL Server access.
 
 ## Not implemented / not verified
+
+- Mobile About dot navigation can stop at an intermediate chapter when selecting
+  Vision from the introduction. The same result was reproduced using the previous
+  stylesheet (before the shared typography changes). about-story.js was not changed
+  in this scoped visual pass; the navigation issue needs a separate fix.
 
 - Replace the Hogwarts center banner's H-only emblem with the full uploaded crest.
   The original transparent logo is saved, but both built-in generation/edit attempts

@@ -12,7 +12,7 @@
     }
 
     .collegiate-heading h2 {
-        @apply text-[clamp(2rem,4vw,3.4rem)] [margin:0_0_16px];
+        @apply mb-[20px];
     }
 
     .collegiate-heading>p:last-child {

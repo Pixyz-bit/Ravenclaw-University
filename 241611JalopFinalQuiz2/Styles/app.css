@@ -4,6 +4,7 @@
 @import "tailwindcss/utilities.css" layer(utilities) source(none);
 @import "./base/theme.css";
 @import "./base/global.css";
+@import "./components/typography.css";
 @import "./components/branding.css";
 @import "./components/forms.css";
 @import "./layouts/account.css";

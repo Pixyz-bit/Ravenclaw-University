@@ -13,6 +13,7 @@ Styles/
     global.css               Document, typography, focus, and accessibility rules
   components/
     branding.css             Crest and wordmark
+    typography.css           Shared public section titles, subheadings, and body scale
     forms.css                Fields, validation, buttons, uploads, editor rows
     navigation.css           Public navbar and account dropdown
   layouts/
@@ -46,6 +47,12 @@ the established MVC browser defaults. Shared rules live in the components layer;
 utilities written in views can override them. Use existing color/font tokens,
 keep responsive/state rules with their component, and use arbitrary utilities
 for exact gradients, viewport calculations, and scroll transitions.
+
+Public section headings use university-section-title; content subheadings use
+university-subtitle. The university-main scope supplies 17–18px body copy without
+changing account/admin forms. Sizes and their semantic line heights live in
+base/theme.css; components/typography.css also declares explicit leading to avoid
+inherited Tailwind line-height variables changing the intended hierarchy.
 
 Do not modify third-party styles in `wwwroot/lib` or Font Awesome. They are vendor
 dependencies, not Ravenclaw's application styles.

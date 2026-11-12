@@ -27,11 +27,11 @@
 }
 
 .academics-heading .eyebrow {
-    @apply text-gold [margin:0_0_16px];
+    @apply text-gold [margin:0_0_12px];
 }
 
 .academics-heading h2 {
-    @apply text-ivory text-[clamp(2.2rem,4vw,3.6rem)] m-0 max-w-[25ch];
+    @apply text-ivory max-w-[25ch];
 }
 
 .program-scroll-button {
@@ -111,15 +111,15 @@
 }
 
 .program-description h3 {
-    @apply text-ivory font-heading text-[1.8rem] font-medium leading-[1.15] [margin:8px_0_16px] [overflow-wrap:anywhere];
+    @apply text-ivory [margin:8px_0_16px] [overflow-wrap:anywhere];
 }
 
 .program-description .eyebrow {
-    @apply text-gold text-[.65rem];
+    @apply text-gold;
 }
 
 .program-description .prose {
-    @apply text-[.9rem];
+    @apply text-university-copy;
 }
 
 .academics-showcase :focus-visible {
@@ -154,14 +154,6 @@
     .program-card:hover .program-card-image {
         @apply transform-none;
     }
-}
-
-.academics-heading {
-    @apply max-w-[1552px];
-}
-
-.academics-heading h2 {
-    @apply font-body text-[clamp(2rem,3vw,3.5rem)] font-normal tracking-[-.045em];
 }
 
 .program-card {
@@ -247,14 +239,6 @@
     @apply m-0 [margin-inline:auto];
 }
 
-.academics-heading .eyebrow {
-    @apply mb-[clamp(8px,1.6dvh,16px)];
-}
-
-.academics-heading h2 {
-    @apply text-[clamp(1.6rem,min(3vw,6dvh),3.5rem)];
-}
-
 .program-viewport {
     @apply min-h-0 min-w-0;
 }
@@ -272,7 +256,7 @@
 }
 
 .program-card-title {
-    @apply text-[clamp(.95rem,2.8dvh,1.2rem)] line-clamp-2;
+    @apply text-[clamp(1rem,2.8dvh,1.25rem)] line-clamp-2;
 }
 
 .program-card-arrow {

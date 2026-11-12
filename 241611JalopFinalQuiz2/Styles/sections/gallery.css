@@ -13,15 +13,32 @@
     }
 
     .gallery-heading .eyebrow {
-        @apply text-gold mb-[12px];
+        @apply text-gold [margin:0_0_12px];
     }
 
     .gallery-heading h2 {
-        @apply text-ivory text-[clamp(2rem,4vw,3.4rem)] [margin:0_0_16px];
+        @apply text-ivory mb-[20px];
     }
 
     .gallery-heading>p:last-child {
-        @apply text-on-navy text-[.95rem] m-0;
+        @apply text-on-navy m-0;
+    }
+
+    /* Let wrapped headings size the static/reduced-motion grid's reserved space. */
+    .gallery-section:has(.drift-wall:not(.is-enhanced)) {
+        @apply grid [grid-template-rows:auto_minmax(0,1fr)];
+    }
+
+    .gallery-section:has(.drift-wall:not(.is-enhanced)) .gallery-heading {
+        @apply relative w-full pb-0;
+    }
+
+    .gallery-section:has(.drift-wall:not(.is-enhanced))::after {
+        @apply hidden;
+    }
+
+    .gallery-section:has(.drift-wall:not(.is-enhanced) .drift-wall__items:focus-within) {
+        @apply [grid-template-rows:0_minmax(0,1fr)];
     }
 
     .drift-wall {
@@ -41,7 +58,11 @@
     }
 
     .drift-wall:not(.is-enhanced) .drift-wall__items {
-        @apply pt-[240px];
+        @apply pt-[24px];
+    }
+
+    .drift-wall:not(.is-enhanced) {
+        @apply relative min-h-0;
     }
 
     .drift-wall:not(.is-enhanced) .drift-wall__items:focus-within {

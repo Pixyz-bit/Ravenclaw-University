@@ -11,4 +11,11 @@
     --color-error: #8c2734;
     --font-heading: "Cormorant Garamond", Georgia, serif;
     --font-body: "Lato", Verdana, sans-serif;
+    --text-university-title: clamp(2.25rem, min(4vw, 8dvh), 3.5rem);
+    --text-university-title--line-height: 1.12;
+    --text-university-title--letter-spacing: -.025em;
+    --text-university-subtitle: clamp(1.5rem, 2.2vw, 2rem);
+    --text-university-subtitle--line-height: 1.2;
+    --text-university-copy: clamp(1.0625rem, 1.35vw, 1.125rem);
+    --text-university-copy--line-height: 1.75;
 }

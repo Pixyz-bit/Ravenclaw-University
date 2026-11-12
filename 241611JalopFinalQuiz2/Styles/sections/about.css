@@ -29,7 +29,7 @@
     }
 
     .about-copy-item h2,.about-mobile-step h2 {
-        @apply font-heading text-[clamp(2rem,min(4.5vw,8dvh),4.25rem)] font-medium leading-[1.06] tracking-[-.035em] [margin:clamp(16px,2.8dvh,28px)_0_clamp(16px,2.5dvh,24px)] text-navy shrink-0 max-w-[17ch];
+        @apply [margin:0_0_clamp(16px,2.5dvh,24px)] text-navy shrink-0 max-w-[20ch];
     }
 
     .about-prose {
@@ -37,7 +37,7 @@
     }
 
     .about-copy-item .prose {
-        @apply text-[18px] leading-[1.8] text-muted max-w-[40ch] m-0;
+        @apply text-ink max-w-[40ch] m-0;
     }
 
     .about-link {
@@ -128,11 +128,11 @@
         }
 
         .about-mobile-step h2 {
-            @apply text-[2.25rem] mt-[20px];
+            @apply mt-[20px];
         }
 
         .about-mobile-step .prose {
-            @apply text-muted;
+            @apply text-ink;
         }
 
         .about-mobile-step > :not(.about-mobile-image) {

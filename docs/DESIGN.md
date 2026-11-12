@@ -35,6 +35,31 @@ fallbacks. The approved university crest is installed; content imagery remains p
 Font Awesome Free 6.7.2 loads social icons through cdnjs. Gold is primarily a decorative accent;
 ensure readable text contrast rather than assuming every palette pairing works.
 
+## Shared public typography (2026-11-12)
+
+Public content uses reusable roles in Styles/components/typography.css and scale
+tokens in Styles/base/theme.css. Use the same roles for future university sections:
+
+| Role | Treatment |
+| --- | --- |
+| Hero h1 | Existing Cormorant Garamond display/italic motto, 44–96px with viewport scaling |
+| Section h2 | university-section-title: Cormorant Garamond 500, 36–56px, 1.12 line height, -0.025em tracking |
+| Content h3 | university-subtitle: Cormorant Garamond 600, 24–32px, 1.2 line height |
+| Main body | Lato 400, 17–18px, 1.75 line height, at most 65ch; About's narrow column retains 40ch |
+| Small labels | Lato 700, 12px, 1.5 line height, 0.14em tracking |
+
+The section-title scale responds to both viewport width and height so About and
+Academics remain usable on short screens. Explicit leading in the shared classes
+prevents inherited Tailwind line-height variables from overriding the role tokens.
+All public section h2s share the role, including both About variants, Academics,
+Gallery, Collegiate Circle, and Leadership. Footer Contact uses the secondary
+24–32px scale. Program-card controls, footer navigation, forms, account pages,
+and operational admin headings retain their compact Lato UI hierarchy.
+
+Section labels use a consistent 12px gap before titles, with 20px between ordinary
+section titles and supporting copy. About retains its responsive panel spacing.
+No section height, animation, content, data source, or route was replaced.
+
 ## Composition
 
 Navigation -> Hero -> About -> Academics -> Gallery -> Collegiate Circle ->
@@ -203,6 +228,9 @@ opaque with their original colors; canvas masks and per-image tint layers stay
 removed. Column/tile sizes scale from the section width
 to cover wide screens. Keyboard/reduced-motion grids keep readable spacing. A
 420px minimum preserves access in very short windows; the section can then scroll.
+For the static/no-JavaScript and reduced-motion grid, a content-sized heading row
+reserves the actual wrapped text height, followed by a 24px image-grid gap. Keyboard
+focus hides that heading and releases its row so the grid can fill the section.
 
 ## The Hogwarts Collegiate Circle
 
