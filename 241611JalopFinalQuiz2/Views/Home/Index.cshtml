@@ -14,9 +14,6 @@ else
             <p class="hero-description">A place for curious minds. Explore our university and its academic programs.</p>
         </div>
     </section>
-    <div class="university-content">
-    @if (User.IsInRole("Admin")) { <p class="admin-note">You are viewing the student-facing page. <a asp-controller="Admin" asp-action="Index">Manage university content →</a></p> }
-    </div>
     <partial name="_UniversityAbout" model="Model" />
     <section id="academics" class="academics-showcase" aria-labelledby="academics-title">
         <div class="academics-heading">

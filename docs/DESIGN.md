@@ -91,15 +91,17 @@ Navigation wraps on smaller screens; page sections stack below 700px.
 
 ## About and Academics reference (2026-11-12)
 
-The About section heading is “Wit beyond measure is man's greatest treasure.”
-It replaces “Knowledge begins with curiosity.” without changing the layout.
+About begins directly with “A place for curious minds.” The separate About label,
+quote introduction, and student-facing admin notice have been removed. There is no
+introductory top gap. The section uses the full page width, with edge-to-edge images
+on desktop and mobile and responsive inner padding for text.
 
 The user supplied Digital Original's Creator showcase and How it works sections,
 and explicitly requested their layout/scroll/hover treatment. These two sections
-use warm white (#f7f5f3) and near-charcoal (#131211). Academics and the About section
-heading use Lato; About chapter titles now use Cormorant Garamond. Academics uses
+use warm white (#f7f5f3) and near-charcoal (#131211). Academics headings use Lato;
+About chapter titles use Cormorant Garamond. Academics uses
 containers up to 1552px; About now uses the user's full-width equal split. Mobile
-images retain rounded corners. Other sections retain the university design tokens.
+images now extend to the edges. Other sections retain the university design tokens.
 
 About presents four database-backed chapters: introduction, mission, vision, and
 core values. On desktop, a full-width 50/50 composition keeps text on the left and
@@ -113,7 +115,7 @@ readable; reduced motion disables transition effects.
 
 The desktop story spans the full available page width with equal columns and no
 gap. Panel height is 100dvh minus the measured navbar height, and sticky top equals
-that navbar height. The introductory section heading stays above the story.
+that navbar height. The story starts immediately after the hero.
 Smaller desktop heights scale text spacing; long prose scrolls inside its text area
 rather than pushing controls below the viewport. Chapter count, scroll markers,
 crossfades, mobile dots, and reduced-motion behavior are retained.

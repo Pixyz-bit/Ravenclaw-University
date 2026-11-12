@@ -1,9 +1,5 @@
 /* Shared Tailwind styles: layouts / admin. */
 @layer components {
-.admin-note {
-    @apply text-[.85rem] [padding:16px_0] m-0;
-}
-
 .dashboard-list {
     @apply mt-[36px];
 }

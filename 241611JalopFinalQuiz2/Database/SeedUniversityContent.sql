@@ -11,9 +11,7 @@ BEGIN TRANSACTION;
 IF (SELECT COUNT(*) FROM dbo.AcademyInfoTable WITH (UPDLOCK, HOLDLOCK)) > 1
     THROW 50001, 'Expected at most one university-information record; no content was changed.', 1;
 
-DECLARE @About NVARCHAR(MAX) = N'Ravenclaw University is a place for those who ask questions, seek understanding, and imagine new possibilities. Inspired by Ravenclaw House, we celebrate learning as a lifelong pursuit—one shaped by thoughtful discussion, independent discovery, and the courage to think differently.'
-    + NCHAR(10) + NCHAR(10)
-    + N'Here, every perspective has something to contribute, and every question can open a new path.';
+DECLARE @About NVARCHAR(MAX) = N'Ravenclaw University is a place for those who ask questions, seek understanding, and imagine new possibilities. Inspired by Ravenclaw House, we celebrate learning as a lifelong pursuit—one shaped by thoughtful discussion, independent discovery, and the courage to think differently.';
 DECLARE @Mission NVARCHAR(MAX) = N'To nurture curious, independent thinkers through meaningful learning, creative exploration, and open dialogue. We encourage students to question assumptions, share their discoveries, and use knowledge with integrity and purpose.';
 DECLARE @Vision NVARCHAR(MAX) = N'To build a community where curiosity becomes discovery and knowledge grows into wisdom. We envision graduates who approach unfamiliar challenges with imagination, respect different perspectives, and continue learning throughout their lives.';
 

@@ -20,6 +20,18 @@ Last verified: 2026-11-12.
 
 ## Completed
 
+- Removed the separate About label/quote introduction and admin student-page notice.
+  The hero now leads straight into “A place for curious minds,” with no extra top
+  gap. About remains full-width; mobile photos now reach both screen edges with
+  text-only inner padding. Chapter titles use h2 and the section has an accessible
+  label. Desktop scroll/crossfade behavior remains; mobile slide detection no
+  longer assumes an outer gutter. The removed closing sentence is absent from
+  the live About text and the optional content seed. Build passed with zero
+  warnings/errors and about-story.js passed syntax validation. The local site was
+  restarted. Visual verification of protected About was unavailable because the
+  browser preview is signed out; no authentication bypass or real account changes
+  were performed.
+
 - Replaced the About heading with “Wit beyond measure is man's greatest treasure.”
   Saved the approved tentative About, Mission, and Vision text to the local SQL
   database, with Intelligence, Wisdom, Creativity, and A Lifelong Love of Learning

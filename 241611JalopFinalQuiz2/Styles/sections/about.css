@@ -1,23 +1,11 @@
 /* About: equal viewport halves, with one image for each scroll-switched chapter. */
 @layer components {
     .about-section {
-        @apply [padding:clamp(48px,7vw,96px)_0_0] [background:#f7f5f3] [color:#171717] [--about-sticky-top:var(--portal-header-height,85px)] [--about-visual-height:calc(100dvh_-_var(--about-sticky-top))];
+        @apply w-full [background:#f7f5f3] [color:#171717] [--about-sticky-top:var(--portal-header-height,85px)] [--about-visual-height:calc(100dvh_-_var(--about-sticky-top))];
     }
 
     .about-container {
         @apply w-full;
-    }
-
-    .about-heading {
-        @apply text-center [margin:0_auto_clamp(40px,6vw,96px)] [padding:0_24px];
-    }
-
-    .about-heading .eyebrow {
-        @apply text-muted;
-    }
-
-    .about-heading h2 {
-        @apply font-body text-[clamp(2rem,3vw,3.25rem)] font-normal tracking-[-.035em] max-w-[32rem] [margin:12px_auto_0] leading-[1.12];
     }
 
     .about-story-desktop {
@@ -40,7 +28,7 @@
         @apply [padding:clamp(24px,4dvh,48px)_clamp(32px,6vw,112px)] mb-[32px];
     }
 
-    .about-copy-item h3,.about-mobile-step h3 {
+    .about-copy-item h2,.about-mobile-step h2 {
         @apply font-heading text-[clamp(2rem,min(4.5vw,8dvh),4.25rem)] font-medium leading-[1.06] tracking-[-.035em] [margin:clamp(16px,2.8dvh,28px)_0_clamp(16px,2.5dvh,24px)] text-navy shrink-0 max-w-[17ch];
     }
 
@@ -136,7 +124,7 @@
         }
 
         .about-mobile {
-            @apply block [padding:0_24px_40px];
+            @apply block [padding:0_0_40px];
         }
 
         .about-mobile-rail {
@@ -144,19 +132,23 @@
         }
 
         .about-mobile-step {
-            @apply [flex:0_0_86%] min-w-0 snap-start;
+            @apply [flex:0_0_100%] min-w-0 snap-start;
         }
 
         .about-mobile-image {
-            @apply w-full [aspect-ratio:4/3] overflow-hidden rounded-[16px] mb-[24px];
+            @apply w-full [aspect-ratio:4/3] overflow-hidden mb-[24px];
         }
 
-        .about-mobile-step h3 {
+        .about-mobile-step h2 {
             @apply text-[2.25rem] mt-[20px];
         }
 
         .about-mobile-step .prose {
             @apply text-muted;
+        }
+
+        .about-mobile-step > :not(.about-mobile-image) {
+            @apply mx-[24px];
         }
 
         .about-dots {

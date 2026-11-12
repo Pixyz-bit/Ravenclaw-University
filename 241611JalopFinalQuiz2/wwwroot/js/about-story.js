@@ -39,7 +39,7 @@ if (aboutStory) {
     dots.forEach((dot, i) => dot.addEventListener('click', () => rail.scrollTo({ left: rail.children[i].offsetLeft - rail.children[0].offsetLeft, behavior: reduced.matches ? 'instant' : 'smooth' })));
     rail.addEventListener('scroll', () => {
         let active = 0; let distance = Infinity;
-        [...rail.children].forEach((slide, i) => { const current = Math.abs(slide.getBoundingClientRect().left - rail.getBoundingClientRect().left - 24); if (current < distance) { distance = current; active = i; } });
+        [...rail.children].forEach((slide, i) => { const current = Math.abs(slide.getBoundingClientRect().left - rail.getBoundingClientRect().left); if (current < distance) { distance = current; active = i; } });
         dots.forEach((dot, i) => dot.setAttribute('aria-current', String(i === active)));
         activeSlide = active;
         sizeRail();
