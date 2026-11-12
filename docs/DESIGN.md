@@ -91,6 +91,9 @@ Navigation wraps on smaller screens; page sections stack below 700px.
 
 ## About and Academics reference (2026-11-12)
 
+The About section heading is “Wit beyond measure is man's greatest treasure.”
+It replaces “Knowledge begins with curiosity.” without changing the layout.
+
 The user supplied Digital Original's Creator showcase and How it works sections,
 and explicitly requested their layout/scroll/hover treatment. These two sections
 use warm white (#f7f5f3) and near-charcoal (#131211). Academics and the About section

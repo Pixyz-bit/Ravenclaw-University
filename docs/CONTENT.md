@@ -27,6 +27,13 @@ owns the public markup and Styles/sections/contact.css its Tailwind styling.
 
 ## Using the editors
 
+The approved Ravenclaw-inspired About, Mission, and Vision copy was saved to the
+local database on 2026-11-12. Core values are Intelligence, Wisdom, Creativity,
+and A Lifelong Love of Learning. The About section heading is “Wit beyond measure
+is man's greatest treasure.” These are tentative university website contents.
+Database/SeedUniversityContent.sql records the approved copy; running it deliberately
+replaces those three text fields and the complete core-value list.
+
 Sign in as an Admin and open Administration. The sidebar links to seven sections.
 The admin area has its own sidebar layout, separate from the university navbar.
 Dashboard and the seven content pages are linked persistently, with the current

@@ -4,6 +4,14 @@ Last verified: 2026-11-12.
 
 ## Completed
 
+- Replaced the About heading with “Wit beyond measure is man's greatest treasure.”
+  Saved the approved tentative About, Mission, and Vision text to the local SQL
+  database, with Intelligence, Wisdom, Creativity, and A Lifelong Love of Learning
+  as its four core values. SQL readback confirmed the saved content and titles.
+  SeedUniversityContent.sql records this deliberate content replacement; Schema.sql
+  remains unchanged. Build passed with zero warnings/errors. Founder/contact
+  content still requires completion.
+
 - Refined About chapter panels with ivory, navy Cormorant Garamond titles, a gold
   hairline and current/total chapter marker, more readable paragraph spacing, and
   bold contextual links with circular arrows and blue hover/focus feedback. The
