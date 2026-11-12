@@ -19,11 +19,13 @@ five-pennant display with Hogwarts in the center, not an additional database tab
 or editor. The five new generated assets are in wwwroot/images/collegiate; their
 prompts and provenance are in docs/GENERATED_ASSETS.md.
 
-Contact uses the simple approved two-column layout on desktop and stacks on phones.
-The heading is Get in touch.; address and office hours appear left, email and
-telephone right, with published social links below a divider. The existing Contact
-information and Social links editors supply these values. _UniversityContact.cshtml
-owns the public markup and Styles/sections/contact.css its Tailwind styling.
+Contact is the full-width navy footer after Leadership, replacing the standalone
+contact section and small university footer. Identity, motto, and two groups of
+section links occupy the left; address, email, telephone, office hours, and social
+links occupy the right. Copyright and Back to top sit below a divider. Columns
+stack on phones. The existing Contact information and Social links editors supply
+the published values. _UniversityContact.cshtml owns markup and sections/contact.css
+its Tailwind styling; no database changes were needed.
 
 ## Using the editors
 

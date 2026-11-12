@@ -1,68 +1,47 @@
-/* Simple public contact layout, reusing the existing contact/social records. */
+/* Contact footer: identity/navigation left, existing published contact data right. */
 @layer components {
-    .contact-heading {
-        @apply mb-[40px];
+    .university-footer {
+        @apply w-full bg-navy text-ivory [padding:clamp(40px,5vw,80px)_clamp(24px,5vw,96px)_24px] [border-top:1px_solid_var(--color-gold)] [scroll-margin-top:var(--portal-header-height,85px)];
     }
-
-    .contact-heading>p:last-child {
-        @apply text-muted [margin:0];
+    .footer-columns {
+        @apply grid [grid-template-columns:minmax(0,7fr)_minmax(280px,3fr)] gap-[clamp(32px,5vw,88px)];
     }
-
-    .contact-columns {
-        @apply grid [grid-template-columns:repeat(2,minmax(0,1fr))] gap-[clamp(32px,6vw,80px)] max-w-[960px];
+    .footer-university,.footer-contact { @apply min-w-0; }
+    .university-footer a {
+        @apply text-ivory underline [text-decoration-color:rgba(244,240,230,.3)] [text-underline-offset:5px] [overflow-wrap:anywhere];
     }
-
-    .contact-column {
-        @apply min-w-0;
+    .university-footer a:hover { @apply text-gold [text-decoration-color:var(--color-gold)]; }
+    .university-footer a:focus-visible { @apply [outline:2px_solid_var(--color-gold)] [outline-offset:5px]; }
+    .university-footer .footer-brand {
+        @apply inline-flex items-center gap-[18px] no-underline font-heading text-[clamp(1.8rem,3vw,2.75rem)] leading-[1.1];
     }
-
-    .contact-column>div+div {
-        @apply mt-[32px];
+    .footer-brand img { @apply w-[52px] h-[66px] object-contain shrink-0; }
+    .footer-motto {
+        @apply font-heading italic text-[clamp(1.7rem,2.6vw,2.6rem)] leading-[1.18] text-gold [margin:28px_0_40px] max-w-[27ch];
     }
-
-    .contact-section h3 {
-        @apply font-body text-[.8rem] font-bold uppercase tracking-[.1em] leading-[1.5] [margin:0_0_12px];
+    .footer-navigation {
+        @apply grid [grid-template-columns:repeat(2,minmax(0,1fr))] gap-[24px] max-w-[700px];
     }
-
-    .contact-column p {
-        @apply m-0 [overflow-wrap:anywhere];
+    .footer-navigation h2,.footer-socials h3 {
+        @apply font-body text-[.85rem] font-bold text-ivory tracking-[.06em] [margin:0_0_12px] leading-[1.5];
     }
-
-    .contact-methods {
-        @apply m-0;
+    .university-footer ul { @apply list-none m-0 p-0; }
+    .footer-navigation a,.footer-socials a { @apply inline-flex items-center gap-[12px] min-h-[44px] text-[1rem]; }
+    .footer-contact { @apply [border-left:1px_solid_rgba(244,240,230,.18)] pl-[clamp(28px,4vw,64px)]; }
+    .footer-contact > h2 { @apply font-heading text-[2.4rem] text-ivory [margin:0_0_28px] leading-[1.1]; }
+    .footer-contact-details { @apply m-0 grid gap-[20px]; }
+    .footer-contact-details dt { @apply text-[.75rem] font-bold tracking-[.06em] text-gold mb-[4px]; }
+    .footer-contact-details dd { @apply m-0 text-[1rem] leading-[1.65] [overflow-wrap:anywhere]; }
+    .footer-contact-details a { @apply inline-flex items-center min-h-[44px]; }
+    .footer-socials { @apply mt-[28px]; }
+    .footer-socials i { @apply w-[18px] text-center; }
+    .footer-bottom {
+        @apply flex items-center justify-between flex-wrap gap-[16px] mt-[48px] pt-[20px] [border-top:1px_solid_rgba(244,240,230,.18)] text-[.8rem];
     }
-
-    .contact-methods>div+div {
-        @apply mt-[24px];
-    }
-
-    .contact-methods dt {
-        @apply text-muted text-[.85rem];
-    }
-
-    .contact-methods dd {
-        @apply m-0 [overflow-wrap:anywhere];
-    }
-
-    .contact-methods a {
-        @apply inline-flex items-center min-h-[44px] max-w-full [overflow-wrap:anywhere];
-    }
-
-    .contact-socials {
-        @apply mt-[40px] pt-[24px] [border-top:1px_solid_var(--color-line)];
-    }
-
-    .contact-socials .social-links {
-        @apply m-0 [gap:8px_24px];
-    }
-
-    @media(max-width:700px) {
-        .contact-columns {
-            @apply [grid-template-columns:minmax(0,1fr)];
-        }
-
-        .contact-heading {
-            @apply mb-[32px];
-        }
+    .footer-bottom p { @apply m-0; }
+    .footer-bottom a { @apply inline-flex items-center gap-[16px] min-h-[44px]; }
+    @media(max-width:900px) {
+        .footer-columns { @apply [grid-template-columns:minmax(0,1fr)]; }
+        .footer-contact { @apply border-l-0 pl-0 [border-top:1px_solid_rgba(244,240,230,.18)] pt-[32px]; }
     }
 }

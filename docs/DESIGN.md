@@ -37,8 +37,8 @@ ensure readable text contrast rather than assuming every palette pairing works.
 
 ## Composition
 
-Navigation -> Hero -> About -> Academics and Student Services -> Contact ->
-Leadership and Administration -> Footer. The implemented version uses one
+Navigation -> Hero -> About -> Academics -> Gallery -> Collegiate Circle ->
+Leadership -> Contact footer. The implemented version uses one
 authenticated homepage with section anchors; separate detail pages remain optional.
 
 - Full-width navy university navbar, navy admin sidebar and footer; alternate navy and ivory content sections.
@@ -146,17 +146,26 @@ and a scrollable description. The section anchor aligns directly below the navba
 A 360px section minimum preserves readable content in very short/zoomed windows,
 where normal vertical scrolling remains available instead of clipping controls.
 
-## Simple contact layout
+## Contact footer
 
-The user approved a simple text-art contact layout. The Contact anchor uses an
-ivory surface, the heading "Get in touch.", and one short introductory sentence.
-Desktop has two columns: university address and office hours on the left; email
-and telephone under Contact details on the right. Below 701px these stack into
-one column. A thin divider separates Follow us and published social links.
-Email/telephone links retain mailto/tel actions; social links retain allowed icons,
-HTTPS-only URLs, and accessible new-tab labels. Unpublished fields are labeled.
-No inquiry form, map, new database fields, or additional route is introduced.
-Reusable markup is _UniversityContact.cshtml; Tailwind rules are sections/contact.css.
+The approved reference-inspired contact footer replaces both the standalone contact
+section and the university page's small footer. It follows Leadership outside main,
+with a full-width navy surface, ivory text, gold accents, and generous responsive
+padding. The left roughly 70% contains the crest/name, the motto “Wit beyond measure
+is man's greatest treasure,” and Explore / Our University navigation. The right
+roughly 30% has Contact us, address, email, telephone, office hours, and published
+social links, separated by a fine vertical rule. Copyright and Back to top sit
+below a full-width horizontal divider. Below 901px columns stack with a horizontal
+divider. All links have visible focus and at least 44px height.
+
+Mission & Vision and Core Values jump to their About chapter with the existing
+desktop scroll/mobile rail behavior; without JS they fall back to About. Contact
+retains id=contact, mailto/tel actions, approved icons, HTTPS-only social URLs, and
+accessible new-tab labels. Unpublished fields remain labeled. There is no search
+bar, new route, database column, or inquiry form. _UniversityContact.cshtml and
+Styles/sections/contact.css own markup and Tailwind styles. The layout's optional
+Footer section avoids duplicate footers; unavailable-content and other pages keep
+the small fallback footer.
 
 ## Drifting university gallery
 

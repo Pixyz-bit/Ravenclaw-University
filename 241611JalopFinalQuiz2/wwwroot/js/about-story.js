@@ -22,6 +22,19 @@ if (aboutStory) {
     update();
     const rail = aboutStory.querySelector('[data-about-rail]');
     const dots = [...aboutStory.querySelectorAll('[data-about-dot]')];
+    document.querySelectorAll('[data-about-jump]').forEach(link => link.addEventListener('click', event => {
+        const index = Number(link.dataset.aboutJump);
+        if (!Number.isInteger(index) || index < 0 || index >= copies.length) return;
+        event.preventDefault();
+        const behavior = reduced.matches ? 'instant' : 'smooth';
+        if (desktop.matches) {
+            // Chapter selection follows the same viewport midpoint used by update().
+            window.scrollTo({ top: window.scrollY + markers[index].getBoundingClientRect().top - window.innerHeight / 2 + 2, behavior });
+        } else {
+            rail.scrollTo({ left: rail.children[index].offsetLeft - rail.children[0].offsetLeft, behavior });
+            aboutStory.scrollIntoView({ block: 'start', behavior });
+        }
+    }));
     let activeSlide = 0;
     const sizeRail = () => {
         if (desktop.matches) { rail.style.height = ''; return; }

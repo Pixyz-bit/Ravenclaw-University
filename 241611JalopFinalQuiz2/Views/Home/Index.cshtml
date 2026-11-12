@@ -54,7 +54,6 @@ else
     <partial name="_UniversityGallery" model="Model" />
     <partial name="_CollegiateCircle" />
     <div class="university-content">
-    <partial name="_UniversityContact" model="Model" />
     <section id="leadership" class="university-section leadership-section">
         <div class="section-heading"><p class="eyebrow">Founder information</p><h2>The vision behind the university.</h2></div>
         @if (Model.Founders.Count==0) { <p class="empty-copy">Founder information will be published here.</p> }
@@ -68,5 +67,9 @@ else
         }
     </section>
     </div>
+}
+@section Footer {
+    @if (!Model.Unavailable) { <partial name="_UniversityContact" model="Model" /> }
+    else { <footer class="portal-footer">© @DateTime.UtcNow.Year Ravenclaw University <span>Where Wisdom Takes Flight.</span></footer> }
 }
 @section Scripts { <script src="~/js/hero-layout.js" asp-append-version="true"></script><script src="~/js/program-showcase.js" asp-append-version="true"></script><script src="~/js/about-story.js" asp-append-version="true"></script><script src="~/js/drift-wall.js" asp-append-version="true"></script><script src="~/js/collegiate-circle.js" asp-append-version="true"></script> }

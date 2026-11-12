@@ -33,6 +33,19 @@ Last verified: 2026-11-12.
 
 ## Completed
 
+- Implemented the approved combined contact/footer: navy full-width surface,
+  university crest/name, motto and two navigation groups left, database-backed
+  contact/social information right, and copyright/Back to top below. It follows
+  Leadership outside main and replaces the old university footer through an
+  optional Razor Footer section. Other/unavailable pages retain the fallback.
+  Mission/Core Values links select the appropriate About chapter using existing
+  scrolling; no-JS links fall back to About. No database records/schema changed.
+- Build passed with zero warnings/errors; about-story.js passed syntax validation.
+  A footer-only preview derived from the actual partial with unpublished fields
+  verified the desktop split at 1280px and stacked 375px mobile layout without
+  horizontal overflow. This preview checked CSS/layout, not live authenticated
+  contact data or chapter-link interaction. The local application was restarted.
+
 - Removed the separate About label/quote introduction and admin student-page notice.
   The hero now leads straight into “A place for curious minds,” with no extra top
   gap. About remains full-width; mobile photos now reach both screen edges with
