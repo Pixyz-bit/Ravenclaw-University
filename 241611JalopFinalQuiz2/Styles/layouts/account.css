@@ -1,0 +1,222 @@
+/* Shared Tailwind styles: layouts / account. */
+@layer components {
+.account-shell {
+    @apply grid [grid-template-columns:minmax(320px,.9fr)_minmax(0,1.1fr)] min-h-[100dvh];
+}
+
+.account-story {
+    @apply bg-navy text-ivory [padding:clamp(24px,4vh,48px)_clamp(30px,5vw,88px)] flex flex-col relative overflow-hidden;
+}
+
+.account-story:after {
+    @apply content-[''] absolute [border:1px_solid_#c3a56833] [border-radius:50%_50%_0_0] w-[80%] h-[78%] top-[30%] left-[35%] pointer-events-none;
+}
+
+.account-story>a,.story-copy {
+    @apply relative z-1;
+}
+
+.story-copy {
+    @apply [padding:24px_0] [margin:auto_0];
+}
+
+.story-copy .eyebrow {
+    @apply text-gold;
+}
+
+.story-title {
+    @apply font-heading text-[clamp(3rem,5vw,5rem)] leading-[1.05] tracking-[-.03em] [margin:24px_0];
+}
+
+.story-title em {
+    @apply font-medium text-gold;
+}
+
+.story-copy>p:not(.story-title) {
+    @apply [color:#d0d5df];
+}
+
+.story-rule {
+    @apply h-[1px] bg-gold w-[64px] [margin:32px_0];
+}
+
+.story-caption {
+    @apply text-[.75rem] [color:#d0d5df];
+}
+
+.account-content {
+    @apply flex items-center justify-center [padding:24px_clamp(24px,5vw,80px)];
+}
+
+.account-form-wrap {
+    @apply w-full max-w-[470px];
+}
+
+.registration-wrap {
+    @apply max-w-[610px];
+}
+
+.account-form-wrap>.eyebrow {
+    @apply text-blue;
+}
+
+.account-form-wrap>.eyebrow {
+    @apply [margin:0_0_8px];
+}
+
+.account-form-wrap h1 {
+    @apply text-[clamp(2rem,3.4vw,3rem)] [margin:8px_0_12px];
+}
+
+.account-form-wrap>.intro {
+    @apply [margin:0_0_20px];
+}
+
+.registration-wrap .field {
+    @apply mb-[12px];
+}
+
+.registration-wrap .field label {
+    @apply text-[.8rem] mb-[5px];
+}
+
+.registration-wrap .field input {
+    @apply min-h-[44px] h-[44px] [padding:8px_12px];
+}
+
+.registration-wrap .account-switch {
+    @apply mt-[16px] pt-[12px];
+}
+
+.account-form-wrap form>.button {
+    @apply w-full justify-between mt-[6px];
+}
+
+.account-switch {
+    @apply [margin:25px_0_0] text-[.85rem] pt-[22px] [border-top:1px_solid_var(--color-line)];
+}
+
+.account-switch a {
+    @apply font-bold;
+}
+
+@media(max-width:850px) {
+    .account-shell {
+        @apply [grid-template-columns:1fr] [grid-template-rows:auto_1fr];
+    }
+}
+
+@media(max-width:850px) {
+    .account-story {
+        @apply [padding:12px_24px];
+    }
+}
+
+@media(max-width:850px) {
+    .account-story .story-copy,.account-story:after {
+        @apply hidden;
+    }
+}
+
+@media(max-width:850px) {
+    .account-content {
+        @apply [padding:20px_24px];
+    }
+}
+
+@media(max-width:480px) {
+    .account-switch a {
+        @apply inline-block [padding:5px_0];
+    }
+}
+
+@media(max-width:480px) {
+    .account-content {
+        @apply [padding:16px_20px];
+    }
+}
+
+@media(max-width:480px) {
+    .registration-wrap h1 {
+        @apply text-[1.9rem];
+    }
+}
+
+@media(max-width:480px) {
+    .registration-wrap>.intro {
+        @apply text-[.85rem] leading-[1.5] mb-[16px];
+    }
+}
+
+@media(max-width:480px) {
+    .registration-wrap .field label {
+        @apply text-[.75rem];
+    }
+}
+
+@media(max-width:480px) {
+    .registration-wrap .optional {
+        @apply text-[.65rem];
+    }
+}
+
+@media(max-width:480px) {
+    .registration-wrap .field small {
+        @apply text-[.7rem] leading-[1.4];
+    }
+}
+
+@media(max-height:720px) {
+    .account-content {
+        @apply pt-[10px] pb-[10px];
+    }
+}
+
+@media(max-height:720px) {
+    .registration-wrap h1 {
+        @apply text-[1.9rem] [margin:6px_0_8px];
+    }
+}
+
+@media(max-height:720px) {
+    .registration-wrap>.intro {
+        @apply mb-[10px];
+    }
+}
+
+@media(max-height:720px) {
+    .registration-wrap .field {
+        @apply mb-[6px];
+    }
+}
+
+@media(max-height:720px) {
+    .registration-wrap .field small {
+        @apply mt-[3px];
+    }
+}
+
+@media(max-height:720px) {
+    .registration-wrap .button {
+        @apply min-h-[44px] pt-[8px] pb-[8px];
+    }
+}
+
+@media(max-height:720px) {
+    .registration-wrap .account-switch {
+        @apply mt-[10px] pt-[8px];
+    }
+}
+
+@media(max-height:720px) {
+    .account-story .university-logo {
+        @apply w-[48px] h-[60px];
+    }
+}
+
+@media(max-width:850px) and (max-height:720px) {
+    .account-story .university-logo {
+        @apply w-[40px] h-[50px];
+    }
+}
+}

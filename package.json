@@ -1,0 +1,12 @@
+{
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.3.5",
+    "tailwindcss": "^4.3.5"
+  },
+  "name": "ravenclaw-university",
+  "private": true,
+  "scripts": {
+    "build:css": "tailwindcss -i ./241611JalopFinalQuiz2/Styles/app.css -o ./241611JalopFinalQuiz2/wwwroot/css/site.css --minify",
+    "watch:css": "tailwindcss -i ./241611JalopFinalQuiz2/Styles/app.css -o ./241611JalopFinalQuiz2/wwwroot/css/site.css --watch"
+  }
+}

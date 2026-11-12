@@ -15,4 +15,14 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.*" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Remove="wwwroot/css/site.css" />
+    <Content Include="wwwroot/css/site.css" CopyToPublishDirectory="PreserveNewest" />
+  </ItemGroup>
+
+  <Target Name="BuildTailwindCss" BeforeTargets="PrepareForBuild" Condition="'$(DesignTimeBuild)' != 'true'">
+    <Exec Command="npm ci" WorkingDirectory="$(MSBuildProjectDirectory)/.." Condition="!Exists('$(MSBuildProjectDirectory)/../node_modules/@tailwindcss/cli/package.json')" />
+    <Exec Command="npm run build:css" WorkingDirectory="$(MSBuildProjectDirectory)/.." />
+  </Target>
+
 </Project>

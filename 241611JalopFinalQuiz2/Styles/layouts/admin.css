@@ -1,0 +1,162 @@
+/* Shared Tailwind styles: layouts / admin. */
+@layer components {
+.admin-note {
+    @apply text-[.85rem] [padding:16px_0] m-0;
+}
+
+.dashboard-list {
+    @apply mt-[36px];
+}
+
+.dashboard-link {
+    @apply flex items-center justify-between gap-[24px] [padding:24px_0] [border-top:1px_solid_var(--color-line)] no-underline text-[1.1rem] font-bold;
+}
+
+.admin-body {
+    @apply grid [grid-template-columns:272px_minmax(0,1fr)] min-h-[100dvh];
+}
+
+.admin-sidebar {
+    @apply sticky top-0 h-[100dvh] overflow-y-auto [padding:28px_20px_20px] bg-navy text-ivory flex flex-col;
+}
+
+.admin-sidebar .wordmark {
+    @apply text-[1.45rem] gap-[12px] [padding:0_8px];
+}
+
+.admin-sidebar .university-logo {
+    @apply w-[44px] h-[56px];
+}
+
+.admin-sidebar-label {
+    @apply text-[.7rem] uppercase tracking-[.18em] text-gold [margin:24px_12px_20px];
+}
+
+.admin-navigation>summary {
+    @apply hidden;
+}
+
+.admin-nav-link {
+    @apply min-h-[46px] flex items-center gap-[12px] [color:#d0d5df] [padding:11px_12px] no-underline rounded-[4px] text-[.85rem] leading-[1.4] [margin:2px_0];
+}
+
+.admin-nav-link:hover {
+    @apply [background:#1c304b] text-ivory;
+}
+
+.admin-nav-link.is-active {
+    @apply bg-blue text-ivory font-bold;
+}
+
+.admin-sidebar-bottom {
+    @apply mt-auto [padding:24px_12px_0];
+}
+
+.admin-site-link {
+    @apply flex justify-between min-h-[44px] items-center text-ivory text-[.85rem] mb-[12px];
+}
+
+.admin-sidebar-bottom form {
+    @apply m-0;
+}
+
+.admin-sidebar-bottom button {
+    @apply w-full min-h-[44px];
+}
+
+.admin-sidebar :focus-visible {
+    @apply outline-gold;
+}
+
+.admin-workspace {
+    @apply min-w-0 flex flex-col;
+}
+
+.role-label {
+    @apply text-[.65rem] [border:1px_solid_var(--color-line)] [padding:3px_8px] rounded-[3px] text-blue;
+}
+
+.admin-main {
+    @apply w-full max-w-[1300px] [padding:40px_clamp(24px,4vw,60px)] [margin:0_auto] flex-1;
+}
+
+.admin-main h1 {
+    @apply font-body text-[clamp(1.8rem,3vw,2.4rem)] font-bold [overflow-wrap:anywhere];
+}
+
+.admin-footer {
+    @apply [padding:20px_36px] text-muted text-[.75rem] [border-top:1px_solid_var(--color-line)];
+}
+
+.admin-guide {
+    @apply mt-[40px] [border-top:1px_solid_var(--color-line)] pt-[24px] max-w-[800px];
+}
+
+.admin-guide h2 {
+    @apply font-body font-bold text-[1.3rem];
+}
+
+.admin-guide ol {
+    @apply pl-[24px] [margin:24px_0_32px];
+}
+
+.admin-guide li {
+    @apply [padding:10px_0_10px_8px];
+}
+
+.admin-guide li strong,.admin-guide li span {
+    @apply block;
+}
+
+.admin-guide li span {
+    @apply text-muted text-[.9rem] mt-[4px];
+}
+
+@media(max-width:900px) {
+    .admin-body {
+        @apply [grid-template-columns:1fr];
+    }
+}
+
+@media(max-width:900px) {
+    .admin-sidebar {
+        @apply static h-auto [padding:16px_20px];
+    }
+}
+
+@media(max-width:900px) {
+    .admin-sidebar-label {
+        @apply [margin:16px_8px_8px];
+    }
+}
+
+@media(max-width:900px) {
+    .admin-navigation>summary {
+        @apply list-item cursor-pointer [padding:12px_8px] min-h-[44px] text-[.85rem];
+    }
+}
+
+@media(max-width:900px) {
+    .admin-sidebar-bottom {
+        @apply flex items-center justify-between gap-[20px] [padding:12px_8px_0];
+    }
+}
+
+@media(max-width:900px) {
+    .admin-site-link {
+        @apply m-0;
+    }
+}
+
+@media(max-width:900px) {
+    .admin-main {
+        @apply [padding:28px_24px];
+    }
+}
+
+@media(max-width:900px) {
+    .admin-footer {
+        @apply [padding:20px_24px];
+    }
+}
+}

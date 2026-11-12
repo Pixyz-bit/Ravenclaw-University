@@ -1,0 +1,202 @@
+/* Shared Tailwind styles: components / navigation. */
+@layer components {
+.portal-nav {
+    @apply flex items-center gap-[24px] flex-wrap;
+}
+
+.portal-nav>a {
+    @apply text-ivory no-underline;
+}
+
+.portal-nav form {
+    @apply m-0;
+}
+
+.portal-header :focus-visible,.account-story :focus-visible {
+    @apply outline-gold;
+}
+
+@media(max-width:850px) {
+    .portal-nav {
+        @apply gap-[20px];
+    }
+}
+
+@media(max-width:700px) {
+    .portal-nav>a {
+        @apply inline-flex items-center min-h-[44px];
+    }
+}
+
+.portal-header {
+    @apply bg-navy [border-bottom:1px_solid_var(--color-gold)];
+}
+
+.portal-header-inner {
+    @apply max-w-[1200px] [margin:0_auto] [padding:14px_24px] grid [grid-template-columns:auto_minmax(0,1fr)_auto] items-center gap-[32px];
+}
+
+.portal-header .wordmark {
+    @apply text-ivory text-[1.55rem] gap-[12px] whitespace-nowrap;
+}
+
+.portal-header .university-logo {
+    @apply w-[44px] h-[56px];
+}
+
+.portal-header .portal-nav {
+    @apply justify-end gap-[26px] flex-nowrap;
+}
+
+.portal-header .portal-nav>a {
+    @apply inline-flex items-center relative min-h-[44px] [color:#d0d5df] text-[.9rem];
+}
+
+.portal-header .portal-nav>a::after {
+    @apply content-[''] absolute bottom-[3px] left-0 right-0 h-[2px] bg-gold [transform:scaleX(0)] [transition:transform_160ms_ease-out];
+}
+
+.portal-header .portal-nav>a:hover,.portal-header .portal-nav>a:focus-visible {
+    @apply text-ivory;
+}
+
+.portal-header .portal-nav>a:hover::after,.portal-header .portal-nav>a:focus-visible::after {
+    @apply [transform:scaleX(1)];
+}
+
+.portal-header :focus-visible {
+    @apply outline-gold;
+}
+
+.site-navigation {
+    @apply min-w-0;
+}
+
+.site-navigation>summary {
+    @apply hidden;
+}
+
+.account-menu {
+    @apply relative pl-[24px] [border-left:1px_solid_#c3a56840];
+}
+
+.account-menu>summary {
+    @apply grid place-items-center list-none w-[44px] h-[44px] [border:1px_solid_#c3a56880] rounded-[50%] text-ivory cursor-pointer;
+}
+
+.account-menu>summary::-webkit-details-marker {
+    @apply hidden;
+}
+
+.account-menu>summary:hover,.account-menu[open]>summary {
+    @apply bg-blue border-gold;
+}
+
+.account-dropdown {
+    @apply absolute z-20 right-0 [top:calc(100%_+_16px)] min-w-[220px] [max-width:calc(100vw_-_48px)] p-[12px] bg-ivory [border:1px_solid_var(--color-line)] [border-top:2px_solid_var(--color-gold)] [box-shadow:0_12px_28px_#101d3420];
+}
+
+.account-dropdown-name {
+    @apply block p-[8px] text-muted text-[.8rem] [overflow-wrap:anywhere] [border-bottom:1px_solid_var(--color-line)] mb-[4px];
+}
+
+.account-dropdown a,.account-dropdown button {
+    @apply flex items-center w-full min-h-[44px] [border:0] [padding:10px_8px] text-navy no-underline bg-transparent cursor-pointer text-left text-[.9rem];
+}
+
+.account-dropdown a:hover,.account-dropdown button:hover {
+    @apply [background:#e5dfd2];
+}
+
+.account-dropdown :focus-visible {
+    @apply outline-blue;
+}
+
+.account-dropdown form {
+    @apply m-0;
+}
+
+@media(max-width:1000px) {
+    .portal-header-inner {
+        @apply [grid-template-columns:minmax(0,1fr)_auto] [gap:0_16px] [padding:12px_24px];
+    }
+}
+
+@media(max-width:1000px) {
+    .portal-header .wordmark {
+        @apply [grid-column:1] [grid-row:1] text-[1.4rem] gap-[10px] whitespace-normal;
+    }
+}
+
+@media(max-width:1000px) {
+    .account-menu {
+        @apply [grid-column:2] [grid-row:1] pl-[16px];
+    }
+}
+
+@media(max-width:1000px) {
+    .site-navigation {
+        @apply [grid-column:1/-1] [grid-row:2] mt-[10px] [border-top:1px_solid_#c3a56840];
+    }
+}
+
+@media(max-width:1000px) {
+    .site-navigation>summary {
+        @apply flex items-center gap-[10px] cursor-pointer min-h-[44px] [padding:10px_0_0] text-[.85rem] text-ivory list-none;
+    }
+}
+
+@media(max-width:1000px) {
+    .site-navigation>summary::-webkit-details-marker {
+        @apply hidden;
+    }
+}
+
+@media(max-width:1000px) {
+    .menu-lines {
+        @apply w-[18px] h-[12px] [border-top:1px_solid_var(--color-gold)] [border-bottom:1px_solid_var(--color-gold)] relative;
+    }
+}
+
+@media(max-width:1000px) {
+    .menu-lines::after {
+        @apply content-[''] absolute left-0 right-0 top-[4px] [border-top:1px_solid_var(--color-gold)];
+    }
+}
+
+@media(max-width:1000px) {
+    .portal-header .portal-nav {
+        @apply justify-start flex-wrap [gap:0_28px] [padding:12px_0_4px];
+    }
+}
+
+@media(max-width:480px) {
+    .portal-header-inner {
+        @apply [padding:12px_20px];
+    }
+}
+
+@media(max-width:480px) {
+    .portal-header .wordmark {
+        @apply text-[1.2rem];
+    }
+}
+
+@media(max-width:480px) {
+    .portal-header .university-logo {
+        @apply w-[36px] h-[46px];
+    }
+}
+
+@media(max-width:480px) {
+    .account-menu {
+        @apply pl-[12px];
+    }
+}
+
+@media(prefers-reduced-motion:reduce) {
+    .portal-header .portal-nav>a::after {
+        @apply transition-none;
+    }
+}
+}

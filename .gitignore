@@ -25,3 +25,7 @@ TestResults/
 *.ndf
 *.ldf
 *.bak
+
+# Tailwind dependencies and compiled stylesheet (rebuilt by dotnet build)
+node_modules/
+241611JalopFinalQuiz2/wwwroot/css/site.css

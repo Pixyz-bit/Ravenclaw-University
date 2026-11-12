@@ -1,0 +1,22 @@
+/* Shared Tailwind styles: components / branding. */
+@layer components {
+.wordmark {
+    @apply inline-flex items-center gap-[15px] text-ivory no-underline font-heading text-[1.6rem] leading-[1.02];
+}
+
+.university-logo {
+    @apply block w-[64px] h-[80px] object-contain shrink-0;
+}
+
+@media(max-width:850px) {
+    .wordmark {
+        @apply text-[1.35rem];
+    }
+}
+
+@media(max-width:850px) {
+    .university-logo {
+        @apply w-[48px] h-[60px];
+    }
+}
+}

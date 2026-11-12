@@ -1,0 +1,202 @@
+/* Shared Tailwind styles: sections / university. */
+@layer components {
+.portal-body {
+    @apply min-h-[100dvh] flex flex-col;
+}
+
+.portal-main {
+    @apply w-[min(1200px,100%)] m-auto [padding:64px_24px] flex-1;
+}
+
+.portal-panel {
+    @apply max-w-[780px];
+}
+
+.portal-footer {
+    @apply p-[24px] bg-navy [color:#d0d5df] text-[.8rem] flex justify-between gap-[12px] flex-wrap;
+}
+
+.portal-footer span {
+    @apply text-gold;
+}
+
+@media(max-width:850px) {
+    .portal-main {
+        @apply [padding:40px_24px];
+    }
+}
+
+.empty-state {
+    @apply p-[32px] [border:1px_solid_var(--color-line)] [background:#ebe5d9];
+}
+
+.empty-state h2 {
+    @apply text-[2rem];
+}
+
+.section-heading h2 {
+    @apply text-[clamp(2.2rem,4vw,3.4rem)] max-w-[22ch];
+}
+
+.section-heading .eyebrow {
+    @apply text-blue;
+}
+
+.university-section {
+    @apply [padding:64px_0] scroll-mt-[24px] [border-bottom:1px_solid_var(--color-line)];
+}
+
+.university-section h3 {
+    @apply font-heading text-[1.8rem] leading-[1.2] font-semibold text-navy;
+}
+
+.portal-main.university-main {
+    @apply w-full m-0 p-0;
+}
+
+.university-content {
+    @apply w-[min(1200px,100%)] [margin-inline:auto] [padding:0_24px];
+}
+
+.university-hero {
+    @apply relative isolate flex items-center w-full [min-height:calc(100vh_-_var(--portal-header-height,85px))] [min-height:calc(100dvh_-_var(--portal-header-height,85px))] overflow-hidden [background:#162b43] text-ivory;
+}
+
+.university-hero::after {
+    @apply content-[''] absolute inset-0 z-1 pointer-events-none [background:linear-gradient(90deg,rgba(10,19,34,.96)_0%,rgba(10,19,34,.86)_32%,rgba(10,19,34,.48)_65%,rgba(10,19,34,.12)_100%)];
+}
+
+.hero-background {
+    @apply absolute inset-0 z-0 w-full h-full object-cover object-center;
+}
+
+.hero-copy {
+    @apply relative z-2 w-[min(1200px,100%)] [margin-inline:auto] [padding:clamp(24px,6vh,72px)_24px_88px];
+}
+
+.hero-copy .eyebrow {
+    @apply text-gold [margin:0_0_24px];
+}
+
+.hero-copy .hero-header {
+    @apply text-ivory text-[clamp(2.75rem,min(6vw,10vh),6rem)] leading-[1.08] font-semibold max-w-[15ch] m-0 text-balance;
+}
+
+.hero-copy .hero-header em {
+    @apply text-gold font-medium;
+}
+
+.hero-copy .hero-description {
+    @apply [color:#ebe8df] max-w-[45ch] text-[clamp(1rem,1.25vw,1.2rem)] leading-[1.75] [margin:24px_0_0];
+}
+
+.image-frame {
+    @apply [background:#e5dfd2] relative min-h-[190px] grid place-items-center overflow-hidden;
+}
+
+.image-frame img {
+    @apply w-full h-full object-cover block;
+}
+
+.image-frame img[hidden],.media-fallback[hidden] {
+    @apply hidden;
+}
+
+.media-fallback {
+    @apply grid place-items-center p-[24px] text-muted text-center min-h-[190px];
+}
+
+.mission-grid {
+    @apply grid [grid-template-columns:1fr_1fr] gap-[40px] [margin:32px_0] [border-top:1px_solid_var(--color-line)];
+}
+
+.values-list {
+    @apply list-none p-0 grid [grid-template-columns:1fr_1fr] [gap:0_32px];
+}
+
+.values-list li {
+    @apply [padding:16px_0] [border-top:1px_solid_var(--color-line)] text-[1.05rem];
+}
+
+.gallery-grid {
+    @apply grid [grid-template-columns:1fr_1fr] gap-[24px] mt-[32px];
+}
+
+.gallery-grid figure {
+    @apply m-0;
+}
+
+.gallery-grid .image-frame {
+    @apply [aspect-ratio:4/3];
+}
+
+.gallery-grid figcaption {
+    @apply text-[.85rem] text-muted mt-[10px];
+}
+
+.contact-grid {
+    @apply grid [grid-template-columns:1fr_1fr] [gap:28px_40px];
+}
+
+.contact-grid dt {
+    @apply text-[.8rem] uppercase tracking-[.1em] font-bold;
+}
+
+.contact-grid dd {
+    @apply [margin:10px_0_0];
+}
+
+.social-links {
+    @apply flex gap-[16px] flex-wrap mt-[32px];
+}
+
+.social-links a {
+    @apply inline-flex gap-[10px] items-center min-h-[44px];
+}
+
+.founder-entry {
+    @apply [padding:24px_0] [border-top:1px_solid_var(--color-line)];
+}
+
+.founder-date {
+    @apply text-muted;
+}
+
+.founder-entry h4 {
+    @apply text-[.9rem] mt-[24px];
+}
+
+.founder-entry blockquote {
+    @apply [margin:16px_0] p-0 font-heading text-[1.6rem];
+}
+
+@media(max-width:700px) {
+    .university-hero {
+        @apply [--portal-header-height:124px];
+    }
+}
+
+@media(max-width:700px) {
+    .hero-copy {
+        @apply [padding:clamp(24px,6vh,48px)_24px_88px];
+    }
+}
+
+@media(max-width:700px) {
+    .university-hero::after {
+        @apply [background:linear-gradient(90deg,rgba(10,19,34,.94),rgba(10,19,34,.65))];
+    }
+}
+
+@media(max-width:700px) {
+    .university-section {
+        @apply [padding:40px_0];
+    }
+}
+
+@media(max-width:700px) {
+    .mission-grid {
+        @apply gap-[12px];
+    }
+}
+}

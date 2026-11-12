@@ -14,6 +14,7 @@ GitHub: https://github.com/Pixyz-bit/Ravenclaw-University (branch: main).
 | CONTENT.md | University homepage, seven content editors, image rules, and CRUD verification |
 | REQUIREMENTS.md | Scope, content, and admin/student access |
 | DESIGN.md | Agreed visual direction and consistency rules |
+| [Tailwind source guide](../241611JalopFinalQuiz2/Styles/README.md) | Reusable styling folders, tokens, and CSS build/watch commands |
 | ARCHITECTURE.md | MVC structure, database location, and implementation boundaries |
 | DECISIONS.md | Accepted decisions that should not be silently reversed |
 | STATUS.md | Verified implementation state, limitations, and next work |

@@ -21,12 +21,6 @@ else
     <section id="academics" class="academics-showcase" aria-labelledby="academics-title">
         <div class="academics-heading">
             <div><p class="eyebrow">Academics</p><h2 id="academics-title">Find your field of discovery.</h2></div>
-            @if (Model.Programs.Count > 1)
-            {
-                <div class="program-navigation" role="group" aria-label="Browse academic programs" hidden>
-                    <button type="button" class="program-motion-toggle" data-program-pause aria-pressed="false">Pause motion</button>
-                </div>
-            }
         </div>
         @if (Model.Programs.Count == 0)
         {

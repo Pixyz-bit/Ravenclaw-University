@@ -1,0 +1,80 @@
+/* Shared Tailwind styles: base / global. */
+@layer components {
+* {
+    @apply box-border;
+}
+
+body {
+    @apply m-0 text-ink bg-ivory font-body text-[16px] leading-[1.6];
+}
+
+a {
+    @apply text-blue [text-underline-offset:4px];
+}
+
+a:hover {
+    @apply [text-decoration-thickness:2px];
+}
+
+button,input {
+    @apply [font:inherit];
+}
+
+a:focus-visible,button:focus-visible,input:focus-visible {
+    @apply [outline:3px_solid_var(--color-blue)] [outline-offset:4px];
+}
+
+h1,h2 {
+    @apply font-heading font-medium leading-[1.08] text-navy [margin:12px_0_18px];
+}
+
+h1 {
+    @apply text-[clamp(2.3rem,4vw,3.4rem)] tracking-[-.025em];
+}
+
+p {
+    @apply max-w-[65ch];
+}
+
+.eyebrow {
+    @apply text-[.72rem] tracking-[.18em] uppercase font-bold;
+}
+
+.skip-link {
+    @apply fixed top-[-100px] left-[16px] [padding:10px_18px] bg-ivory z-10;
+}
+
+.skip-link:focus {
+    @apply top-[12px];
+}
+
+html {
+    @apply scroll-smooth;
+}
+
+textarea,select {
+    @apply [font:inherit];
+}
+
+textarea:focus-visible,select:focus-visible {
+    @apply [outline:3px_solid_var(--color-blue)] [outline-offset:4px];
+}
+
+.prose {
+    @apply whitespace-pre-line [overflow-wrap:anywhere];
+}
+
+.muted,.empty-copy {
+    @apply text-muted;
+}
+
+.sr-only {
+    @apply absolute w-[1px] h-[1px] p-0 m-[-1px] overflow-hidden [clip:rect(0,0,0,0)] whitespace-nowrap [border:0];
+}
+
+@media(prefers-reduced-motion:reduce) {
+    html {
+        @apply scroll-auto;
+    }
+}
+}

@@ -18,6 +18,14 @@
   selects that same layout explicitly. University views use _Layout; account views
   use _AccountLayout.
 - wwwroot contains public static assets, never database scripts or private docs.
+- Styles/ contains Tailwind CSS v4 source split into base tokens, reusable components,
+  layouts, and university sections. Shared semantic classes use @apply, preserving
+  MVC markup and JavaScript hooks. Styles/README.md documents the folder structure.
+- The root package.json/package-lock.json pin the npm build dependencies. Normal
+  dotnet builds run the Tailwind CLI; missing dependencies are installed with npm ci.
+  wwwroot/css/site.css is generated, ignored by Git, and included in publish output.
+  All three layouts load that one local asset; Node/npm are needed at build time.
+  The unused starter _Layout.cshtml.css was removed. Vendor styles remain external.
 - ImageUploadService stores runtime uploads outside source assets in App_Data/Uploads
   (or ImageUploads:RootPath), publicly served under /images/uploads. Database image
   columns continue storing paths. AccountManagement has its own controller/ViewModel/

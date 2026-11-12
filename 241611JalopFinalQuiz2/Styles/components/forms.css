@@ -1,0 +1,202 @@
+/* Shared Tailwind styles: components / forms. */
+@layer components {
+.intro {
+    @apply text-muted mb-[30px];
+}
+
+.field {
+    @apply mb-[20px] min-w-0;
+}
+
+.field label {
+    @apply block text-[.85rem] font-bold mb-[7px];
+}
+
+.optional {
+    @apply font-normal text-muted;
+}
+
+.field input {
+    @apply block w-full min-h-[48px] [border:1px_solid_#a69e90] rounded-[3px] [background:#fbf8f1] [padding:10px_13px] text-navy;
+}
+
+.field input:hover {
+    @apply border-blue;
+}
+
+.field input.input-validation-error {
+    @apply border-error;
+}
+
+.field small {
+    @apply block text-muted text-[.75rem] mt-[6px];
+}
+
+.field-error {
+    @apply block text-error text-[.8rem] mt-[5px];
+}
+
+.form-grid {
+    @apply grid [grid-template-columns:1fr_1fr] [gap:0_20px];
+}
+
+.button {
+    @apply min-h-[48px] inline-flex items-center justify-center gap-[24px] [padding:12px_22px] [border:1px_solid_transparent] rounded-[3px] no-underline text-[.9rem] font-bold cursor-pointer;
+}
+
+.button-primary {
+    @apply bg-navy text-ivory;
+}
+
+.button-primary:hover {
+    @apply bg-blue;
+}
+
+.status-message {
+    @apply [padding:14px_16px] [border:1px_solid_#7c8d72] [background:#e9eddf] [margin:20px_0] [color:#30412c];
+}
+
+.validation-summary:not(.validation-summary-valid) {
+    @apply text-error [background:#f4e4e1] [border:1px_solid_#d6a9a7] [padding:12px_16px] [margin:20px_0] text-[.85rem];
+}
+
+.validation-summary ul {
+    @apply pl-[20px] m-0;
+}
+
+.validation-summary-valid,.field-validation-valid {
+    @apply hidden;
+}
+
+.button-outline {
+    @apply text-ivory bg-transparent border-gold;
+}
+
+.portal-panel .button {
+    @apply mt-[20px];
+}
+
+@media(max-width:480px) {
+    .form-grid {
+        @apply [grid-template-columns:1fr_1fr] [gap:0_12px];
+    }
+}
+
+@media(max-width:350px) {
+    .form-grid {
+        @apply [grid-template-columns:1fr];
+    }
+}
+
+.field textarea,.field select {
+    @apply block w-full [border:1px_solid_#a69e90] rounded-[3px] [background:#fbf8f1] [padding:10px_13px] text-navy min-h-[48px];
+}
+
+.field textarea {
+    @apply resize-y;
+}
+
+.button-gold {
+    @apply bg-gold text-navy mt-[20px];
+}
+
+.editor-heading {
+    @apply flex items-center justify-between gap-[24px] mb-[32px];
+}
+
+.editor-panel {
+    @apply max-w-[800px];
+}
+
+.editor-panel h1,.editor-heading h1 {
+    @apply font-body text-[clamp(1.8rem,3vw,2.4rem)] font-bold;
+}
+
+.editor-panel form {
+    @apply mt-[28px];
+}
+
+.content-list {
+    @apply [border-top:1px_solid_var(--color-line)];
+}
+
+.content-row {
+    @apply flex justify-between items-center gap-[24px] [padding:24px_0] [border-bottom:1px_solid_var(--color-line)];
+}
+
+.content-row h2 {
+    @apply font-body text-[1.15rem] font-bold [overflow-wrap:anywhere];
+}
+
+.content-row p {
+    @apply mb-0;
+}
+
+.row-actions {
+    @apply flex gap-[12px] items-center flex-wrap;
+}
+
+.button-secondary {
+    @apply border-line text-navy bg-transparent;
+}
+
+.button-danger {
+    @apply bg-error text-ivory;
+}
+
+@media(max-width:700px) {
+    .editor-heading,.content-row {
+        @apply items-start flex-col;
+    }
+}
+
+@media(max-width:700px) {
+    .editor-panel .form-grid {
+        @apply [grid-template-columns:1fr];
+    }
+}
+
+.saved-entries-heading {
+    @apply mt-[48px] font-body text-[1.3rem] font-bold;
+}
+
+.editor-panel .content-row h3 {
+    @apply font-body text-[1rem] m-0 [overflow-wrap:anywhere];
+}
+
+.editor-panel>h2 {
+    @apply font-body text-[1.3rem] font-bold;
+}
+
+.upload-preview {
+    @apply block max-w-full w-[240px] h-[160px] object-contain [background:#ebe5d9] [border:1px_solid_var(--color-line)] mt-[16px];
+}
+
+.upload-preview[hidden] {
+    @apply hidden;
+}
+
+.field input[type=file] {
+    @apply h-auto p-[10px];
+}
+
+.field input[type=file]::file-selector-button {
+    @apply [padding:8px_12px] mr-[12px] [border:0] rounded-[3px] bg-navy text-ivory [font:inherit] cursor-pointer;
+}
+
+.field .checkbox-label {
+    @apply flex items-center gap-[12px] min-h-[44px];
+}
+
+.field input[type=checkbox] {
+    @apply w-[20px] h-[20px] min-h-[20px] accent-blue;
+}
+
+.account-search {
+    @apply flex items-end flex-wrap gap-[12px];
+}
+
+.account-search .field {
+    @apply flex-1 min-w-[180px] m-0;
+}
+}

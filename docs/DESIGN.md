@@ -7,6 +7,13 @@ editors are implemented. Real content and campus/program imagery still need ente
 
 ## Identity
 
+Application styling uses Tailwind CSS v4. Reusable @apply components are separated
+under Styles/base, Styles/components, Styles/layouts, and Styles/sections inside
+the MVC project. Styles/app.css imports them; base/theme.css owns color/font tokens.
+Follow Styles/README.md for builds. Edit these sources, never compiled site.css.
+The conversion preserves the existing palette, typography, and responsive behavior.
+Tailwind Preflight is omitted to retain established browser defaults.
+
 Use a modern dark-academia institutional style with historic architectural cues,
 clear academic content, generous spacing, and restrained ornamentation.
 
@@ -94,12 +101,18 @@ the sticky composition. Uploaded About photos take priority; approved illustrati
 provide a visual fallback without inventing university facts. No-JS content remains
 readable; reduced motion disables transition effects.
 
+The complete desktop About composition is bounded by the available dynamic
+viewport height. Its image-pair width accounts for the lower inset's 12% extension,
+and both columns share a responsive sticky top offset (24–120px). Smaller desktop
+heights reduce the image pair and heading size; long prose scrolls inside its text
+area rather than pushing controls or images below the viewport.
+
 Academics uses portrait program-image cards on a full-width dark section, with
 bottom titles, descriptions on activation, 5% image hover zoom over 700ms, and
 light circular arrow hover feedback. Its track loops slowly while visible, pauses
-on hover, focus, open descriptions, manual pause, or reduced-motion preference,
+on hover, focus, open descriptions, or reduced-motion preference,
 and supports drag/swipe. Duplicate visual laps are hidden from assistive technology.
-The pause control is an accessibility addition to the reference. All program data
+The user requested automatic motion without a visible pause control. All program data
 continues coming from ProgramsTable. The user authorized six sample subjects on
 2026-11-12; their descriptions explicitly identify them as sample content.
 

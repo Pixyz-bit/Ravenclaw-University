@@ -4,6 +4,23 @@ Last verified: 2026-11-12.
 
 ## Completed
 
+- Converted application styles to Tailwind CSS v4 with reusable @apply files in
+  Styles/base, components, layouts, and sections. Added locked npm dependencies,
+  CSS build/watch commands, automatic dotnet build integration, and a source guide.
+  Compiled site.css is generated/ignored; unused starter scoped CSS was removed.
+- Scaled the full desktop About image pair and text against the dynamic viewport,
+  accounting for the lower inset. Verified fit at 1366×600 and 1280×480 before
+  conversion, and 1366×600 after conversion. Long prose retains internal scrolling.
+- Removed the visible Pause motion control at the user's request. Academics keeps
+  automatic looping, hover/focus/open-description stops, drag/swipe, and the system
+  reduced-motion preference. Browser measurements confirmed the track advances.
+- Tailwind build and all 126 isolated checks passed with zero build warnings/errors.
+  Browser checks verified hero/navbar height, About composition, mobile About rail,
+  desktop/mobile admin editors, and registration. No horizontal overflow was found;
+  registration exactly matched 1280×720 and 375×667 viewport dimensions.
+  Release publish succeeded and includes the generated CSS. The main local app
+  and stylesheet both returned HTTP 200 at localhost:5182 after restart.
+
 - At the user's explicit request, added six sample programs to the local university
   database on 2026-11-12: Astronomy, Charms, Transfiguration, Potions, Herbology, and
   Defence Against the Dark Arts. The table was empty; SQL confirmed six inserts
@@ -14,7 +31,7 @@ Last verified: 2026-11-12.
   Digital Original site and pasted markup. About uses four sticky scroll-switched
   chapters with overlapping image pairs and mobile swipe/dots. Academics uses a
   looping portrait-card strip, hover zoom/arrow feedback, edge fades, drag/swipe,
-  pause/reduced-motion handling, and program-description disclosures.
+  hover/focus/reduced-motion handling, and program-description disclosures.
 - Build and 126 isolated checks passed. Browser checks verified About chapter/image
   changes, mobile dot navigation, program scrolling/descriptions, and no horizontal
   overflow at 1280px/390px. Minor final spacing/edge-fade and resize alignment changes
