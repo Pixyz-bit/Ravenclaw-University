@@ -10,8 +10,11 @@ public class AboutGalleryViewModel : IAdminSectionViewModel
     public ContentSection Section => ContentSection.Photos;
     public int Id { get; set; }
 
-    [Display(Name = "Image path or HTTPS URL"), Required, StringLength(500), SafeImage]
+    [BindNever]
     public string? ImagePath { get; set; }
+
+    [Display(Name = "Gallery image")]
+    public IFormFile? ImageUpload { get; set; }
 
     [Display(Name = "Image description"), StringLength(250)]
     public string? AltText { get; set; }

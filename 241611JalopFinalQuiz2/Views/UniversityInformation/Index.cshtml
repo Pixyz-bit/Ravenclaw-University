@@ -11,15 +11,16 @@
     {
         <div class="status-message" role="status">@message</div>
     }
-    <form asp-controller="UniversityInformation" asp-action="Index" asp-route-id="" asp-route-confirmDelete="" method="post">
+    <form asp-controller="UniversityInformation" asp-action="Index" asp-route-id="" asp-route-confirmDelete="" method="post" enctype="multipart/form-data">
         <div asp-validation-summary="All" class="validation-summary" role="alert"></div>
-        <div class="field">
-            <label asp-for="HeroImg"></label>
-            <input asp-for="HeroImg" maxlength="500" list="university-images" aria-describedby="hero-image-help" />
-            <datalist id="university-images"><option value="/images/branding/ravenclaw-university-crest.png">Approved university crest</option></datalist>
-            <small id="hero-image-help">Choose an image path under /images/ or an HTTPS image URL. Leave blank to use the university crest.</small>
-            <span asp-validation-for="HeroImg" class="field-error"></span>
-        </div>
+            <div class="field">
+                <label asp-for="ImageUpload"></label>
+                <input asp-for="ImageUpload" type="file" accept="image/png,image/jpeg,image/webp" aria-describedby="image-help" data-image-upload />
+                <small id="image-help">PNG, JPEG, or WebP, up to 5 MB. Leave empty to keep the current image.</small>
+                <span asp-validation-for="ImageUpload" class="field-error"></span>
+                @if (!string.IsNullOrWhiteSpace(Model.HeroImg) && SafeImageAttribute.IsSafeImage(Model.HeroImg)) { <img class="upload-preview" src="@Model.HeroImg" alt="Current hero image" /> }
+                <img class="upload-preview" alt="Selected image preview" hidden data-upload-preview />
+            </div>
         <div class="field">
             <label asp-for="AcademyDescription"></label>
             <textarea asp-for="AcademyDescription" rows="5"></textarea>

@@ -9,6 +9,9 @@ Recorded 2026-11-11 from the project conversation.
 | Approved transparent Ravenclaw crest is the main university logo | User approved the imagegen-cleaned supplied crest and authorized website integration after preview |
 | First content version is one authenticated page with section anchors | Implements the original five sections; separate detail pages can be added if requested |
 | Admin area has a separate sidebar layout | Explicit user request; Dashboard and each content section have dedicated navigation with an active state |
+| Admin sidebar is flat and unnumbered, and workspace has no topbar | User requested removal of numeric prefixes, University content divider, and admin-topbar header |
+| Editable images use file uploads | Explicit user request supersedes path-only selection; hero/gallery/program/profile uploads retain database path columns |
+| Admins can manage existing accounts | User requested Account management; search/edit details, profile, role/status with self-lockout protection; passwords and account creation/deletion remain separate |
 | Each of seven admin content sections has a dedicated controller, form ViewModel, and Index view | User requested a clear one-to-one MVC structure for learning; retain existing database-first entities and use direct DbContext mapping |
 | University navbar uses the established navy design | User rejected the literal rounded outlined sketch implementation. Use a full-width navy bar, ivory text, fine gold divider, constrained aligned inner content, and a circular account control |
 | University and contact records are singletons in editor logic | Serializable creation prevents duplicates; existing rows are edited |

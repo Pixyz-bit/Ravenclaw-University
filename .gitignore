@@ -7,6 +7,8 @@
 *.userosscache
 *.sln.docstates
 TestResults/
+**/wwwroot/images/uploads/
+**/App_Data/Uploads/
 *.log
 
 # Local secrets and environment overrides

@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using _241611JalopFinalQuiz2.Services;
 using _241611JalopFinalQuiz2.Data;
 using _241611JalopFinalQuiz2.Models;
 using _241611JalopFinalQuiz2.ViewModels;
@@ -9,7 +10,7 @@ namespace _241611JalopFinalQuiz2.Controllers;
 
 [Authorize(Roles = "Admin")]
 [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
-public class AcademicProgramsController(UniversityDbContext database, ILogger<AcademicProgramsController> logger) : Controller
+public class AcademicProgramsController(UniversityDbContext database, ImageUploadService images, ILogger<AcademicProgramsController> logger) : Controller
 {
     [HttpGet]
     public async Task<IActionResult> Index(int id = 0, bool confirmDelete = false)
@@ -33,12 +34,16 @@ public class AcademicProgramsController(UniversityDbContext database, ILogger<Ac
         catch (Exception exception) { return Unavailable(exception, new AcademicProgramsViewModel()); }
     }
 
-    [HttpPost, ValidateAntiForgeryToken]
+    [HttpPost, ValidateAntiForgeryToken, RequestSizeLimit(6 * 1024 * 1024)]
     public async Task<IActionResult> Index(AcademicProgramsViewModel model)
     {
         if (model.Id < 0) return NotFound();
+        string? uploadedPath = null;
         try
         {
+            model.ImagePath = model.Id == 0 ? null : await database.ProgramsTables.AsNoTracking().Where(x => x.SubjectId == model.Id).Select(x => x.ImagePath).FirstOrDefaultAsync();
+            var imageError = await images.ValidateAsync(model.ImageUpload);
+            if (imageError is not null) ModelState.AddModelError(nameof(model.ImageUpload), imageError);
             if (!ModelState.IsValid)
             {
                 model.Items = await database.ProgramsTables.AsNoTracking().OrderBy(x => x.SubjectId).ToListAsync();
@@ -49,14 +54,19 @@ public class AcademicProgramsController(UniversityDbContext database, ILogger<Ac
             if (item is null) return NotFound();
             item.SubjectName = model.SubjectName!.Trim();
             item.Description = Clean(model.Description);
-            item.ImagePath = Clean(model.ImagePath);
+            if (model.ImageUpload is not null)
+            {
+                uploadedPath = await images.SaveAsync(model.ImageUpload);
+                item.ImagePath = uploadedPath;
+            }
             if (model.Id == 0) database.ProgramsTables.Add(item);
             await database.SaveChangesAsync();
 
+            uploadedPath = null; // The saved row now owns this upload.
             TempData["StatusMessage"] = "Academic programs saved.";
             return RedirectToAction(nameof(Index), new { id = (int?)null });
         }
-        catch (Exception exception) { return Unavailable(exception, model); }
+        catch (Exception exception) { images.Discard(uploadedPath); return Unavailable(exception, model); }
     }
 
     [HttpPost, ValidateAntiForgeryToken]

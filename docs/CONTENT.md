@@ -2,8 +2,9 @@
 
 The first content implementation is one authenticated homepage with five sections:
 hero, About, academics, contact, and founder information. Navigation links jump to
-the corresponding sections. No enrollment, inquiry form, uploads, or extra tables
-were added. Schema.sql remains unchanged and is the sole consolidated schema.
+the corresponding sections. Admin image uploads and account management are now
+implemented. No enrollment, inquiry form, or extra tables were added. Schema.sql
+remains unchanged and is the sole consolidated schema.
 
 ## Using the editors
 
@@ -53,12 +54,21 @@ only the database entry, never a physical image file.
 
 ## Images and links
 
-Choose a path under /images/ or a complete HTTPS image URL. The approved crest is
-available in the image field's suggestions. No other campus/program photographs
-have been supplied or generated. Administrators can reference preselected assets
-placed under wwwroot/images. Local path traversal and backslashes are rejected.
-Image descriptions provide alternative text; unavailable images get a readable
-fallback. Remote images are loaded by the browser, not fetched by the server.
+Hero, gallery, program, and account-profile fields use multipart file uploaders
+with local previews. Choose PNG, JPEG, or WebP files up to 5 MB. The server checks
+extensions, file signatures, and size; SVG/HTML and mismatched signatures are rejected.
+Existing images are preserved when no replacement is selected. New gallery entries
+require a file. Image-path form values cannot override server-managed stored paths.
+Existing safe local/HTTPS image references still render, but the editors no longer
+ask the admin to enter paths. Gallery descriptions provide alternative text.
+
+ImageUploadService saves UUID-named files in App_Data/Uploads, exposed under
+/images/uploads with a nosniff response header. Files are public website media.
+ImageUploads:RootPath can point to persistent storage; back up that directory along
+with the database. Uploads are excluded from Git. The database retains only paths,
+so no SQL change is required. Failed database writes discard newly created files;
+successful replacements/deletions retain old files to avoid removing shared media.
+Disposable verification overrides the upload root to its own temporary directory.
 
 Social links require HTTPS and use an allowlist of optional Font Awesome Free
 6.7.2 icon classes (Facebook, Instagram, YouTube, LinkedIn, X, website). The shared
@@ -81,6 +91,19 @@ Empty content remains a valid page. Database-operation errors show generic retry
 feedback and HTTP 503 rather than exception details. Authentication continues to
 fail closed when account validation cannot reach the database.
 
+## Account management
+
+/AccountManagement is Admin-only, with its own controller, form ViewModel, and
+Index view. Search by username or name (up to 100 results), then edit names,
+username, optional birthday, role, active status, or upload a profile image.
+Accounts are created through student self-registration/the existing first-admin
+command. This screen does not create/delete accounts or reset passwords.
+Password hashes never enter the view model or rendered HTML and remain unchanged
+when editing. Duplicate usernames are checked case-insensitively in a serializable
+transaction. Admins cannot deactivate/demote themselves; at least one active Admin
+must remain. Changed roles/status invalidate existing sessions through the existing
+cookie validation. All updates require POST and antiforgery validation.
+
 ## Verification
 
 From the repository root, run:
@@ -94,9 +117,11 @@ from Schema.sql, and starts a temporary local server without locking the user's
 normal build. In addition to the 28 authentication checks, it verifies content CRUD,
 student rejection on GET/POST, singleton protection, required fields, HTTPS links,
 image-path validation, missing IDs/sections, antiforgery, and stored-text escaping.
-Verified 2026-11-11: 104 checks passed after splitting all seven MVC editors, with
-zero build warnings/errors. The checks exercise every dedicated route, student and
-anonymous rejection, creation/editing, singleton updates, and safe delete behavior.
+Verified 2026-11-11: 126 checks passed after adding uploads and Account management,
+with zero build warnings/errors. Checks exercise every dedicated route, student and
+anonymous rejection, creation/editing, singleton updates, safe delete behavior,
+multipart uploads and preservation, size/type rejection, account updates, search,
+role/status rules, self-lockout protection, and unchanged password hashes.
 University and program forms were inspected on desktop/390px phones without
 horizontal overflow. Final full accessibility and database-outage QA remain pending.
 

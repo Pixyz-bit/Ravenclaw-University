@@ -8,6 +8,8 @@ $tempDir = Join-Path ([IO.Path]::GetTempPath()) $databaseName
 New-Item -ItemType Directory -Path $tempDir | Out-Null
 $oldConnection = $env:ConnectionStrings__UniversityDb
 $oldEnvironment = $env:ASPNETCORE_ENVIRONMENT
+$oldUploadRoot = $env:ImageUploads__RootPath
+$script:imageBytes = [Convert]::FromBase64String('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAusB9Wl6pT8AAAAASUVORK5CYII=')
 $serverProcess = $null
 $databaseCreated = $false
 $clients = [Collections.Generic.List[IDisposable]]::new()
@@ -35,9 +37,18 @@ function New-TestClient {
 function Send-Request($Client, [string]$Path, [hashtable]$Fields = $null) {
     if ($null -eq $Fields) { $response = $Client.GetAsync("$script:baseUrl$Path").GetAwaiter().GetResult() }
     else {
-        $data = [Collections.Generic.Dictionary[string,string]]::new()
-        foreach ($entry in $Fields.GetEnumerator()) { $data.Add($entry.Key, [string]$entry.Value) }
-        $content = [Net.Http.FormUrlEncodedContent]::new($data)
+        if ($Fields.ContainsKey('__ImageBytes')) {
+            $content = [Net.Http.MultipartFormDataContent]::new()
+            foreach ($entry in $Fields.GetEnumerator()) {
+                if ($entry.Key -notin @('__ImageBytes','__ImageName')) { $content.Add([Net.Http.StringContent]::new([string]$entry.Value), $entry.Key) }
+            }
+            $upload = [Net.Http.ByteArrayContent]::new([byte[]]$Fields.__ImageBytes)
+            $content.Add($upload, 'ImageUpload', $(if ($Fields.ContainsKey('__ImageName')) { $Fields.__ImageName } else { 'verification.png' }))
+        } else {
+            $data = [Collections.Generic.Dictionary[string,string]]::new()
+            foreach ($entry in $Fields.GetEnumerator()) { $data.Add($entry.Key, [string]$entry.Value) }
+            $content = [Net.Http.FormUrlEncodedContent]::new($data)
+        }
         try { $response = $Client.PostAsync("$script:baseUrl$Path", $content).GetAwaiter().GetResult() }
         finally { $content.Dispose() }
     }
@@ -80,6 +91,7 @@ try {
     $script:baseUrl = "http://127.0.0.1:$port"
     $env:ConnectionStrings__UniversityDb = "Server=$Server;Database=$databaseName;Trusted_Connection=True;Encrypt=True;TrustServerCertificate=True;"
     $env:ASPNETCORE_ENVIRONMENT = 'Development'
+    $env:ImageUploads__RootPath = Join-Path $tempDir 'uploads'
     $testAssembly = Join-Path $testOutput '241611JalopFinalQuiz2.dll'
     $serverProcess = Start-Process -FilePath 'dotnet' -ArgumentList "`"$testAssembly`" --urls $script:baseUrl" -WorkingDirectory (Split-Path $projectFile -Parent) -WindowStyle Hidden -PassThru -RedirectStandardOutput (Join-Path $tempDir 'server.log') -RedirectStandardError (Join-Path $tempDir 'server-error.log')
     $anonymous = New-TestClient
@@ -154,7 +166,8 @@ try {
         $activeLinks = [regex]::Matches($programList.Body,'<a\b[^>]*aria-current="page"[^>]*>.*?</a>',[Text.RegularExpressions.RegexOptions]::Singleline)
         Assert-Check ($activeLinks.Count -eq 1 -and $activeLinks[0].Value.Contains('Academic programs')) 'Content sidebar marks only the current section active'
         $universityPage = Send-Request $admin '/UniversityInformation'
-        Assert-Check ($universityPage.Status -eq 200 -and $universityPage.Body.Contains('name="HeroImg"') -and $universityPage.Body.Contains('name="AcademyDescription"') -and $universityPage.Body.Contains('name="Mission"') -and $universityPage.Body.Contains('name="Vision"')) 'University page directly displays all four schema-backed inputs'
+        Assert-Check ($universityPage.Status -eq 200 -and $universityPage.Body.Contains('name="ImageUpload"') -and $universityPage.Body.Contains('type="file"') -and $universityPage.Body.Contains('name="AcademyDescription"') -and $universityPage.Body.Contains('name="Mission"') -and $universityPage.Body.Contains('name="Vision"')) 'University page displays its image uploader and three text fields'
+        Assert-Check (-not $adminDashboard.Body.Contains('admin-nav-number') -and -not $adminDashboard.Body.Contains('admin-nav-heading') -and -not $adminDashboard.Body.Contains('class="admin-topbar"')) 'Admin sidebar has no numbers/divider and the admin topbar is removed'
         Assert-Check ((Send-Request $admin '/AdminContent?section=University').Location -like '/UniversityInformation*') 'Existing University information link redirects to its dedicated editor'
         $sections = @(
             @{Name='University';Controller='UniversityInformation';Table='AcademyInfoTable';Key='AcademyInfoId';Fields=@{AcademyDescription='Verification university description';Mission='Verification mission';Vision='Verification vision';HeroImg='/images/branding/ravenclaw-university-crest.png'}},
@@ -167,6 +180,7 @@ try {
         )
         foreach ($contentSection in $sections) {
             $name=$contentSection.Name; $route='/'+$contentSection.Controller; $fields=$contentSection.Fields.Clone()
+            if ($name -in @('University','Photos','Programs')) { $fields.__ImageBytes=$script:imageBytes }
             Assert-Check ((Send-Request $anonymous $route).Location -like '*Login*') "Anonymous cannot access $name editor"
             $studentClient = New-TestClient
             $studentLogin = Submit-Form $studentClient '/Account/Login' @{Username='profile.student';Password='Test-Only-Scholar-2026'}
@@ -175,6 +189,12 @@ try {
             $created = Submit-Form $admin $route $fields
             $recordId = Invoke-TestSql "SELECT TOP(1) [$($contentSection.Key)] FROM dbo.[$($contentSection.Table)] ORDER BY [$($contentSection.Key)] DESC;"
             Assert-Check ($created.Status -eq 302 -and [int]$recordId -gt 0) "Admin can create $name content"
+            if ($name -in @('University','Photos','Programs')) {
+                $imageColumn = if ($name -eq 'University') { 'HeroImg' } else { 'ImagePath' }
+                $imageBefore = Invoke-TestSql "SELECT [$imageColumn] FROM dbo.[$($contentSection.Table)] WHERE [$($contentSection.Key)]=$recordId;"
+                Assert-Check ($imageBefore -match '^/images/uploads/[a-f0-9]{32}\.png$' -and (Send-Request $admin $imageBefore).Status -eq 200) "$name upload persists and can be displayed"
+                $fields.Remove('__ImageBytes')
+            }
             $fields.Id=$recordId
             if ($fields.ContainsKey('AcademyDescription')) { $fields.AcademyDescription='Updated verification description' }
             elseif ($fields.ContainsKey('Description')) { $fields.Description='Updated verification description' }
@@ -183,6 +203,9 @@ try {
             elseif ($fields.ContainsKey('AcademyAddress')) { $fields.AcademyAddress='Updated verification campus' }
             $updated = Submit-Form $admin "${route}?id=$recordId" $fields
             Assert-Check ($updated.Status -eq 302 -and (Send-Request $admin $route).Status -eq 200) "Admin can edit and list $name content"
+            if ($name -in @('University','Photos','Programs')) {
+                Assert-Check ((Invoke-TestSql "SELECT [$imageColumn] FROM dbo.[$($contentSection.Table)] WHERE [$($contentSection.Key)]=$recordId;") -eq $imageBefore) "$name keeps the existing image when no replacement is selected"
+            }
             Assert-Check ((Send-Request $admin $route @{}).Status -eq 400) "$name save requires an antiforgery token"
             $contentSection.RecordId=$recordId
         }
@@ -192,12 +215,14 @@ try {
         Assert-Check ($singleton.Status -eq 302 -and (Invoke-TestSql 'SELECT COUNT(*) FROM dbo.AcademyInfoTable;') -eq '1') 'University settings update the single existing record'
         $singleton = Submit-Form $admin '/ContactInformation' @{AcademyAddress='Updated verification campus'}
         Assert-Check ($singleton.Status -eq 302 -and (Invoke-TestSql 'SELECT COUNT(*) FROM dbo.ContactsTable;') -eq '1') 'Contact settings update the single existing record'
-        $badHero = Submit-Form $admin '/UniversityInformation' @{HeroImg='/images/../appsettings.json'}
-        Assert-Check ($badHero.Status -eq 200 -and $badHero.Body.Contains('without traversal')) 'Unsafe university hero path is rejected'
+        $badHero = Submit-Form $admin '/UniversityInformation' @{__ImageBytes=[Text.Encoding]::UTF8.GetBytes('<script>invalid image</script>');__ImageName='fake.png'}
+        Assert-Check ($badHero.Status -eq 200 -and $badHero.Body.Contains('do not match')) 'A fake PNG upload is rejected'
         $badLink = Submit-Form $admin '/SocialLinks' @{PlatformName='Bad link';Url='javascript:alert(1)'}
         Assert-Check ($badLink.Status -eq 200 -and (Invoke-TestSql 'SELECT COUNT(*) FROM dbo.SocialLinksTable;') -eq '1') 'Unsafe social URL is rejected'
-        $badImage = Submit-Form $admin '/AboutGallery' @{ImagePath='/images/../appsettings.json'}
-        Assert-Check ($badImage.Status -eq 200 -and (Invoke-TestSql 'SELECT COUNT(*) FROM dbo.AboutImagesTable;') -eq '1') 'Image traversal is rejected'
+        $badImage = Submit-Form $admin '/AboutGallery' @{__ImageBytes=$script:imageBytes;__ImageName='image.svg'}
+        Assert-Check ($badImage.Status -eq 200 -and (Invoke-TestSql 'SELECT COUNT(*) FROM dbo.AboutImagesTable;') -eq '1') 'Unsupported image extensions are rejected'
+        $oversize = Submit-Form $admin '/UniversityInformation' @{__ImageBytes=[byte[]]::new(5 * 1024 * 1024 + 1);__ImageName='large.png'}
+        Assert-Check ($oversize.Status -eq 200 -and $oversize.Body.Contains('5 MB')) 'Image uploads over 5 MB are rejected'
         $emptyValue = Submit-Form $admin '/CoreValues' @{Title=' '}
         Assert-Check ($emptyValue.Status -eq 200 -and (Invoke-TestSql 'SELECT COUNT(*) FROM dbo.CoreValuesTable;') -eq '1') 'Blank required content title is rejected'
         Assert-Check ((Send-Request $admin '/AdminContent/Edit?section=999').Status -eq 404) 'Unknown content section is rejected'
@@ -215,6 +240,34 @@ try {
             Assert-Check ($removed.Status -eq 302 -and (Invoke-TestSql "SELECT COUNT(*) FROM dbo.[$($contentSection.Table)] WHERE [$($contentSection.Key)]=$recordId;") -eq '0') "Admin can delete $name content"
         }
         Assert-Check ((Send-Request $admin '/AdminContent/Delete?section=University&id=1').Status -eq 404) 'Single university record cannot be deleted through content editor'
+        Assert-Check ((Send-Request $anonymous '/AccountManagement').Location -like '*Login*') 'Anonymous cannot access Account management'
+        Assert-Check ((Send-Request $studentClient '/AccountManagement').Location -like '*AccessDenied*') 'Students cannot access Account management'
+        Assert-Check ((Send-Request $studentClient '/AccountManagement' @{}).Location -like '*AccessDenied*') 'Students cannot modify accounts'
+        $accounts = Send-Request $admin '/AccountManagement'
+        Assert-Check ($accounts.Status -eq 200 -and $accounts.Body.Contains('profile.student') -and -not $accounts.Body.Contains('PasswordHash')) 'Admin account list shows account summaries without password hashes'
+        $profileId = Invoke-TestSql "SELECT UserId FROM dbo.UserTable WHERE Username=N'profile.student';"
+        $adminId = Invoke-TestSql "SELECT UserId FROM dbo.UserTable WHERE Username=N'verification.student';"
+        $hashBefore = Invoke-TestSql "SELECT CHECKSUM(PasswordHash) FROM dbo.UserTable WHERE UserId=$profileId;"
+        $accountFields = @{Id=$profileId;Username='profile.student';FirstName='Mira';LastName='Updated surname';Role='Student';IsActive='false';__ImageBytes=$script:imageBytes}
+        $accountSaved = Submit-Form $admin "/AccountManagement?id=$profileId" $accountFields
+        Assert-Check ($accountSaved.Status -eq 302 -and (Invoke-TestSql "SELECT COUNT(*) FROM dbo.UserTable WHERE UserId=$profileId AND LastName=N'Updated surname' AND IsActive=0;") -eq '1') 'Admin can update account details and deactivate an account'
+        $profileImage = Invoke-TestSql "SELECT ProfileImg FROM dbo.UserTable WHERE UserId=$profileId;"
+        Assert-Check ($profileImage -match '^/images/uploads/[a-f0-9]{32}\.png$' -and (Send-Request $admin $profileImage).Status -eq 200) 'Account profile image uploads and renders'
+        Assert-Check ((Invoke-TestSql "SELECT CHECKSUM(PasswordHash) FROM dbo.UserTable WHERE UserId=$profileId;") -eq $hashBefore) 'Account edits preserve the existing password hash'
+        $accountFields.Remove('__ImageBytes'); $accountFields.Role='Admin'; $accountFields.IsActive='true'
+        $promoted = Submit-Form $admin "/AccountManagement?id=$profileId" $accountFields
+        Assert-Check ($promoted.Status -eq 302 -and (Invoke-TestSql "SELECT COUNT(*) FROM dbo.UserTable WHERE UserId=$profileId AND Role=N'Admin' AND IsActive=1;") -eq '1') 'Admin can reactivate an account and change its role'
+        Assert-Check ((Invoke-TestSql "SELECT ProfileImg FROM dbo.UserTable WHERE UserId=$profileId;") -eq $profileImage) 'Profile image is preserved without a replacement'
+        $accountFields.Username='VERIFICATION.STUDENT'
+        $duplicateAccount = Submit-Form $admin "/AccountManagement?id=$profileId" $accountFields
+        Assert-Check ($duplicateAccount.Status -eq 200 -and $duplicateAccount.Body.Contains('already in use')) 'Account username uniqueness is checked case-insensitively'
+        $accountFields.Username='profile.student'; $accountFields.Role='Owner'
+        Assert-Check ((Submit-Form $admin "/AccountManagement?id=$profileId" $accountFields).Status -eq 200) 'Unsupported account roles are rejected'
+        $selfEdit = Submit-Form $admin "/AccountManagement?id=$adminId" @{Id=$adminId;Username='verification.student';Role='Student';IsActive='false'}
+        Assert-Check ($selfEdit.Status -eq 200 -and $selfEdit.Body.Contains('own account') -and (Invoke-TestSql "SELECT COUNT(*) FROM dbo.UserTable WHERE UserId=$adminId AND Role=N'Admin' AND IsActive=1;") -eq '1') 'Admin cannot deactivate or demote their own account'
+        Assert-Check ((Send-Request $admin '/AccountManagement' @{Id=$profileId}).Status -eq 400) 'Account edits require an antiforgery token'
+        $searchResult = Send-Request $admin '/AccountManagement?search=Updated%20surname'
+        Assert-Check ($searchResult.Status -eq 200 -and $searchResult.Body.Contains('profile.student') -and -not $searchResult.Body.Contains('<h3>verification.student</h3>')) 'Account search filters the list'
     }
     Invoke-TestSql "UPDATE dbo.UserTable SET Role=N'Student' WHERE Username=N'verification.student';" | Out-Null
     Assert-Check ((Send-Request $admin '/Admin').Status -eq 302) 'Role change invalidates an existing admin session'
@@ -247,6 +300,7 @@ finally {
     if ($serverProcess -and -not $serverProcess.HasExited) { & taskkill /PID $serverProcess.Id /T /F | Out-Null }
     $env:ConnectionStrings__UniversityDb = $oldConnection
     $env:ASPNETCORE_ENVIRONMENT = $oldEnvironment
+    $env:ImageUploads__RootPath = $oldUploadRoot
     if ($databaseCreated) {
         # The target is this script's GUID-named, newly created test database only.
         & sqlcmd -S $Server -E -l 5 -b -d master -Q "ALTER DATABASE [$databaseName] SET SINGLE_USER WITH ROLLBACK IMMEDIATE; DROP DATABASE [$databaseName];"

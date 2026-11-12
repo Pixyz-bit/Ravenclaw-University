@@ -16,8 +16,11 @@ public class AcademicProgramsViewModel : IAdminSectionViewModel
     [Display(Name = "Description")]
     public string? Description { get; set; }
 
-    [Display(Name = "Image path or HTTPS URL"), StringLength(500), SafeImage]
+    [BindNever]
     public string? ImagePath { get; set; }
+
+    [Display(Name = "Program image")]
+    public IFormFile? ImageUpload { get; set; }
 
     [BindNever, ValidateNever]
     public List<ProgramsTable> Items { get; set; } = [];

@@ -6,8 +6,11 @@ namespace _241611JalopFinalQuiz2.ViewModels;
 public class UniversityInformationViewModel : IAdminSectionViewModel
 {
     public ContentSection Section => ContentSection.University;
-    [Display(Name = "Hero image"), StringLength(500), SafeImage]
+    [Microsoft.AspNetCore.Mvc.ModelBinding.BindNever]
     public string? HeroImg { get; set; }
+
+    [Display(Name = "Hero image")]
+    public IFormFile? ImageUpload { get; set; }
 
     [Display(Name = "University description")]
     public string? AcademyDescription { get; set; }

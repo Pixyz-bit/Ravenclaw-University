@@ -20,6 +20,7 @@ builder.Services.AddDbContext<UniversityDbContext>(options =>
 builder.Services.AddScoped<IPasswordHasher<UserTable>, PasswordHasher<UserTable>>();
 builder.Services.AddScoped<AccountService>();
 builder.Services.AddScoped<UniversityContentService>();
+builder.Services.AddSingleton<ImageUploadService>();
 builder.Services.AddScoped<UniversityCookieEvents>();
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
@@ -114,6 +115,14 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+var imageUploads = app.Services.GetRequiredService<ImageUploadService>();
+Directory.CreateDirectory(imageUploads.RootPath);
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new Microsoft.Extensions.FileProviders.PhysicalFileProvider(imageUploads.RootPath),
+    RequestPath = "/images/uploads",
+    OnPrepareResponse = context => context.Context.Response.Headers["X-Content-Type-Options"] = "nosniff"
+});
 app.UseRouting();
 
 app.UseRateLimiter();

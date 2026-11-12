@@ -1,9 +1,23 @@
 # Current status
 
-Last verified: 2026-11-11.
+Last verified: 2026-11-12.
 
 ## Completed
 
+- Built the latest uploads/account-management changes with zero warnings/errors
+  and started the local development app on localhost:5182 on 2026-11-12.
+  Login returned HTTP 200. Final visual review of the new account edit/upload
+  layouts remains pending; their HTTP/database checks passed below.
+- Removed admin sidebar numbers and University content divider label, and removed
+  the admin-topbar header at the user's request. Navigation retains active states.
+- Added file uploaders/current and selected previews for hero, gallery, programs,
+  and account profiles. Existing images persist without replacements. Server checks
+  PNG/JPEG/WebP extensions, signatures, and 5 MB size; paths are server-managed.
+- Added a dedicated Admin-only Account management MVC page with search, names,
+  username/birthday edits, profile uploads, role/active management, duplicate-name
+  validation, and self/last-admin protection. Password hashes remain unchanged.
+- Build and all 126 isolated account/content/upload checks passed. All account,
+  content, and upload mutations were confined to disposable test data/storage.
 - Split all seven admin content editors into dedicated named controllers, form
   ViewModels, and Index views, retaining the existing EF entities and database.
   University information directly displays hero image, description, mission,

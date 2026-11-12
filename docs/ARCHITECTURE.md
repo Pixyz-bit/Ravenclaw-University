@@ -18,6 +18,10 @@
   selects that same layout explicitly. University views use _Layout; account views
   use _AccountLayout.
 - wwwroot contains public static assets, never database scripts or private docs.
+- ImageUploadService stores runtime uploads outside source assets in App_Data/Uploads
+  (or ImageUploads:RootPath), publicly served under /images/uploads. Database image
+  columns continue storing paths. AccountManagement has its own controller/ViewModel/
+  Index view and uses existing UserTable; no schema changes are needed.
 
 ## Database
 

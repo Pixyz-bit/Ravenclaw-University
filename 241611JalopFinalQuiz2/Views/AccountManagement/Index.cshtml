@@ -1,0 +1,46 @@
+@model AccountManagementViewModel
+@{ Layout = "_AdminLayout"; ViewData["Title"] = "Account management"; }
+<section class="editor-panel">
+    <p class="eyebrow">Administration</p>
+    <h1>Account management</h1>
+    <p class="muted">Find an account to update its details, profile image, role, or access.</p>
+    @if (TempData["StatusMessage"] is string message) { <div class="status-message" role="status">@message</div> }
+    <div asp-validation-summary="All" class="validation-summary" role="alert"></div>
+    @if (Model.Id > 0)
+    {
+        <h2>Edit account</h2>
+        <form asp-action="Index" asp-route-id="" method="post" enctype="multipart/form-data">
+            <input asp-for="Id" type="hidden" /><input asp-for="Search" type="hidden" />
+            <div class="field"><label asp-for="Username"></label><input asp-for="Username" maxlength="100" autocomplete="off" /><span asp-validation-for="Username" class="field-error"></span></div>
+            <div class="form-grid">
+                <div class="field"><label asp-for="FirstName"></label><input asp-for="FirstName" maxlength="100" /><span asp-validation-for="FirstName" class="field-error"></span></div>
+                <div class="field"><label asp-for="LastName"></label><input asp-for="LastName" maxlength="100" /><span asp-validation-for="LastName" class="field-error"></span></div>
+                <div class="field"><label asp-for="MiddleName"></label><input asp-for="MiddleName" maxlength="100" /><span asp-validation-for="MiddleName" class="field-error"></span></div>
+                <div class="field"><label asp-for="Birthday"></label><input asp-for="Birthday" type="date" /><span asp-validation-for="Birthday" class="field-error"></span></div>
+                <div class="field"><label asp-for="Role"></label><select asp-for="Role"><option>Student</option><option>Admin</option></select><span asp-validation-for="Role" class="field-error"></span></div>
+            </div>
+            <div class="field"><label class="checkbox-label"><input asp-for="IsActive" /> Active account</label><small>Inactive accounts cannot sign in. Your own account must remain an active Admin.</small></div>
+            <div class="field">
+                <label asp-for="ImageUpload"></label><input asp-for="ImageUpload" type="file" accept="image/png,image/jpeg,image/webp" aria-describedby="profile-help" data-image-upload />
+                <small id="profile-help">PNG, JPEG, or WebP, up to 5 MB. Leave empty to keep the current image.</small>
+                <span asp-validation-for="ImageUpload" class="field-error"></span>
+                @if (!string.IsNullOrWhiteSpace(Model.ProfileImg) && SafeImageAttribute.IsSafeImage(Model.ProfileImg)) { <img class="upload-preview" src="@Model.ProfileImg" alt="Current profile image" /> }
+                <img class="upload-preview" alt="Selected profile image preview" hidden data-upload-preview />
+            </div>
+            <div class="row-actions"><button class="button button-primary" type="submit" disabled="@(ViewData["Unavailable"] is true)">Save account</button><a class="button button-secondary" asp-action="Index" asp-route-id="">Cancel</a></div>
+        </form>
+    }
+    <h2 class="saved-entries-heading">Accounts</h2>
+    <form asp-action="Index" asp-route-id="" method="get" class="account-search">
+        <div class="field"><label asp-for="Search">Search by username or name</label><input asp-for="Search" maxlength="100" /></div><button class="button button-secondary" type="submit">Search</button>
+    </form>
+    <p class="muted">Showing up to 100 accounts. Refine the search to find a specific account.</p>
+    @if (Model.Items.Count == 0 && ViewData["Unavailable"] is not true) { <p>No matching accounts.</p> }
+    <div class="content-list">
+        @foreach (var account in Model.Items)
+        {
+            <article class="content-row"><div><h3>@account.Username</h3><p class="muted">@account.FirstName @account.LastName · @account.Role · @(account.IsActive ? "Active" : "Inactive")</p></div><a class="button button-secondary" asp-action="Index" asp-route-id="@account.Id" asp-route-search="@Model.Search">Edit account</a></article>
+        }
+    </div>
+</section>
+@section Scripts { <partial name="_ValidationScriptsPartial" /> }

@@ -43,7 +43,7 @@ authenticated homepage with section anchors; separate detail pages remain option
 - On narrow screens, stack columns and provide accessible menu controls.
 - Use visible field labels, keyboard focus, clear feedback, and reduced-motion support.
 
-Use preselected images as requested. Do not generate imagery unless the user asks.
+Use admin-selected image uploads for editable imagery. Do not generate imagery unless the user asks.
 Preserve established tokens and reusable components across student and admin
 screens; admin screens should prioritize clear editing tasks. Later explicit user
 choices override this planning reference and should be recorded here.
@@ -87,7 +87,10 @@ is not rendered in this shell. A 272px navy sidebar
 contains the approved crest, Dashboard, and all seven content sections. The current
 page uses a blue active background and aria-current=page, including edit/delete
 and validation states. View university and POST Sign out sit below navigation.
-The ivory workspace has a contextual topbar/account label and Lato headings.
+The ivory workspace uses Lato headings and opens directly to the page content;
+the user requested removal of the contextual topbar/account label. Sidebar links
+are one flat list, with no numeric prefixes or University content divider label.
+Account management follows the seven content links using the same active style.
 Below 901px, native sidebar disclosure collapses initially with JavaScript and
 remains usable without JavaScript. The dashboard provides a short publishing guide.
 
@@ -96,6 +99,9 @@ contact settings open directly to a single save form. The other five sections sh
 an add/edit form followed by published entries on the same page. Delete confirmation
 uses that section's view; no shared conditional editor switches between sections.
 Keep the established field, button, status, sidebar, and responsive form styling.
+Image fields use native file pickers, format/size guidance, current-image previews,
+and selected-file previews. Account management reuses these fields and flat divided
+account rows with search and an inline edit form; no password fields are displayed.
 
 ## Approved main logo (2026-11-11)
 

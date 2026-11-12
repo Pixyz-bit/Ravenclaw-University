@@ -13,7 +13,7 @@
         <h2>Delete this entry?</h2>
         <p>@Model.ImagePath</p>
         <p>This removes the entry from the university page.</p>
-        <form asp-action="Delete" method="post">
+        <form asp-action="Delete" method="post" enctype="multipart/form-data">
             <input asp-for="Id" type="hidden" />
             <div class="row-actions"><button class="button button-danger" type="submit">Delete entry</button><a class="button button-secondary" asp-action="Index" asp-route-id="" asp-route-confirmDelete="">Cancel</a></div>
         </form>
@@ -21,9 +21,16 @@
     else
     {
         <h2>@(Model.Id == 0 ? "Add entry" : "Edit entry")</h2>
-        <form asp-action="Index" asp-route-id="" asp-route-confirmDelete="" method="post">
+        <form asp-action="Index" asp-route-id="" asp-route-confirmDelete="" method="post" enctype="multipart/form-data">
             <input asp-for="Id" type="hidden" />
-            <div class="field"><label asp-for="ImagePath"></label><input asp-for="ImagePath" maxlength="500" aria-describedby="image-help" /><small id="image-help">Use a preselected path under /images/ or an HTTPS image URL.</small><span asp-validation-for="ImagePath" class="field-error"></span></div>
+            <div class="field">
+                <label asp-for="ImageUpload"></label>
+                <input asp-for="ImageUpload" type="file" accept="image/png,image/jpeg,image/webp" aria-describedby="image-help" data-image-upload />
+                <small id="image-help">PNG, JPEG, or WebP, up to 5 MB. Choose an image for a new entry. Leave empty when editing to keep the current image.</small>
+                <span asp-validation-for="ImageUpload" class="field-error"></span>
+                @if (!string.IsNullOrWhiteSpace(Model.ImagePath) && SafeImageAttribute.IsSafeImage(Model.ImagePath)) { <img class="upload-preview" src="@Model.ImagePath" alt="Current gallery image" /> }
+                <img class="upload-preview" alt="Selected image preview" hidden data-upload-preview />
+            </div>
             <div class="field"><label asp-for="AltText"></label><input asp-for="AltText" maxlength="250" /><span asp-validation-for="AltText" class="field-error"></span></div>
             <div class="row-actions">
                 <button class="button button-primary" type="submit" disabled="@(ViewData["Unavailable"] is true)">Save changes</button>

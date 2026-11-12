@@ -77,6 +77,9 @@ Work through the remaining stages in order. See STATUS.md for verification limit
 - [x] Build an admin navigation/dashboard linking to the content editors.
 - [x] Give administration its own layout with sidebar navigation, current-page indication, and a mobile disclosure menu.
 - [x] Split all seven sections into dedicated controllers, form ViewModels, and Index views; show university settings directly as four editable fields.
+- [x] Remove sidebar numeric prefixes/divider label and the admin topbar as requested.
+- [x] Add hero/gallery/program/profile image uploaders with previews and server validation.
+- [x] Add Admin-only account search/edit, role/status management, and self-lockout protection.
 - [x] Edit the single university-info record, including the hero image selection.
 - [x] Add, edit, and delete core value titles.
 - [x] Add, edit, and delete gallery image references and alternative text.
@@ -118,7 +121,8 @@ Work through the remaining stages in order. See STATUS.md for verification limit
 ## Scope decisions, not automatic additions
 
 - Repositories are optional; DbContext can be used directly for this small project.
-- Enrollment, payments, grades, inquiry storage/email, uploads, password recovery,
-  and additional account-management screens are not yet approved requirements.
-- Preselected image selection does not require an upload system.
+- Enrollment, payments, grades, inquiry storage/email, password recovery,
+  account deletion, and additional account-management screens are not approved requirements.
+- Image uploads and the admin account-management screen were explicitly requested
+  and implemented after the original preselected-image plan.
 - Keep existing SQL identifiers and the simplified schema unless the user requests changes.

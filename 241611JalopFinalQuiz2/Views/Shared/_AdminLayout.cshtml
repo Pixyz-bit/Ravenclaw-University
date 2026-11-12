@@ -23,13 +23,13 @@
         <details class="admin-navigation" open>
             <summary>Navigation</summary>
             <nav aria-label="Administration navigation">
-                <a class="admin-nav-link @(dashboardActive ? "is-active" : "")" aria-current="@(dashboardActive ? "page" : null)" asp-controller="Admin" asp-action="Index" asp-route-id="" asp-route-confirmDelete=""><span class="admin-nav-number" aria-hidden="true">00</span>Dashboard</a>
-                <p class="admin-nav-heading">University content</p>
+                <a class="admin-nav-link @(dashboardActive ? "is-active" : "")" aria-current="@(dashboardActive ? "page" : null)" asp-controller="Admin" asp-action="Index" asp-route-id="" asp-route-confirmDelete="">Dashboard</a>
                 @foreach (var contentSection in Enum.GetValues<ContentSection>())
                 {
                     var active = activeSection == contentSection;
-                    <a class="admin-nav-link @(active ? "is-active" : "")" aria-current="@(active ? "page" : null)" asp-controller="@ContentSections.ControllerName(contentSection)" asp-action="Index" asp-route-id="" asp-route-confirmDelete=""><span class="admin-nav-number" aria-hidden="true">@(((int)contentSection + 1).ToString("00"))</span>@ContentSections.Label(contentSection)</a>
+                    <a class="admin-nav-link @(active ? "is-active" : "")" aria-current="@(active ? "page" : null)" asp-controller="@ContentSections.ControllerName(contentSection)" asp-action="Index" asp-route-id="" asp-route-confirmDelete="">@ContentSections.Label(contentSection)</a>
                 }
+                <a class="admin-nav-link @(controller == "AccountManagement" ? "is-active" : "")" aria-current="@(controller == "AccountManagement" ? "page" : null)" asp-controller="AccountManagement" asp-action="Index" asp-route-id="" asp-route-confirmDelete="">Account management</a>
             </nav>
         </details>
         <div class="admin-sidebar-bottom">
@@ -38,12 +38,12 @@
         </div>
     </aside>
     <div class="admin-workspace">
-        <header class="admin-topbar"><span>Administration <span aria-hidden="true">/</span> @ViewData["Title"]</span><span class="admin-account" title="@User.Identity?.Name">@User.Identity?.Name <span class="role-label">Admin</span></span></header>
         <main id="main-content" class="admin-main">@RenderBody()</main>
         <footer class="admin-footer">© @DateTime.UtcNow.Year Ravenclaw University · Administration</footer>
     </div>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/js/admin-navigation.js" asp-append-version="true"></script>
+    <script src="~/js/image-upload.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
