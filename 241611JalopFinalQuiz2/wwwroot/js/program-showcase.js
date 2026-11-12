@@ -1,3 +1,8 @@
+// Measure wrapped titles so the resting caption shows exactly the subject name.
+const titleSizes = new ResizeObserver(entries => entries.forEach(({target}) => {
+    target.closest('.program-card').style.setProperty('--program-title-height', `${target.offsetHeight}px`);
+}));
+document.querySelectorAll('.program-card-title').forEach(title => titleSizes.observe(title));
 const programRail = document.querySelector('.program-rail');
 if (programRail && programRail.children.length > 1) {
     const originals = [...programRail.children];
@@ -5,7 +10,7 @@ if (programRail && programRail.children.length > 1) {
     let groupWidth = 0, hovering = false, dragging = false, startX = 0, startScroll = 0, moved = false, visible = false, last = 0;
     const clones = [];
     const addCopies = () => {
-        clones.forEach(clone => clone.remove()); clones.length = 0;
+        clones.forEach(clone => { titleSizes.unobserve(clone.querySelector('.program-card-title')); clone.remove(); }); clones.length = 0;
         if (reduced.matches) { programRail.scrollLeft = 0; return; }
         for (const position of ['before', 'after']) {
             const fragment = document.createDocumentFragment();
@@ -20,6 +25,7 @@ if (programRail && programRail.children.length > 1) {
                     card.open = !card.open;
                     card.querySelector('summary').focus({preventScroll:true});
                 });
+                titleSizes.observe(clone.querySelector('.program-card-title'));
                 clones.push(clone); fragment.append(clone);
             });
             if (position === 'before') programRail.prepend(fragment); else programRail.append(fragment);

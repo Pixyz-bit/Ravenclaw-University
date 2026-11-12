@@ -39,6 +39,16 @@ Last verified: 2026-11-12.
 
 ## Completed
 
+- Implemented the requested program-card reveal: subject name only at rest;
+  hover/focus/native touch toggle raises name and description over a fading navy
+  gradient. Removed the arrow, View description label, and separate description box
+  from the view. Title measurement includes carousel copies; long descriptions can
+  scroll and receive keyboard focus. Reduced motion disables reveal transitions.
+  Existing MVC/EF program data and carousel remain. Build passed with zero warnings/
+  errors; JavaScript syntax and design detector checks passed. Compiled Razor fixture
+  inspection verified hidden descriptions at rest, the raised desktop caption, and
+  mobile expanded content without document overflow. Live SQL data was not tested.
+
 - At the user's request, reverted the latest selective-motion change. Restored
   automatic program browsing/hover zoom, DriftWall, and pennant sway, together
   with their original views, scripts, and styles. Application source exactly

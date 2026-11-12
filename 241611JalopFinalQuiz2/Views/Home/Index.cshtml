@@ -38,13 +38,11 @@ else
                                 <span class="program-image-placeholder" data-image-fallback hidden>Program image unavailable</span>
                             }
                             else { <span class="program-image-placeholder">Program image not yet published</span> }
-                            <span class="program-card-caption"><span><span class="program-card-title">@program.SubjectName</span><span class="program-card-subtitle">View description</span></span><span class="program-card-arrow" aria-hidden="true">↗</span></span>
+                            <span class="program-card-caption">
+                                <span class="program-card-title">@program.SubjectName</span>
+                                <span class="program-card-copy prose" tabindex="0">@(string.IsNullOrWhiteSpace(program.Description) ? "A description has not been published yet." : program.Description)</span>
+                            </span>
                         </summary>
-                        <div class="program-description" tabindex="0" role="region" aria-label="@program.SubjectName description">
-                            <p class="eyebrow">About this program</p>
-                            <h3 class="university-subtitle">@program.SubjectName</h3>
-                            <p class="prose">@(string.IsNullOrWhiteSpace(program.Description) ? "A description has not been published yet." : program.Description)</p>
-                        </div>
                     </details>
                 }
             </div>

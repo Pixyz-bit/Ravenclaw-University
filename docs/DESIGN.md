@@ -182,6 +182,17 @@ and a scrollable description. The section anchor aligns directly below the navba
 A 360px section minimum preserves readable content in very short/zoomed windows,
 where normal vertical scrolling remains available instead of clipping controls.
 
+### Program card reveal (2026-11-12)
+
+The latest user request supersedes the old arrow, View description label, and
+separate description panel. Resting cards show only the subject name. Hover,
+keyboard focus, or the native touch/details toggle raises the name and description
+together over a bottom-heavy navy gradient fading upward. Caption transforms use
+500ms ease-out; description/gradient opacity fades smoothly. Wrapped title heights
+are measured for originals and carousel copies so the resting name stays visible.
+Long descriptions scroll, can receive keyboard focus, and remain database-backed.
+Reduced motion removes these transitions. Automatic program browsing is retained.
+
 ## Contact footer
 
 The approved reference-inspired contact footer replaces both the standalone contact
