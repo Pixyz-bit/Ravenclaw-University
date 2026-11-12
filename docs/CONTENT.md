@@ -122,8 +122,10 @@ with zero build warnings/errors. Checks exercise every dedicated route, student 
 anonymous rejection, creation/editing, singleton updates, safe delete behavior,
 multipart uploads and preservation, size/type rejection, account updates, search,
 role/status rules, self-lockout protection, and unchanged password hashes.
-University and program forms were inspected on desktop/390px phones without
-horizontal overflow. Final full accessibility and database-outage QA remain pending.
+Account list/edit, sidebar, and hero/gallery/program upload forms were inspected on
+desktop/390px phones without horizontal overflow. Selecting a local profile file
+displayed a loaded image preview without submitting it. Final full accessibility
+and database-outage QA remain pending.
 
 Use -Preview to keep the disposable server available for visual inspection after
 checks. It prints a test-only URL and fixture login; press Enter afterward to stop
@@ -131,3 +133,5 @@ the server and drop its GUID-named test database. In redirected/noninteractive
 execution, it prints PREVIEW_STOP_FILE; create that exact file to request cleanup.
 Never use those fixture credentials
 as university credentials. The university database is not modified by verification.
+Cleanup removes that run's temporary upload directory as well as its SQL database;
+the resolved upload target is checked against the GUID-named test directory first.

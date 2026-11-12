@@ -306,5 +306,11 @@ finally {
         & sqlcmd -S $Server -E -l 5 -b -d master -Q "ALTER DATABASE [$databaseName] SET SINGLE_USER WITH ROLLBACK IMMEDIATE; DROP DATABASE [$databaseName];"
         if ($LASTEXITCODE -ne 0) { Write-Warning "Could not remove disposable database $databaseName" }
     }
+    $testUploads = [IO.Path]::GetFullPath((Join-Path $tempDir 'uploads'))
+    if ([IO.Path]::GetDirectoryName($testUploads) -ne [IO.Path]::GetFullPath($tempDir) -or
+        (Split-Path $tempDir -Leaf) -notmatch '^RavenclawAuthTest_[a-f0-9]{32}$') {
+        throw 'Unexpected disposable upload cleanup path.'
+    }
+    if (Test-Path -LiteralPath $testUploads) { Remove-Item -LiteralPath $testUploads -Recurse -Force }
     Write-Output "Verification logs: $tempDir"
 }

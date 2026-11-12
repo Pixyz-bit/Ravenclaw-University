@@ -4,10 +4,18 @@ Last verified: 2026-11-12.
 
 ## Completed
 
+- Completed desktop (1280px) and phone (390px) visual checks of Account management
+  list/edit, sidebar navigation, and hero/gallery/program image uploaders. All nine
+  admin links remain visible on desktop; the sidebar disclosure works on phones.
+  No horizontal overflow or removed topbar/number prefixes/divider were present.
+  Selecting the approved crest in the profile picker displayed a loaded local
+  preview; it was not saved to university data. All 126 isolated checks passed again.
+- Extended disposable verification cleanup to remove its guarded upload directory.
+  The follow-up 28 account checks passed, and cleanup removed the test database and
+  upload directory. The prior preview process/database/files were also removed.
 - Built the latest uploads/account-management changes with zero warnings/errors
   and started the local development app on localhost:5182 on 2026-11-12.
-  Login returned HTTP 200. Final visual review of the new account edit/upload
-  layouts remains pending; their HTTP/database checks passed below.
+  Login returned HTTP 200.
 - Removed admin sidebar numbers and University content divider label, and removed
   the admin-topbar header at the user's request. Navigation retains active states.
 - Added file uploaders/current and selected previews for hero, gallery, programs,
