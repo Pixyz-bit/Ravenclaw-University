@@ -5,8 +5,24 @@ if (siteNavigation) {
     const updateNavigation = () => { siteNavigation.open = desktop.matches; };
     updateNavigation();
     desktop.addEventListener('change', updateNavigation);
-    siteNavigation.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
-        if (!desktop.matches) siteNavigation.open = false;
+    siteNavigation.querySelectorAll('a').forEach(link => link.addEventListener('click', event => {
+        if (!desktop.matches) {
+            siteNavigation.open = false;
+            // Resolve the fragment against the collapsed menu height, before scrolling.
+            const header = siteNavigation.closest('.portal-header');
+            const height = `${header.getBoundingClientRect().height}px`;
+            document.documentElement.style.setProperty('--portal-header-height', height);
+            document.querySelector('[data-viewport-hero]')?.style.setProperty('--portal-header-height', height);
+            const destination = new URL(link.href);
+            const target = destination.hash && document.getElementById(destination.hash.slice(1));
+            if (target && destination.pathname === location.pathname && destination.search === location.search) {
+                event.preventDefault();
+                requestAnimationFrame(() => {
+                    history.pushState(null, '', destination.hash);
+                    target.scrollIntoView({block:'start'});
+                });
+            }
+        }
     }));
 }
 const accountMenu = document.querySelector('.account-menu');

@@ -121,6 +121,15 @@ The user requested automatic motion without a visible pause control. All program
 continues coming from ProgramsTable. The user authorized six sample subjects on
 2026-11-12; their descriptions explicitly identify them as sample content.
 
+Academics shares one viewport with the sticky navbar, using 100dvh minus its
+measured height. A two-row grid reserves space for the heading and gives the
+remaining height to the carousel. Padding, heading size, and gaps scale with
+viewport height; cards use an 8:11 ratio up to 550px tall and stay at least 220px
+wide. Captions show up to two title lines; opening a card displays the full title
+and a scrollable description. The section anchor aligns directly below the navbar.
+A 360px section minimum preserves readable content in very short/zoomed windows,
+where normal vertical scrolling remains available instead of clipping controls.
+
 Administration uses flat divided lists and explicit Edit/Delete actions. Editors use
 Lato for operational headings, visible labels, native text/date/URL inputs, textarea
 controls, a supported icon selector, inline errors, and POST delete confirmation.

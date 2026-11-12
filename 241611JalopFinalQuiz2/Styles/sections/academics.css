@@ -241,4 +241,45 @@
         @apply mb-[32px];
     }
 }
+
+/* Share one screen with the sticky navbar; the remaining grid row sizes the cards. */
+.academics-showcase {
+    @apply grid [grid-template-columns:minmax(0,1fr)] [grid-template-rows:auto_minmax(0,1fr)] h-[calc(100dvh_-_var(--portal-header-height,85px))] min-h-[360px] gap-[clamp(16px,3dvh,40px)] [padding:clamp(16px,4dvh,48px)_0] scroll-mt-[-16px];
+}
+
+.academics-heading {
+    @apply m-0 [margin-inline:auto];
+}
+
+.academics-heading .eyebrow {
+    @apply mb-[clamp(8px,1.6dvh,16px)];
+}
+
+.academics-heading h2 {
+    @apply text-[clamp(1.6rem,min(3vw,6dvh),3.5rem)];
+}
+
+.program-viewport {
+    @apply min-h-0 min-w-0;
+}
+
+.program-rail {
+    @apply w-full min-w-0 h-full items-center pt-[8px] pb-[8px];
+}
+
+.program-card {
+    @apply [flex:0_0_auto] w-auto min-w-[220px] h-full max-h-[550px] [aspect-ratio:8/11];
+}
+
+.program-card-caption {
+    @apply left-[16px] right-[16px] bottom-[16px] gap-[10px];
+}
+
+.program-card-title {
+    @apply text-[clamp(.95rem,2.8dvh,1.2rem)] line-clamp-2;
+}
+
+.program-card-arrow {
+    @apply basis-[36px] h-[36px];
+}
 }

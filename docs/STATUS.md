@@ -4,6 +4,16 @@ Last verified: 2026-11-12.
 
 ## Completed
 
+- Sized Academics to 100dvh minus the sticky navbar using a two-row grid. Heading,
+  padding, gaps, and carousel cards scale to available height; card titles clamp to
+  two lines and full titles/descriptions remain available when opened. Corrected
+  mobile fragment timing by synchronizing navbar/hero height before scrolling.
+  Browser checks at 1366×600, 1280×480, and 375×667 verified the section starts at
+  the navbar bottom and ends at the viewport bottom (within subpixel rounding),
+  with no horizontal document overflow. Phone description opening also passed.
+  Tailwind build and 126 isolated checks passed; the subsequent mobile timing fix
+  was verified by browser checks and JavaScript syntax validation.
+
 - Made the public navbar sticky at the viewport top on desktop and mobile. Shared
   measured header height now supplies section scroll padding and About's minimum
   sticky offset. The keyboard skip link stays above the navbar. No scroll snapping
