@@ -71,8 +71,7 @@ document.querySelectorAll('[data-university-gallery]').forEach(section => {
                     tile.className = 'drift-wall__tile'; tile.dataset.column = index;
                     const inner = document.createElement('span'); inner.className = 'drift-wall__inner';
                     const image = source.querySelector('img').cloneNode(); image.draggable = false;
-                    const overlay = document.createElement('span'); overlay.className = 'drift-wall__overlay';
-                    inner.append(image, overlay); tile.append(inner); track.append(tile);
+                    inner.append(image); tile.append(inner); track.append(tile);
                 });
             }
             column.append(track); plane.append(column);

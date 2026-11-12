@@ -4,6 +4,12 @@ Last verified: 2026-11-12.
 
 ## Completed
 
+- Removed DriftWall's blue image overlays, canvas fade masks, and section-wide navy
+  fade at the user's request. Images now render at full opacity and original color;
+  a localized neutral-charcoal fade behind the heading preserves readability.
+  Removed unused overlay markup/styles. Tailwind compilation, JavaScript syntax,
+  source checks for removed tint/mask rules, and diff whitespace checks passed.
+
 - Preserved the user's exact full Hogwarts crest as images/collegiate/hogwarts-crest.png
   (800×800 RGBA, transparent background); verified byte-for-byte matching SHA-256.
   The image service rejected both a standalone recreation and an edit replacing the

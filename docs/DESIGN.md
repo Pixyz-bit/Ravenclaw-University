@@ -136,7 +136,7 @@ The user supplied React Bits DriftWall source and requested a new section. Galle
 follows Academics, using a Razor partial, a vanilla-JavaScript enhancement, and its
 own Tailwind source file rather than adding a React runtime to MVC. Five alternating
 columns (three on phones) drift at varied speeds inside a tilted 3D plane, with
-pointer parallax, edge fading, and lift/color restoration on hover. Hover slows
+pointer parallax and lift on hover. Hover slows
 that column; opening an image pauses the tracks. Animation stops offscreen or
 when the document is hidden. Navy/gold styling matches the university; imagery
 comes from About gallery uploads, then approved illustrations.
@@ -148,7 +148,9 @@ hidden from assistive technology and excluded from tab order. Focus rings and
 normal image links remain available. Styles live in sections/gallery.css.
 
 The gallery wall now fills a viewport below the sticky navbar, with its heading
-overlaid above a readable navy fade. Column/tile sizes scale from the section width
+overlaid above a localized neutral-charcoal fade. The user removed the blue image
+overlay: tiles now remain fully opaque with their original colors; canvas masks,
+per-image tint layers, and the section-wide navy fade are removed. Column/tile sizes scale from the section width
 to cover wide screens. Keyboard/reduced-motion grids keep readable spacing. A
 420px minimum preserves access in very short windows; the section can then scroll.
 

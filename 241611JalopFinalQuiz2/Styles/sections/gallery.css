@@ -5,7 +5,7 @@
     }
 
     .gallery-heading {
-        @apply absolute top-0 left-0 right-0 z-10 max-w-[1200px] [margin:0_auto] [padding:clamp(24px,4dvh,48px)_24px_48px] pointer-events-none [text-shadow:0_2px_16px_#081222];
+        @apply absolute top-0 left-0 right-0 z-10 max-w-[1200px] [margin:0_auto] [padding:clamp(24px,4dvh,48px)_24px_48px] pointer-events-none [background:linear-gradient(180deg,#131211b3,transparent)] [text-shadow:0_2px_12px_#131211];
     }
 
     .gallery-heading .eyebrow {
@@ -21,19 +21,11 @@
     }
 
     .drift-wall {
-        @apply absolute inset-0 w-full h-full overflow-hidden [--dw-tile-w:200px] [--dw-tile-h:132px] [--dw-gap:18px] [--dw-radius:14px] [--dw-lift:64px] [--dw-dim:.78];
-    }
-
-    .gallery-section::after {
-        @apply content-[''] absolute inset-0 z-1 pointer-events-none [background:linear-gradient(180deg,#101d34ed,transparent_50%)];
+        @apply absolute inset-0 w-full h-full overflow-hidden [--dw-tile-w:200px] [--dw-tile-h:132px] [--dw-gap:18px] [--dw-radius:14px] [--dw-lift:64px];
     }
 
     .gallery-section:has(.drift-wall__items:focus-within) .gallery-heading {
         @apply invisible;
-    }
-
-    .gallery-section:has(.drift-wall__items:focus-within)::after {
-        @apply hidden;
     }
 
     .drift-wall__items {
@@ -73,7 +65,7 @@
     }
 
     .drift-wall__canvas {
-        @apply absolute inset-0 overflow-hidden [perspective:1200px] [perspective-origin:50%_50%] [mask-image:radial-gradient(ellipse_78%_82%_at_50%_46%,#101d34_40%,transparent_100%),linear-gradient(to_top,#101d34_40%,transparent_100%)] [mask-composite:intersect];
+        @apply absolute inset-0 overflow-hidden [perspective:1200px] [perspective-origin:50%_50%];
     }
 
     .drift-wall__canvas[hidden] {
@@ -97,15 +89,11 @@
     }
 
     .drift-wall__inner {
-        @apply absolute inset-[calc(var(--dw-gap)_/_2)] block rounded-[var(--dw-radius)] overflow-hidden bg-blue opacity-[var(--dw-dim)] [transform:translateZ(0)] pointer-events-none [transition:transform_.42s_cubic-bezier(.22,1,.36,1),opacity_.42s_cubic-bezier(.22,1,.36,1),box-shadow_.42s_cubic-bezier(.22,1,.36,1)];
+        @apply absolute inset-[calc(var(--dw-gap)_/_2)] block rounded-[var(--dw-radius)] overflow-hidden bg-blue opacity-100 [transform:translateZ(0)] pointer-events-none [transition:transform_.42s_cubic-bezier(.22,1,.36,1),box-shadow_.42s_cubic-bezier(.22,1,.36,1)];
     }
 
     .drift-wall__tile img {
-        @apply w-full h-full object-cover block select-none [filter:saturate(.92)] [transition:filter_.42s_cubic-bezier(.22,1,.36,1)] [-webkit-user-drag:none];
-    }
-
-    .drift-wall__overlay {
-        @apply absolute inset-0 bg-navy opacity-[.18] pointer-events-none [transition:opacity_.42s_cubic-bezier(.22,1,.36,1)];
+        @apply w-full h-full object-cover block select-none [transition:filter_.42s_cubic-bezier(.22,1,.36,1)] [-webkit-user-drag:none];
     }
 
     .drift-wall__tile.is-active .drift-wall__inner {
@@ -114,10 +102,6 @@
 
     .drift-wall__tile.is-active img {
         @apply [filter:saturate(1.05)];
-    }
-
-    .drift-wall__tile.is-active .drift-wall__overlay {
-        @apply opacity-0;
     }
 
     .gallery-dialog {
