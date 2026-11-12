@@ -58,7 +58,15 @@ and operational admin headings retain their compact Lato UI hierarchy.
 
 Section labels use a consistent 12px gap before titles, with 20px between ordinary
 section titles and supporting copy. About retains its responsive panel spacing.
-No section height, animation, content, data source, or route was replaced.
+Section heights, existing content, MVC/EF data sources, and routes remain the foundation.
+
+## Selective motion (2026-11-12)
+
+The user's motion-refinement request supersedes earlier automatic program looping,
+DriftWall gallery effects, and pennant sway. About's scroll-driven chapter/image
+transition is the signature animation. Keep functional navigation feedback and
+short control-color transitions, with reduced-motion support. Programs, gallery
+images, and pennants remain stationary while the visitor is idle.
 
 ## Composition
 
@@ -164,12 +172,14 @@ so the panel remains usable on short desktop screens. Existing content stays unc
 On phones the rail height follows the active chapter; switching from long copy to
 a shorter chapter keeps the selected content in view instead of leaving blank space.
 
-Academics uses portrait program-image cards on a full-width dark section, with
-bottom titles, descriptions on activation, 5% image hover zoom over 700ms, and
-light circular arrow hover feedback. Its track loops slowly while visible, pauses
-on hover, focus, open descriptions, or reduced-motion preference,
-and supports drag/swipe. Duplicate visual laps are hidden from assistive technology.
-The user requested automatic motion without a visible pause control. All program data
+Academics uses portrait program-image cards on a full-width navy section, with
+bottom titles, native description disclosures, and subtle control-color feedback.
+The rail is manually browsed with Previous/Next buttons, mouse dragging, native
+swipe/scroll, or Arrow/Home/End keys while the rail is focused. Buttons are at least
+44px and appear only when needed; they disable at the corresponding endpoint.
+On phones they sit beside the Academics label to preserve card height. Reduced
+motion makes button/key browsing immediate. Cards have no hover zoom, automatic
+advance, infinite wrap, or cloned copies. All program data
 continues coming from ProgramsTable. The user authorized six sample subjects on
 2026-11-12; their descriptions explicitly identify them as sample content.
 
@@ -203,34 +213,24 @@ Styles/sections/contact.css own markup and Tailwind styles. The layout's optiona
 Footer section avoids duplicate footers; unavailable-content and other pages keep
 the small fallback footer.
 
-## Drifting university gallery
+## Stationary university gallery
 
-The user supplied React Bits DriftWall source and requested a new section. Gallery
-follows Academics, using a Razor partial, a vanilla-JavaScript enhancement, and its
-own Tailwind source file rather than adding a React runtime to MVC. Five alternating
-columns (three on phones) drift at varied speeds inside a tilted 3D plane, with
-pointer parallax and lift on hover. Hover slows
-that column; opening an image pauses the tracks. Animation stops offscreen or
-when the document is hidden. Navy/gold styling matches the university; imagery
-comes from About gallery uploads, then approved illustrations.
+Gallery follows Academics and uses the existing Razor photo collection, native
+image dialog, and sections/gallery.css. It has a content-sized heading row and a
+stationary two-column photo grid, becoming one column below 601px. The heading
+remains visible while browsing. The established viewport height and 420px minimum
+remain; the image grid scrolls when its photos need more space. Its container uses
+the shared 1200px width, 24px inner padding, and 18px image gaps.
 
-Selecting an image opens a native dialog with its title and full image. Escape or
-Close image dismisses it. Keyboard focus exposes an ordinary image grid; reduced
-motion and no-JavaScript browsing also use this grid. Duplicate visual tiles are
-hidden from assistive technology and excluded from tab order. Focus rings and
-normal image links remain available. Styles live in sections/gallery.css.
+Imagery comes from About gallery uploads, then approved illustrations. Photos retain
+their colors, with a local navy caption gradient and restrained gold hover/focus
+feedback. No perspective plane, drifting columns, image lift/zoom, pointer parallax,
+decorative overlay, duplicate tiles, or frame loop remains.
 
-The gallery wall now fills a viewport below the sticky navbar, with its heading
-overlaid above a full-width navy gradient restricted to the top (at most 380px or
-65% of the section). It fades from dark blue to fully transparent downward for text
-readability. The gradient hides during keyboard image browsing. Tiles remain fully
-opaque with their original colors; canvas masks and per-image tint layers stay
-removed. Column/tile sizes scale from the section width
-to cover wide screens. Keyboard/reduced-motion grids keep readable spacing. A
-420px minimum preserves access in very short windows; the section can then scroll.
-For the static/no-JavaScript and reduced-motion grid, a content-sized heading row
-reserves the actual wrapped text height, followed by a 24px image-grid gap. Keyboard
-focus hides that heading and releases its row so the grid can fill the section.
+Selecting an image opens the native dialog with its title and full image; Escape
+or Close image dismisses it and restores focus. Without JavaScript, ordinary image
+links remain usable. Normal and reduced-motion browsing share the same static
+layout. university-gallery.js handles only explicit image-preview interaction.
 
 ## The Hogwarts Collegiate Circle
 
@@ -242,10 +242,10 @@ borders, and print grain. Order: Gryffindor, Slytherin, Hogwarts, Ravenclaw,
 Hufflepuff. Hogwarts is centered and slightly larger, with an original H monogram
 on a quartered shield; the main university crest remains the approved original.
 
-A gold curved rope and small pegs connect the banners. Gentle spring-based sway
-reacts to the pointer and stops for reduced motion, offscreen content, or hidden
-tabs. Below 760px the row scrolls horizontally and starts centered on Hogwarts;
-native arrow-key scrolling and a short hint keep all five accessible. No external
+A gold curved rope and small pegs connect the stationary banners. Pennants have
+no idle sway or pointer response. Below 760px the row scrolls horizontally and
+starts centered on Hogwarts; centering updates when the row's width changes.
+Native arrow-key scrolling and a short hint keep all five accessible. No external
 links or claimed real-world partnerships are introduced. Asset provenance and
 final built-in image-generation prompts are recorded in GENERATED_ASSETS.md.
 

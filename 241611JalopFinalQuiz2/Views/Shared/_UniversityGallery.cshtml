@@ -22,19 +22,14 @@
         <h2 id="gallery-title" class="university-section-title">A different view of Ravenclaw.</h2>
         <p>@(usesIllustrations ? "Illustrations of the spaces that shape our university's world." : "Explore the university through our gallery.") Select an image for a closer look.</p>
     </header>
-    <div class="drift-wall" data-drift-wall>
-        <div class="drift-wall__items" aria-label="University gallery images">
-            @foreach (var photo in photos)
-            {
-                <a class="drift-wall__source" href="@photo.Path" aria-label="View @photo.Title">
-                    <img src="@photo.Path" alt="@photo.Title" loading="lazy" decoding="async" />
-                    <span>@photo.Title</span>
-                </a>
-            }
-        </div>
-        <div class="drift-wall__canvas" aria-hidden="true" hidden>
-            <div class="drift-wall__plane"></div>
-        </div>
+    <div class="university-gallery-grid" role="group" aria-label="University gallery images">
+        @foreach (var photo in photos)
+        {
+            <a class="university-gallery-image" href="@photo.Path" aria-label="View @photo.Title">
+                <img src="@photo.Path" alt="@photo.Title" loading="lazy" decoding="async" />
+                <span>@photo.Title</span>
+            </a>
+        }
     </div>
     <dialog class="gallery-dialog" aria-labelledby="gallery-image-title">
         <form method="dialog"><button type="submit" class="button button-secondary">Close image <span aria-hidden="true">×</span></button></form>

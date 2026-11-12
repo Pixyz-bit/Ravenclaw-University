@@ -21,9 +21,9 @@ Styles/
     admin.css                Admin sidebar, workspace, dashboard
   sections/
     university.css           Hero, contact, founder, content containers
-    academics.css            Program cards and automatic carousel
+    academics.css            Program cards and manual browse controls
     about.css                Sticky 50/50 text/image chapters and mobile rail
-    gallery.css              DriftWall gallery, static fallback, image dialog
+    gallery.css              Stationary responsive photo grid and image dialog
     collegiate.css           Curved rope, five house pennants, responsive banner row
     contact.css              Simple address/hours, contact details, social links
 ```

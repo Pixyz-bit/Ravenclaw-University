@@ -1,6 +1,6 @@
 # University content and administration
 
-The authenticated homepage has hero, About, academics, a drifting gallery, contact,
+The authenticated homepage has hero, About, academics, a stationary gallery, contact,
 and founder information. Navigation links jump to
 the corresponding sections. Admin image uploads and account management are now
 implemented. No enrollment, inquiry form, or extra tables were added. Schema.sql
@@ -8,10 +8,10 @@ remains unchanged and is the sole consolidated schema.
 
 The standalone gallery follows Academics and reuses AboutImagesTable through the
 existing About gallery editor. When no safe gallery images exist, the approved
-university illustrations appear. The DriftWall reference is adapted to Razor,
-Tailwind, and vanilla JavaScript: perspective columns drift in alternating
-directions, hover lifts an image, and selecting one opens its full-size preview.
-Keyboard and reduced-motion browsing use an ordinary image grid. No new database
+university illustrations appear. A stationary two-column photo grid becomes one
+column on phones; selecting an image opens its native full-size preview. Ordinary
+image links remain usable without JavaScript. Keyboard and reduced-motion browsing
+use the same layout. No new database
 table, controller, or React runtime is needed for this read-only section.
 
 The Hogwarts Collegiate Circle follows the gallery. It is a static illustrated
@@ -120,14 +120,16 @@ supported icons, and nonfuture founder birthdays using Asia/Manila's date.
 
 About now follows the reference's sticky desktop composition: four chapters show
 the stored introduction, mission, vision, and core value titles. Uploaded gallery
-photos are used in overlapping main/inset image pairs; approved university
+photos provide one edge-to-edge image per chapter; approved university
 illustrations fill empty photo slots. On smaller screens, chapters form a swipeable
 rail with navigation dots. No-JS content remains readable.
 
-Academics uses a dark looping row of portrait image cards from ProgramsTable,
-with edge fades, image-zoom/arrow hover feedback, drag/swipe navigation, and native
-description disclosures. Motion pauses on hover/focus/open cards, manual pause, and
-reduced-motion preference. Duplicate visual laps are hidden from screen readers.
+Academics uses a navy row of portrait image cards from ProgramsTable, with manual
+Previous/Next controls, drag/swipe/keyboard navigation, and native description
+disclosures. Controls hide when all cards fit and disable at their endpoints.
+Reduced motion makes explicit program browsing immediate. The automatic loop,
+cloned cards, edge fades, and image hover zoom were removed by the user's selective
+motion request. Pennants are static; About retains its chapter transitions.
 The user separately authorized six sample programs in the university database on
 2026-11-12. Each has a description beginning "Sample program:" and can be edited or
 deleted in Admin. Database/SeedPrograms.sql can add the same subjects to a new setup
