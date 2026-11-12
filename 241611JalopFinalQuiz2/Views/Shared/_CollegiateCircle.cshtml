@@ -22,7 +22,7 @@
                 @foreach (var banner in banners)
                 {
                     <figure class="collegiate-banner @(banner.Key == "hogwarts" ? "is-central" : "")">
-                        <div class="collegiate-pennant">
+                        <div class="collegiate-pennant" data-collegiate-pennant>
                             <img src="~/images/collegiate/@(banner.Key).png" asp-append-version="true" width="793" height="1983" alt="@banner.Description" loading="lazy" decoding="async" draggable="false" />
                         </div>
                         <figcaption>@banner.Name</figcaption>

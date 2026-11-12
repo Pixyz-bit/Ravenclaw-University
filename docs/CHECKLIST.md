@@ -5,13 +5,13 @@ Work through the remaining stages in order. See STATUS.md for verification limit
 
 ## UI refinement recommendations (2026-11-12)
 
-The user approved the first three recommendations for implementation. Other items
+The user approved the first two recommendations for implementation. Other items
 remain suggestions, not approved changes. Existing MVC/EF content sources and
 interaction behavior remain the implementation foundation.
 
 - [x] Unify section surfaces, text colors, and accents around the university palette.
 - [x] Establish a shared Cormorant Garamond/Lato typography hierarchy with responsive titles and readable body copy.
-- [x] Make motion selective: retain About transitions, manually browse programs, and keep the gallery/pennants stationary.
+- [ ] Selective-motion refinement was undone at the user's request; the original animations are retained.
 - [ ] Consider content-led section heights and a more natural page rhythm (suggestion only).
 - [ ] Consider clearer program summaries and browsing controls (suggestion only).
 - [ ] Consider a more restrained Collegiate Circle presentation (suggestion only).
@@ -27,12 +27,6 @@ Program descriptions, mobile menu navigation, long About copy, and keyboard/stat
 gallery layouts were checked. Full SQL integration is unconfirmed because of the
 existing intermittent SQL timeout. Mobile About dot navigation also has an existing
 intermediate-chapter issue reproduced with the previous stylesheet; see STATUS.md.
-
-Selective motion passed the MVC/Tailwind build, JavaScript syntax and behavior
-checks, and desktop/mobile Razor-fixture inspection. Verified stationary cards,
-browse endpoints, drag without accidental disclosure, keyboard browsing, 44px
-mobile controls, image dialog/Escape/focus return, no-JS image links, and static
-pennant centering/arrow-key browsing. See STATUS.md for test sizes and limits.
 
 ## 1. Planning and project foundation
 

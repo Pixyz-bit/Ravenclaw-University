@@ -18,13 +18,6 @@ else
     <section id="academics" class="academics-showcase" aria-labelledby="academics-title">
         <div class="academics-heading">
             <div><p class="eyebrow">Academics</p><h2 id="academics-title" class="university-section-title">Find your field of discovery.</h2></div>
-            @if (Model.Programs.Count > 1)
-            {
-                <div class="program-controls" role="group" aria-label="Browse academic programs" hidden>
-                    <button type="button" class="program-scroll-button" data-program-direction="-1" aria-label="Previous academic program" aria-controls="programs-rail"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="m14 6-6 6 6 6" /></svg></button>
-                    <button type="button" class="program-scroll-button" data-program-direction="1" aria-label="Next academic program" aria-controls="programs-rail"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="m10 6 6 6-6 6" /></svg></button>
-                </div>
-            }
         </div>
         @if (Model.Programs.Count == 0)
         {
@@ -32,16 +25,16 @@ else
         }
         else
         {
-            <p class="sr-only" id="programs-help">Swipe or scroll to explore. When the program rail is focused, use the arrow keys, Home, or End. Select a program to read its description.</p>
+            <p class="sr-only" id="programs-help">Scroll to explore. Select a program to read its description.</p>
             <div class="program-viewport">
-            <div id="programs-rail" class="program-rail" tabindex="0" role="region" aria-label="Academic programs" aria-describedby="programs-help">
+            <div class="program-rail" tabindex="0" role="region" aria-label="Academic programs" aria-describedby="programs-help">
                 @foreach (var program in Model.Programs)
                 {
                     <details class="program-card">
                         <summary>
                             @if (!string.IsNullOrWhiteSpace(program.ImagePath) && SafeImageAttribute.IsSafeImage(program.ImagePath))
                             {
-                                <img class="program-card-image" src="@program.ImagePath" alt="" loading="lazy" decoding="async" draggable="false" data-content-image />
+                                <img class="program-card-image" src="@program.ImagePath" alt="" loading="lazy" decoding="async" data-content-image />
                                 <span class="program-image-placeholder" data-image-fallback hidden>Program image unavailable</span>
                             }
                             else { <span class="program-image-placeholder">Program image not yet published</span> }
@@ -79,4 +72,4 @@ else
     @if (!Model.Unavailable) { <partial name="_UniversityContact" model="Model" /> }
     else { <footer class="portal-footer">© @DateTime.UtcNow.Year Ravenclaw University <span>Where Wisdom Takes Flight.</span></footer> }
 }
-@section Scripts { <script src="~/js/hero-layout.js" asp-append-version="true"></script><script src="~/js/program-showcase.js" asp-append-version="true"></script><script src="~/js/about-story.js" asp-append-version="true"></script><script src="~/js/university-gallery.js" asp-append-version="true"></script><script src="~/js/collegiate-circle.js" asp-append-version="true"></script> }
+@section Scripts { <script src="~/js/hero-layout.js" asp-append-version="true"></script><script src="~/js/program-showcase.js" asp-append-version="true"></script><script src="~/js/about-story.js" asp-append-version="true"></script><script src="~/js/drift-wall.js" asp-append-version="true"></script><script src="~/js/collegiate-circle.js" asp-append-version="true"></script> }

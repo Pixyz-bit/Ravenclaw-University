@@ -39,37 +39,15 @@ Last verified: 2026-11-12.
 
 ## Completed
 
-- Applied the approved selective-motion refinement. About retains its existing
-  chapter/image transitions and navigation feedback. Programs now advance only
-  through Previous/Next controls, drag/swipe/scroll, or rail Arrow/Home/End keys.
-  Controls disable at endpoints and hide when all cards fit. Compact 44px mobile
-  controls sit beside the section label. Removed automatic advance, wrapping,
-  cloned program cards, image hover zoom, and the loop-edge fades.
-- Replaced DriftWall with a stationary two-column gallery (one column on phones)
-  using the same Razor/EF photo data, illustration fallback, and native dialog.
-  Heading and photos share the established typography/navy layout. Explicit image
-  previews retain Close/Escape and focus return; ordinary image links work without
-  JavaScript. Pennants no longer sway or respond to the pointer, while mobile
-  Hogwarts centering and native horizontal/arrow-key browsing remain.
-- MVC/Tailwind build passed with zero warnings/errors. All three changed JavaScript
-  modules passed syntax checks. Temporary behavior checks passed normal/reduced
-  motion browsing, boundary disabled states, no-overflow controls, and noninterference
-  with card keys; source checks confirm no continuous frame loops, timer loops, or
-  visual clones in these modules. The design detector returned no findings.
-- Browser checks used the actual compiled Razor homepage with temporary fixture
-  ViewModels and existing images/scripts, at 1366×768, 1280×480, 375×812, and 375×667.
-  Verified stationary programs, manual Next/Home/drag, no accidental card opening
-  after drag, program disclosure access, image-dialog keyboard opening/Escape/Close
-  and focus return, no-JS image navigation, single-column mobile gallery, static
-  centered pennants and native ArrowRight browsing, and no horizontal document
-  overflow. Short desktop hides unnecessary program controls; short mobile keeps
-  Academics aligned below the navbar. No backend/schema or university data changed.
-  SQL integration was not rerun for this UI-only pass; its existing timeout and
-  the separately recorded About-dot issue remain unresolved.
-- Final local rebuild passed with zero warnings/errors and the http Development
-  server was restarted at localhost:5182. Login, generated CSS, and all three motion
-  modules returned HTTP 200. The temporary fixture server was stopped; generated
-  test renderings, screenshots, and behavior checks remain ignored in TestResults.
+- At the user's request, reverted the latest selective-motion change. Restored
+  automatic program browsing/hover zoom, DriftWall, and pennant sway, together
+  with their original views, scripts, and styles. Application source exactly
+  matches the preceding typography commit (636f77a); the palette and shared
+  typography improvements remain. Backend services, schema, and data were not
+  changed. The motion recommendation is recorded as undone in CHECKLIST.md.
+  Rebuild passed with zero warnings/errors and all three restored scripts passed
+  node --check. Restarted the local http Development server; login, CSS, and the
+  three animation scripts returned HTTP 200. SQL integration was not rerun.
 
 - Added shared public section-title/subtitle classes and responsive typography
   tokens: Cormorant Garamond h2s at 36–56px/1.12, h3s at 24–32px/1.2, and Lato
