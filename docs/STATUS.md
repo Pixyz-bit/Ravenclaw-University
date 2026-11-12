@@ -33,6 +33,16 @@ Last verified: 2026-11-12.
 
 ## Completed
 
+- Unified About and Academics with the existing ivory/navy university palette;
+  Academics edge fades and hover colors now match its navy surface. Shared
+  on-navy secondary text is used by the gallery and fallback footer. Hero image,
+  section layouts, motion, MVC views, EF content sources, and database remain
+  unchanged. Tailwind compilation and diff whitespace checks passed. All seven
+  solid foreground/background combinations checked exceed 4.5:1 contrast.
+  Responsive visual verification and the shared typography unit are still pending.
+  Added a checklist separating the two approved refinements from the five other
+  recommendations, which remain suggestions only.
+
 - Removed the visible About chapter numbers/total and decorative gold line on
   desktop and mobile, including their unused Tailwind rules. Invisible scroll
   markers and chapter transitions remain unchanged. Build passed with zero

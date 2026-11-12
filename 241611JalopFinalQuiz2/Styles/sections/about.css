@@ -1,7 +1,7 @@
 /* About: equal viewport halves, with one image for each scroll-switched chapter. */
 @layer components {
     .about-section {
-        @apply w-full [background:#f7f5f3] [color:#171717] [--about-sticky-top:var(--portal-header-height,85px)] [--about-visual-height:calc(100dvh_-_var(--about-sticky-top))];
+        @apply w-full bg-ivory text-ink [--about-sticky-top:var(--portal-header-height,85px)] [--about-visual-height:calc(100dvh_-_var(--about-sticky-top))];
     }
 
     .about-container {
@@ -152,7 +152,7 @@
         }
 
         .about-dots span {
-            @apply h-[4px] w-[8px] rounded-[2px] [background:#b5aea3];
+            @apply h-[4px] w-[8px] rounded-[2px] bg-muted;
         }
 
         .about-dots [aria-current=true] span {

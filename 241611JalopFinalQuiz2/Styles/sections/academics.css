@@ -19,7 +19,7 @@
 }
 
 .academics-showcase {
-    @apply [padding:clamp(48px,7vw,96px)_0] [background:#111820] text-ivory scroll-mt-[24px];
+    @apply [padding:clamp(48px,7vw,96px)_0] bg-navy text-ivory scroll-mt-[24px];
 }
 
 .academics-heading {
@@ -27,7 +27,7 @@
 }
 
 .academics-heading .eyebrow {
-    @apply [color:#b8bec6] [margin:0_0_16px];
+    @apply text-gold [margin:0_0_16px];
 }
 
 .academics-heading h2 {
@@ -35,7 +35,7 @@
 }
 
 .program-scroll-button {
-    @apply w-[44px] h-[44px] [border:1px_solid_#737d89] rounded-[50%] text-ivory bg-transparent cursor-pointer;
+    @apply w-[44px] h-[44px] border border-on-navy rounded-[50%] text-ivory bg-transparent cursor-pointer;
 }
 
 .program-scroll-button:hover:not(:disabled) {
@@ -47,15 +47,15 @@
 }
 
 .academics-hint,.academics-empty {
-    @apply w-[min(1200px,100%)] [padding:0_24px] [margin:0_auto_24px] [color:#b8bec6] text-[.85rem];
+    @apply w-[min(1200px,100%)] [padding:0_24px] [margin:0_auto_24px] text-on-navy text-[.85rem];
 }
 
 .program-rail {
-    @apply flex items-start gap-[24px] overflow-x-auto [padding:8px_max(24px,4vw)_24px] snap-x snap-proximity [scroll-padding-inline:max(24px,4vw)] [scrollbar-width:thin] [scrollbar-color:var(--color-gold)_#29313a];
+    @apply flex items-start gap-[24px] overflow-x-auto [padding:8px_max(24px,4vw)_24px] snap-x snap-proximity [scroll-padding-inline:max(24px,4vw)] [scrollbar-width:thin] [scrollbar-color:var(--color-gold)_var(--color-navy)];
 }
 
 .program-card {
-    @apply relative [flex:0_0_clamp(280px,29vw,400px)] h-[clamp(380px,40vw,550px)] rounded-[18px] overflow-hidden [background:#1c2c40] snap-start;
+    @apply relative [flex:0_0_clamp(280px,29vw,400px)] h-[clamp(380px,40vw,550px)] rounded-[18px] overflow-hidden bg-blue snap-start;
 }
 
 .program-card>summary {
@@ -83,7 +83,7 @@
 }
 
 .program-image-placeholder {
-    @apply flex items-center justify-center h-full p-[32px] text-center [color:#b8bec6];
+    @apply flex items-center justify-center h-full p-[32px] text-center text-ivory;
 }
 
 .program-card-caption {
@@ -95,7 +95,7 @@
 }
 
 .program-card-subtitle {
-    @apply block text-[.8rem] [color:#c5cbd2] mt-[6px];
+    @apply block text-[.8rem] text-on-navy mt-[6px];
 }
 
 .program-card-arrow {
@@ -156,10 +156,6 @@
     }
 }
 
-.academics-showcase {
-    @apply [background:#131211];
-}
-
 .academics-heading {
     @apply max-w-[1552px];
 }
@@ -181,7 +177,7 @@
 }
 
 .program-card:hover .program-card-arrow {
-    @apply bg-ivory [color:#131211];
+    @apply bg-ivory text-navy;
 }
 
 .program-card-arrow {
@@ -225,11 +221,11 @@
 }
 
 .program-viewport::before {
-    @apply left-0 [background:linear-gradient(90deg,#131211,transparent)];
+    @apply left-0 [background:linear-gradient(90deg,var(--color-navy),transparent)];
 }
 
 .program-viewport::after {
-    @apply right-0 [background:linear-gradient(270deg,#131211,transparent)];
+    @apply right-0 [background:linear-gradient(270deg,var(--color-navy),transparent)];
 }
 
 .academics-heading {

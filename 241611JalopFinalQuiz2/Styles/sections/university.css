@@ -13,7 +13,7 @@
 }
 
 .portal-footer {
-    @apply p-[24px] bg-navy [color:#d0d5df] text-[.8rem] flex justify-between gap-[12px] flex-wrap;
+    @apply p-[24px] bg-navy text-on-navy text-[.8rem] flex justify-between gap-[12px] flex-wrap;
 }
 
 .portal-footer span {
@@ -59,7 +59,7 @@
 }
 
 .university-hero {
-    @apply relative isolate flex items-center w-full [min-height:calc(100vh_-_var(--portal-header-height,85px))] [min-height:calc(100dvh_-_var(--portal-header-height,85px))] overflow-hidden [background:#162b43] text-ivory;
+    @apply relative isolate flex items-center w-full [min-height:calc(100vh_-_var(--portal-header-height,85px))] [min-height:calc(100dvh_-_var(--portal-header-height,85px))] overflow-hidden bg-navy text-ivory;
 }
 
 .university-hero::after {
@@ -87,7 +87,7 @@
 }
 
 .hero-copy .hero-description {
-    @apply [color:#ebe8df] max-w-[45ch] text-[clamp(1rem,1.25vw,1.2rem)] leading-[1.75] [margin:24px_0_0];
+    @apply text-ivory max-w-[45ch] text-[clamp(1rem,1.25vw,1.2rem)] leading-[1.75] [margin:24px_0_0];
 }
 
 .image-frame {

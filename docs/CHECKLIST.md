@@ -1,7 +1,25 @@
 # Ravenclaw University implementation checklist
 
-Updated: 2026-11-11. Checked items represent completed work, not just plans.
+Updated: 2026-11-12. Checked items represent completed work, not just plans.
 Work through the remaining stages in order. See STATUS.md for verification limits.
+
+## UI refinement recommendations (2026-11-12)
+
+The user approved the first two recommendations for implementation. Other items
+remain suggestions, not approved changes. Existing MVC/EF content sources and
+interaction behavior remain the implementation foundation.
+
+- [x] Unify section surfaces, text colors, and accents around the university palette.
+- [ ] Establish a shared Cormorant Garamond/Lato typography hierarchy with responsive titles and readable body copy.
+- [ ] Consider more selective motion across About, programs, gallery, and pennants (suggestion only).
+- [ ] Consider content-led section heights and a more natural page rhythm (suggestion only).
+- [ ] Consider clearer program summaries and browsing controls (suggestion only).
+- [ ] Consider a more restrained Collegiate Circle presentation (suggestion only).
+- [ ] Carry the sign-in screen's visual restraint across remaining surfaces (suggestion only).
+
+Verification for the approved work: compile Tailwind and MVC; inspect desktop,
+short desktop, and mobile layouts; check contrast, heading consistency, overflow,
+and existing program/About/navigation interactions. Record any limits in STATUS.md.
 
 ## 1. Planning and project foundation
 

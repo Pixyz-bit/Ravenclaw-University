@@ -106,11 +106,12 @@ introductory top gap. The section uses the full page width, with edge-to-edge im
 on desktop and mobile and responsive inner padding for text.
 
 The user supplied Digital Original's Creator showcase and How it works sections,
-and explicitly requested their layout/scroll/hover treatment. These two sections
-use warm white (#f7f5f3) and near-charcoal (#131211). Academics headings use Lato;
-About chapter titles use Cormorant Garamond. Academics uses
-containers up to 1552px; About now uses the user's full-width equal split. Mobile
-images now extend to the edges. Other sections retain the university design tokens.
+and explicitly requested their layout/scroll/hover treatment. The 2026-11-12
+visual-unification request supersedes their separate warm-white/charcoal palette:
+About uses the university ivory/ink tokens and Academics uses midnight navy,
+ivory text, and gold accents. Secondary text on navy uses the shared on-navy
+token (#D0D5DF), including the gallery. Image colors remain unchanged. About
+retains the user's full-width equal split and mobile edge-to-edge images.
 
 About presents four database-backed chapters: introduction, mission, vision, and
 core values. On desktop, a full-width 50/50 composition keeps text on the left and

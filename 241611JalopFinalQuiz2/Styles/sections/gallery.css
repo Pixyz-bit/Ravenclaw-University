@@ -5,7 +5,7 @@
     }
 
     .gallery-heading {
-        @apply absolute top-0 left-0 right-0 z-10 max-w-[1200px] [margin:0_auto] [padding:clamp(24px,4dvh,48px)_24px_48px] pointer-events-none [text-shadow:0_2px_12px_#131211];
+        @apply absolute top-0 left-0 right-0 z-10 max-w-[1200px] [margin:0_auto] [padding:clamp(24px,4dvh,48px)_24px_48px] pointer-events-none [text-shadow:0_2px_12px_var(--color-navy)];
     }
 
     .gallery-section::after {
@@ -21,7 +21,7 @@
     }
 
     .gallery-heading>p:last-child {
-        @apply [color:#d0d5df] text-[.95rem] m-0;
+        @apply text-on-navy text-[.95rem] m-0;
     }
 
     .drift-wall {
