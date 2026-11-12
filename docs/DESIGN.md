@@ -74,6 +74,10 @@ with a transparent background and no bottom rule. Links and branding remain visi
 As another section reaches the navbar (including anchor navigation), it becomes
 solid navy with its gold rule; returning Home restores transparency. An expanded
 phone menu keeps a solid navy surface for readability. Other pages/no-JS retain
+the existing navbar behavior. While any part of the contact footer is in view,
+the homepage navbar slides out and becomes inert (unfocusable); it returns when
+the footer leaves view. Back to top restores the transparent hero state. Reduced
+motion disables the slide transition. Without JS, keep
 the solid sticky navbar. Its measured height supplies anchor scroll padding and the minimum About
 sticky offset so headings and images remain visible beneath it. Mobile menu height
 changes are observed; page scrolling remains natural without section snapping.

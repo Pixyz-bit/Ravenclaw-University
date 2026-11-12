@@ -2,12 +2,17 @@
 const viewportHero = document.querySelector('[data-viewport-hero]');
 const portalHeader = document.querySelector('.portal-header');
 if (viewportHero && portalHeader) {
+    const contactFooter = document.querySelector('footer#contact');
     document.body.classList.add('has-viewport-hero');
     viewportHero.style.setProperty('--portal-header-height', '0px');
     const syncAppearance = () => {
         // Include the anchor's 16px breathing room, so About links reveal solid navy.
         const boundary = portalHeader.getBoundingClientRect().height + 17;
         portalHeader.classList.toggle('is-over-hero', viewportHero.getBoundingClientRect().bottom > boundary);
+        const footerBounds = contactFooter?.getBoundingClientRect();
+        const atFooter = Boolean(footerBounds && footerBounds.top < window.innerHeight && footerBounds.bottom > 0);
+        portalHeader.classList.toggle('is-footer-hidden', atFooter);
+        portalHeader.inert = atFooter;
     };
     const syncHeight = () => {
         const height = `${portalHeader.getBoundingClientRect().height}px`;
@@ -17,6 +22,8 @@ if (viewportHero && portalHeader) {
     syncHeight();
     const observer = new ResizeObserver(syncHeight);
     observer.observe(portalHeader);
+    const footerObserver = contactFooter ? new IntersectionObserver(syncAppearance) : null;
+    if (contactFooter) footerObserver.observe(contactFooter);
     let pending = false;
     const onScroll = () => {
         if (pending) return;
@@ -29,6 +36,7 @@ if (viewportHero && portalHeader) {
     window.addEventListener('pagehide', event => {
         if (event.persisted) return;
         observer.disconnect();
+        footerObserver?.disconnect();
         window.removeEventListener('scroll', onScroll);
         window.removeEventListener('resize', syncAppearance);
         window.removeEventListener('pageshow', syncAppearance);

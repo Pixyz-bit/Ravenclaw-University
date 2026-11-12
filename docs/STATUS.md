@@ -33,6 +33,16 @@ Last verified: 2026-11-12.
 
 ## Completed
 
+- Homepage navbar now hides while the contact footer intersects the viewport,
+  returning when it leaves. Hidden navigation is inert and cannot take keyboard
+  focus. The transparent hero/solid content states are preserved; reduced motion
+  disables the slide transition. Footer intersection and scroll/resize updates
+  share the existing navbar appearance logic without changing layout height.
+- Build passed with zero warnings/errors and hero-layout.js passed syntax checks.
+  The isolated navbar preview verified hidden/inert footer state and restored
+  navigation via Back to top at desktop and 375×812 mobile. Hero transparency
+  remains intact. No database/account changes were needed; local app restarted.
+
 - Navbar stays visible and transparent over the hero, becoming solid navy/gold
   as other sections reach it, including About anchor navigation. Returning Home
   restores transparency. Homepage navigation is fixed over a full-viewport hero;

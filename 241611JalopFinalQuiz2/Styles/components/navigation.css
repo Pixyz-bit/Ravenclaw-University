@@ -33,7 +33,11 @@
 }
 
 .has-viewport-hero .portal-header {
-    @apply fixed left-0 right-0 [transition:background-color_200ms_ease-out,border-color_200ms_ease-out];
+    @apply fixed left-0 right-0 [transition:background-color_200ms_ease-out,border-color_200ms_ease-out,transform_200ms_ease-out,visibility_200ms];
+}
+
+.has-viewport-hero .portal-header.is-footer-hidden {
+    @apply [transform:translateY(-100%)] invisible pointer-events-none;
 }
 
 .has-viewport-hero .portal-header.is-over-hero {
