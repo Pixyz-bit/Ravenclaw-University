@@ -2,6 +2,22 @@
 
 Last verified: 2026-11-12.
 
+## Latest error check
+
+- Build passed with zero warnings/errors after stopping the owned local server;
+  the first build attempt hit MSB3027/MSB3021 because that server locked apphost.exe.
+- All eight public JavaScript files passed node --check. The configured EF database
+  diagnostic passed both university and user-profile reads. Local login and generated
+  Tailwind CSS returned HTTP 200. The server was restarted using the http Development
+  launch profile, correcting the previous unpublished Production-mode static-assets
+  warnings. HTTP-only startup still logs the expected missing HTTPS redirect port.
+- Full isolated authentication/content verification remains unconfirmed on this run:
+  named-pipe SQL login timed out after 37 passing checks; a localhost retry timed out
+  after 10. MSSQLSERVER is running; a later named-pipe diagnostic succeeded and showed
+  no active requests blocking the university database. This is intermittent connection
+  failure, not evidence that the full suite passed. Both disposable test databases
+  were removed; no real university records were changed by these checks.
+
 ## Completed
 
 - Replaced the About heading with “Wit beyond measure is man's greatest treasure.”
