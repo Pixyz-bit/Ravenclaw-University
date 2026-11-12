@@ -12,6 +12,7 @@
 @import "./components/navigation.css";
 @import "./sections/academics.css";
 @import "./sections/about.css";
+@import "./sections/gallery.css";
 
 @source "../Views";
 @source "../wwwroot/js";

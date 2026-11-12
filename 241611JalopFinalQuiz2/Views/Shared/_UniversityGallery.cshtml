@@ -1,0 +1,44 @@
+@model UniversityPageViewModel
+@{
+    var photos = Model.Photos
+        .Where(photo => SafeImageAttribute.IsSafeImage(photo.ImagePath))
+        .Select(photo => (Path: photo.ImagePath, Title: string.IsNullOrWhiteSpace(photo.AltText) ? "University gallery image" : photo.AltText))
+        .ToArray();
+    var usesIllustrations = photos.Length == 0;
+    if (usesIllustrations)
+    {
+        photos = new[]
+        {
+            (Path: "/images/hero/ravenclaw-common-room.png", Title: "Ravenclaw common room"),
+            (Path: "/images/hero/portrait-stairwell.png", Title: "The portrait stairwell"),
+            (Path: "/images/hero/ravenclaw-eagle-wall.png", Title: "Ravenclaw eagle stonework"),
+            (Path: "/images/hero/great-hall.png", Title: "The great hall")
+        };
+    }
+}
+<section id="gallery" class="gallery-section" aria-labelledby="gallery-title" data-university-gallery>
+    <header class="gallery-heading">
+        <p class="eyebrow">University gallery</p>
+        <h2 id="gallery-title">A different view of Ravenclaw.</h2>
+        <p>@(usesIllustrations ? "Illustrations of the spaces that shape our university's world." : "Explore the university through our gallery.") Select an image for a closer look.</p>
+    </header>
+    <div class="drift-wall" data-drift-wall>
+        <div class="drift-wall__items" aria-label="University gallery images">
+            @foreach (var photo in photos)
+            {
+                <a class="drift-wall__source" href="@photo.Path" aria-label="View @photo.Title">
+                    <img src="@photo.Path" alt="@photo.Title" loading="lazy" decoding="async" />
+                    <span>@photo.Title</span>
+                </a>
+            }
+        </div>
+        <div class="drift-wall__canvas" aria-hidden="true" hidden>
+            <div class="drift-wall__plane"></div>
+        </div>
+    </div>
+    <dialog class="gallery-dialog" aria-labelledby="gallery-image-title">
+        <form method="dialog"><button type="submit" class="button button-secondary">Close image <span aria-hidden="true">×</span></button></form>
+        <img src="@photos[0].Path" alt="@photos[0].Title" data-gallery-full />
+        <p id="gallery-image-title">@photos[0].Title</p>
+    </dialog>
+</section>

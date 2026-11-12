@@ -1,0 +1,138 @@
+/* MVC/Tailwind adaptation of the user-supplied React Bits DriftWall reference. */
+@layer components {
+    .gallery-section {
+        @apply bg-navy text-ivory [padding:clamp(40px,6vw,80px)_0] scroll-mt-[24px];
+    }
+
+    .gallery-heading {
+        @apply max-w-[1200px] [margin:0_auto_24px] [padding:0_24px];
+    }
+
+    .gallery-heading .eyebrow {
+        @apply text-gold mb-[12px];
+    }
+
+    .gallery-heading h2 {
+        @apply text-ivory text-[clamp(2rem,4vw,3.4rem)] [margin:0_0_16px];
+    }
+
+    .gallery-heading>p:last-child {
+        @apply [color:#d0d5df] text-[.95rem] m-0;
+    }
+
+    .drift-wall {
+        @apply relative w-full h-[clamp(380px,65dvh,720px)] overflow-hidden [--dw-tile-w:200px] [--dw-tile-h:132px] [--dw-gap:18px] [--dw-radius:14px] [--dw-lift:64px] [--dw-dim:.78];
+    }
+
+    .drift-wall__items {
+        @apply grid [grid-template-columns:repeat(auto-fit,minmax(220px,1fr))] [grid-auto-rows:minmax(160px,240px)] gap-[18px] max-w-[1200px] [margin:0_auto] p-[24px] h-full overflow-y-auto;
+    }
+
+    .drift-wall__source {
+        @apply relative block min-h-[132px] overflow-hidden rounded-[14px] text-ivory bg-blue;
+    }
+
+    .drift-wall__source img {
+        @apply block w-full h-full object-cover;
+    }
+
+    .drift-wall__source>span {
+        @apply absolute bottom-0 left-0 right-0 p-[12px] text-[.85rem] [background:linear-gradient(transparent,#101d34)];
+    }
+
+    .drift-wall.is-enhanced .drift-wall__items {
+        @apply sr-only;
+    }
+
+    .drift-wall.is-enhanced .drift-wall__items:focus-within {
+        @apply absolute inset-0 z-10 w-full h-full m-0 p-[24px] [clip:auto] [clip-path:none] whitespace-normal overflow-y-auto grid bg-navy;
+    }
+
+    .drift-wall:has(.drift-wall__items:focus-within) .drift-wall__canvas {
+        @apply invisible;
+    }
+
+    .drift-wall__canvas {
+        @apply absolute inset-0 overflow-hidden [perspective:1200px] [perspective-origin:50%_50%] [mask-image:radial-gradient(ellipse_78%_82%_at_50%_46%,#101d34_40%,transparent_100%),linear-gradient(to_top,#101d34_40%,transparent_100%)] [mask-composite:intersect];
+    }
+
+    .drift-wall__canvas[hidden] {
+        @apply hidden;
+    }
+
+    .drift-wall__plane {
+        @apply absolute top-[50%] left-[50%] flex [transform-style:preserve-3d] [transform-origin:50%_50%] will-change-transform;
+    }
+
+    .drift-wall__col {
+        @apply relative w-[calc(var(--dw-tile-w)_+_var(--dw-gap))] shrink-0 [transform-style:preserve-3d];
+    }
+
+    .drift-wall__track {
+        @apply flex flex-col [transform-style:preserve-3d] will-change-transform;
+    }
+
+    .drift-wall__tile {
+        @apply relative block w-full h-[calc(var(--dw-tile-h)_+_var(--dw-gap))] shrink-0 [transform-style:preserve-3d];
+    }
+
+    .drift-wall__inner {
+        @apply absolute inset-[calc(var(--dw-gap)_/_2)] block rounded-[var(--dw-radius)] overflow-hidden bg-blue opacity-[var(--dw-dim)] [transform:translateZ(0)] pointer-events-none [transition:transform_.42s_cubic-bezier(.22,1,.36,1),opacity_.42s_cubic-bezier(.22,1,.36,1),box-shadow_.42s_cubic-bezier(.22,1,.36,1)];
+    }
+
+    .drift-wall__tile img {
+        @apply w-full h-full object-cover block select-none [filter:saturate(.92)] [transition:filter_.42s_cubic-bezier(.22,1,.36,1)] [-webkit-user-drag:none];
+    }
+
+    .drift-wall__overlay {
+        @apply absolute inset-0 bg-navy opacity-[.18] pointer-events-none [transition:opacity_.42s_cubic-bezier(.22,1,.36,1)];
+    }
+
+    .drift-wall__tile.is-active .drift-wall__inner {
+        @apply opacity-100 [transform:translateZ(var(--dw-lift))] [box-shadow:0_24px_60px_-18px_#081222b3];
+    }
+
+    .drift-wall__tile.is-active img {
+        @apply [filter:saturate(1.05)];
+    }
+
+    .drift-wall__tile.is-active .drift-wall__overlay {
+        @apply opacity-0;
+    }
+
+    .gallery-dialog {
+        @apply w-[min(1100px,calc(100vw_-_32px))] max-h-[calc(100dvh_-_32px)] p-[20px] bg-ivory text-navy [border:1px_solid_var(--color-gold)] rounded-[12px] overflow-y-auto;
+    }
+
+    .gallery-dialog::backdrop {
+        @apply [background:#081222e8];
+    }
+
+    .gallery-dialog form {
+        @apply flex justify-end [margin:0_0_16px];
+    }
+
+    .gallery-dialog img {
+        @apply block w-full max-h-[calc(100dvh_-_170px)] object-contain;
+    }
+
+    .gallery-dialog>p {
+        @apply [margin:12px_0_0] text-[.9rem];
+    }
+
+    .gallery-section :focus-visible {
+        @apply [outline:3px_solid_var(--color-gold)] [outline-offset:4px];
+    }
+
+    @media(max-width:600px) {
+        .drift-wall {
+            @apply [--dw-tile-w:150px] [--dw-tile-h:108px] [--dw-gap:12px] [--dw-lift:36px];
+        }
+    }
+
+    @media(prefers-reduced-motion:reduce) {
+        .drift-wall * {
+            @apply transition-none!;
+        }
+    }
+}

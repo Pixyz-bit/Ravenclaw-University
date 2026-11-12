@@ -4,6 +4,18 @@ Last verified: 2026-11-12.
 
 ## Completed
 
+- Added a standalone DriftWall gallery after Academics, adapted from the user's
+  supplied reference to Razor, Tailwind, and vanilla JavaScript. It uses About
+  gallery uploads or approved illustration fallbacks, five drifting columns on
+  desktop/three on phones, perspective/parallax, edge fading, and hover lift.
+  Native image dialogs support Close/Escape; keyboard focus reveals a static
+  image grid. Reduced motion disables enhancement; offscreen/hidden tabs stop RAF.
+- Gallery build and all 126 isolated checks passed with zero warnings/errors.
+  Browser checks at 1366×768 and 375×667 verified column counts, changing track
+  transforms, no horizontal overflow, loaded full-size image dialogs, Close/Escape,
+  and keyboard Tab/Enter access through the visible grid. The final clip-path reset
+  and image visibility refinements were checked by Tailwind build and browser QA.
+
 - Sized Academics to 100dvh minus the sticky navbar using a two-row grid. Heading,
   padding, gaps, and carousel cards scale to available height; card titles clamp to
   two lines and full titles/descriptions remain available when opened. Corrected

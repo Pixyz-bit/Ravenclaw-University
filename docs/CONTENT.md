@@ -1,10 +1,18 @@
 # University content and administration
 
-The first content implementation is one authenticated homepage with five sections:
-hero, About, academics, contact, and founder information. Navigation links jump to
+The authenticated homepage has hero, About, academics, a drifting gallery, contact,
+and founder information. Navigation links jump to
 the corresponding sections. Admin image uploads and account management are now
 implemented. No enrollment, inquiry form, or extra tables were added. Schema.sql
 remains unchanged and is the sole consolidated schema.
+
+The standalone gallery follows Academics and reuses AboutImagesTable through the
+existing About gallery editor. When no safe gallery images exist, the approved
+university illustrations appear. The DriftWall reference is adapted to Razor,
+Tailwind, and vanilla JavaScript: perspective columns drift in alternating
+directions, hover lifts an image, and selecting one opens its full-size preview.
+Keyboard and reduced-motion browsing use an ordinary image grid. No new database
+table, controller, or React runtime is needed for this read-only section.
 
 ## Using the editors
 

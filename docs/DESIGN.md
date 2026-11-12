@@ -130,6 +130,23 @@ and a scrollable description. The section anchor aligns directly below the navba
 A 360px section minimum preserves readable content in very short/zoomed windows,
 where normal vertical scrolling remains available instead of clipping controls.
 
+## Drifting university gallery
+
+The user supplied React Bits DriftWall source and requested a new section. Gallery
+follows Academics, using a Razor partial, a vanilla-JavaScript enhancement, and its
+own Tailwind source file rather than adding a React runtime to MVC. Five alternating
+columns (three on phones) drift at varied speeds inside a tilted 3D plane, with
+pointer parallax, edge fading, and lift/color restoration on hover. Hover slows
+that column; opening an image pauses the tracks. Animation stops offscreen or
+when the document is hidden. Navy/gold styling matches the university; imagery
+comes from About gallery uploads, then approved illustrations.
+
+Selecting an image opens a native dialog with its title and full image. Escape or
+Close image dismisses it. Keyboard focus exposes an ordinary image grid; reduced
+motion and no-JavaScript browsing also use this grid. Duplicate visual tiles are
+hidden from assistive technology and excluded from tab order. Focus rings and
+normal image links remain available. Styles live in sections/gallery.css.
+
 Administration uses flat divided lists and explicit Edit/Delete actions. Editors use
 Lato for operational headings, visible labels, native text/date/URL inputs, textarea
 controls, a supported icon selector, inline errors, and POST delete confirmation.

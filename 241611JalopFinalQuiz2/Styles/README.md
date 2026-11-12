@@ -22,6 +22,7 @@ Styles/
     university.css           Hero, contact, founder, content containers
     academics.css            Program cards and automatic carousel
     about.css                Sticky chapters, overlapping images, mobile rail
+    gallery.css              DriftWall gallery, static fallback, image dialog
 ```
 
 Run from the repository root:
