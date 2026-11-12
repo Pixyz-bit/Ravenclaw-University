@@ -6,32 +6,12 @@
 }
 else
 {
-    var heroImages = new List<(string Path, string Name)>
-    {
-        ("/images/hero/ravenclaw-common-room.png", "Ravenclaw common room"),
-        ("/images/hero/portrait-stairwell.png", "Portrait stairwell"),
-        ("/images/hero/great-hall.png", "Great Hall"),
-        ("/images/hero/ravenclaw-eagle-wall.png", "Ravenclaw eagle wall")
-    };
-    if (!string.IsNullOrWhiteSpace(Model.University?.HeroImg) && SafeImageAttribute.IsSafeImage(Model.University.HeroImg)
-        && Model.University.HeroImg != "/images/branding/ravenclaw-university-crest.png")
-        heroImages.Add((Model.University.HeroImg, "University image"));
-    <section id="home" class="university-hero" aria-labelledby="hero-header" data-hero-gallery>
-        @for (var i = 0; i < heroImages.Count; i++)
-        {
-            <img id="hero-slide-@i" class="hero-background hero-slide @(i == 0 ? "is-current" : "")" src="@(i == 0 ? Url.Content(heroImages[i].Path) : null)" data-src="@Url.Content(heroImages[i].Path)" alt="" aria-hidden="true" decoding="async" fetchpriority="@(i == 0 ? "high" : "low")" />
-        }
+    <section id="home" class="university-hero" aria-labelledby="hero-header" data-viewport-hero>
+        <img class="hero-background" src="~/images/hero/ravenclaw-common-room.png" asp-append-version="true" alt="" aria-hidden="true" fetchpriority="high" decoding="async" />
         <div class="hero-copy">
             <p class="eyebrow">Ravenclaw University</p>
             <h1 id="hero-header" class="hero-header">Where Wisdom<br /><em>Takes Flight.</em></h1>
             <p class="hero-description">A place for curious minds. Explore our university and its academic programs.</p>
-        </div>
-        <div class="hero-controls" role="group" aria-label="Hero background images" hidden>
-            @for (var i = 0; i < heroImages.Count; i++)
-            {
-                <button type="button" class="hero-image-button" data-slide="@i" aria-controls="hero-slide-@i" aria-pressed="@(i == 0 ? "true" : "false")" aria-label="Show @heroImages[i].Name"><span aria-hidden="true"></span></button>
-            }
-            <span class="sr-only" role="status" data-hero-status></span>
         </div>
     </section>
     <div class="university-content">
@@ -121,4 +101,4 @@ else
     </section>
     </div>
 }
-@section Scripts { <script src="~/js/hero-gallery.js" asp-append-version="true"></script> }
+@section Scripts { <script src="~/js/hero-layout.js" asp-append-version="true"></script> }

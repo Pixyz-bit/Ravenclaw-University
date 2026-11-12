@@ -4,6 +4,12 @@ Last verified: 2026-11-12.
 
 ## Completed
 
+- Replaced the hero gallery with only the latest user-attached common-room image,
+  verified byte-for-byte by SHA-256. Removed slideshow controls/logic/styles and
+  kept the navbar-height observer in hero-layout.js. Existing database records and
+  uploaded files were unchanged; the selected static image takes precedence.
+  Build passed with zero warnings/errors. Prior SQL-related visual verification
+  limitations remain; this update was checked by build/source/asset verification.
 - Integrated the four approved generated hero scenes, excluding the first rejected
   common-room version. Manual selectors, lazy image loading, pressed/status feedback,
   keyboard navigation, and reduced-motion fades preserve the established hero copy.

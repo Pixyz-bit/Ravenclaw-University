@@ -54,12 +54,12 @@ only the database entry, never a physical image file.
 
 ## Images and links
 
-The hero includes the four user-approved generated scenes in wwwroot/images/hero:
-revised Ravenclaw common room, portrait stairwell, Great Hall, and the brighter eagle
-wall. The first generated common-room attempt is excluded. Manual bottom-right
-selectors support keyboard navigation and reduced motion; there is no auto-rotation.
-A custom uploaded hero image is an additional final slide, preserving the editor.
-Generated source PNGs are copied unchanged; no live database updates are needed.
+The hero uses only the user-selected Ravenclaw common-room image at
+wwwroot/images/hero/ravenclaw-common-room.png, copied byte-for-byte from the latest
+attachment. The user superseded the gallery decision: there are no image selectors,
+extra slides, or automatic rotation. HeroImg uploads remain stored but do not override
+this explicitly selected background. Other generated scenes are retained as unused
+assets. No live database updates are needed.
 
 Hero, gallery, program, and account-profile fields use multipart file uploaders
 with local previews. Choose PNG, JPEG, or WebP files up to 5 MB. The server checks
@@ -92,7 +92,7 @@ UniversityContentService reads all seven content tables using AsNoTracking and
 sequential queries on one DbContext. It never queries user accounts for content.
 HomeController renders UniversityPageViewModel with clear unpublished/empty states.
 No founder dates, campus history, statistics, or programs were seeded into the
-university database. The approved crest is the fallback hero visual.
+university database. The selected common room is the fixed hero visual.
 
 Empty content remains a valid page. Database-operation errors show generic retry
 feedback and HTTP 503 rather than exception details. Authentication continues to

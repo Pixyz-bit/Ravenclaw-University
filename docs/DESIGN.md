@@ -68,20 +68,11 @@ reuse these tokens consistently.
 ## University content and editors
 
 The homepage opens with a full-width hero sized to 100dvh minus the measured
-navbar height, so the navbar and hero fit together in one viewport. The approved hero image gallery covers the background; a navy-black overlay fades
+navbar height, so the navbar and hero fit together in one viewport. The selected common-room image covers the background; a navy-black overlay fades
 from dark on the left to lighter on the right. A left-aligned hero header and short
 description sit over the image, vertically centered in a 1200px inner container.
 Keep the established serif/italic ivory-and-gold motto and Lato supporting text.
-There are no hero CTA buttons or decorative reference branding. The user approved
-four generated backgrounds: revised common room, portrait stairwell, Great Hall,
-and brighter eagle wall. Exclude the first generated photoreal common room. A small
-bottom-right set of gold/ivory image selectors changes the background manually;
-no automatic rotation. Controls have 44px targets, pressed states, keyboard arrow/
-Home/End support, and a screen-reader status. Fade transitions respect reduced motion.
-Only the first image loads initially; others load when selected. A configured admin
-hero upload remains available as an additional final background (except the crest).
-A ResizeObserver tracks navbar size changes, including responsive menu changes. Header font size and padding scale with screen width and height. Without JavaScript, CSS supplies navbar-height fallbacks and the first common-room image remains visible. The hero may grow
-on short screens/zoom rather than clip text. Subsequent content retains the centered
+The user selected only the revised Ravenclaw common-room image. Use it as a static background; no CTA buttons, image selectors, extra slides, or rotation. This supersedes the previous gallery. A ResizeObserver tracks navbar height so hero and navbar fit together. Heading size and spacing scale with width and height. CSS supplies navbar-height fallbacks without JavaScript. The hero may grow on short screens/zoom rather than clip text. Subsequent content retains the centered
 1200px reading width and ivory sections, thin dividers, mission/vision and program layouts,
 gallery images, contact details, and founder biographies/messages. Unpublished content
 is labeled rather than invented. Razor encodes text and retains paragraph breaks.
