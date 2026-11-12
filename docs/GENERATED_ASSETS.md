@@ -9,6 +9,17 @@ The user's first reference supplied house-color fields, geometric starburst patt
 
 Display order: Gryffindor, Slytherin, Hogwarts (center), Ravenclaw, Hufflepuff. Files are copied from generated output without raster editing.
 
+## Exact uploaded Hogwarts crest
+
+The user requested the full reference crest on 2026-11-12. The original uploaded
+800×800 RGBA PNG already has a transparent background. It is preserved byte-for-byte
+as `241611JalopFinalQuiz2/wwwroot/images/collegiate/hogwarts-crest.png`; matching
+SHA-256 hashes were verified. This is supplied artwork, not a generated recreation.
+Two built-in image-generation attempts (standalone recreation and banner edit)
+were rejected by the image service. No generated replacement was produced, and
+the existing H-monogram banner remains unchanged. Full-crest banner integration
+is unfinished. Do not describe the standalone upload as generated or integrated.
+
 ## Final prompts
 
 ### Gryffindor — gryffindor.png

@@ -4,6 +4,11 @@ Last verified: 2026-11-12.
 
 ## Completed
 
+- Preserved the user's exact full Hogwarts crest as images/collegiate/hogwarts-crest.png
+  (800×800 RGBA, transparent background); verified byte-for-byte matching SHA-256.
+  The image service rejected both a standalone recreation and an edit replacing the
+  center banner's H-only shield. No generated replacement or banner change was made.
+
 - Added The Hogwarts Collegiate Circle after Gallery, adapting the supplied hanging
   flags layout with a curved gold rope and five newly generated matching pennants.
   Order is Gryffindor, Slytherin, Hogwarts, Ravenclaw, Hufflepuff; Hogwarts is centered
@@ -232,6 +237,10 @@ Last verified: 2026-11-12.
   the same diagnostic succeeded with local SQL Server access.
 
 ## Not implemented / not verified
+
+- Replace the Hogwarts center banner's H-only emblem with the full uploaded crest.
+  The original transparent logo is saved, but both built-in generation/edit attempts
+  were rejected. The existing center banner is still the H-monogram version.
 
 - University pages and editors are implemented; approved images, real content,
   and verified founder facts still need entering through the editors.
