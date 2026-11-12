@@ -5,7 +5,11 @@
     }
 
     .gallery-heading {
-        @apply absolute top-0 left-0 right-0 z-10 max-w-[1200px] [margin:0_auto] [padding:clamp(24px,4dvh,48px)_24px_48px] pointer-events-none [background:linear-gradient(180deg,#131211b3,transparent)] [text-shadow:0_2px_12px_#131211];
+        @apply absolute top-0 left-0 right-0 z-10 max-w-[1200px] [margin:0_auto] [padding:clamp(24px,4dvh,48px)_24px_48px] pointer-events-none [text-shadow:0_2px_12px_#131211];
+    }
+
+    .gallery-section::after {
+        @apply content-[''] absolute top-0 left-0 right-0 z-1 h-[min(65%,380px)] pointer-events-none [background:linear-gradient(180deg,#101d34f2_0%,#101d34a6_40%,#101d3400_100%)];
     }
 
     .gallery-heading .eyebrow {
@@ -26,6 +30,10 @@
 
     .gallery-section:has(.drift-wall__items:focus-within) .gallery-heading {
         @apply invisible;
+    }
+
+    .gallery-section:has(.drift-wall__items:focus-within)::after {
+        @apply hidden;
     }
 
     .drift-wall__items {

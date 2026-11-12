@@ -4,6 +4,11 @@ Last verified: 2026-11-12.
 
 ## Completed
 
+- Added the requested top-only blue gallery gradient: dark navy at the top fades
+  to transparent within the upper 65%/380px. Removed the prior heading-only neutral
+  fade. Image tiles remain untinted and fully opaque, and keyboard browsing hides
+  the gradient. Tailwind compilation and diff whitespace checks passed.
+
 - Removed DriftWall's blue image overlays, canvas fade masks, and section-wide navy
   fade at the user's request. Images now render at full opacity and original color;
   a localized neutral-charcoal fade behind the heading preserves readability.

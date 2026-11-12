@@ -148,9 +148,11 @@ hidden from assistive technology and excluded from tab order. Focus rings and
 normal image links remain available. Styles live in sections/gallery.css.
 
 The gallery wall now fills a viewport below the sticky navbar, with its heading
-overlaid above a localized neutral-charcoal fade. The user removed the blue image
-overlay: tiles now remain fully opaque with their original colors; canvas masks,
-per-image tint layers, and the section-wide navy fade are removed. Column/tile sizes scale from the section width
+overlaid above a full-width navy gradient restricted to the top (at most 380px or
+65% of the section). It fades from dark blue to fully transparent downward for text
+readability. The gradient hides during keyboard image browsing. Tiles remain fully
+opaque with their original colors; canvas masks and per-image tint layers stay
+removed. Column/tile sizes scale from the section width
 to cover wide screens. Keyboard/reduced-motion grids keep readable spacing. A
 420px minimum preserves access in very short windows; the section can then scroll.
 
