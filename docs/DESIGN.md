@@ -69,8 +69,12 @@ account control at right. Its dropdown has the username, Admin-only Administrati
 link, and POST Sign out. Use a full-width midnight-navy background, ivory text,
 and a fine gold bottom rule. Align the inner content to the 1200px page container.
 Below 1001px, a native hamburger/Menu disclosure shows the navigation links.
-The public navbar stays sticky at the viewport top while scrolling, above section
-content. Its measured height supplies anchor scroll padding and the minimum About
+On the university homepage, the public navbar is fixed over the full-height hero
+with a transparent background and no bottom rule. Links and branding remain visible.
+As another section reaches the navbar (including anchor navigation), it becomes
+solid navy with its gold rule; returning Home restores transparency. An expanded
+phone menu keeps a solid navy surface for readability. Other pages/no-JS retain
+the solid sticky navbar. Its measured height supplies anchor scroll padding and the minimum About
 sticky offset so headings and images remain visible beneath it. Mobile menu height
 changes are observed; page scrolling remains natural without section snapping.
 Desktop and mobile forms were visually inspected; later content sections must
@@ -78,8 +82,9 @@ reuse these tokens consistently.
 
 ## University content and editors
 
-The homepage opens with a full-width hero sized to 100dvh minus the measured
-navbar height, so the navbar and hero fit together in one viewport. The selected common-room image covers the background; a navy-black overlay fades
+The homepage opens with a full-width 100dvh hero beneath the transparent overlaid
+navbar, so both fit in one viewport. Without JavaScript it retains the solid-navbar
+height fallback. The selected common-room image covers the background; a navy-black overlay fades
 from dark on the left to lighter on the right. A left-aligned hero header and short
 description sit over the image, vertically centered in a 1200px inner container.
 Keep the established serif/italic ivory-and-gold motto and Lato supporting text.

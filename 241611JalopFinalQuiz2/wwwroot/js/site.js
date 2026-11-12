@@ -12,7 +12,9 @@ if (siteNavigation) {
             const header = siteNavigation.closest('.portal-header');
             const height = `${header.getBoundingClientRect().height}px`;
             document.documentElement.style.setProperty('--portal-header-height', height);
-            document.querySelector('[data-viewport-hero]')?.style.setProperty('--portal-header-height', height);
+            if (!document.body.classList.contains('has-viewport-hero')) {
+                document.querySelector('[data-viewport-hero]')?.style.setProperty('--portal-header-height', height);
+            }
             const destination = new URL(link.href);
             const target = destination.hash && document.getElementById(destination.hash.slice(1));
             if (target && destination.pathname === location.pathname && destination.search === location.search) {

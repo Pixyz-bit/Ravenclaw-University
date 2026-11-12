@@ -33,6 +33,19 @@ Last verified: 2026-11-12.
 
 ## Completed
 
+- Navbar stays visible and transparent over the hero, becoming solid navy/gold
+  as other sections reach it, including About anchor navigation. Returning Home
+  restores transparency. Homepage navigation is fixed over a full-viewport hero;
+  measured header offsets remain available to later sections. Expanded phone
+  menus keep a solid background and no longer shrink the hero after selection.
+  Other pages/no-JS retain the original solid sticky navbar. Reduced motion removes
+  the background transition; cached-page restoration keeps visibility updates.
+- Build passed with zero warnings/errors, and hero-layout.js/site.js passed syntax
+  checks. A standalone preview using the real hero, CSS, and scripts verified
+  transparent Home / solid About / transparent return at 1280×720; at 375×812 it
+  verified menu background, collapse on About, solid section state, and unchanged
+  full-viewport hero height. This did not require live database/accounts.
+
 - Implemented the approved combined contact/footer: navy full-width surface,
   university crest/name, motto and two navigation groups left, database-backed
   contact/social information right, and copyright/Back to top below. It follows

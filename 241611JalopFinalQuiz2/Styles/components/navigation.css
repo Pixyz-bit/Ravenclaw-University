@@ -32,6 +32,21 @@
     @apply sticky top-0 z-40 bg-navy [border-bottom:1px_solid_var(--color-gold)];
 }
 
+.has-viewport-hero .portal-header {
+    @apply fixed left-0 right-0 [transition:background-color_200ms_ease-out,border-color_200ms_ease-out];
+}
+
+.has-viewport-hero .portal-header.is-over-hero {
+    @apply bg-transparent border-transparent;
+}
+
+/* An expanded phone menu keeps a readable surface over the background image. */
+@media(max-width:1000px) {
+    .has-viewport-hero .portal-header.is-over-hero:has(.site-navigation[open]) {
+        @apply bg-navy;
+    }
+}
+
 html:has(.portal-header) {
     @apply [scroll-padding-top:calc(var(--portal-header-height,85px)_+_16px)];
 }
@@ -203,6 +218,9 @@ html:has(.portal-header) {
 }
 
 @media(prefers-reduced-motion:reduce) {
+    .has-viewport-hero .portal-header {
+        @apply transition-none;
+    }
     .portal-header .portal-nav>a::after {
         @apply transition-none;
     }
