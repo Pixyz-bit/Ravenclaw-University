@@ -1,18 +1,15 @@
 /* Approved ivory portrait composition. The image is cropped in CSS, not redrawn. */
 @layer components {
     .leadership-section {
-        @apply [--founders-top:clamp(16px,3dvh,32px)] bg-ivory text-navy [min-height:calc(100dvh_-_var(--portal-header-height,85px))] [padding:var(--founders-top)_24px_0] scroll-mt-[-16px];
+        @apply [--founders-top:clamp(8px,1.5dvh,16px)] bg-ivory text-navy [min-height:calc(100dvh_-_var(--portal-header-height,85px))] [padding:var(--founders-top)_24px_0] scroll-mt-[-16px];
     }
     .founders-container {
         @apply max-w-[1152px] [margin-inline:auto] grid [grid-template-rows:auto_1fr] [min-height:calc(100dvh_-_var(--portal-header-height,85px)_-_var(--founders-top))];
     }
     .founders-heading {
-        @apply flex items-center justify-between gap-[24px] pb-[clamp(12px,2dvh,24px)] [border-bottom:1px_solid_var(--color-gold)];
+        @apply pb-[clamp(12px,2dvh,24px)] [border-bottom:1px_solid_var(--color-gold)];
     }
     .founders-heading .university-section-title { @apply m-0; }
-    .founders-wordmark {
-        @apply m-0 text-blue text-[.75rem] leading-[1.8] uppercase tracking-[.14em] shrink-0;
-    }
     .founder-profile {
         @apply [padding:clamp(16px,3dvh,32px)_0] [border-bottom:1px_solid_var(--color-line)];
     }
@@ -46,8 +43,7 @@
         .founder-motto { @apply text-[1.5rem] leading-[1.2] mt-[16px]; }
     }
     @media(max-width:700px) {
-        .founders-heading { @apply items-start pb-[24px]; }
-        .founders-wordmark { @apply text-[.6875rem] tracking-[.1em]; }
+        .founders-heading { @apply pb-[24px]; }
         .founder-profile-portrait { @apply grid-cols-1 gap-[28px] pt-[32px]; }
         .founder-portrait { @apply max-w-[350px] aspect-[5/4]; }
         .founder-profile-portrait .founder-biography { @apply pb-[40px]; }

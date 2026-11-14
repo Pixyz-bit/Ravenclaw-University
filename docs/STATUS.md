@@ -51,6 +51,13 @@ Last verified: 2026-11-14.
 
 ## Completed
 
+- Halved the founder section's top padding to clamp(8px, 1.5dvh, 16px) and removed
+  the Ravenclaw University wordmark beside “Our founder,” including unused styles.
+  Existing viewport sizing and biography remain. Normal build and Tailwind compile
+  passed with zero warnings/errors; design detector and source-removal checks passed.
+  Updated the design reference and restarted the local Development server. No
+  database changes or additional visual browser checks were needed for this edit.
+
 - Sized the founder section against 100dvh minus the measured navbar height, with
   height-responsive padding, portrait size, and short-desktop typography. Corrected
   the leadership anchor's doubled navbar offset. Compiled Razor fixture browser

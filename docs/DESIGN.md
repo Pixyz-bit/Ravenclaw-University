@@ -201,8 +201,8 @@ reveal the caption when navigating to the summary or description.
 
 The approved ivory portrait reference replaces the previous plain founder list.
 Leadership retains its navigation anchor and sits between Collegiate Circle and
-the contact footer. A shared section-title “Our founder” and a small two-line
-Ravenclaw University wordmark sit above a fine gold divider. Desktop places the
+the contact footer. A shared section-title “Our founder” sits alone above a fine
+gold divider; the adjacent university wordmark was removed. Desktop places the
 portrait left and database-backed name, Founder role, biography, and Rowena's
 existing motto right. The biography uses the shared Lato body scale; the name
 uses the shared Cormorant Garamond subtitle. Phones stack portrait above text.
@@ -220,6 +220,7 @@ without borrowing her identity. Empty/missing-biography states remain supported.
 
 The founder section now reserves 100dvh minus the measured navbar height. Its
 heading occupies an automatic grid row and the portrait/biography fills the rest.
+Top padding is halved to clamp(8px, 1.5dvh, 16px) per the latest user refinement.
 Spacing and portrait width scale with viewport height; short desktop windows use
 tighter paragraph leading and a smaller motto. The leadership anchor cancels the
 global 16px breathing room, aligning the section directly below the navbar rather
