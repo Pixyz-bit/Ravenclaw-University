@@ -60,6 +60,15 @@ with local SQL access. This validates these reads, not every mapping in the sche
 
 ## Tables
 
+The four approved generated subject images are the defaults in SeedPrograms.sql
+for Astronomy, Charms, Potions, and Defence Against the Dark Arts. Existing matching
+subjects are still preserved by that seed script. ApplyProgramImages.sql is a
+separate, deliberate CONTENT update for those existing subjects: it changes only
+their ImagePath values and requires exactly one record per subject and either its
+documented old placeholder or its approved new image. Unexpected/custom paths stop
+the transaction for review. It does not change schema, names, descriptions, or
+other subjects. Neither content script is executed automatically by the app.
+
 SeedFounder.sql contains the approved Rowena Ravenclaw biography, applied to the
 previously empty founder table on 2026-11-14. It inserts her when absent or updates
 only her biography when exactly one matching name exists, stopping on duplicates.

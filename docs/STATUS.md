@@ -556,6 +556,16 @@ Last verified: 2026-11-14.
 
 ## Not implemented / not verified
 
+- Approved subject-image integration is prepared: SeedPrograms.sql now uses the
+  generated Astronomy, Charms, Potions, and Defence Against the Dark Arts images,
+  and ApplyProgramImages.sql provides a guarded update for existing placeholder
+  paths. All four asset URLs returned HTTP 200. Live program reads and the update
+  failed before login due to SQL timeouts, so no database image-path change is
+  confirmed. The user approved restarting MSSQLSERVER; direct service control was
+  denied by Windows. Windows then reported the elevated request was canceled;
+  the restart did not run. Awaiting a user-completed administrator restart or a
+  restored SQL connection before applying/verifying the live update.
+
 - Transfiguration image generation was rejected by the built-in image tool at output
   moderation on 2026-11-14; no generated file exists for that subject. The first
   Charms and Potions attempts were also rejected; later user-supplied references
