@@ -51,6 +51,11 @@ Last verified: 2026-11-14.
 
 ## Completed
 
+- Generated Charms from the user's second, rear-of-classroom reference, preserving
+  warm cinematic light, aged materials and levitating feathers. Saved the inspected
+  PNG as wwwroot/images/programs/charms.png and verified its copy by SHA-256.
+  No subject image binding or database changes were made.
+
 - Generated reference-based Defence Against the Dark Arts and Astronomy images
   under wwwroot/images/programs. Both landscape PNGs were visually reviewed and
   their workspace copies verified against the generated originals by SHA-256.
@@ -546,10 +551,10 @@ Last verified: 2026-11-14.
 
 ## Not implemented / not verified
 
-- Charms and Transfiguration subject-image generations were rejected by the built-in
-  image tool at output moderation on 2026-11-14. No generated files exist for these
-  requests and no subject image records were modified. Defence Against the Dark
-  Arts and Astronomy review assets were successfully generated and saved.
+- Transfiguration and Potions image generations were rejected by the built-in
+  image tool at output moderation on 2026-11-14. No generated files exist for those
+  subjects and no subject image records were modified. The first Charms attempt
+  was also rejected; a later user-supplied reference produced a saved Charms image.
 
 - Mobile About dot navigation can stop at an intermediate chapter when selecting
   Vision from the introduction. The same result was reproduced using the previous

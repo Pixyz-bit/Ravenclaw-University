@@ -66,15 +66,15 @@ Create one original fantasy collegiate pennant for Ravenclaw. Use the attached f
 Create one original fantasy collegiate pennant for Hufflepuff. Use the attached finished red banner as the exact format and style guide: same tall narrow pointed shape, double border, geometric starburst field, light print grain, top small emblem, ornate blackletter name, central heraldic shield, crossed wands, compass star. Draw all art anew. Field palette: warm ochre yellow with charcoal-black edging. Main shield design: a black and ivory badger on an ochre yellow and charcoal shield. Exact text once: "Hufflepuff". No other text. Consistent flat vintage heraldic artwork, no photo, no setting, no stand, no external shadow. Full banner with minimal padding, transparent outside. The original uploaded banner collection and Hogwarts crest are additional visual references.
 ## Subject images (2026-11-14)
 
-Charms and Transfiguration were also requested from supplied classroom film stills.
-Both built-in image-generation calls were rejected by the tool's safety system
-at output moderation. No images were returned or installed for those two subjects.
-The reference images were not substituted as generated assets.
+The first Charms reference and the Transfiguration/Potions generation requests
+were rejected by the tool's safety system at output moderation. No output was
+returned for those calls. Charms subsequently succeeded using the user's new
+rear-of-classroom reference. No reference image was substituted as a generated asset.
 
-Generated with the built-in image tool from the user's supplied references. Both
+Generated with the built-in image tool from the user's supplied references. The
 outputs were visually inspected and copied without modification, with SHA-256
 equality checks. These are review assets only: no subject image paths or database
-records were changed, and neither image has been applied to a program card.
+records were changed, and none of these images has been applied to a program card.
 
 - `wwwroot/images/programs/defence-against-the-dark-arts.png`: 1536×1024 landscape.
   Reference: the uploaded live-action classroom still with blue pixies, floating
@@ -90,3 +90,10 @@ records were changed, and neither image has been applied to a program card.
   walls, circular celestial ceiling detail, floor medallion, and softly lit doorway
   with a small robed figure for scale. Retain painterly atmospheric softness;
   no extra instruments, neon, text, UI, or the reference's lower-left white emblem.
+- `wwwroot/images/programs/charms.png`: 1536×1024 landscape.
+  Reference: the user's second Charms image, looking from behind classroom rows.
+  Prompt direction: preserve robed students from behind, books/ink/quills and
+  levitating feathers, a distant instructor and warm Gothic-window daylight;
+  match the realistic fantasy-film material textures, muted colors and fine grain
+  of the other subject images. No overlay text, logos or borders. Original output
+  copied unchanged and SHA-256 verified; saved for review, not bound to a program.
