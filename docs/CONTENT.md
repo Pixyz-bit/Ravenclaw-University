@@ -1,5 +1,11 @@
 # University content and administration
 
+The approved generated subject images are now stored in the existing program
+records for Astronomy, Charms, Potions, and Defence Against the Dark Arts, using
+/images/programs/ paths. Their names/descriptions were preserved. Transfiguration
+and Herbology still use their earlier imagery. Academic Programs remains the editor
+for future image replacements; no new database columns or rendering overrides exist.
+
 As of 2026-11-14, the university gallery and The Hogwarts Collegiate Circle are
 temporarily hidden on the public homepage. Academics leads directly to the founder
 section. Their partials, assets, styles, scripts, and gallery editor/data remain

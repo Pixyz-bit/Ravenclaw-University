@@ -61,7 +61,8 @@ with local SQL access. This validates these reads, not every mapping in the sche
 ## Tables
 
 The four approved generated subject images are the defaults in SeedPrograms.sql
-for Astronomy, Charms, Potions, and Defence Against the Dark Arts. Existing matching
+and were applied to the corresponding local subject records on 2026-11-14.
+They cover Astronomy, Charms, Potions, and Defence Against the Dark Arts. Existing matching
 subjects are still preserved by that seed script. ApplyProgramImages.sql is a
 separate, deliberate CONTENT update for those existing subjects: it changes only
 their ImagePath values and requires exactly one record per subject and either its

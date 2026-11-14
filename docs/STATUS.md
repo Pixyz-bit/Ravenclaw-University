@@ -51,6 +51,18 @@ Last verified: 2026-11-14.
 
 ## Completed
 
+- Applied the approved generated images to the existing Astronomy, Charms, Potions,
+  and Defence Against the Dark Arts records using ApplyProgramImages.sql. SQL
+  readback confirmed all four /images/programs/ paths and the unchanged image paths
+  for Transfiguration/Herbology. Names/descriptions and schema were preserved.
+  Connectivity recovered after the user's Windows elevation follow-up; no server
+  configuration or encryption settings were changed. The earlier elevated helper
+  did not produce a completion result, so its restart cannot be independently confirmed.
+  Build passed with zero warnings/errors and the website was restarted to refresh
+  its static-asset manifest. With redirects disabled, all four image URLs returned
+  HTTP 200 image/png and their exact expected file sizes (2.25–2.82 MB). Earlier
+  HTTP-200-only checks had followed login redirects and did not prove image delivery.
+
 - Generated Potions from the user's second reference (unoccupied alchemy workbench),
   matching the muted cinematic subject-image style. Visually inspected the output,
   saved wwwroot/images/programs/potions.png, and verified the copy by SHA-256.
@@ -556,20 +568,11 @@ Last verified: 2026-11-14.
 
 ## Not implemented / not verified
 
-- Approved subject-image integration is prepared: SeedPrograms.sql now uses the
-  generated Astronomy, Charms, Potions, and Defence Against the Dark Arts images,
-  and ApplyProgramImages.sql provides a guarded update for existing placeholder
-  paths. All four asset URLs returned HTTP 200. Live program reads and the update
-  failed before login due to SQL timeouts, so no database image-path change is
-  confirmed. The user approved restarting MSSQLSERVER; direct service control was
-  denied by Windows. Windows then reported the elevated request was canceled;
-  the restart did not run. Awaiting a user-completed administrator restart or a
-  restored SQL connection before applying/verifying the live update.
-
 - Transfiguration image generation was rejected by the built-in image tool at output
   moderation on 2026-11-14; no generated file exists for that subject. The first
   Charms and Potions attempts were also rejected; later user-supplied references
-  produced saved images for both. No subject image records were modified.
+  produced saved images for both. Those generation attempts did not modify records;
+  the later approved integration is recorded under Completed.
 
 - Mobile About dot navigation can stop at an intermediate chapter when selecting
   Vision from the introduction. The same result was reproduced using the previous

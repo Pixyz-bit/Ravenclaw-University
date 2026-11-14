@@ -74,8 +74,10 @@ workbench photograph. No reference image was substituted as a generated asset.
 
 Generated with the built-in image tool from the user's supplied references. The
 outputs were visually inspected and copied without modification, with SHA-256
-equality checks. These are review assets only: no subject image paths or database
-records were changed, and none of these images has been applied to a program card.
+equality checks. The user approved implementation on 2026-11-14. The four existing
+subject records now point to their corresponding generated files; names and
+descriptions were preserved. Transfiguration and Herbology retain their previous
+images because generated replacements are unavailable.
 
 - `wwwroot/images/programs/defence-against-the-dark-arts.png`: 1536×1024 landscape.
   Reference: the uploaded live-action classroom still with blue pixies, floating
@@ -97,11 +99,11 @@ records were changed, and none of these images has been applied to a program car
   levitating feathers, a distant instructor and warm Gothic-window daylight;
   match the realistic fantasy-film material textures, muted colors and fine grain
   of the other subject images. No overlay text, logos or borders. Original output
-  copied unchanged and SHA-256 verified; saved for review, not bound to a program.
+  copied unchanged and SHA-256 verified; approved and bound to the Charms program.
 - `wwwroot/images/programs/potions.png`: 1536×1024 landscape.
   Reference: the user's second Potions image, an unoccupied alchemy workbench with
   cauldrons, vials, leather books, ingredient shelves and a round-topped doorway.
   Prompt direction: retain the arrangement and dungeon atmosphere while replacing
   saturated exhibition lighting with muted warm/cool cinematic light, natural
   material textures and fine film grain. No people, signature, watermark or UI.
-  Original output copied unchanged and SHA-256 verified; saved for review only.
+  Original output copied unchanged and SHA-256 verified; approved and bound to Potions.
