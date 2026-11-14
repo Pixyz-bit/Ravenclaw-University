@@ -208,8 +208,10 @@ existing motto right. The biography uses the shared Lato body scale; the name
 uses the shared Cormorant Garamond subtitle. Phones stack portrait above text.
 
 The approved transparent Rowena portrait is preserved unchanged in
-wwwroot/images/founders/rowena-ravenclaw.png. CSS crops from its top in a square
-desktop frame and a wider phone frame, keeping her face, hands, and book visible.
+wwwroot/images/founders/rowena-ravenclaw.png. Desktop uses shared grid rows so
+the portrait begins level with Rowena's name and extends to the section bottom.
+The image is cropped from its top inside this flexible frame; phones retain the
+wider stacked crop, keeping her face, hands, and book visible.
 There is no full-body requirement and no message dropdown or public message block.
 Stored founder messages remain available in the existing admin editor; a separate
 message section is not implemented as part of this approved revision.

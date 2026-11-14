@@ -51,6 +51,14 @@ Last verified: 2026-11-14.
 
 ## Completed
 
+- Aligned the desktop founder portrait's top with Rowena's name while keeping its
+  bottom flush with the section. Shared CSS grid rows replace the square desktop
+  frame; the portrait asset and mobile crop are unchanged. Compiled Razor fixture
+  browser checks at 1366×768 and 1280×600 measured equal image/name top coordinates
+  and matching image/section bottoms (within 0.02px). Navbar + section still equals
+  the viewport; 375×812 retains the stacked mobile layout without horizontal
+  overflow. Tailwind compilation passed. No database or authentication changes.
+
 - Halved the founder section's top padding to clamp(8px, 1.5dvh, 16px) and removed
   the Ravenclaw University wordmark beside “Our founder,” including unused styles.
   Existing viewport sizing and biography remain. Normal build and Tailwind compile
