@@ -51,6 +51,12 @@ Last verified: 2026-11-14.
 
 ## Completed
 
+- Generated reference-based Defence Against the Dark Arts and Astronomy images
+  under wwwroot/images/programs. Both landscape PNGs were visually reviewed and
+  their workspace copies verified against the generated originals by SHA-256.
+  Recorded provenance/style directions in GENERATED_ASSETS.md. They are review
+  assets only; no program records, image bindings, or schema were changed.
+
 - Changed the navbar footer trigger to hide only when at least 50% of the footer's
   height is inside the viewport, restoring it below that threshold. The observer
   uses the same 0.5 threshold; scrolling, resizing, and page restoration still

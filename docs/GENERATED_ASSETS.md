@@ -64,3 +64,24 @@ Create one original fantasy collegiate pennant for Ravenclaw. Use the attached f
 ### Hufflepuff — hufflepuff.png
 
 Create one original fantasy collegiate pennant for Hufflepuff. Use the attached finished red banner as the exact format and style guide: same tall narrow pointed shape, double border, geometric starburst field, light print grain, top small emblem, ornate blackletter name, central heraldic shield, crossed wands, compass star. Draw all art anew. Field palette: warm ochre yellow with charcoal-black edging. Main shield design: a black and ivory badger on an ochre yellow and charcoal shield. Exact text once: "Hufflepuff". No other text. Consistent flat vintage heraldic artwork, no photo, no setting, no stand, no external shadow. Full banner with minimal padding, transparent outside. The original uploaded banner collection and Hogwarts crest are additional visual references.
+## Subject images (2026-11-14)
+
+Generated with the built-in image tool from the user's supplied references. Both
+outputs were visually inspected and copied without modification, with SHA-256
+equality checks. These are review assets only: no subject image paths or database
+records were changed, and neither image has been applied to a program card.
+
+- `wwwroot/images/programs/defence-against-the-dark-arts.png`: 1536×1024 landscape.
+  Reference: the uploaded live-action classroom still with blue pixies, floating
+  books, three robed students and a suspended boy beneath vaulted timber rafters.
+  Prompt direction: preserve early-2000s fantasy-film lighting, restrained effects,
+  muted blue-grey/stone palette, natural film texture and coherent anatomy; recreate
+  the low-angle classroom action, keeping the central subject suitable for cropping.
+  No text, UI, watermark or border.
+- `wwwroot/images/programs/astronomy.png`: 1536×1024 landscape.
+  Reference: the uploaded celestial blue antechamber with pointed doorway.
+  Prompt direction: maintain the grounded cinematic fantasy-game art style,
+  weathered carved timber and stone, gold astronomical diagrams on midnight-blue
+  walls, circular celestial ceiling detail, floor medallion, and softly lit doorway
+  with a small robed figure for scale. Retain painterly atmospheric softness;
+  no extra instruments, neon, text, UI, or the reference's lower-left white emblem.
