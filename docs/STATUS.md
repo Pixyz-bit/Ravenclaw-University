@@ -4,6 +4,18 @@ Last verified: 2026-11-14.
 
 ## Latest error check
 
+- 2026-11-14 follow-up on the loading page: the web server responded immediately
+  to anonymous requests, but its logs showed SQL execution timeouts during account
+  session revalidation. SQL inspection found no active user-query blocker. Fresh
+  EF probes passed five rounds each using localhost and shared memory, reading
+  the account-status projection and all seven university content sources. Kept
+  the existing connection settings/encryption; restarted the web process to clear
+  its pool and redirect logs into ignored TestResults/LocalRun files. Five further
+  EF rounds passed, and login returned HTTP 200 in under one second. This is a
+  local recovery, not proof that the intermittent SQL problem is permanently fixed.
+  Inspection of the user's signed-in Chrome page could not complete because the
+  computer-access request timed out. No accounts, schema, or content were changed.
+
 - During the palette/typography pass, the existing isolated verifier built with
   zero warnings/errors and passed 13 authentication checks before an HTTP request
   exceeded its 20-second timeout. The disposable database was cleaned up. The
