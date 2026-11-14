@@ -546,6 +546,11 @@ Last verified: 2026-11-14.
 
 ## Not implemented / not verified
 
+- Charms and Transfiguration subject-image generations were rejected by the built-in
+  image tool at output moderation on 2026-11-14. No generated files exist for these
+  requests and no subject image records were modified. Defence Against the Dark
+  Arts and Astronomy review assets were successfully generated and saved.
+
 - Mobile About dot navigation can stop at an intermediate chapter when selecting
   Vision from the introduction. The same result was reproduced using the previous
   stylesheet (before the shared typography changes). about-story.js was not changed

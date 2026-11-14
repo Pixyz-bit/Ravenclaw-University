@@ -66,6 +66,11 @@ Create one original fantasy collegiate pennant for Ravenclaw. Use the attached f
 Create one original fantasy collegiate pennant for Hufflepuff. Use the attached finished red banner as the exact format and style guide: same tall narrow pointed shape, double border, geometric starburst field, light print grain, top small emblem, ornate blackletter name, central heraldic shield, crossed wands, compass star. Draw all art anew. Field palette: warm ochre yellow with charcoal-black edging. Main shield design: a black and ivory badger on an ochre yellow and charcoal shield. Exact text once: "Hufflepuff". No other text. Consistent flat vintage heraldic artwork, no photo, no setting, no stand, no external shadow. Full banner with minimal padding, transparent outside. The original uploaded banner collection and Hogwarts crest are additional visual references.
 ## Subject images (2026-11-14)
 
+Charms and Transfiguration were also requested from supplied classroom film stills.
+Both built-in image-generation calls were rejected by the tool's safety system
+at output moderation. No images were returned or installed for those two subjects.
+The reference images were not substituted as generated assets.
+
 Generated with the built-in image tool from the user's supplied references. Both
 outputs were visually inspected and copied without modification, with SHA-256
 equality checks. These are review assets only: no subject image paths or database
