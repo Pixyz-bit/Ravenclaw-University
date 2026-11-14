@@ -232,6 +232,11 @@ without borrowing her identity. Empty/missing-biography states remain supported.
 
 The founder section now reserves 100dvh minus the measured navbar height. Its
 heading occupies an automatic grid row and the portrait/biography fills the rest.
+Its horizontal padding matches the footer exactly: clamp(24px, 5vw, 96px). The
+former 1152px centered width cap is removed, so the heading/divider and founder
+composition use the footer's full available content width. Biography line length
+remains capped for reading, and the bottom-aligned portrait retains its responsive
+height. The navbar itself retains its established content width.
 Top padding is halved to clamp(8px, 1.5dvh, 16px) per the latest user refinement.
 Spacing and portrait width scale with viewport height; short desktop windows use
 tighter paragraph leading and a smaller motto. The leadership anchor cancels the

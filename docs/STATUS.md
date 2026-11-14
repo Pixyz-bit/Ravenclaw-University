@@ -51,6 +51,15 @@ Last verified: 2026-11-14.
 
 ## Completed
 
+- Matched founder-section horizontal padding to the footer's clamp(24px, 5vw, 96px)
+  and removed its centered 1152px width cap. Retained navbar-measured viewport sizing,
+  readable biography width, and name-top/section-bottom portrait alignment. Tailwind
+  compilation and source checks passed. The current browser automation service
+  timed out twice (service_info), so the wider composition's fresh visual/viewport
+  verification remains unconfirmed; prior viewport checks predate this gutter change.
+  A later PowerShell startup failed with OutOfMemoryException; Git checks used
+  the lightweight Windows command shell instead.
+
 - Reordered the public navbar to Home, About, Academics, Founder, Contact, replacing
   its Leadership label with Founder while retaining #leadership. The shared markup
   supplies desktop and phone navigation. Normal build passed with zero warnings/
