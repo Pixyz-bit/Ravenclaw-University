@@ -1,0 +1,38 @@
+@model UniversityPageViewModel
+<section id="leadership" class="leadership-section" aria-labelledby="founders-title">
+    <div class="founders-container">
+        <header class="founders-heading">
+            <h2 id="founders-title" class="university-section-title">Our founder</h2>
+            <p class="founders-wordmark">Ravenclaw<br />University</p>
+        </header>
+        @if (Model.Founders.Count == 0)
+        {
+            <p class="empty-copy founders-empty">Founder information will be published here.</p>
+        }
+        @foreach (var founder in Model.Founders)
+        {
+            var isRowena = string.Equals(founder.FounderName.Trim(), "Rowena Ravenclaw", StringComparison.OrdinalIgnoreCase);
+            <article class="founder-profile @(isRowena ? "founder-profile-portrait" : null)" aria-labelledby="founder-@founder.FounderId">
+                @if (isRowena)
+                {
+                    <figure class="founder-portrait">
+                        <img src="~/images/founders/rowena-ravenclaw.png" asp-append-version="true" width="970" height="1621" alt="Rowena Ravenclaw wearing a blue gown and holding a book" loading="lazy" decoding="async" />
+                    </figure>
+                }
+                <div class="founder-biography">
+                    <h3 id="founder-@founder.FounderId" class="university-subtitle">@founder.FounderName</h3>
+                    <p class="founder-role">Founder</p>
+                    @if (founder.Birthday.HasValue)
+                    {
+                        <p class="founder-date">Born <time datetime="@founder.Birthday.Value.ToString("yyyy-MM-dd")">@founder.Birthday.Value.ToString("MMMM d, yyyy", System.Globalization.CultureInfo.InvariantCulture)</time></p>
+                    }
+                    <p class="founder-description prose">@(string.IsNullOrWhiteSpace(founder.Description) ? "A biography has not been published yet." : founder.Description)</p>
+                    @if (isRowena)
+                    {
+                        <blockquote class="founder-motto">“Wit beyond measure is man's greatest treasure.”</blockquote>
+                    }
+                </div>
+            </article>
+        }
+    </div>
+</section>

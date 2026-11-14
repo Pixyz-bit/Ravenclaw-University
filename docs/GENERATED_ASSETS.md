@@ -1,4 +1,27 @@
-# Generated collegiate pennants
+# Generated university assets
+
+## Rowena Ravenclaw portrait (2026-11-14)
+
+`241611JalopFinalQuiz2/wwwroot/images/founders/rowena-ravenclaw.png` is the
+970×1621 transparent PNG produced earlier in this chat with the built-in image
+tool from the user's painted full-length portrait. The user approved its use in
+the ivory founder layout. The generated output is copied unchanged; responsive
+upper-body cropping happens in CSS. Image generation may have changed fine details
+relative to the original upload. No new generation was performed for integration.
+
+SHA-256: `9398BD4ADBB09A5BF3547867BB17CC2118B93FD2A01F1267AEE92426E70BE726`.
+
+Generation prompt: “Use case: background-extraction. Edit target: supplied image.
+Remove only the entire architectural room, windows, walls, floor, and floor shadow,
+replacing with actual transparent alpha. Clean precise cutout of the full woman
+including all hair, circlet, face, hands, book, blue gown and gold trim down to the
+entire hem. Preserve the original picture's subject exactly: same face, expression,
+pose, proportions, colors, painted texture, clothing details, book, framing and
+positioning. Do not redraw, reinterpret, beautify, recolor, sharpen or alter any part
+of the woman or held book. Clean natural edges without background fringes. Output
+transparent PNG.”
+
+## Generated collegiate pennants
 
 Generated with the built-in image-generation tool for the Hogwarts Collegiate Circle. Five distinct PNG assets, with transparent surroundings and matching flat heraldic illustration style. These do not replace the approved main university crest.
 

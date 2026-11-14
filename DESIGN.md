@@ -9,3 +9,6 @@ section palette and shared typography roles.
 Later refinements: title-only program cards with hover/keyboard reveal and mobile
 tap toggles; flat, scroll-driven gallery across two viewport heights. See the
 canonical reference for the current interaction rules.
+
+2026-11-14: approved ivory founder portrait/text composition with a responsive
+upper-body crop, database-backed biography, and no public message dropdown.

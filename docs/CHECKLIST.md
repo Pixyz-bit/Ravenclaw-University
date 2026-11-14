@@ -93,7 +93,9 @@ intermediate-chapter issue reproduced with the previous stylesheet; see STATUS.m
 - [x] Render the configured hero image with approved-crest fallback and university branding.
 - [x] Render description, mission, vision, core value titles, and About image gallery.
 - [x] Render subjects/programs with descriptions and images.
-- [x] Render entered founder names, optional birthdays, biographies, and messages; do not seed invented facts.
+- [x] Render entered founder names, optional birthdays, and biographies. The approved
+  2026-11-14 portrait layout uses Rowena's approved biography and motto; public
+  message rendering was removed. Stored messages remain editable in Administration.
 - [x] Render address, email, telephone, office hours, and supported social icons.
 - [x] Add empty-content and generic database-error states without exposing account data or connection details.
 

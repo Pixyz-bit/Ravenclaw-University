@@ -35,6 +35,17 @@ its Tailwind styling; no database changes were needed.
 
 ## Using the editors
 
+The approved Rowena Ravenclaw biography was saved on 2026-11-14 through the existing
+FounderTable content fields. It describes her canonical Hogwarts/Ravenclaw House
+background, then connects her legacy to this fictional university. The public
+section uses an ivory portrait/text composition, with a responsive upper-body CSS
+crop and the existing motto. Founder messages are retained in the editor but no
+longer rendered publicly; no message dropdown or separate message section is shown.
+The matching Rowena record uses the approved static portrait; other founders retain
+their own database-backed text. Schema.sql and database definitions are unchanged.
+Database/SeedFounder.sql records the approved content publication, runs only when
+deliberately invoked, and preserves other founders, birthdays, and stored messages.
+
 The approved Ravenclaw-inspired About, Mission, and Vision copy was saved to the
 local database on 2026-11-12. Core values are Intelligence, Wisdom, Creativity,
 and A Lifelong Love of Learning. About now starts directly with “A place for curious

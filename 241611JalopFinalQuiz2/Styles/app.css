@@ -16,6 +16,7 @@
 @import "./sections/gallery.css";
 @import "./sections/collegiate.css";
 @import "./sections/contact.css";
+@import "./sections/founders.css";
 
 @source "../Views";
 @source "../wwwroot/js";

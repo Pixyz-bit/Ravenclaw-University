@@ -60,6 +60,12 @@ with local SQL access. This validates these reads, not every mapping in the sche
 
 ## Tables
 
+SeedFounder.sql contains the approved Rowena Ravenclaw biography, applied to the
+previously empty founder table on 2026-11-14. It inserts her when absent or updates
+only her biography when exactly one matching name exists, stopping on duplicates.
+It preserves other founders, birthdays, and stored messages. This is optional
+content, not an automatic startup action or a schema change.
+
 SeedUniversityContent.sql contains the user-approved tentative About, Mission,
 Vision, and four core values. It was applied to the local database on 2026-11-12.
 It deliberately replaces these texts and the entire core-value list, preserving

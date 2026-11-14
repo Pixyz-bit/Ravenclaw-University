@@ -1,6 +1,6 @@
 # Current status
 
-Last verified: 2026-11-12.
+Last verified: 2026-11-14.
 
 ## Latest error check
 
@@ -38,6 +38,28 @@ Last verified: 2026-11-12.
   were removed; no real university records were changed by these checks.
 
 ## Completed
+
+- Implemented the approved ivory founder layout with “Our founder,” a small
+  university wordmark, gold divider, portrait left, and biography/motto right.
+  The transparent Rowena asset is preserved unchanged; responsive CSS crops her
+  upper body while retaining face, hands, and book. Phones stack image and text.
+  Removed public founder-message rendering entirely; stored messages and the
+  existing founder editor remain available. No separate message section was added.
+- Saved the user-approved Rowena biography to the previously empty founder table.
+  Readback confirmed the exact approved text. SeedFounder.sql records this content
+  action only; schema, birthdays, other founders, and stored messages are unchanged.
+  Initial SQL attempts timed out; readback confirmed the table was still empty
+  before the successful shared-memory retry. Connection settings remain unchanged.
+- Final normal and isolated builds passed with zero warnings/errors. Tailwind
+  compilation and the design detector passed. Compiled Razor fixtures verified
+  empty/missing-biography states, encoded names, Rowena-only portrait selection,
+  and exclusion of stored messages. Browser checks at 1280px desktop and 375px
+  phone widths confirmed loaded portrait, responsive crop, stacked phone layout,
+  no dropdown, and no horizontal overflow. These browser checks used disposable
+  in-memory ViewModels rather than signed-in live content. Full SQL integration
+  and authenticated browser checks were not rerun for this presentation change.
+- Restarted the normal http Development server at localhost:5182. Login, founder
+  portrait, and rebuilt CSS returned HTTP 200; the temporary preview was stopped.
 
 - User retained the title-only program-card reveal after cancelling the requested
   rollback. Mobile uses the native details tap toggle; keyboard reveal is scoped
@@ -460,8 +482,9 @@ Last verified: 2026-11-12.
   The original transparent logo is saved, but both built-in generation/edit attempts
   were rejected. The existing center banner is still the H-monogram version.
 
-- University pages and editors are implemented; approved images, real content,
-  and verified founder facts still need entering through the editors.
+- University pages and editors are implemented; remaining approved imagery and
+  content still need entering through the editors. Rowena's approved biography
+  and portrait are now published; contact details remain unfinished.
 - Student self-registration selected. The user applied the four personal fields;
   live metadata verified all eight tables and the enabled Role CHECK on 2026-11-11.
   Schema.sql is the sole consolidated schema; the completed update script was removed.

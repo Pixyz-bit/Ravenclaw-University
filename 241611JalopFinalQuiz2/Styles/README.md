@@ -20,7 +20,8 @@ Styles/
     account.css              Login and registration layouts
     admin.css                Admin sidebar, workspace, dashboard
   sections/
-    university.css           Hero, contact, founder, content containers
+    university.css           Hero, shared content containers, legacy section helpers
+    founders.css             Ivory founder biography and responsive portrait crop
     academics.css            Program cards and automatic carousel
     about.css                Sticky 50/50 text/image chapters and mobile rail
     gallery.css              DriftWall gallery, static fallback, image dialog

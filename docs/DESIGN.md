@@ -197,6 +197,27 @@ the description; tapping again closes it. Focus-based reveals use focus-visible
 so ordinary touch focus does not hold a closed card open. Keyboard users still
 reveal the caption when navigating to the summary or description.
 
+## Founder portrait (2026-11-14)
+
+The approved ivory portrait reference replaces the previous plain founder list.
+Leadership retains its navigation anchor and sits between Collegiate Circle and
+the contact footer. A shared section-title “Our founder” and a small two-line
+Ravenclaw University wordmark sit above a fine gold divider. Desktop places the
+portrait left and database-backed name, Founder role, biography, and Rowena's
+existing motto right. The biography uses the shared Lato body scale; the name
+uses the shared Cormorant Garamond subtitle. Phones stack portrait above text.
+
+The approved transparent Rowena portrait is preserved unchanged in
+wwwroot/images/founders/rowena-ravenclaw.png. CSS crops from its top in a square
+desktop frame and a wider phone frame, keeping her face, hands, and book visible.
+There is no full-body requirement and no message dropdown or public message block.
+Stored founder messages remain available in the existing admin editor; a separate
+message section is not implemented as part of this approved revision.
+
+Founder descriptions remain editable database content. Only Rowena's matching
+record uses her static portrait/motto; other founder records keep their own text
+without borrowing her identity. Empty/missing-biography states remain supported.
+
 ## Contact footer
 
 The approved reference-inspired contact footer replaces both the standalone contact

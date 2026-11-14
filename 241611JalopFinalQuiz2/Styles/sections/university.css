@@ -154,22 +154,6 @@
     @apply inline-flex gap-[10px] items-center min-h-[44px];
 }
 
-.founder-entry {
-    @apply [padding:24px_0] [border-top:1px_solid_var(--color-line)];
-}
-
-.founder-date {
-    @apply text-muted;
-}
-
-.founder-entry h4 {
-    @apply text-[.9rem] mt-[24px];
-}
-
-.founder-entry blockquote {
-    @apply [margin:16px_0] p-0 font-heading text-[1.6rem];
-}
-
 @media(max-width:700px) {
     .university-hero {
         @apply [--portal-header-height:124px];
