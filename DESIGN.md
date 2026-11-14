@@ -12,3 +12,7 @@ canonical reference for the current interaction rules.
 
 2026-11-14: approved ivory founder portrait/text composition with a responsive
 upper-body crop, database-backed biography, and no public message dropdown.
+
+Founder sizing follows the viewport minus the measured navbar height, with
+height-responsive spacing and a corrected anchor offset. See docs/DESIGN.md for
+the natural-growth exceptions on phones, long content, and zoom.

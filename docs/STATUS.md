@@ -51,6 +51,16 @@ Last verified: 2026-11-14.
 
 ## Completed
 
+- Sized the founder section against 100dvh minus the measured navbar height, with
+  height-responsive padding, portrait size, and short-desktop typography. Corrected
+  the leadership anchor's doubled navbar offset. Compiled Razor fixture browser
+  measurements confirmed navbar + section equals the viewport at 1366×768,
+  1280×720, and 1280×600; the short-desktop screenshot showed the entire biography
+  and motto. At 375×812, content remains stacked and grows naturally without text
+  clipping or horizontal overflow. Long content/zoom may also grow rather than clip.
+  Tailwind compilation and design detector passed. This CSS-only change needs no
+  server restart; no database or authentication settings changed.
+
 - Implemented the approved ivory founder layout with “Our founder,” a small
   university wordmark, gold divider, portrait left, and biography/motto right.
   The transparent Rowena asset is preserved unchanged; responsive CSS crops her

@@ -218,6 +218,15 @@ Founder descriptions remain editable database content. Only Rowena's matching
 record uses her static portrait/motto; other founder records keep their own text
 without borrowing her identity. Empty/missing-biography states remain supported.
 
+The founder section now reserves 100dvh minus the measured navbar height. Its
+heading occupies an automatic grid row and the portrait/biography fills the rest.
+Spacing and portrait width scale with viewport height; short desktop windows use
+tighter paragraph leading and a smaller motto. The leadership anchor cancels the
+global 16px breathing room, aligning the section directly below the navbar rather
+than adding a second navbar offset. Content remains in normal flow: long CMS text,
+multiple founders, phones, and extreme zoom may grow the section instead of hiding
+or clipping text. The approved desktop biography fits at 1280×600 and taller.
+
 ## Contact footer
 
 The approved reference-inspired contact footer replaces both the standalone contact
