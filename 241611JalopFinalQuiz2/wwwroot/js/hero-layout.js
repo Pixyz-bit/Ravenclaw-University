@@ -10,7 +10,10 @@ if (viewportHero && portalHeader) {
         const boundary = portalHeader.getBoundingClientRect().height + 17;
         portalHeader.classList.toggle('is-over-hero', viewportHero.getBoundingClientRect().bottom > boundary);
         const footerBounds = contactFooter?.getBoundingClientRect();
-        const atFooter = Boolean(footerBounds && footerBounds.top < window.innerHeight && footerBounds.bottom > 0);
+        const visibleFooterHeight = footerBounds
+            ? Math.max(0, Math.min(footerBounds.bottom, window.innerHeight) - Math.max(footerBounds.top, 0))
+            : 0;
+        const atFooter = Boolean(footerBounds && footerBounds.height > 0 && visibleFooterHeight >= footerBounds.height * 0.5);
         portalHeader.classList.toggle('is-footer-hidden', atFooter);
         portalHeader.inert = atFooter;
     };
@@ -22,7 +25,7 @@ if (viewportHero && portalHeader) {
     syncHeight();
     const observer = new ResizeObserver(syncHeight);
     observer.observe(portalHeader);
-    const footerObserver = contactFooter ? new IntersectionObserver(syncAppearance) : null;
+    const footerObserver = contactFooter ? new IntersectionObserver(syncAppearance, { threshold: 0.5 }) : null;
     if (contactFooter) footerObserver.observe(contactFooter);
     let pending = false;
     const onScroll = () => {

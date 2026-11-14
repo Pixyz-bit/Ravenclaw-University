@@ -51,6 +51,13 @@ Last verified: 2026-11-14.
 
 ## Completed
 
+- Changed the navbar footer trigger to hide only when at least 50% of the footer's
+  height is inside the viewport, restoring it below that threshold. The observer
+  uses the same 0.5 threshold; scrolling, resizing, and page restoration still
+  synchronize visibility and inert state. JavaScript syntax and targeted boundary
+  checks passed, covering just below/exactly/above half, reverse scrolling, clipped,
+  tall and empty footers, resize, and page restoration. No server restart required.
+
 - Matched founder-section horizontal padding to the footer's clamp(24px, 5vw, 96px)
   and removed its centered 1152px width cap. Retained navbar-measured viewport sizing,
   readable biography width, and name-top/section-bottom portrait alignment. Tailwind
