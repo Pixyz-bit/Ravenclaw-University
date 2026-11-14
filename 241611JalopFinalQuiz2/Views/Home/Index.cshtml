@@ -49,12 +49,22 @@ else
             </div>
         }
     </section>
+    @* Temporarily hidden at the user's request; retain the sections for restoration.
     <partial name="_UniversityGallery" model="Model" />
     <partial name="_CollegiateCircle" />
+    *@
     <partial name="_UniversityFounders" model="Model" />
 }
 @section Footer {
     @if (!Model.Unavailable) { <partial name="_UniversityContact" model="Model" /> }
     else { <footer class="portal-footer">© @DateTime.UtcNow.Year Ravenclaw University <span>Where Wisdom Takes Flight.</span></footer> }
 }
-@section Scripts { <script src="~/js/hero-layout.js" asp-append-version="true"></script><script src="~/js/program-showcase.js" asp-append-version="true"></script><script src="~/js/about-story.js" asp-append-version="true"></script><script src="~/js/drift-wall.js" asp-append-version="true"></script><script src="~/js/collegiate-circle.js" asp-append-version="true"></script> }
+@section Scripts {
+    <script src="~/js/hero-layout.js" asp-append-version="true"></script>
+    <script src="~/js/program-showcase.js" asp-append-version="true"></script>
+    <script src="~/js/about-story.js" asp-append-version="true"></script>
+    @* Restore alongside the gallery and Collegiate Circle sections.
+    <script src="~/js/drift-wall.js" asp-append-version="true"></script>
+    <script src="~/js/collegiate-circle.js" asp-append-version="true"></script>
+    *@
+}

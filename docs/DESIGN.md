@@ -66,6 +66,12 @@ Navigation -> Hero -> About -> Academics -> Gallery -> Collegiate Circle ->
 Leadership -> Contact footer. The implemented version uses one
 authenticated homepage with section anchors; separate detail pages remain optional.
 
+Gallery and The Hogwarts Collegiate Circle are temporarily hidden at the user's
+request (2026-11-14). The visible flow now goes directly from Academics to Leadership.
+Their partials, styles, scripts, assets, and gallery editor/data are retained.
+Homepage script includes and the footer Gallery link are hidden with the sections;
+restore them together when requested.
+
 - Full-width navy university navbar, navy admin sidebar and footer; alternate navy and ivory content sections.
 - Large architectural hero image with readable overlay and left-aligned headline.
   Use Ravenclaw University consistently in the logo text, headings, navigation,

@@ -51,6 +51,13 @@ Last verified: 2026-11-14.
 
 ## Completed
 
+- Temporarily hid the public university gallery and The Hogwarts Collegiate Circle
+  using Razor comments, including their homepage script includes and footer Gallery
+  link. Their implementation/assets and gallery editor/data remain intact. Academics
+  now leads directly to the founder section. Normal build passed with zero warnings/
+  errors; compiled Razor verification confirmed both sections, their scripts, and
+  the Gallery link are absent while academics, founder, and contact remain rendered.
+
 - Aligned the desktop founder portrait's top with Rowena's name while keeping its
   bottom flush with the section. Shared CSS grid rows replace the square desktop
   frame; the portrait asset and mobile crop are unchanged. Compiled Razor fixture

@@ -1,5 +1,10 @@
 # University content and administration
 
+As of 2026-11-14, the university gallery and The Hogwarts Collegiate Circle are
+temporarily hidden on the public homepage. Academics leads directly to the founder
+section. Their partials, assets, styles, scripts, and gallery editor/data remain
+intact; the homepage script includes and footer Gallery link are also hidden.
+
 The authenticated homepage has hero, About, academics, a drifting gallery, contact,
 and founder information. Navigation links jump to
 the corresponding sections. Admin image uploads and account management are now
