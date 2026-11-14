@@ -72,6 +72,10 @@ Their partials, styles, scripts, assets, and gallery editor/data are retained.
 Homepage script includes and the footer Gallery link are hidden with the sections;
 restore them together when requested.
 
+The public navbar order is Home, About, Academics, Founder, Contact. Founder keeps
+the existing #leadership anchor; desktop and the collapsed phone menu share this
+same markup and order.
+
 - Full-width navy university navbar, navy admin sidebar and footer; alternate navy and ivory content sections.
 - Large architectural hero image with readable overlay and left-aligned headline.
   Use Ravenclaw University consistently in the logo text, headings, navigation,

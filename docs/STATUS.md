@@ -51,6 +51,13 @@ Last verified: 2026-11-14.
 
 ## Completed
 
+- Reordered the public navbar to Home, About, Academics, Founder, Contact, replacing
+  its Leadership label with Founder while retaining #leadership. The shared markup
+  supplies desktop and phone navigation. Normal build passed with zero warnings/
+  errors; compiled Razor checks confirmed the exact link order and Founder target.
+  Design detection flagged only the existing approved Lato font, which is retained.
+  Restarted the local Development server with this and the hidden-section changes.
+
 - Temporarily hid the public university gallery and The Hogwarts Collegiate Circle
   using Razor comments, including their homepage script includes and footer Gallery
   link. Their implementation/assets and gallery editor/data remain intact. Academics
