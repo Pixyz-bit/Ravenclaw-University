@@ -51,6 +51,11 @@ Last verified: 2026-11-14.
 
 ## Completed
 
+- Generated Potions from the user's second reference (unoccupied alchemy workbench),
+  matching the muted cinematic subject-image style. Visually inspected the output,
+  saved wwwroot/images/programs/potions.png, and verified the copy by SHA-256.
+  No program binding, database record or schema was changed.
+
 - Generated Charms from the user's second, rear-of-classroom reference, preserving
   warm cinematic light, aged materials and levitating feathers. Saved the inspected
   PNG as wwwroot/images/programs/charms.png and verified its copy by SHA-256.
@@ -551,10 +556,10 @@ Last verified: 2026-11-14.
 
 ## Not implemented / not verified
 
-- Transfiguration and Potions image generations were rejected by the built-in
-  image tool at output moderation on 2026-11-14. No generated files exist for those
-  subjects and no subject image records were modified. The first Charms attempt
-  was also rejected; a later user-supplied reference produced a saved Charms image.
+- Transfiguration image generation was rejected by the built-in image tool at output
+  moderation on 2026-11-14; no generated file exists for that subject. The first
+  Charms and Potions attempts were also rejected; later user-supplied references
+  produced saved images for both. No subject image records were modified.
 
 - Mobile About dot navigation can stop at an intermediate chapter when selecting
   Vision from the introduction. The same result was reproduced using the previous

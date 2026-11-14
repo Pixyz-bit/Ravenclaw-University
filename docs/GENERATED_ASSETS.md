@@ -69,7 +69,8 @@ Create one original fantasy collegiate pennant for Hufflepuff. Use the attached 
 The first Charms reference and the Transfiguration/Potions generation requests
 were rejected by the tool's safety system at output moderation. No output was
 returned for those calls. Charms subsequently succeeded using the user's new
-rear-of-classroom reference. No reference image was substituted as a generated asset.
+rear-of-classroom reference. Potions also succeeded from the later unoccupied
+workbench photograph. No reference image was substituted as a generated asset.
 
 Generated with the built-in image tool from the user's supplied references. The
 outputs were visually inspected and copied without modification, with SHA-256
@@ -97,3 +98,10 @@ records were changed, and none of these images has been applied to a program car
   match the realistic fantasy-film material textures, muted colors and fine grain
   of the other subject images. No overlay text, logos or borders. Original output
   copied unchanged and SHA-256 verified; saved for review, not bound to a program.
+- `wwwroot/images/programs/potions.png`: 1536×1024 landscape.
+  Reference: the user's second Potions image, an unoccupied alchemy workbench with
+  cauldrons, vials, leather books, ingredient shelves and a round-topped doorway.
+  Prompt direction: retain the arrangement and dungeon atmosphere while replacing
+  saturated exhibition lighting with muted warm/cool cinematic light, natural
+  material textures and fine film grain. No people, signature, watermark or UI.
+  Original output copied unchanged and SHA-256 verified; saved for review only.
