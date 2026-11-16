@@ -4,6 +4,18 @@ Last verified: 2026-11-16.
 
 ## Latest error check
 
+- 2026-11-16 follow-up sign-in recovery: SQL Server was running, but the web log
+  showed pre-login handshake and account-query execution timeouts. Fresh EF reads
+  passed and SQL inspection found no active user-query blocker. SQL reported its
+  process physical-memory-low flag as 1; system memory was steady with about
+  890 MiB available, so this is evidence of process memory pressure, not proof of
+  the timeout's root cause. Restarted only the identified local web app to clear
+  its pool. Five CSRF-protected login POSTs using nonexistent diagnostic usernames
+  reached ordinary credential validation (1503, 63, 96, 34, and 15 ms). The memory
+  flag remained set. User sign-in still needs retry; recurring SQL connection
+  stability remains unresolved. No account, content, schema, encryption, or server
+  memory configuration was changed.
+
 - 2026-11-16: Restored an explicit Dashboard link as the first admin sidebar
   option, followed by the five content/account sections. It links to the existing
   analytics dashboard and marks that route active. Updated the existing navigation
