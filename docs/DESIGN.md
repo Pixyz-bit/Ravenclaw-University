@@ -433,7 +433,7 @@ account dropdown has a fine gold outline, modest radius, and compact identity
 layout based on the supplied reference. Show the saved 52px round profile photo
 (name initials when absent), full first/middle/last name with the Admin badge below it. Hide the redundant
 username line for admins; students retain their username beneath the name. No email field exists, so do not invent an email address.
-The dropdown is 300px wide with 16px padding. Below the identity divider, matching rows offer Edit personal information and
+The dropdown is 260px wide with 16px padding. Below the identity divider, matching rows offer Edit personal information and
 Manage website (Admin only). Sign out stays a separated POST action. Use internal
 chevrons rather than external-link arrows. Existing outside-click/Escape closing remains.
 The admin sidebar also provides the personal-information link.

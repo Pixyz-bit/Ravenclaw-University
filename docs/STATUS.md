@@ -163,6 +163,11 @@ Last verified: 2026-11-16.
 
 ## Completed
 
+- Reduced the account-menu width again, from 300px to 260px, retaining the below-name
+  Admin badge, 16px padding and existing actions. Tailwind build and compiled-CSS
+  width verification passed. Reviewed the Profile markup/styles for UI suggestions;
+  no Profile layout or account data was changed in this refinement.
+
 - Narrowed the account dropdown from 360px to 300px with 16px padding. Moved the
   Admin badge below the saved name and removed the duplicate username line for
   admins; student menus retain their username. Actions and role gating are unchanged.

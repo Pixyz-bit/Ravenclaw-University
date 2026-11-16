@@ -120,7 +120,7 @@ html:has(.portal-header) {
 }
 
 .account-dropdown {
-    @apply absolute z-20 right-0 [top:calc(100%_+_12px)] w-[300px] [max-width:calc(100vw_-_40px)] p-[16px] bg-ivory rounded-[12px] [border:1px_solid_var(--color-gold)] [box-shadow:0_16px_40px_#101d3430];
+    @apply absolute z-20 right-0 [top:calc(100%_+_12px)] w-[260px] [max-width:calc(100vw_-_40px)] p-[16px] bg-ivory rounded-[12px] [border:1px_solid_var(--color-gold)] [box-shadow:0_16px_40px_#101d3430];
 }
 
 .account-dropdown-name {
