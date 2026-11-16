@@ -1,6 +1,6 @@
 -- Optional approved CONTENT only; never run automatically. No schema changes.
 -- Inserts Rowena when absent; updates only her biography when already present.
--- Other founders, birthdays, and stored messages remain unchanged.
+-- Refuses duplicate/different founders; preserves existing birthdays and messages.
 USE [Ravenclaw University Db];
 GO
 SET NOCOUNT ON;
@@ -15,6 +15,9 @@ DECLARE @Matches INT = (
     SELECT COUNT(*) FROM dbo.FounderTable WITH (UPDLOCK, HOLDLOCK)
     WHERE LTRIM(RTRIM(FounderName)) COLLATE Latin1_General_100_CI_AS = N'Rowena Ravenclaw'
 );
+DECLARE @Total INT = (SELECT COUNT(*) FROM dbo.FounderTable WITH (UPDLOCK, HOLDLOCK));
+IF @Total > 1 OR (@Total = 1 AND @Matches = 0)
+    THROW 50002, 'One existing founder is required. Review the saved record before publishing.', 1;
 IF @Matches > 1
     THROW 50001, 'Multiple Rowena Ravenclaw entries exist. Review them before publishing.', 1;
 IF @Matches = 0

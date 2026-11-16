@@ -14,7 +14,7 @@ The application does not execute this file automatically.
 
 Open Schema.sql in SSMS or the MSSQL extension, connect to the intended SQL
 Server instance, and execute the whole script once to create a fresh database
-and its eight tables. GO is a client batch separator, not a SQL statement to
+and its seven tables. GO is a client batch separator, not a SQL statement to
 send directly through application code.
 
 If the database or tables already exist, do not run this creation script.
@@ -116,7 +116,6 @@ Schema.sql remains the single consolidated schema definition.
 | FounderTable | Founder name, birthday, biography, and message | FounderId |
 | CoreValuesTable | Individually managed core value titles | CoreValueId |
 | ProgramsTable | Subjects/programs, descriptions, and images | SubjectId |
-| SocialLinksTable | Platform names, URLs, and optional icon classes | SocialLinkId |
 
 All primary keys are auto-generated INT IDENTITY(1,1) values. Nullable columns
 are explicitly marked NULL. There are no foreign keys or additional indexes;
@@ -152,3 +151,7 @@ No foreign keys exist. Constraint names may differ because SQL Server generates 
 The user's pasted export omits the Role CHECK, but the live database contains an
 enabled, trusted constraint permitting Admin or Student only. Schema.sql retains
 it to reflect the actual database. CREATE DATABASE, USE, and GO provide fresh setup.
+
+## Social-links removal and Founder policy (2026-11-16)
+
+Inspected live data and dependencies before removal: SocialLinksTable had no records and no referencing foreign keys. A guarded transaction aborted if either condition changed; the empty table was dropped successfully. Schema.sql and EF mappings/entities now contain the remaining seven tables. No other data or columns changed. The existing Rowena Ravenclaw record was preserved. Founder is enforced as edit-only in its controller using a serializable single-record query; no admin create/delete routes remain. This is an application policy, not a new database singleton constraint. Direct SQL must preserve the one-founder policy.

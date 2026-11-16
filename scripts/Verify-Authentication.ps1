@@ -173,14 +173,14 @@ try {
         Assert-Check ($universityPage.Status -eq 200 -and $universityPage.Body.Contains('name="ImageUpload"') -and $universityPage.Body.Contains('type="file"') -and $universityPage.Body.Contains('name="AcademyDescription"') -and $universityPage.Body.Contains('name="Mission"') -and $universityPage.Body.Contains('name="Vision"')) 'University page displays its image uploader and three text fields'
         Assert-Check (-not $adminDashboard.Body.Contains('admin-nav-number') -and -not $adminDashboard.Body.Contains('admin-nav-heading') -and -not $adminDashboard.Body.Contains('class="admin-topbar"')) 'Admin sidebar has no numbers/divider and the admin topbar is removed'
         Assert-Check ((Send-Request $admin '/AdminContent?section=University').Location -like '/UniversityInformation*') 'Existing University information link redirects to its dedicated editor'
+        Invoke-TestSql "INSERT INTO dbo.FounderTable (FounderName,Description) VALUES (N'Fixture founder',N'Fixture biography');" | Out-Null
         $sections = @(
             @{Name='University';Controller='UniversityInformation';Table='AcademyInfoTable';Key='AcademyInfoId';Fields=@{AboutHeading='Verification heading';AcademyDescription='Verification university description';Mission='Verification mission';Vision='Verification vision';HeroImg='/images/branding/ravenclaw-university-crest.png'}},
             @{Name='Contacts';Controller='ContactInformation';Table='ContactsTable';Key='ContactId';Fields=@{AcademyAddress='Verification campus';Email='office@university.example';Telephone='+63 912 345 6789';TimeIn='08:30';TimeOut='17:15'}},
             @{Name='Values';Controller='CoreValues';Table='CoreValuesTable';Key='CoreValueId';Fields=@{Title='Verification title'}},
             @{Name='Photos';Controller='AboutGallery';Table='AboutImagesTable';Key='AboutImageId';Fields=@{ImagePath='/images/branding/ravenclaw-university-crest.png';AltText='Verification image'}},
             @{Name='Programs';Controller='AcademicPrograms';Table='ProgramsTable';Key='SubjectId';Fields=@{SubjectName='Verification title';Description='Verification description';ImagePath='/images/branding/ravenclaw-university-crest.png'}},
-            @{Name='Founders';Controller='FounderInformation';Table='FounderTable';Key='FounderId';Fields=@{FounderName='Verification title';Birthday='1900-01-01';Description='Verification description';FounderMessage='Verification title'}},
-            @{Name='SocialLinks';Controller='SocialLinks';Table='SocialLinksTable';Key='SocialLinkId';Fields=@{PlatformName='Verification title';Url='https://university.example';IconClass='fa-solid fa-globe'}}
+            @{Name='Founders';Controller='FounderInformation';Table='FounderTable';Key='FounderId';Fields=@{FounderName='Verification title';Birthday='1900-01-01';Description='Verification description';FounderMessage='Verification title'}}
         )
         foreach ($contentSection in $sections) {
             $name=$contentSection.Name; $route='/'+$contentSection.Controller; $fields=$contentSection.Fields.Clone()
@@ -190,9 +190,10 @@ try {
             $studentLogin = Submit-Form $studentClient '/Account/Login' @{Username='profile.student';Password='Test-Only-Scholar-2026'}
             Assert-Check ((Send-Request $studentClient $route).Location -like '*AccessDenied*') "Student cannot access $name editor"
             Assert-Check ((Send-Request $studentClient $route @{}).Location -like '*AccessDenied*') "Student cannot POST $name editor"
+            if ($name -eq 'Founders') { $fields.Id = Invoke-TestSql 'SELECT FounderId FROM dbo.FounderTable;' }
             $created = Submit-Form $admin $route $fields
             $recordId = Invoke-TestSql "SELECT TOP(1) [$($contentSection.Key)] FROM dbo.[$($contentSection.Table)] ORDER BY [$($contentSection.Key)] DESC;"
-            Assert-Check ($created.Status -eq 302 -and [int]$recordId -gt 0) "Admin can create $name content"
+            Assert-Check ($created.Status -eq 302 -and [int]$recordId -gt 0) "Admin can save $name content"
             if ($name -in @('University','Photos','Programs')) {
                 $imageColumn = if ($name -eq 'University') { 'HeroImg' } else { 'ImagePath' }
                 $imageBefore = Invoke-TestSql "SELECT [$imageColumn] FROM dbo.[$($contentSection.Table)] WHERE [$($contentSection.Key)]=$recordId;"
@@ -214,6 +215,33 @@ try {
             $contentSection.RecordId=$recordId
         }
         $rendered = Send-Request $admin '/'
+        Assert-Check ($rendered.Body.Contains('<title>Ravenclaw University</title>') -and $rendered.Body.Contains('/Profile') -and -not $rendered.Body.Contains('footer-socials')) 'Public title and account menu use the requested identity and personal-information link'
+        Assert-Check ((Send-Request $admin '/SocialLinks').Status -eq 404 -and (Send-Request $admin '/AdminContent?section=SocialLinks').Status -eq 404 -and (Invoke-TestSql "SELECT COUNT(*) FROM sys.tables WHERE name=N'SocialLinksTable';") -eq '0') 'Social links routes and table are removed'
+        $founderPage = Send-Request $admin '/FounderInformation'
+        Assert-Check ($founderPage.Body.Contains('Edit founder') -and -not $founderPage.Body.Contains('Add entry') -and -not $founderPage.Body.Contains('Saved entries')) 'Founder editor opens the one saved record without add or collection controls'
+        Assert-Check ((Submit-Form $admin '/FounderInformation' @{Id='0';FounderName='Forged second founder'}).Status -eq 404 -and (Invoke-TestSql 'SELECT COUNT(*) FROM dbo.FounderTable;') -eq '1') 'Founder POST cannot create another entry'
+        $founderDelete = Send-Request $admin '/FounderInformation/Delete' @{id='1'}
+        $legacyFounderDelete = Send-Request $admin '/AdminContent/Delete?section=Founders&id=1'
+        Assert-Check ($founderDelete.Status -in @(404,405) -and $legacyFounderDelete.Status -eq 404 -and (Invoke-TestSql 'SELECT COUNT(*) FROM dbo.FounderTable;') -eq '1') "Founder delete endpoints are unavailable ($($founderDelete.Status)/$($legacyFounderDelete.Status))"
+        Assert-Check ((Send-Request $admin '/FounderInformation?id=999999').Status -eq 404) 'Founder rejects a different record ID'
+        Assert-Check ((Send-Request $admin '/AcademicPrograms').Body.Contains('name="ImageUpload"') -and -not (Send-Request $admin '/AcademicPrograms').Body.Contains('<summary>Subject image')) 'Subject image uploader is always visible'
+        Assert-Check ((Send-Request $anonymous '/Profile').Location -like '*Login*') 'Personal information requires authentication'
+        $ownId = Invoke-TestSql "SELECT UserId FROM dbo.UserTable WHERE Username=N'profile.student';"
+        $otherId = Invoke-TestSql "SELECT UserId FROM dbo.UserTable WHERE Username=N'verification.student';"
+        $ownHash = Invoke-TestSql "SELECT CHECKSUM(PasswordHash) FROM dbo.UserTable WHERE UserId=$ownId;"
+        $ownPage = Send-Request $studentClient "/Profile?id=$otherId"
+        Assert-Check ($ownPage.Status -eq 200 -and $ownPage.Body.Contains('profile.student') -and -not $ownPage.Body.Contains('name="Role"') -and -not $ownPage.Body.Contains('PasswordHash')) 'Profile GET ignores a forged ID and exposes only personal fields'
+        Assert-Check ((Send-Request $studentClient '/Profile' @{FirstName='Mira';LastName='Velasco'}).Status -eq 400) 'Personal information saves require antiforgery'
+        Assert-Check ((Submit-Form $studentClient '/Profile' @{FirstName='Mira';LastName='Velasco';Birthday='2999-01-01'}).Status -eq 200) 'Personal information rejects future birthdays'
+        Assert-Check ((Submit-Form $studentClient '/Profile' @{FirstName='';LastName='Velasco'}).Status -eq 200) 'Personal information requires a first name'
+        $ownFields = @{Id=$otherId;Username='forged.user';Role='Admin';IsActive='false';FirstName='Mira';LastName='Profile update';Birthday='2000-01-01';__ImageBytes=$script:imageBytes}
+        Assert-Check ((Submit-Form $studentClient '/Profile' $ownFields).Status -eq 302 -and (Invoke-TestSql "SELECT COUNT(*) FROM dbo.UserTable WHERE UserId=$ownId AND Username=N'profile.student' AND Role=N'Student' AND IsActive=1 AND LastName=N'Profile update' AND Birthday='2000-01-01';") -eq '1') 'Profile save updates only the signed-in account and cannot change role, username or access'
+        Assert-Check ((Invoke-TestSql "SELECT CHECKSUM(PasswordHash) FROM dbo.UserTable WHERE UserId=$ownId;") -eq $ownHash -and (Invoke-TestSql "SELECT COUNT(*) FROM dbo.UserTable WHERE UserId=$otherId AND Username=N'verification.student' AND Role=N'Admin';") -eq '1') 'Profile save preserves password hashes and other accounts'
+        $ownImage = Invoke-TestSql "SELECT ProfileImg FROM dbo.UserTable WHERE UserId=$ownId;"
+        Assert-Check ($ownImage -match '^/images/uploads/[a-f0-9]{32}\.png$' -and (Send-Request $studentClient $ownImage).Status -eq 200) 'Personal profile image upload is stored and renders'
+        Assert-Check ((Send-Request $studentClient '/Profile').Status -eq 200) 'Saving personal details preserves the active session'
+        $ownFields.Remove('__ImageBytes'); $ownFields.Birthday=''
+        Assert-Check ((Submit-Form $studentClient '/Profile' $ownFields).Status -eq 302 -and (Invoke-TestSql "SELECT ProfileImg FROM dbo.UserTable WHERE UserId=$ownId;") -eq $ownImage) 'Personal save retains the image when no replacement is selected'
         $savedHero = Invoke-TestSql 'SELECT TOP(1) HeroImg FROM dbo.AcademyInfoTable;'
         Assert-Check ($rendered.Body.Contains('src="'+$savedHero+'"') -and $rendered.Body.Contains('Verification heading')) 'Public hero and About heading use the saved admin content'
         Assert-Check ($rendered.Body.Contains('8:30 AM') -and $rendered.Body.Contains('5:15 PM')) 'Public office hours use the saved time pair'
@@ -224,8 +252,6 @@ try {
         Assert-Check ($singleton.Status -eq 302 -and (Invoke-TestSql 'SELECT COUNT(*) FROM dbo.ContactsTable;') -eq '1') 'Contact settings update the single existing record'
         $badHero = Submit-Form $admin '/UniversityInformation' @{__ImageBytes=[Text.Encoding]::UTF8.GetBytes('<script>invalid image</script>');__ImageName='fake.png'}
         Assert-Check ($badHero.Status -eq 200 -and $badHero.Body.Contains('do not match')) 'A fake PNG upload is rejected'
-        $badLink = Submit-Form $admin '/SocialLinks' @{PlatformName='Bad link';Url='javascript:alert(1)'}
-        Assert-Check ($badLink.Status -eq 200 -and (Invoke-TestSql 'SELECT COUNT(*) FROM dbo.SocialLinksTable;') -eq '1') 'Unsafe social URL is rejected'
         $badImage = Submit-Form $admin '/AboutGallery' @{__ImageBytes=$script:imageBytes;__ImageName='image.svg'}
         Assert-Check ($badImage.Status -eq 200 -and (Invoke-TestSql 'SELECT COUNT(*) FROM dbo.AboutImagesTable;') -eq '1') 'Unsupported image extensions are rejected'
         $oversize = Submit-Form $admin '/UniversityInformation' @{__ImageBytes=[byte[]]::new(5 * 1024 * 1024 + 1);__ImageName='large.png'}
@@ -264,7 +290,7 @@ try {
         $xss = Submit-Form $admin '/AcademicPrograms' @{SubjectName='<script>alert(1)</script>';Description='Text only'}
         $encoded = Send-Request $admin '/'
         Assert-Check ($xss.Status -eq 302 -and $encoded.Body.Contains('&lt;script&gt;') -and -not $encoded.Body.Contains('<script>alert(1)</script>')) 'Stored content renders as escaped text'
-        foreach ($contentSection in $sections | Where-Object {$_.Name -notin @('University','Contacts')}) {
+        foreach ($contentSection in $sections | Where-Object {$_.Name -notin @('University','Contacts','Founders')}) {
             $name=$contentSection.Name; $recordId=$contentSection.RecordId; $route='/'+$contentSection.Controller
             $confirmation=Send-Request $admin "${route}?id=$recordId&confirmDelete=true"
             Assert-Check ($confirmation.Status -eq 200 -and $confirmation.Body.Contains('Delete this entry?') -and (Invoke-TestSql "SELECT COUNT(*) FROM dbo.[$($contentSection.Table)] WHERE [$($contentSection.Key)]=$recordId;") -eq '1') "GET delete only confirms $name"

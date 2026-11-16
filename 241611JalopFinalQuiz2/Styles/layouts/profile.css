@@ -1,0 +1,16 @@
+/* Personal information uses the public identity and existing labeled form controls. */
+@layer components {
+    .portal-main:has(> .profile-page) { @apply w-full p-0; }
+    .profile-page { @apply max-w-[1100px] mx-auto px-[clamp(24px,5vw,64px)] py-[clamp(32px,5vw,64px)]; }
+    .profile-heading { @apply flex justify-between items-start flex-wrap gap-[24px] mb-[36px]; }
+    .profile-heading h1 { @apply font-heading text-[clamp(2rem,4vw,3.25rem)] leading-[1.15] m-0; }
+    .profile-heading .eyebrow { @apply text-blue mb-[12px]; }
+    .profile-workspace { @apply grid [grid-template-columns:220px_minmax(0,1fr)] gap-[48px] [border-top:1px_solid_var(--color-line)] pt-[32px]; }
+    .profile-identity img,.profile-initial { @apply w-[96px] h-[96px] rounded-full object-cover mb-[20px]; }
+    .profile-initial { @apply grid place-items-center bg-navy text-ivory font-bold text-[2rem]; }
+    .profile-identity h2 { @apply font-body font-bold text-[1.1rem] m-0 [overflow-wrap:anywhere]; }
+    .profile-identity p { @apply text-[.85rem]; }
+    .profile-workspace form { @apply m-0 min-w-0; }
+    .profile-page .button,.profile-page .field input { @apply rounded-[6px]; }
+    @media(max-width:700px) { .profile-workspace { @apply [grid-template-columns:minmax(0,1fr)] gap-[24px]; } }
+}

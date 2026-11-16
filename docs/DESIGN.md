@@ -32,7 +32,7 @@ clear academic content, generous spacing, and restrained ornamentation.
 
 Cormorant Garamond and Lato load through Google Fonts, with local serif/sans-serif
 fallbacks. The approved university crest is installed; content imagery remains pending.
-Font Awesome Free 6.7.2 loads social icons through cdnjs. Gold is primarily a decorative accent;
+Social links and their icon CDN were removed on 2026-11-16. Gold is primarily a decorative accent;
 ensure readable text contrast rather than assuming every palette pairing works.
 
 ## Shared public typography (2026-11-12)
@@ -245,9 +245,9 @@ There is no full-body requirement and no message dropdown or public message bloc
 Stored founder messages remain available in the existing admin editor; a separate
 message section is not implemented as part of this approved revision.
 
-Founder descriptions remain editable database content. Only Rowena's matching
-record uses her static portrait/motto; other founder records keep their own text
-without borrowing her identity. Empty/missing-biography states remain supported.
+Founder descriptions remain editable database content for the one saved founder.
+The Rowena match uses her static portrait/motto; a differently named founder would
+retain its own text without borrowing her identity. Empty/missing-biography states remain supported.
 
 The founder section now reserves 100dvh minus the measured navbar height. Its
 heading occupies an automatic grid row and the portrait/biography fills the rest.
@@ -266,8 +266,8 @@ than adding a second navbar offset.
 sticks below the measured navbar plus its existing top inset. The stage ends at
 the viewport floor; a short clamp(160px, 30dvh, 320px) scroll runway holds it before
 releasing naturally at Contact. Heading and biography rows use a bounded grid.
-Long biographies scroll in a keyboard-focusable labeled region; additional founder
-records scroll within the labeled collection. Portrait, colors, and content stay
+Long biographies scroll in a keyboard-focusable labeled region. The public page
+receives one founder record. Portrait, colors, and content stay
 unchanged. Phones and windows 500px tall or shorter use natural document flow,
 allowing content to grow without clipping. No scroll interception or new animation
 script is used. Reusable Tailwind rules remain in sections/founders.css.
@@ -276,22 +276,19 @@ script is used. Reusable Tailwind rules remain in sections/founders.css.
 
 The approved compact footer follows Leadership outside main, retaining its
 full-width navy surface, ivory text, gold accents, and responsive padding. Three
-unequal desktop columns show university identity/social links, Explore, and Contact
+unequal desktop columns show university identity, Explore, and Contact
 us. The university column is widest; its name is slightly smaller to leave room
 for navigation. Explore and Contact headings share the same serif scale and top
 alignment. The large motto and Our University navigation group are removed.
 
-Saved HTTPS social links appear below the crest/name under Follow us, with supported
-icons and readable platform names in a wrapping horizontal row. No social group is
-rendered when no valid links exist. Explore lists Home, About, Academics, Founder,
+Social links and Follow us are removed. Explore lists Home, About, Academics, Founder,
 and Contacts, linking to the existing page anchors.
 Contact retains address, email, telephone, office hours, and existing empty states.
 Copyright and Back to top sit below one full-width divider; the vertical contact
-divider is removed. At 1000px and narrower, columns stack in identity/socials,
+divider is removed. At 1000px and narrower, columns stack in identity,
 Explore, Contact order. All links retain visible focus and at least 44px height.
 
-Contact retains id=contact, mailto/tel actions, approved icons, HTTPS-only social URLs, and
-accessible new-tab labels. Unpublished fields remain labeled. There is no search
+Contact retains id=contact and mailto/tel actions. Unpublished fields remain labeled. There is no search
 bar, new route, database column, or inquiry form. _UniversityContact.cshtml and
 Styles/sections/contact.css own markup and Tailwind styles. The layout's optional
 Footer section avoids duplicate footers; unavailable-content and other pages keep
@@ -360,13 +357,14 @@ Hero and About combines the hero upload, About Heading, About Description, Missi
 Vision, and Core Values in one save form. Enter one value per textarea line; its
 draft preview and public chapter use bullets. About images remain available via
 a secondary disclosure on that page. Contacts has University Address, Email,
-Telephone, and paired native Time In/Time Out controls, with social-link management
-under a secondary disclosure. Blank times retain the legacy office-hours fallback;
+Telephone, and paired native Time In/Time Out controls. Blank times retain the legacy office-hours fallback;
 overnight hours are labeled as ending the next day. Native time controls use
 minute precision without an explicit step attribute, which conflicts with the
 bundled jQuery validator. Academics shows Subject Name and Subject Description,
-with the existing image uploader in an optional disclosure. Founder shows Founder
-Name, Founder Info, and Founder Message; existing birthdays are preserved.
+with an always-visible image uploader. Founder opens its one existing record with
+Founder Name, Founder Info, and Founder Message; no add/delete/list controls exist.
+Existing birthdays are preserved. Empty storage shows a setup message rather than
+an add form. The public page receives one founder rather than a collection.
 
 Each content section retains its view, form model, and controller. Singleton
 settings open directly to a save form. Legacy collection editors remain available
@@ -380,7 +378,7 @@ account rows with search and an inline edit form; no password fields are display
 
 ### Shared editing workspace (2026-11-16)
 
-The seven content editors and account editing use a wider two-column workspace:
+The remaining content editors and account editing use a wider two-column workspace:
 grouped forms on the left and a sticky draft preview on the right. Below 1101px
 they stack; the navy sidebar still collapses below 901px. Use the existing Lato,
 navy, ivory and gold tokens, fine dividers, 6px input/button corners and a restrained
@@ -390,7 +388,7 @@ to reproduce every public layout. They do not autosave.
 
 Saved collections use divided rows, thumbnails where relevant, short descriptions,
 entry counts, explicit Edit, and quieter red Delete links to the existing confirmation
-page. Account rows can show their actual profile image, with no placeholder avatar.
+page. Account rows show their profile image or initials derived from the saved name.
 Save actions stay visible within long forms; success messages remain on the returned
 page. Inline errors keep Save usable and focus the first invalid field. Saving state
 is shown only after native/unobtrusive validation permits submission.
@@ -417,9 +415,31 @@ The only row actions are Activate/Deactivate and View information. Omit registra
 timestamps. View information opens a dedicated read-only page with saved profile
 fields; no email is invented because the account schema has none. On smaller
 screens actions wrap below identity/status. Keep the navy/ivory palette and 44px
-minimum controls. The current administrator's Deactivate action is disabled;
+minimum controls. The current administrator has a quiet Your account label instead of a Deactivate action;
 server-side own-account and last-active-Admin safeguards also apply.
 Reusable Tailwind styling lives in layouts/admin-accounts.css.
+
+2026-11-16 refinement: account rows share fixed role/status/action columns, a muted
+column header and one ivory outline, with navy View information actions and quieter
+status controls. Actions wrap on narrow screens. Content analytics remain at the
+top of Dashboard; account totals remain in Account Management.
+
+### Account navigation and personal information (2026-11-16)
+
+Public navbar spacing is responsive within a 1440px container, using bold Lato
+links with gold underline feedback and a 48px account toggle. Preserve transparent
+hero styling, solid surfaces over other sections, and footer hiding. The ivory
+account dropdown has a fine gold outline, modest radius, initial/name identity,
+and a navy Edit personal information button. Administration remains an Admin-only
+link; Sign out stays a POST action. Existing outside-click/Escape closing remains.
+The admin sidebar also provides the personal-information link.
+
+Personal information uses a dedicated page with public branding, name/birthday
+fields and a visible profile-image uploader. Desktop pairs a compact identity
+column with the form; phones stack them. Use the navy/ivory/gold palette and
+existing labeled inputs, status messages, inline errors, and 44px controls.
+Username is displayed only. Browser tabs show exactly Ravenclaw University in
+all layouts. Shared page styles live in layouts/profile.css.
 
 ## Approved main logo (2026-11-11)
 

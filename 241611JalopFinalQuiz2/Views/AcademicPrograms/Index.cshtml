@@ -28,14 +28,14 @@
                     <fieldset class="editor-fieldset"><legend>Program information</legend>
                         <div class="field"><label asp-for="SubjectName"></label><input asp-for="SubjectName" maxlength="150" /><span asp-validation-for="SubjectName" class="field-error"></span></div>
                         <div class="field"><label asp-for="Description"></label><textarea asp-for="Description" rows="4"></textarea><span asp-validation-for="Description" class="field-error"></span></div>
-                        <details><summary>Subject image (optional)</summary><div class="field">
+                        <div class="field">
                             <label asp-for="ImageUpload"></label>
                             <input asp-for="ImageUpload" type="file" accept="image/png,image/jpeg,image/webp" aria-describedby="image-help" data-image-upload />
                             <small id="image-help">PNG, JPEG, or WebP, up to 5 MB. Leave empty to keep the current image.</small>
                             <span asp-validation-for="ImageUpload" class="field-error"></span>
                             @if (!string.IsNullOrWhiteSpace(Model.ImagePath) && SafeImageAttribute.IsSafeImage(Model.ImagePath)) { <img class="upload-preview" src="@Model.ImagePath" alt="Current program image" /> }
                             <img class="upload-preview" alt="Selected image preview" hidden data-upload-preview />
-                        </div></details>
+                        </div>
                     </fieldset>
                     <div class="row-actions">
                         <button class="button button-primary" type="submit" disabled="@(ViewData["Unavailable"] is true)">Save changes</button>

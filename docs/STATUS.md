@@ -163,6 +163,38 @@ Last verified: 2026-11-16.
 
 ## Completed
 
+- Implemented the requested content/account simplification. Founder is now one
+  existing, edit-only record: the default editor loads it directly, POST requires
+  its ID, and add/delete/list controls and delete actions are gone. Public content
+  uses one Founder property. Birthday and all live founder content were preserved.
+  The optional founder seed now refuses duplicate/differently named saved founders.
+- Removed social links end to end: controller, entity/mapping, form model/view,
+  service query, validation, section routes, contact disclosure, footer output,
+  related styles and icon CDN. Live inspection found zero social rows and no
+  referencing foreign keys; a guarded transaction dropped only that empty table.
+  Readback confirmed its absence and the unchanged Rowena record. The consolidated
+  schema now has seven tables. No other live data was changed.
+- Subject-image uploads remain directly visible. Account rows now use aligned
+  role/status/action columns, column labels, navy View information actions, and a
+  quiet Your account label in place of the unusable self-deactivate button. Refined
+  public navbar spacing and the ivory/gold account menu; added a prominent Edit
+  personal information link there and in the admin sidebar. Content analytics stay
+  on Dashboard; account totals stay in Account Management, as recommended.
+- Added dedicated Profile controller/model/view for signed-in Admin/Student users
+  to edit their own names, birthday and profile image. Cookie identity alone selects
+  the account; posted IDs/username/role/active/password fields are ignored. Saves
+  require antiforgery, validate names/birthdays/uploads, preserve access and passwords,
+  and retain the session. All three layouts now title tabs Ravenclaw University.
+- Verification: 159 disposable HTTP/SQL checks passed, including removed routes,
+  singleton protections, unchanged founder birthday, visible uploads, own-account
+  profile saves, overposting protection, password/other-account preservation, and
+  image persistence. Browser QA confirmed menu navigation/Escape focus, successful
+  personal save feedback, 390px profile/menu/account/editor layouts without horizontal
+  overflow, 44px+ actions, edit-only Founder, and no social controls or console errors.
+  Screenshots are ignored TestResults/account-menu-refined.jpg and account-directory-refined.jpg.
+  Final build passed with zero warnings/errors. The optional founder seed updated
+  the existing fixture and rejected a different saved founder without adding rows.
+
 - Removed all About chapter action links from desktop and mobile, along with
   their unused tuple fields and Tailwind styles. Chapter scrolling and mobile
   slide-navigation dots remain. Removed only the inspected "Sample program: "

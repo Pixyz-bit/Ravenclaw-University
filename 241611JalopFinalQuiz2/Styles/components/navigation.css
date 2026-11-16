@@ -60,7 +60,7 @@ html:has(.portal-header) {
 }
 
 .portal-header-inner {
-    @apply max-w-[1200px] [margin:0_auto] [padding:14px_24px] grid [grid-template-columns:auto_minmax(0,1fr)_auto] items-center gap-[32px];
+    @apply max-w-[1440px] [margin:0_auto] [padding:14px_clamp(24px,4vw,64px)] grid [grid-template-columns:auto_minmax(0,1fr)_auto] items-center gap-[clamp(20px,2.5vw,36px)];
 }
 
 .portal-header .wordmark {
@@ -72,11 +72,11 @@ html:has(.portal-header) {
 }
 
 .portal-header .portal-nav {
-    @apply justify-end gap-[26px] flex-nowrap;
+    @apply justify-end gap-[clamp(20px,2vw,30px)] flex-nowrap;
 }
 
 .portal-header .portal-nav>a {
-    @apply inline-flex items-center relative min-h-[44px] [color:#d0d5df] text-[.9rem];
+    @apply inline-flex items-center relative min-h-[44px] [color:#d0d5df] text-[.85rem] font-bold tracking-[.015em];
 }
 
 .portal-header .portal-nav>a::after {
@@ -108,7 +108,7 @@ html:has(.portal-header) {
 }
 
 .account-menu>summary {
-    @apply grid place-items-center list-none w-[44px] h-[44px] [border:1px_solid_#c3a56880] rounded-[50%] text-ivory cursor-pointer;
+    @apply grid place-items-center list-none w-[48px] h-[48px] [border:1px_solid_#c3a56880] rounded-[50%] text-ivory cursor-pointer [transition:background-color_180ms_ease-out,border-color_180ms_ease-out];
 }
 
 .account-menu>summary::-webkit-details-marker {
@@ -120,16 +120,23 @@ html:has(.portal-header) {
 }
 
 .account-dropdown {
-    @apply absolute z-20 right-0 [top:calc(100%_+_16px)] min-w-[220px] [max-width:calc(100vw_-_48px)] p-[12px] bg-ivory [border:1px_solid_var(--color-line)] [border-top:2px_solid_var(--color-gold)] [box-shadow:0_12px_28px_#101d3420];
+    @apply absolute z-20 right-0 [top:calc(100%_+_12px)] w-[300px] [max-width:calc(100vw_-_40px)] p-[16px] bg-ivory rounded-[12px] [border:1px_solid_var(--color-gold)] [box-shadow:0_16px_40px_#101d3430];
 }
 
 .account-dropdown-name {
-    @apply block p-[8px] text-muted text-[.8rem] [overflow-wrap:anywhere] [border-bottom:1px_solid_var(--color-line)] mb-[4px];
+    @apply block text-navy text-[1rem] [overflow-wrap:anywhere] mt-[3px];
 }
+.account-dropdown-identity { @apply flex items-center gap-[12px] pb-[16px] mb-[12px] [border-bottom:1px_solid_var(--color-line)]; }
+.account-dropdown-caption { @apply text-muted text-[.7rem] font-bold uppercase tracking-[.08em]; }
+.account-menu-avatar { @apply grid place-items-center w-[42px] h-[42px] shrink-0 rounded-full bg-navy text-ivory font-bold text-[1rem]; }
 
 .account-dropdown a,.account-dropdown button {
-    @apply flex items-center w-full min-h-[44px] [border:0] [padding:10px_8px] text-navy no-underline bg-transparent cursor-pointer text-left text-[.9rem];
+    @apply flex items-center justify-between gap-[12px] w-full min-h-[48px] [border:0] [padding:12px_10px] text-navy no-underline bg-transparent cursor-pointer text-left text-[.85rem] rounded-[6px];
 }
+.account-dropdown .account-profile-link { @apply bg-navy text-ivory font-bold mb-[8px]; }
+.account-dropdown .account-profile-link:hover { @apply bg-blue text-ivory; }
+.account-dropdown form { @apply mt-[8px] pt-[8px] [border-top:1px_solid_var(--color-line)]; }
+.account-dropdown form button { @apply text-error; }
 
 .account-dropdown a:hover,.account-dropdown button:hover {
     @apply [background:#e5dfd2];

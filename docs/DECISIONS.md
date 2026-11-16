@@ -18,14 +18,12 @@ Recorded 2026-11-11 from the project conversation.
 | Hero uses only the selected common-room image | Latest user correction supersedes the multi-image gallery; no selectors or rotation, and custom hero uploads do not override the selected background |
 | About and Academics follow the Digital Original reference | User requested sticky scroll-switched About chapters with overlapping images and a looping portrait-card showcase with matching hover/drag behavior; university content stays database-backed |
 | University and contact records are singletons in editor logic | Serializable creation prevents duplicates; existing rows are edited |
-| Use Font Awesome Free 6.7.2 for optional social icons | Supported classes are allowlisted; platform labels remain readable without the CDN |
 | Database name: Ravenclaw University Db | Explicit user naming request |
 | Single university with independent content tables | User requested removing AcademyId relationships |
 | Retain existing Academy-prefixed SQL identifiers | Public branding changes without altering the database schema |
 | No extra indexes or unnecessary tables | Keep the first version simple |
 | Remove AcademyName and AcademyHistory columns | Explicit user correction |
 | Core values store titles only | User removed the description column |
-| Optional SocialLinksTable.IconClass | Allows selection of frontend social icons |
 | Store image paths or URLs | Preselected imagery; no image-byte storage needed |
 | One UserTable with Admin/Student roles | Every visitor logs in; only admins edit |
 | Student self-registration | Explicit user choice; server assigns Student and never exposes admin role selection |
@@ -40,3 +38,5 @@ Recorded 2026-11-11 from the project conversation.
 
 Update or supersede a decision when the user changes it. Do not reintroduce
 earlier discarded requirements silently.
+
+2026-11-16: User removed social links across UI, backend, EF, and database. The inspected empty table was dropped with dependency/data guards. Founder is one existing, edit-only record with no admin add/delete actions. Public and admin account menus link to personal-information editing for the signed-in user. All tab titles show Ravenclaw University. Content analytics stay on Dashboard; account totals stay in Account Management.

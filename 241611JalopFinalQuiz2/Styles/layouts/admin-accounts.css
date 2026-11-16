@@ -1,8 +1,12 @@
 /* Account analytics and the reference-led, responsive account directory. */
 @layer components {
     .account-metrics { @apply [grid-template-columns:repeat(3,minmax(0,1fr))]; }
-    .account-directory { @apply mt-[24px] [border-top:1px_solid_var(--color-line)]; }
-    .account-directory-row { @apply grid [grid-template-columns:minmax(200px,1fr)_90px_140px_auto] items-center gap-[24px] py-[24px] [border-bottom:1px_solid_var(--color-line)]; }
+    .account-directory { @apply mt-[24px] [border:1px_solid_var(--color-line)] rounded-[12px] bg-[#faf7ef]; }
+    .account-directory-row,.account-directory-head { @apply grid [grid-template-columns:minmax(180px,1fr)_88px_132px_260px] items-center gap-[24px] px-[24px]; }
+    .account-directory-head { @apply py-[14px] text-[.7rem] uppercase tracking-[.09em] font-bold text-muted [border-bottom:1px_solid_var(--color-line)]; }
+    .account-directory-head > :last-child { @apply text-right; }
+    .account-directory-row { @apply py-[22px] [border-bottom:1px_solid_var(--color-line)]; }
+    .account-directory-row:last-child { @apply border-b-0; }
     .account-identity { @apply flex items-center gap-[16px] min-w-0; }
     .account-identity > div { @apply min-w-0; }
     .account-identity h3 { @apply font-body text-[1rem] font-bold m-0 [overflow-wrap:anywhere]; }
@@ -14,7 +18,8 @@
     .account-status > span { @apply w-[7px] h-[7px] rounded-full bg-current; }
     .account-status.is-active { @apply bg-[#e3eee5] text-[#245339]; }
     .account-status.is-deactivated { @apply bg-[#f5e5e1] text-[#963c31]; }
-    .account-directory-actions { @apply flex gap-[8px] flex-wrap; }
+    .account-directory-actions { @apply flex items-center justify-end gap-[10px] flex-wrap; }
+    .account-self-label { @apply text-muted text-[.75rem] px-[6px]; }
     .account-directory-actions form { @apply m-0; }
     .account-directory-actions .button { @apply min-h-[44px] px-[16px] py-[12px] text-[.8rem]; }
     .account-activate { @apply bg-[#e3eee5] text-[#245339] [border:1px_solid_#87a38d]; }
@@ -25,8 +30,9 @@
     .account-information dl { @apply grid [grid-template-columns:repeat(2,minmax(0,1fr))] max-w-[700px]; }
     .account-detail-photo { @apply w-[96px] h-[96px] object-cover rounded-full mb-[28px]; }
     @media(max-width:1200px) {
+        .account-directory-head { @apply hidden; }
         .account-directory-row { @apply [grid-template-columns:minmax(0,1fr)_auto_auto] gap-[16px]; }
-        .account-directory-actions { @apply col-span-full; }
+        .account-directory-actions { @apply col-span-full justify-start; }
     }
     @media(max-width:600px) {
         .account-metrics { @apply [grid-template-columns:minmax(0,1fr)]; }

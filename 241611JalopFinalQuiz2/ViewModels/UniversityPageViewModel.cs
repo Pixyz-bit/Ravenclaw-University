@@ -9,7 +9,6 @@ public class UniversityPageViewModel
     public List<CoreValuesTable> Values { get; set; } = [];
     public List<AboutImagesTable> Photos { get; set; } = [];
     public List<ProgramsTable> Programs { get; set; } = [];
-    public List<FounderTable> Founders { get; set; } = [];
-    public List<SocialLinksTable> SocialLinks { get; set; } = [];
+    public FounderTable? Founder { get; set; }
     public bool Unavailable { get; set; }
 }

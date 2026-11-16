@@ -38,12 +38,9 @@ prompts and provenance are in docs/GENERATED_ASSETS.md.
 
 Contact is the full-width navy footer after Leadership, replacing the standalone
 contact section and small university footer. Desktop has three unequal columns:
-university identity with saved social links, Explore (Home/About/Academics/Founder/Contacts), and
+university identity, Explore (Home/About/Academics/Founder/Contacts), and
 contact details. The large motto and Our University links have been removed.
-Social links wrap horizontally below the university name and are omitted when
-none are published. Copyright and Back to top sit below one divider. Columns stack
-at 1000px and narrower in identity, Explore, Contact order. The existing Contacts and Social links editors supply
-the published values. _UniversityContact.cshtml owns markup and sections/contact.css
+Copyright and Back to top sit below one divider. Columns stack at 1000px and narrower in identity, Explore, Contact order. The Contacts editor supplies the published values. _UniversityContact.cshtml owns markup and sections/contact.css
 its Tailwind styling; no database changes were needed.
 
 ## Using the editors
@@ -64,10 +61,9 @@ background, then connects her legacy to this fictional university. The public
 section uses an ivory portrait/text composition, with a responsive upper-body CSS
 crop and the existing motto. Founder messages are retained in the editor but no
 longer rendered publicly; no message dropdown or separate message section is shown.
-The matching Rowena record uses the approved static portrait; other founders retain
-their own database-backed text. Schema.sql and database definitions are unchanged.
+The single matching Rowena record uses the approved static portrait. Schema.sql and database definitions are unchanged.
 Database/SeedFounder.sql records the approved content publication, runs only when
-deliberately invoked, and preserves other founders, birthdays, and stored messages.
+deliberately invoked, and preserves birthdays and stored messages. It refuses multiple or differently named founders instead of adding another record.
 
 The approved Ravenclaw-inspired About, Mission, and Vision copy was saved to the
 local database on 2026-11-12. Core values are Intelligence, Wisdom, Creativity,
@@ -92,8 +88,8 @@ An empty heading uses the established “A place for curious minds” fallback.
 
 Contacts uses separate Time In/Time Out inputs: supply both or neither. The footer
 formats the saved pair, labels overnight ranges, and falls back to retained legacy
-office-hours text when both are empty. About images and social links remain
-available through secondary disclosures in Hero and About / Contacts. Existing
+office-hours text when both are empty. About images remain
+available through a secondary disclosure in Hero and About. Existing
 dedicated editor URLs remain usable. Founder edits preserve stored birthdays;
 stored founder messages remain editable without adding a public message section.
 
@@ -104,8 +100,7 @@ stored founder messages remain editable without adding a public message section.
 | Core values (legacy route) | CoreValuesTable | Individual title editor retained for existing links |
 | About gallery | AboutImagesTable | Add/edit/delete image paths and descriptions |
 | Academic programs | ProgramsTable | Add/edit/delete subjects, descriptions, and images |
-| Founder information | FounderTable | Add/edit/delete names, optional birthdays, biographies, and messages |
-| Social links | SocialLinksTable | Add/edit/delete platform names, HTTPS URLs, and supported icons |
+| Founder information | FounderTable | Edit the one existing founder name, biography, and message; preserve the birthday |
 
 Each section now has one named controller, one form ViewModel, and one Index view.
 The matching database-first EF entity remains in Models/. Every controller requires
@@ -120,7 +115,6 @@ POST and antiforgery validation. GET delete displays a confirmation without writ
 | About gallery | AboutGallery |
 | Academic programs | AcademicPrograms |
 | Founder information | FounderInformation |
-| Social links | SocialLinks |
 
 For example, follow Controllers/UniversityInformationController.cs to
 ViewModels/UniversityInformationViewModel.cs and Views/UniversityInformation/Index.cshtml.
@@ -161,10 +155,7 @@ so no SQL change is required. Failed database writes discard newly created files
 successful replacements/deletions retain old files to avoid removing shared media.
 Disposable verification overrides the upload root to its own temporary directory.
 
-Social links require HTTPS and use an allowlist of optional Font Awesome Free
-6.7.2 icon classes (Facebook, Instagram, YouTube, LinkedIn, X, website). The shared
-layout loads the stylesheet from cdnjs; platform names remain readable if the CDN
-is unavailable. No arbitrary HTML or icon markup is accepted.
+Social links were removed from the application and the empty live table on 2026-11-16. Their controller, model, view, service query, validation, icons, and footer UI no longer exist.
 
 Text is rendered with Razor encoding and preserved line breaks, not Html.Raw.
 Validation follows SQL lengths, required content titles, email/phone formats,
@@ -190,7 +181,7 @@ without overwriting matching records. -IncludeContent -Preview
 adds clearly labelled programs to its disposable database after integration checks,
 so the visual preview can exercise scrolling even when production programs are empty.
 
-UniversityContentService reads all seven content tables using AsNoTracking and
+UniversityContentService reads the six content tables using AsNoTracking and
 sequential queries on one DbContext. It never queries user accounts for content.
 HomeController renders UniversityPageViewModel with clear unpublished/empty states.
 No founder dates, campus history, statistics, or programs were seeded into the
@@ -245,3 +236,5 @@ Never use those fixture credentials
 as university credentials. The university database is not modified by verification.
 Cleanup removes that run's temporary upload directory as well as its SQL database;
 the resolved upload target is checked against the GUID-named test directory first.
+
+Founder is edit-only: its default GET loads the existing record, and POST requires that exact ID. Creation, deletion and collection controls are absent. Empty storage shows an explanatory state; duplicate records fail closed. The public view model holds one Founder instead of a list. No live founder data was changed.

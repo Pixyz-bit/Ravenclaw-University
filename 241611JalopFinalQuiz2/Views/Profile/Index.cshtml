@@ -1,0 +1,25 @@
+@model ProfileViewModel
+@{ ViewData["Title"] = "Personal information"; }
+<section class="profile-page" aria-labelledby="profile-title">
+    <header class="profile-heading"><div><p class="eyebrow">Your account</p><h1 id="profile-title">Personal information</h1><p class="muted">Keep your name, birthday, and profile image up to date.</p></div><a class="button button-secondary" asp-controller="Home" asp-action="Index">Back to university</a></header>
+    @if (TempData["StatusMessage"] is string message) { <p class="status-message" role="status">@message</p> }
+    <div asp-validation-summary="All" class="validation-summary" role="alert"></div>
+    <div class="profile-workspace">
+        <aside class="profile-identity">
+            @if (!string.IsNullOrWhiteSpace(Model.ProfileImg) && SafeImageAttribute.IsSafeImage(Model.ProfileImg)) { <img src="@Model.ProfileImg" alt="Your profile image" /> }
+            else { <span class="profile-initial" aria-hidden="true">@(string.IsNullOrWhiteSpace(Model.Username) ? "?" : System.Globalization.StringInfo.GetNextTextElement(Model.Username).ToUpperInvariant())</span> }
+            <h2>@Model.Username</h2><p class="muted">University account</p>
+        </aside>
+        <form asp-action="Index" method="post" enctype="multipart/form-data">
+            <fieldset class="editor-fieldset"><legend>Personal details</legend><div class="form-grid">
+                <div class="field"><label asp-for="FirstName"></label><input asp-for="FirstName" autocomplete="given-name" maxlength="100" /><span asp-validation-for="FirstName" class="field-error"></span></div>
+                <div class="field"><label asp-for="LastName"></label><input asp-for="LastName" autocomplete="family-name" maxlength="100" /><span asp-validation-for="LastName" class="field-error"></span></div>
+                <div class="field"><label asp-for="MiddleName"></label><input asp-for="MiddleName" autocomplete="additional-name" maxlength="100" /><span asp-validation-for="MiddleName" class="field-error"></span></div>
+                <div class="field"><label asp-for="Birthday"></label><input asp-for="Birthday" type="date" autocomplete="bday" /><span asp-validation-for="Birthday" class="field-error"></span></div>
+            </div></fieldset>
+            <div class="field"><label asp-for="ImageUpload"></label><input asp-for="ImageUpload" type="file" accept="image/png,image/jpeg,image/webp" data-image-upload aria-describedby="profile-image-help" /><small id="profile-image-help">PNG, JPEG, or WebP, up to 5 MB. Leave empty to keep your current image.</small><span asp-validation-for="ImageUpload" class="field-error"></span><img class="upload-preview" alt="Selected profile image" hidden data-upload-preview /></div>
+            <div class="row-actions"><button class="button button-primary" type="submit" disabled="@(ViewData["Unavailable"] is true)">Save personal information</button><a class="button button-secondary" asp-controller="Home" asp-action="Index">Cancel</a></div>
+        </form>
+    </div>
+</section>
+@section Scripts { <partial name="_ValidationScriptsPartial" /><script src="~/js/image-upload.js" asp-append-version="true"></script> }

@@ -82,12 +82,3 @@ CREATE TABLE dbo.ProgramsTable
     ImagePath NVARCHAR(500) NULL
 );
 GO
-
-CREATE TABLE dbo.SocialLinksTable
-(
-    SocialLinkId INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
-    PlatformName NVARCHAR(50) NOT NULL,
-    Url NVARCHAR(500) NOT NULL,
-    IconClass NVARCHAR(100) NULL
-);
-GO

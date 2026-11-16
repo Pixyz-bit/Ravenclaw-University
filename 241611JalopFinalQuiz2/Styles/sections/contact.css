@@ -1,4 +1,4 @@
-/* Contact footer: identity/socials, Explore, and published contact details. */
+/* Contact footer: identity, Explore, and published contact details. */
 @layer components {
     .university-footer {
         @apply w-full bg-navy text-ivory [padding:clamp(40px,5vw,80px)_clamp(24px,5vw,96px)_24px] [border-top:1px_solid_var(--color-gold)] [scroll-margin-top:var(--portal-header-height,85px)];
@@ -16,20 +16,13 @@
         @apply inline-flex items-center gap-[16px] no-underline font-heading text-[clamp(1.75rem,2.4vw,2.5rem)] leading-[1.1];
     }
     .footer-brand img { @apply w-[52px] h-[66px] object-contain shrink-0; }
-    .footer-socials h2 {
-        @apply font-body text-[.85rem] font-bold text-ivory tracking-[.06em] [margin:0_0_12px] leading-[1.5];
-    }
     .university-footer ul { @apply list-none m-0 p-0; }
-    .footer-navigation a,.footer-socials a { @apply inline-flex items-center gap-[8px] min-h-[44px] text-[1rem]; }
+    .footer-navigation a { @apply inline-flex items-center gap-[8px] min-h-[44px] text-[1rem]; }
     .footer-navigation > h2,.footer-contact > h2 { @apply font-heading text-university-subtitle leading-[1.2] text-ivory [margin:0_0_20px]; }
     .footer-contact-details { @apply m-0 grid gap-[20px]; }
     .footer-contact-details dt { @apply text-[.75rem] font-bold tracking-[.06em] text-gold mb-[4px]; }
     .footer-contact-details dd { @apply m-0 text-[1rem] leading-[1.65] [overflow-wrap:anywhere]; }
     .footer-contact-details a { @apply inline-flex items-center min-h-[44px]; }
-    .footer-socials { @apply mt-[28px]; }
-    .footer-socials ul { @apply flex flex-wrap [column-gap:20px] [row-gap:4px]; }
-    .footer-socials a { @apply text-[.9rem]; }
-    .footer-socials i { @apply w-[18px] text-center; }
     .footer-bottom {
         @apply flex items-center justify-between flex-wrap gap-[16px] mt-[48px] pt-[20px] [border-top:1px_solid_rgba(244,240,230,.18)] text-[.8rem];
     }

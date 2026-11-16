@@ -16,8 +16,7 @@ public class UniversityContentService(UniversityDbContext database)
             Values = await database.CoreValuesTables.AsNoTracking().OrderBy(x => x.CoreValueId).ToListAsync(cancellationToken),
             Photos = await database.AboutImagesTables.AsNoTracking().OrderBy(x => x.AboutImageId).ToListAsync(cancellationToken),
             Programs = await database.ProgramsTables.AsNoTracking().OrderBy(x => x.SubjectId).ToListAsync(cancellationToken),
-            Founders = await database.FounderTables.AsNoTracking().OrderBy(x => x.FounderId).ToListAsync(cancellationToken),
-            SocialLinks = await database.SocialLinksTables.AsNoTracking().OrderBy(x => x.SocialLinkId).ToListAsync(cancellationToken)
+            Founder = await database.FounderTables.AsNoTracking().SingleOrDefaultAsync(cancellationToken)
         };
     }
 }

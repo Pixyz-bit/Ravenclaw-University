@@ -43,14 +43,14 @@ intermediate-chapter issue reproduced with the previous stylesheet; see STATUS.m
 ## 2. Database and EF Core
 
 - [x] Set database name to Ravenclaw University Db.
-- [x] Document the simplified eight-table schema with no foreign keys or extra indexes.
+- [x] Document the simplified seven-table schema with no foreign keys or extra indexes.
 - [x] Remove AcademyName, AcademyHistory, and core-value description columns from the documented schema.
-- [x] Include optional SocialLinksTable.IconClass and the Admin/Student role CHECK.
+- [x] Retain the Admin/Student role CHECK; remove the empty social-links table and feature.
 - [x] Save Schema.sql and database usage documentation outside wwwroot.
 - [x] Confirm the default local SQL Server and database are accessible during verification.
 - [x] Add EF Core SQL Server/Design references and the local EF CLI tool manifest.
 - [x] Configure ConnectionStrings:UniversityDb and correct the JSON structure.
-- [x] Generate all eight models and UniversityDbContext from the existing database.
+- [x] Maintain all seven remaining models and UniversityDbContext from the existing database.
 - [x] Register DbContext after builder creation and fix duplicate MVC registration.
 - [x] Build successfully with zero warnings/errors.
 - [x] Add and run --check-database through the registered DbContext.
@@ -88,7 +88,6 @@ intermediate-chapter issue reproduced with the previous stylesheet; see STATUS.m
 - [x] Obtain approval for the cleaned transparent crest and use it as the main logo in shared layouts and favicon.
 - [x] Remove the student-access caption and verify normal login/signup forms fit desktop and phone viewports without scrolling.
 - [x] Load Cormorant Garamond/Lato with fallback fonts for the implemented account layouts.
-- [x] Load Font Awesome Free 6.7.2 and allowlist the supported social icons.
 - [ ] Prepare approved preselected images, descriptive alternative text, and missing-image fallbacks.
 - [x] Render the configured hero image with approved-crest fallback and university branding.
 - [x] Render description, mission, vision, core value titles, and About image gallery.
@@ -96,14 +95,14 @@ intermediate-chapter issue reproduced with the previous stylesheet; see STATUS.m
 - [x] Render entered founder names, optional birthdays, and biographies. The approved
   2026-11-14 portrait layout uses Rowena's approved biography and motto; public
   message rendering was removed. Stored messages remain editable in Administration.
-- [x] Render address, email, telephone, office hours, and supported social icons.
+- [x] Render address, email, telephone, and office hours.
 - [x] Add empty-content and generic database-error states without exposing account data or connection details.
 
 ## 5. Admin content management
 
 - [x] Build an admin navigation/dashboard linking to the content editors.
 - [x] Give administration its own layout with sidebar navigation, current-page indication, and a mobile disclosure menu.
-- [x] Split all seven sections into dedicated controllers, form ViewModels, and Index views; show university settings directly as four editable fields.
+- [x] Split content sections into dedicated controllers, form ViewModels, and Index views; show university settings directly as four editable fields.
 - [x] Remove sidebar numeric prefixes/divider label and the admin topbar as requested.
 - [x] Add hero/gallery/program/profile image uploaders with previews and server validation.
 - [x] Add Admin-only account search/edit, role/status management, and self-lockout protection.
@@ -113,7 +112,7 @@ intermediate-chapter issue reproduced with the previous stylesheet; see STATUS.m
 - [x] Add, edit, and delete programs with descriptions and image selection.
 - [x] Manage founder details and the founder message.
 - [x] Edit the single contact-information record.
-- [x] Add, edit, and delete social platforms, safe URLs, and supported icon identifiers.
+- [x] Remove social-link editing, queries, validation, rendering and storage.
 - [x] Use dedicated form/view models, server validation, anti-forgery protection, and POST mutations.
 - [x] Handle missing IDs, delete confirmations, success/error feedback, and persistence after refresh.
 
@@ -153,3 +152,6 @@ intermediate-chapter issue reproduced with the previous stylesheet; see STATUS.m
 - Image uploads and the admin account-management screen were explicitly requested
   and implemented after the original preselected-image plan.
 - Keep existing SQL identifiers and the simplified schema unless the user requests changes.
+
+- [x] Founder is edit-only and public content receives one record; existing birthday is preserved.
+- [x] Signed-in users can edit their own personal information and profile image without modifying access or other accounts.

@@ -23,9 +23,8 @@ for compatibility with the documented schema.
 - About: university description, mission, vision, independently managed core value
   titles, and university photographs.
 - Academics: subjects/programs with names, descriptions, and images.
-- Founder: name, optional birthday, description, and founder message.
-- Contact: address, email, telephone, office hours, and editable social links.
-- Social links may specify an icon class; the matching library must be available.
+- Founder: one existing record, edited only; name, biography and founder message. Retain the stored birthday.
+- Contact: address, email, telephone, and office hours.
 - User accounts include username, role, optional profile image, and active status.
 - UserTable also stores LastName, FirstName, MiddleName (each up to 100 characters),
   and Birthday (date only). Storage permits NULL to preserve existing accounts.
@@ -42,3 +41,5 @@ history, statistics, and imagery are planning material, not verified content.
 No enrollment records, payments, student grades, or contact inquiry storage were
 requested in the final simplified schema. Earlier inquiry-form ideas are optional
 future work, not a committed database feature. Do not add tables implicitly.
+
+Signed-in Admin and Student accounts can edit their own first/middle/last name, birthday, and profile image through Personal information. The browser tab title is exactly Ravenclaw University on all pages. Social links are removed from UI, backend, and database.

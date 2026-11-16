@@ -10,7 +10,7 @@
 - UniversityContentService assembles the read-only homepage. Each admin content
   section has its own named controller, ViewModel, and Views/<Section>/Index.cshtml.
   Each controller maps its form fields directly to its existing EF entity and uses
-  UniversityDbContext. No repository layer or schema change is needed.
+  UniversityDbContext. No repository layer is needed.
 - AdminContentController retains GET redirects for old bookmarks only. Shared
   ContentSections contains sidebar labels/routes; AdminContentValidation contains
   reusable input validators and the sidebar section interface, not CRUD behavior.
@@ -60,7 +60,7 @@ migration or a SQL identifier rename.
 
 The user selected EF Core database-first scaffolding from existing SQL tables.
 SQL Server and Design package references (9.*) are present. Data/ contains the
-generated UniversityDbContext and Models/ contains the eight entities. A separate
+generated UniversityDbContext and Models/ contains seven entities. A separate
 Repositories/ layer is optional, not a requirement. Continue using SQL scripts
 for schema changes; do not introduce migrations as a competing schema authority.
 
@@ -100,3 +100,7 @@ AccountService handles password hashing/verification and serialized account crea
 UniversityCookieEvents revalidates active status and roles on each request.
 FirstAdminCommand provides an interactive, local-only first-admin bootstrap.
 See AUTHENTICATION.md for setup, limits, and the disposable-database HTTP verifier.
+
+## Personal information and content simplification (2026-11-16)
+
+ProfileController/ProfileViewModel/Views/Profile/Index.cshtml form a dedicated authenticated editor. Reads project only personal fields; writes target the cookie identity through ExecuteUpdate and update only personal names, birthday and image. Posted IDs, username, role and active flags are not accepted. Uploads reuse ImageUploadService and all saves require antiforgery. A changed/deactivated account cannot be updated through a stale session. Founder editing uses a serializable update of its single existing record, without create/delete actions. UniversityPageViewModel now holds one Founder. Social-link controllers, entity/mapping, form model/view, validators and read queries were removed alongside the empty live table; consolidated Schema.sql now has seven tables.

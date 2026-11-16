@@ -8,21 +8,12 @@
     <h1>Founder</h1>
     @if (TempData["StatusMessage"] is string message) { <div class="status-message" role="status">@message</div> }
     <div asp-validation-summary="All" class="validation-summary" role="alert"></div>
-    @if (Model.ConfirmDelete)
-    {
-        <h2>Delete this entry?</h2>
-        <p>@Model.FounderName</p>
-        <p>This removes the entry from the university page.</p>
-        <form asp-action="Delete" method="post">
-            <input asp-for="Id" type="hidden" />
-            <div class="row-actions"><button class="button button-danger" type="submit">Delete entry</button><a class="button button-secondary" asp-action="Index" asp-route-id="" asp-route-confirmDelete="">Cancel</a></div>
-        </form>
-    }
-    else
+    <p class="muted">Edit the university founder information.</p>
+    @if (Model.Id > 0)
     {
         <div class="admin-editor-grid">
             <div class="admin-editor-fields">
-                <h2>@(Model.Id == 0 ? "Add entry" : "Edit entry")</h2>
+                <h2>Edit founder</h2>
                 <form asp-action="Index" asp-route-id="" asp-route-confirmDelete="" method="post" data-admin-editor data-recovered="@(Context.Request.Method == "POST" ? "true" : "false")">
                     <input asp-for="Id" type="hidden" />
                     <fieldset class="editor-fieldset"><legend>Founder details</legend>
@@ -41,22 +32,7 @@
             <partial name="_AdminContentPreview" model="preview" />
         </div>
     }
-    @if (ViewData["Unavailable"] is not true)
-    {
-        <div class="admin-section-heading saved-entries-heading"><h2>Saved entries</h2><span class="admin-count">@Model.Items.Count</span></div>
-        @if (Model.Items.Count == 0) { <p class="empty-copy">No entries yet. Use the form above to add the first one.</p> }
-        <div class="content-list">
-            @foreach (var item in Model.Items)
-            {
-                <article class="content-row">
-                    <div><h3>@item.FounderName</h3><p class="content-excerpt">@(string.IsNullOrWhiteSpace(item.Description) ? "No biography yet" : item.Description)</p></div>
-                    <div class="row-actions">
-                        <a class="button button-secondary" asp-action="Index" asp-route-id="@item.FounderId">Edit</a>
-                        <a class="button button-delete" asp-action="Index" asp-route-id="@item.FounderId" asp-route-confirmDelete="true">Delete</a>
-                    </div>
-                </article>
-            }
-        </div>
-    }
+    else if (ViewData["Unavailable"] is not true)
+    { <p class="empty-copy">Founder information has not been set up. This page only edits the existing founder.</p> }
 </section>
 @section Scripts { <partial name="_ValidationScriptsPartial" /> }

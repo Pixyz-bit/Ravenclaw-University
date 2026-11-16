@@ -12,6 +12,7 @@
 @import "./layouts/admin.css";
 @import "./layouts/admin-editors.css";
 @import "./layouts/admin-accounts.css";
+@import "./layouts/profile.css";
 @import "./components/navigation.css";
 @import "./sections/academics.css";
 @import "./sections/about.css";

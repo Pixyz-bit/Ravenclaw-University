@@ -28,5 +28,11 @@ and reveals remain intact; see the canonical reference for exact sizing.
 dynamic heading/hero image and bulleted core values; paired office-time controls.
 See docs/DESIGN.md for field grouping, compatibility fallbacks, and validation.
 
+2026-11-16: Founder is a single existing record with edit-only controls; social
+links are removed throughout the application. Subject uploads stay visible.
+Account rows use aligned columns and navy View actions. The refined navbar menu
+links to Personal information for the signed-in account. All browser tab titles
+are Ravenclaw University. See the canonical reference for layout and behavior.
+
 2026-11-16: compact three-column footer: university/socials, Explore, Contact.
 Removed the large motto and Our University links; columns stack on phones.

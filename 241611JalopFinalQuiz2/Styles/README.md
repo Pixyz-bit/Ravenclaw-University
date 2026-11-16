@@ -21,6 +21,7 @@ Styles/
     admin.css                Admin sidebar, workspace, dashboard
     admin-editors.css        Shared editor/preview layout, inventory, rows and draft dialog
     admin-accounts.css       Account analytics, directory rows, status actions and details
+    profile.css              Self-service personal information and profile identity layout
   sections/
     university.css           Hero, shared content containers, legacy section helpers
     founders.css             Ivory founder biography and responsive portrait crop

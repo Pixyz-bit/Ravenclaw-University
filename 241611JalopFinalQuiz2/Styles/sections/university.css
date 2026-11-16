@@ -146,14 +146,6 @@
     @apply [margin:10px_0_0];
 }
 
-.social-links {
-    @apply flex gap-[16px] flex-wrap mt-[32px];
-}
-
-.social-links a {
-    @apply inline-flex gap-[10px] items-center min-h-[44px];
-}
-
 @media(max-width:700px) {
     .university-hero {
         @apply [--portal-header-height:124px];

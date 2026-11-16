@@ -59,6 +59,7 @@
     <p class="muted">Showing up to 100 accounts. Refine the search to find a specific account.</p>
     @if (Model.Items.Count == 0 && ViewData["Unavailable"] is not true) { <p>No matching accounts.</p> }
     <div class="account-directory">
+        <div class="account-directory-head" aria-hidden="true"><span>Account</span><span>Role</span><span>Status</span><span>Actions</span></div>
         @foreach (var account in Model.Items)
         {
             var fullName = string.Join(" ", new[] { account.FirstName, account.LastName }.Where(part => !string.IsNullOrWhiteSpace(part)));
@@ -75,11 +76,15 @@
                 <span class="account-role">@account.Role</span>
                 <span class="account-status @(account.IsActive ? "is-active" : "is-deactivated")"><span aria-hidden="true"></span>@(account.IsActive ? "Active" : "Deactivated")</span>
                 <div class="account-directory-actions">
+                    @if (ownAccount) { <span class="account-self-label">Your account</span> }
+                    else
+                    {
                     <form asp-action="SetActive" method="post">
                         <input type="hidden" name="id" value="@account.Id" /><input type="hidden" name="isActive" value="@(!account.IsActive ? "true" : "false")" /><input type="hidden" name="search" value="@Model.Search" />
                         <button type="submit" class="button @(account.IsActive ? "account-deactivate" : "account-activate")" disabled="@ownAccount" aria-label="@(account.IsActive ? "Deactivate" : "Activate") @displayName" title="@(ownAccount ? "Your account must remain active." : null)">@(account.IsActive ? "Deactivate" : "Activate")</button>
                     </form>
-                    <a class="button button-secondary" asp-action="Details" asp-route-id="@account.Id" asp-route-search="@Model.Search" aria-label="View information for @displayName">View information</a>
+                    }
+                    <a class="button button-primary" asp-action="Details" asp-route-id="@account.Id" asp-route-search="@Model.Search" aria-label="View information for @displayName">View information</a>
                 </div>
             </article>
         }

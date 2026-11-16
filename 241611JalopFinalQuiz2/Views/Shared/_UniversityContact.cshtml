@@ -4,7 +4,6 @@
     var hours = contact?.TimeIn is TimeOnly timeIn && contact.TimeOut is TimeOnly timeOut
         ? $"{timeIn.ToString("h:mm tt", System.Globalization.CultureInfo.InvariantCulture)} – {timeOut.ToString("h:mm tt", System.Globalization.CultureInfo.InvariantCulture)}{(timeOut < timeIn ? " (next day)" : "") }"
         : string.IsNullOrWhiteSpace(contact?.OfficeHours) ? "Not published yet" : contact.OfficeHours;
-    var socialLinks = Model.SocialLinks.Where(social => Uri.TryCreate(social.Url, UriKind.Absolute, out var uri) && uri.Scheme == Uri.UriSchemeHttps).ToList();
 }
 <footer id="contact" class="university-footer" aria-labelledby="contact-title">
     <div class="footer-columns">
@@ -13,21 +12,6 @@
                 <img src="~/images/branding/ravenclaw-university-crest.png" asp-append-version="true" width="1123" height="1401" alt="" aria-hidden="true" />
                 <span>Ravenclaw University</span>
             </a>
-            @if (socialLinks.Count > 0)
-            {
-                <div class="footer-socials">
-                    <h2>Follow us</h2>
-                    <ul aria-label="University social links">
-                        @foreach (var social in socialLinks)
-                        {
-                            <li><a href="@social.Url" target="_blank" rel="noopener noreferrer">
-                                @if (!string.IsNullOrWhiteSpace(social.IconClass) && ContentSections.Icons.ContainsKey(social.IconClass)) { <i class="@social.IconClass" aria-hidden="true"></i> }
-                                @social.PlatformName <span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span>
-                            </a></li>
-                        }
-                    </ul>
-                </div>
-            }
         </div>
         <nav class="footer-navigation" aria-label="Footer navigation">
             <h2>Explore</h2>

@@ -3,13 +3,12 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] — Ravenclaw University</title>
+    <title>Ravenclaw University</title>
     <link rel="icon" type="image/png" href="~/images/branding/ravenclaw-university-crest.png" asp-append-version="true" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Lato:wght@400;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
 </head>
 <body class="portal-body">
     <a class="skip-link" href="#main-content">Skip to content</a>
@@ -31,8 +30,9 @@
             <details class="account-menu">
                 <summary aria-label="Account options"><svg viewBox="0 0 24 24" width="25" height="25" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="8" r="3.5" /><path d="M5 21v-2a7 7 0 0 1 14 0v2" /></svg></summary>
                 <div class="account-dropdown">
-                    <span class="account-dropdown-name">@User.Identity?.Name</span>
-                    @if (User.IsInRole("Admin")) { <a asp-controller="Admin" asp-action="Index">Administration</a> }
+                    <div class="account-dropdown-identity"><span class="account-menu-avatar" aria-hidden="true">@(string.IsNullOrWhiteSpace(User.Identity?.Name) ? "?" : System.Globalization.StringInfo.GetNextTextElement(User.Identity.Name).ToUpperInvariant())</span><div><span class="account-dropdown-caption">Signed in as</span><strong class="account-dropdown-name">@User.Identity?.Name</strong></div></div>
+                    <a class="account-profile-link" asp-controller="Profile" asp-action="Index">Edit personal information <span aria-hidden="true">↗</span></a>
+                    @if (User.IsInRole("Admin")) { <a asp-controller="Admin" asp-action="Index">Administration <span aria-hidden="true">→</span></a> }
                     <form asp-controller="Account" asp-action="Logout" method="post"><button type="submit">Sign out</button></form>
                 </div>
             </details>

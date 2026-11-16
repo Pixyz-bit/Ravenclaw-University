@@ -38,7 +38,7 @@ Its interactive terminal/password-entry path still requires a manual check.
 
 - Fallback authorization requires login for MVC content by default. Only login,
   registration, the generic error handler, and public static assets are anonymous.
-- /Admin, the seven dedicated content controllers, and legacy /AdminContent links
+- /Admin, the remaining dedicated content controllers, and legacy /AdminContent links
   and /AccountManagement use server-side Admin authorization. Students can read
   university content but cannot access editors or POST content mutations.
 - Passwords use ASP.NET Core PasswordHasher. Hashes are upgraded on login when needed.
@@ -61,6 +61,15 @@ Its interactive terminal/password-entry path still requires a manual check.
   Protected pages and account responses are marked no-store.
 
 ## Verification
+
+Personal information is available at /Profile to authenticated Admin and Student
+accounts. The dedicated form edits only the signed-in account's names, optional
+birthday and profile image. Identity comes from the cookie, never a posted ID.
+Username, role, IsActive and password are outside this form model and remain
+unchanged. Writes require antiforgery and an active account with the same role.
+Reads project personal fields only; uploads reuse existing validation/storage.
+Saving names preserves the session because the login username does not change.
+The public account menu and admin sidebar link to this page.
 
 Account management rows offer only Activate/Deactivate and View information.
 Details is an Admin-only, read-only profile page with no password/hash fields.

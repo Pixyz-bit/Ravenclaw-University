@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using _241611JalopFinalQuiz2.Models;
@@ -24,7 +24,6 @@ public partial class UniversityDbContext : DbContext
 
     public virtual DbSet<ProgramsTable> ProgramsTables { get; set; }
 
-    public virtual DbSet<SocialLinksTable> SocialLinksTables { get; set; }
 
     public virtual DbSet<UserTable> UserTables { get; set; }
 
@@ -92,18 +91,7 @@ public partial class UniversityDbContext : DbContext
             entity.Property(e => e.SubjectName).HasMaxLength(150);
         });
 
-        modelBuilder.Entity<SocialLinksTable>(entity =>
-        {
-            entity.HasKey(e => e.SocialLinkId).HasName("PK__SocialLi__97EE69659A22CB80");
-
-            entity.ToTable("SocialLinksTable");
-
-            entity.Property(e => e.IconClass).HasMaxLength(100);
-            entity.Property(e => e.PlatformName).HasMaxLength(50);
-            entity.Property(e => e.Url).HasMaxLength(500);
-        });
-
-        modelBuilder.Entity<UserTable>(entity =>
+modelBuilder.Entity<UserTable>(entity =>
         {
             entity.HasKey(e => e.UserId).HasName("PK__UserTabl__1788CC4C2530E88C");
 
