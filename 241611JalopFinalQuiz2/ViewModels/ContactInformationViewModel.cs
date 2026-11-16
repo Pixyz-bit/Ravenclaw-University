@@ -5,12 +5,12 @@ using _241611JalopFinalQuiz2.Models;
 
 namespace _241611JalopFinalQuiz2.ViewModels;
 
-public class ContactInformationViewModel : IAdminSectionViewModel
+public class ContactInformationViewModel : IAdminSectionViewModel, IValidatableObject
 {
     public ContentSection Section => ContentSection.Contacts;
     public int Id { get; set; }
 
-    [Display(Name = "Address"), StringLength(500)]
+    [Display(Name = "University Address"), StringLength(500)]
     public string? AcademyAddress { get; set; }
 
     [Display(Name = "Email"), StringLength(254), EmailAddress]
@@ -19,7 +19,19 @@ public class ContactInformationViewModel : IAdminSectionViewModel
     [Display(Name = "Telephone"), StringLength(50), Phone]
     public string? Telephone { get; set; }
 
-    [Display(Name = "Office hours"), StringLength(300)]
+    [BindNever, ValidateNever]
     public string? OfficeHours { get; set; }
+
+    [Display(Name = "Time In"), DataType(DataType.Time)]
+    public TimeOnly? TimeIn { get; set; }
+
+    [Display(Name = "Time Out"), DataType(DataType.Time)]
+    public TimeOnly? TimeOut { get; set; }
+
+    public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+    {
+        if (TimeIn.HasValue != TimeOut.HasValue)
+            yield return new ValidationResult("Enter both Time In and Time Out, or leave both empty.", [nameof(TimeIn), nameof(TimeOut)]);
+    }
 
 }

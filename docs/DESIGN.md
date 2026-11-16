@@ -127,7 +127,9 @@ height fallback. The selected common-room image covers the background; a navy-bl
 from dark on the left to lighter on the right. A left-aligned hero header and short
 description sit over the image, vertically centered in a 1200px inner container.
 Keep the established serif/italic ivory-and-gold motto and Lato supporting text.
-The user selected only the revised Ravenclaw common-room image. Use it as a static background; no CTA buttons, image selectors, extra slides, or rotation. This supersedes the previous gallery. A ResizeObserver tracks navbar height so hero and navbar fit together. Heading size and spacing scale with width and height. CSS supplies navbar-height fallbacks without JavaScript. The hero may grow on short screens/zoom rather than clip text. Subsequent content retains the centered
+The hero uses the image saved in Hero and About, falling back to the approved
+Ravenclaw common-room image when no safe saved image exists. It remains a single
+static background, with no CTA buttons, extra slides, or rotation. A ResizeObserver tracks navbar height so hero and navbar fit together. Heading size and spacing scale with width and height. CSS supplies navbar-height fallbacks without JavaScript. The hero may grow on short screens/zoom rather than clip text. Subsequent content retains the centered
 1200px reading width and ivory sections, thin dividers, mission/vision and program layouts,
 gallery images, contact details, and founder biographies/messages. Unpublished content
 is labeled rather than invented. Razor encodes text and retains paragraph breaks.
@@ -141,7 +143,9 @@ the existing database ImagePath field. Existing cover cropping and hover behavio
 remain. Herbology uses the mandrake greenhouse image; Transfiguration uses the
 wand/parchment still life, both matched to the established muted cinematic style.
 
-About begins directly with “A place for curious minds.” The separate About label,
+About begins directly with the saved About Heading, falling back to “A place for
+curious minds” when empty. Core Values uses a semantic bulleted list on desktop
+and phones, with the same Lato body scale and spacing. The separate About label,
 quote introduction, and student-facing admin notice have been removed. There is no
 introductory top gap. The section uses the full page width, with edge-to-edge images
 on desktop and mobile and responsive inner padding for text.
@@ -317,20 +321,34 @@ images use a text fallback; the crest is not used as fake campus photography.
 Admin uses _AdminLayout through its folder-specific _ViewStart. Each dedicated
 content section selects _AdminLayout in its own Index view. The university navbar
 is not rendered in this shell. A 272px navy sidebar
-contains the approved crest, Dashboard, and all seven content sections. The current
+contains the approved crest and five links in this order: Hero and About,
+Academics, Founder, Contacts, Account Management. The crest links to the dashboard. The current
 page uses a blue active background and aria-current=page, including edit/delete
 and validation states. View university and POST Sign out sit below navigation.
 The ivory workspace uses Lato headings and opens directly to the page content;
 the user requested removal of the contextual topbar/account label. Sidebar links
 are one flat list, with no numeric prefixes or University content divider label.
-Account management follows the seven content links using the same active style.
+Account Management uses the same active style.
 Below 901px, native sidebar disclosure collapses initially with JavaScript and
 remains usable without JavaScript. The dashboard shows real content/account counts,
 quick actions, and suggested updates derived from missing saved content. Counts are
 withheld when the database is unavailable; there are no invented analytics.
 
-Each content section has its own view, form model, and controller. University and
-contact settings open directly to a single save form. The other five sections show
+Hero and About combines the hero upload, About Heading, About Description, Mission,
+Vision, and Core Values in one save form. Enter one value per textarea line; its
+draft preview and public chapter use bullets. About images remain available via
+a secondary disclosure on that page. Contacts has University Address, Email,
+Telephone, and paired native Time In/Time Out controls, with social-link management
+under a secondary disclosure. Blank times retain the legacy office-hours fallback;
+overnight hours are labeled as ending the next day. Native time controls use
+minute precision without an explicit step attribute, which conflicts with the
+bundled jQuery validator. Academics shows Subject Name and Subject Description,
+with the existing image uploader in an optional disclosure. Founder shows Founder
+Name, Founder Info, and Founder Message; existing birthdays are preserved.
+
+Each content section retains its view, form model, and controller. Singleton
+settings open directly to a save form. Legacy collection editors remain available
+for old direct links; collections show
 an add/edit form followed by published entries on the same page. Delete confirmation
 uses that section's view; no shared conditional editor switches between sections.
 Keep the established field, button, status, sidebar, and responsive form styling.

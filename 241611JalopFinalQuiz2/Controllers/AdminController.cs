@@ -34,14 +34,15 @@ public class AdminController(UniversityDbContext database, UniversityContentServ
             if (string.IsNullOrWhiteSpace(page.Contact?.AcademyAddress)
                 || string.IsNullOrWhiteSpace(page.Contact?.Email)
                 || string.IsNullOrWhiteSpace(page.Contact?.Telephone)
-                || string.IsNullOrWhiteSpace(page.Contact?.OfficeHours))
+                || (string.IsNullOrWhiteSpace(page.Contact?.OfficeHours)
+                    && (page.Contact?.TimeIn is null || page.Contact.TimeOut is null)))
                 model.Reminders.Add(new("Complete your contact details", "Make the address, email, telephone, and office hours easy to find.", "ContactInformation"));
             if (page.Programs.Count == 0)
                 model.Reminders.Add(new("Add your first academic program", "Introduce the subjects students can explore.", "AcademicPrograms"));
             else if (page.Programs.Any(program => string.IsNullOrWhiteSpace(program.ImagePath) || string.IsNullOrWhiteSpace(program.Description)))
                 model.Reminders.Add(new("Finish your program entries", "Some programs need an image or description.", "AcademicPrograms"));
             if (page.Values.Count == 0)
-                model.Reminders.Add(new("Add the university's core values", "Share the principles that guide the university.", "CoreValues"));
+                model.Reminders.Add(new("Add the university's core values", "Share the principles that guide the university.", "UniversityInformation"));
             if (page.Founders.Count == 0)
                 model.Reminders.Add(new("Introduce university leadership", "Add a founder name and biography.", "FounderInformation"));
             return View(model);

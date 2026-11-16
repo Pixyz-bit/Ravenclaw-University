@@ -13,7 +13,7 @@ public class AcademicProgramsViewModel : IAdminSectionViewModel
     [Display(Name = "Subject name"), Required, StringLength(150)]
     public string? SubjectName { get; set; }
 
-    [Display(Name = "Description")]
+    [Display(Name = "Subject Description")]
     public string? Description { get; set; }
 
     [BindNever]

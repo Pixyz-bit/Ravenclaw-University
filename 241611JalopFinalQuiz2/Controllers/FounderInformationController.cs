@@ -49,7 +49,6 @@ public class FounderInformationController(UniversityDbContext database, ILogger<
             var item = model.Id == 0 ? new FounderTable() : await database.FounderTables.FindAsync(model.Id);
             if (item is null) return NotFound();
             item.FounderName = model.FounderName!.Trim();
-            item.Birthday = model.Birthday;
             item.Description = Clean(model.Description);
             item.FounderMessage = Clean(model.FounderMessage);
             if (model.Id == 0) database.FounderTables.Add(item);

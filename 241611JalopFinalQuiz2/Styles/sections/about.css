@@ -40,6 +40,14 @@
         @apply text-ink max-w-[40ch] m-0;
     }
 
+    .about-values {
+        @apply list-disc pl-[24px] [overflow-wrap:anywhere];
+    }
+
+    .about-values li + li {
+        @apply mt-[8px];
+    }
+
     .about-link {
         @apply inline-flex items-center self-start gap-[16px] text-navy min-h-[44px] mt-[clamp(20px,3.5dvh,36px)] no-underline text-[.9rem] font-bold shrink-0;
     }

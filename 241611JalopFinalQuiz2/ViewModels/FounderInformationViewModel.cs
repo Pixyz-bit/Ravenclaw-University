@@ -16,10 +16,10 @@ public class FounderInformationViewModel : IAdminSectionViewModel
     [Display(Name = "Birthday"), PastBirthday, DataType(DataType.Date)]
     public DateOnly? Birthday { get; set; }
 
-    [Display(Name = "Description")]
+    [Display(Name = "Founder Info")]
     public string? Description { get; set; }
 
-    [Display(Name = "Message from the founder")]
+    [Display(Name = "Founder Message")]
     public string? FounderMessage { get; set; }
 
     [BindNever, ValidateNever]

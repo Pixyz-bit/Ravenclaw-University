@@ -164,14 +164,18 @@ try {
         Assert-Check ($adminDashboard.Body.Contains('aria-label="Administration navigation"') -and -not $adminDashboard.Body.Contains('aria-label="Main navigation"')) 'Admin dashboard uses a separate sidebar layout'
         $programList = Send-Request $admin '/AcademicPrograms'
         $activeLinks = [regex]::Matches($programList.Body,'<a\b[^>]*aria-current="page"[^>]*>.*?</a>',[Text.RegularExpressions.RegexOptions]::Singleline)
-        Assert-Check ($activeLinks.Count -eq 1 -and $activeLinks[0].Value.Contains('Academic programs')) 'Content sidebar marks only the current section active'
+        Assert-Check ($activeLinks.Count -eq 1 -and $activeLinks[0].Value.Contains('Academics')) 'Content sidebar marks only the current section active'
         $universityPage = Send-Request $admin '/UniversityInformation'
+        Assert-Check ($universityPage.Body.Contains('name="AboutHeading"') -and $universityPage.Body.Contains('name="CoreValuesText"')) 'Hero and About includes the heading and combined core-value editor'
+        $nav = [regex]::Match($universityPage.Body, '<nav aria-label="Administration navigation">(.*?)</nav>', [Text.RegularExpressions.RegexOptions]::Singleline).Groups[1].Value
+        $navNames = [regex]::Matches($nav, '<a\b[^>]*>(.*?)</a>', [Text.RegularExpressions.RegexOptions]::Singleline) | ForEach-Object { [Net.WebUtility]::HtmlDecode($_.Groups[1].Value.Trim()) }
+        Assert-Check (($navNames -join '|') -eq 'Hero and About|Academics|Founder|Contacts|Account Management') 'Sidebar follows the five requested sections in order'
         Assert-Check ($universityPage.Status -eq 200 -and $universityPage.Body.Contains('name="ImageUpload"') -and $universityPage.Body.Contains('type="file"') -and $universityPage.Body.Contains('name="AcademyDescription"') -and $universityPage.Body.Contains('name="Mission"') -and $universityPage.Body.Contains('name="Vision"')) 'University page displays its image uploader and three text fields'
         Assert-Check (-not $adminDashboard.Body.Contains('admin-nav-number') -and -not $adminDashboard.Body.Contains('admin-nav-heading') -and -not $adminDashboard.Body.Contains('class="admin-topbar"')) 'Admin sidebar has no numbers/divider and the admin topbar is removed'
         Assert-Check ((Send-Request $admin '/AdminContent?section=University').Location -like '/UniversityInformation*') 'Existing University information link redirects to its dedicated editor'
         $sections = @(
-            @{Name='University';Controller='UniversityInformation';Table='AcademyInfoTable';Key='AcademyInfoId';Fields=@{AcademyDescription='Verification university description';Mission='Verification mission';Vision='Verification vision';HeroImg='/images/branding/ravenclaw-university-crest.png'}},
-            @{Name='Contacts';Controller='ContactInformation';Table='ContactsTable';Key='ContactId';Fields=@{AcademyAddress='Verification campus';Email='office@university.example';Telephone='+63 912 345 6789';OfficeHours='Monday to Friday'}},
+            @{Name='University';Controller='UniversityInformation';Table='AcademyInfoTable';Key='AcademyInfoId';Fields=@{AboutHeading='Verification heading';AcademyDescription='Verification university description';Mission='Verification mission';Vision='Verification vision';HeroImg='/images/branding/ravenclaw-university-crest.png'}},
+            @{Name='Contacts';Controller='ContactInformation';Table='ContactsTable';Key='ContactId';Fields=@{AcademyAddress='Verification campus';Email='office@university.example';Telephone='+63 912 345 6789';TimeIn='08:30';TimeOut='17:15'}},
             @{Name='Values';Controller='CoreValues';Table='CoreValuesTable';Key='CoreValueId';Fields=@{Title='Verification title'}},
             @{Name='Photos';Controller='AboutGallery';Table='AboutImagesTable';Key='AboutImageId';Fields=@{ImagePath='/images/branding/ravenclaw-university-crest.png';AltText='Verification image'}},
             @{Name='Programs';Controller='AcademicPrograms';Table='ProgramsTable';Key='SubjectId';Fields=@{SubjectName='Verification title';Description='Verification description';ImagePath='/images/branding/ravenclaw-university-crest.png'}},
@@ -210,6 +214,9 @@ try {
             $contentSection.RecordId=$recordId
         }
         $rendered = Send-Request $admin '/'
+        $savedHero = Invoke-TestSql 'SELECT TOP(1) HeroImg FROM dbo.AcademyInfoTable;'
+        Assert-Check ($rendered.Body.Contains('src="'+$savedHero+'"') -and $rendered.Body.Contains('Verification heading')) 'Public hero and About heading use the saved admin content'
+        Assert-Check ($rendered.Body.Contains('8:30 AM') -and $rendered.Body.Contains('5:15 PM')) 'Public office hours use the saved time pair'
         Assert-Check ($rendered.Status -eq 200 -and $rendered.Body.Contains('Updated verification description') -and $rendered.Body.Contains('Updated verification title') -and $rendered.Body.Contains('Updated verification campus')) 'University page renders persisted content from the tables'
         $singleton = Submit-Form $admin '/UniversityInformation' @{HeroImg='';AcademyDescription='Updated verification description';Mission='Verification mission';Vision='Verification vision'}
         Assert-Check ($singleton.Status -eq 302 -and (Invoke-TestSql 'SELECT COUNT(*) FROM dbo.AcademyInfoTable;') -eq '1') 'University settings update the single existing record'
@@ -225,6 +232,33 @@ try {
         Assert-Check ($oversize.Status -eq 200 -and $oversize.Body.Contains('5 MB')) 'Image uploads over 5 MB are rejected'
         $emptyValue = Submit-Form $admin '/CoreValues' @{Title=' '}
         Assert-Check ($emptyValue.Status -eq 200 -and (Invoke-TestSql 'SELECT COUNT(*) FROM dbo.CoreValuesTable;') -eq '1') 'Blank required content title is rejected'
+        $headingAndValues = @{AboutHeading='<script>Heading</script>';AcademyDescription='Updated verification description';Mission='Verification mission';Vision='Verification vision';CoreValuesText="Curiosity`r`n  Independent thought  `r`n`r`nRespect`r`nWisdom"}
+        $combined = Submit-Form $admin '/UniversityInformation' $headingAndValues
+        Assert-Check ($combined.Status -eq 302 -and (Invoke-TestSql 'SELECT COUNT(*) FROM dbo.CoreValuesTable;') -eq '4' -and (Invoke-TestSql "SELECT COUNT(*) FROM dbo.CoreValuesTable WHERE Title=N'Independent thought';") -eq '1') 'Combined editor stores trimmed values as individual ordered records'
+        $combinedPublic = Send-Request $admin '/'
+        Assert-Check (([regex]::Matches($combinedPublic.Body, '<ul class="about-values prose">').Count -eq 2) -and $combinedPublic.Body.Contains('<li>Curiosity</li>') -and $combinedPublic.Body.Contains('<li>Wisdom</li>')) 'Desktop and mobile render core values as semantic bullet lists'
+        Assert-Check ($combinedPublic.Body.Contains('&lt;script&gt;Heading&lt;/script&gt;') -and -not $combinedPublic.Body.Contains('<script>Heading</script>')) 'Editable About heading is HTML encoded'
+        $reloaded = Send-Request $admin '/UniversityInformation'
+        Assert-Check ($reloaded.Body.Contains('Independent thought') -and $reloaded.Body.Contains('&lt;script&gt;Heading&lt;/script&gt;')) 'Combined values and heading reload into the admin editor'
+        $tooLong = $headingAndValues.Clone(); $tooLong.CoreValuesText = 'x' * 101
+        $rejected = Submit-Form $admin '/UniversityInformation' $tooLong
+        Assert-Check ($rejected.Status -eq 200 -and $rejected.Body.Contains('100 characters') -and (Invoke-TestSql 'SELECT COUNT(*) FROM dbo.CoreValuesTable;') -eq '4') 'An oversized value rejects the whole save without changing the list'
+        $tooLong = $headingAndValues.Clone(); $tooLong.AboutHeading = 'x' * 151
+        Assert-Check ((Submit-Form $admin '/UniversityInformation' $tooLong).Status -eq 200 -and (Invoke-TestSql 'SELECT COUNT(*) FROM dbo.CoreValuesTable;') -eq '4') 'About heading length is enforced before saving'
+        $headingAndValues.CoreValuesText='Updated verification title'; $headingAndValues.AboutHeading=''
+        Assert-Check ((Submit-Form $admin '/UniversityInformation' $headingAndValues).Status -eq 302 -and (Invoke-TestSql 'SELECT COUNT(*) FROM dbo.CoreValuesTable;') -eq '1' -and (Send-Request $admin '/').Body.Contains('A place for curious minds')) 'Removing value lines updates the list and blank heading uses the established fallback'
+        $singleTime = Submit-Form $admin '/ContactInformation' @{TimeIn='08:30';TimeOut=''}
+        Assert-Check ($singleTime.Status -eq 200 -and $singleTime.Body.Contains('Enter both Time In and Time Out')) 'A partial office-time pair is rejected'
+        Assert-Check ((Submit-Form $admin '/ContactInformation' @{TimeIn='25:00';TimeOut='17:00'}).Status -eq 200) 'An invalid office time is rejected'
+        Invoke-TestSql "UPDATE dbo.ContactsTable SET OfficeHours=N'Monday to Friday';" | Out-Null
+        $overnight = Submit-Form $admin '/ContactInformation' @{TimeIn='22:00';TimeOut='06:00';OfficeHours='Forged replacement'}
+        Assert-Check ($overnight.Status -eq 302 -and (Invoke-TestSql "SELECT COUNT(*) FROM dbo.ContactsTable WHERE TimeIn='22:00:00' AND TimeOut='06:00:00' AND OfficeHours=N'Monday to Friday';") -eq '1' -and (Send-Request $admin '/').Body.Contains('(next day)')) 'Office times persist, overnight hours are explicit, and existing hours text is protected'
+        $contactEditor = Send-Request $admin '/ContactInformation'
+        Assert-Check ($contactEditor.Body.Contains('type="time"') -and $contactEditor.Body.Contains('name="TimeIn"') -and $contactEditor.Body.Contains('name="TimeOut"') -and $contactEditor.Body.Contains('value="22:00"')) 'Contacts reloads saved times into native time inputs'
+        Assert-Check ((Submit-Form $admin '/ContactInformation' @{TimeIn='';TimeOut=''}).Status -eq 302 -and (Send-Request $admin '/').Body.Contains('Monday to Friday')) 'Clearing both times restores the retained legacy office-hours text'
+        Invoke-TestSql "UPDATE dbo.FounderTable SET Birthday='1900-01-01';" | Out-Null
+        $founderId = Invoke-TestSql 'SELECT TOP(1) FounderId FROM dbo.FounderTable;'
+        Assert-Check ((Submit-Form $admin '/FounderInformation' @{Id=$founderId;FounderName='Verification title';Description='Verification biography';FounderMessage='Verification message'}).Status -eq 302 -and (Invoke-TestSql "SELECT COUNT(*) FROM dbo.FounderTable WHERE Birthday='1900-01-01';") -eq '1' -and -not (Send-Request $admin '/FounderInformation').Body.Contains('name="Birthday"')) 'Founder shows the requested fields and preserves existing birthdays'
         Assert-Check ((Send-Request $admin '/AdminContent/Edit?section=999').Status -eq 404) 'Unknown content section is rejected'
         Assert-Check ((Send-Request $admin '/AcademicPrograms?id=99999').Status -eq 404) 'Missing content record returns 404'
         $xss = Submit-Form $admin '/AcademicPrograms' @{SubjectName='<script>alert(1)</script>';Description='Text only'}
@@ -239,6 +273,10 @@ try {
             $removed=Send-Request $admin "$route/Delete" @{Id=$recordId;__RequestVerificationToken=[Net.WebUtility]::HtmlDecode($pageToken)}
             Assert-Check ($removed.Status -eq 302 -and (Invoke-TestSql "SELECT COUNT(*) FROM dbo.[$($contentSection.Table)] WHERE [$($contentSection.Key)]=$recordId;") -eq '0') "Admin can delete $name content"
         }
+        $clearFields = @{AboutHeading='';CoreValuesText='One temporary value'}
+        Assert-Check ((Submit-Form $admin '/UniversityInformation' $clearFields).Status -eq 302 -and (Invoke-TestSql 'SELECT COUNT(*) FROM dbo.CoreValuesTable;') -eq '1') 'Combined editor can add values to an empty list'
+        $clearFields.CoreValuesText=''
+        Assert-Check ((Submit-Form $admin '/UniversityInformation' $clearFields).Status -eq 302 -and (Invoke-TestSql 'SELECT COUNT(*) FROM dbo.CoreValuesTable;') -eq '0' -and (Send-Request $admin '/').Body.Contains('Core values have not been published yet.')) 'Blank combined value input clears the list and renders its empty state'
         Assert-Check ((Send-Request $admin '/AdminContent/Delete?section=University&id=1').Status -eq 404) 'Single university record cannot be deleted through content editor'
         Assert-Check ((Send-Request $anonymous '/AccountManagement').Location -like '*Login*') 'Anonymous cannot access Account management'
         Assert-Check ((Send-Request $studentClient '/AccountManagement').Location -like '*AccessDenied*') 'Students cannot access Account management'

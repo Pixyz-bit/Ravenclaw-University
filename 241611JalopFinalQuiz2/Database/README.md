@@ -33,8 +33,8 @@ were incorporated into UniversityDbContext. Exact definitions remain in Schema.s
 The consolidated schema was executed against a disposable database. All eight
 tables matched live column metadata, including types, lengths, precision,
 nullability, and identities. The disposable database was removed. Build and the
-extended read-only EF diagnostic passed. Admin controls and public rendering for
-these new fields still need wiring as part of the requested admin restructure.
+extended read-only EF diagnostic passed. The admin controls and public rendering
+now use these new fields; legacy office-hours text remains a read-only fallback.
 
 ### Verified personal-details update
 

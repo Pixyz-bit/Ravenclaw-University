@@ -15,7 +15,7 @@ The authenticated homepage has hero, About, academics, a drifting gallery, conta
 and founder information. Navigation links jump to
 the corresponding sections. Admin image uploads and account management are now
 implemented. No enrollment, inquiry form, or extra tables were added. Schema.sql
-remains unchanged and is the sole consolidated schema.
+is the sole consolidated schema and includes the approved heading/office-time additions.
 
 The gallery's latest treatment is flat and page-scroll driven across a 200dvh
 section, with a viewport-sized sticky stage below navigation. Column offsets follow
@@ -76,16 +76,30 @@ These are tentative university website contents.
 Database/SeedUniversityContent.sql records the approved copy; running it deliberately
 replaces those three text fields and the complete core-value list.
 
-Sign in as an Admin and open Administration. The sidebar links to seven sections.
-The admin area has its own sidebar layout, separate from the university navbar.
-Dashboard and the seven content pages are linked persistently, with the current
-section highlighted. On phones the navigation can be expanded from its disclosure.
+Sign in as an Admin and open Administration. The sidebar contains Hero and About,
+Academics, Founder, Contacts, and Account Management, in that order. The crest opens
+the dashboard. The admin layout is separate from the university navbar, highlights
+the current section, and has expandable navigation on phones.
+
+Hero and About edits the saved hero image, About Heading/Description, Mission,
+Vision, and all Core Values together. Enter one value per line (up to 100 characters
+each); blank lines are ignored, removing lines removes values, and clearing the
+textarea clears the list. Values remain individual records and render as bullets
+on desktop/mobile. The entire save is transactional. Text remains HTML encoded.
+An empty heading uses the established “A place for curious minds” fallback.
+
+Contacts uses separate Time In/Time Out inputs: supply both or neither. The footer
+formats the saved pair, labels overnight ranges, and falls back to retained legacy
+office-hours text when both are empty. About images and social links remain
+available through secondary disclosures in Hero and About / Contacts. Existing
+dedicated editor URLs remain usable. Founder edits preserve stored birthdays;
+stored founder messages remain editable without adding a public message section.
 
 | Editor | Database table | Behavior |
 | --- | --- | --- |
-| University information | AcademyInfoTable | Create once, then edit description, mission, vision, and hero image |
-| Contact information | ContactsTable | Create once, then edit address, email, telephone, and office hours |
-| Core values | CoreValuesTable | Add/edit/delete individual titles |
+| Hero and About | AcademyInfoTable / CoreValuesTable | Create/edit university details and replace the value list in one save |
+| Contacts | ContactsTable | Create/edit contact details and paired office times |
+| Core values (legacy route) | CoreValuesTable | Individual title editor retained for existing links |
 | About gallery | AboutImagesTable | Add/edit/delete image paths and descriptions |
 | Academic programs | ProgramsTable | Add/edit/delete subjects, descriptions, and images |
 | Founder information | FounderTable | Add/edit/delete names, optional birthdays, biographies, and messages |
@@ -177,7 +191,8 @@ UniversityContentService reads all seven content tables using AsNoTracking and
 sequential queries on one DbContext. It never queries user accounts for content.
 HomeController renders UniversityPageViewModel with clear unpublished/empty states.
 No founder dates, campus history, statistics, or programs were seeded into the
-university database. The selected common room is the fixed hero visual.
+university database. The saved hero image is used when safe, with the approved
+common room as fallback.
 
 Empty content remains a valid page. Database-operation errors show generic retry
 feedback and HTTP 503 rather than exception details. Authentication continues to

@@ -7,7 +7,7 @@
 else
 {
     <section id="home" class="university-hero" aria-labelledby="hero-header" data-viewport-hero>
-        <img class="hero-background" src="~/images/hero/ravenclaw-common-room.png" asp-append-version="true" alt="" aria-hidden="true" fetchpriority="high" decoding="async" />
+        <img class="hero-background" src="@(!string.IsNullOrWhiteSpace(Model.University?.HeroImg) && SafeImageAttribute.IsSafeImage(Model.University.HeroImg) ? Model.University.HeroImg : "/images/hero/ravenclaw-common-room.png")" asp-append-version="true" alt="" aria-hidden="true" fetchpriority="high" decoding="async" />
         <div class="hero-copy">
             <p class="eyebrow">Ravenclaw University</p>
             <h1 id="hero-header" class="hero-header">Where Wisdom<br /><em>Takes Flight.</em></h1>

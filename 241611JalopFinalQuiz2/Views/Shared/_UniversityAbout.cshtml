@@ -2,10 +2,10 @@
 @{
     var steps = new[]
     {
-        (Title: "A place for curious minds", Text: Model.University?.AcademyDescription ?? "University information will be published here.", Link: "Explore academics", Target: "#academics"),
+        (Title: string.IsNullOrWhiteSpace(Model.University?.AboutHeading) ? "A place for curious minds" : Model.University.AboutHeading, Text: Model.University?.AcademyDescription ?? "University information will be published here.", Link: "Explore academics", Target: "#academics"),
         (Title: "Our mission", Text: Model.University?.Mission ?? "Our mission statement will be published here.", Link: "Contact the university", Target: "#contact"),
         (Title: "Our vision", Text: Model.University?.Vision ?? "Our vision statement will be published here.", Link: "Meet our leadership", Target: "#leadership"),
-        (Title: "Our core values", Text: Model.Values.Count > 0 ? string.Join(" · ", Model.Values.Select(value => value.Title)) : "Core values have not been published yet.", Link: "Explore academics", Target: "#academics")
+        (Title: "Our core values", Text: "Core values have not been published yet.", Link: "Explore academics", Target: "#academics")
     };
     var photos = Model.Photos.Where(photo => SafeImageAttribute.IsSafeImage(photo.ImagePath)).Select(photo => (Path: photo.ImagePath, Alt: photo.AltText ?? "University gallery image")).ToArray();
     var illustrations = new[] { "/images/hero/ravenclaw-common-room.png", "/images/hero/portrait-stairwell.png", "/images/hero/ravenclaw-eagle-wall.png", "/images/hero/great-hall.png" };
@@ -21,7 +21,13 @@
                 {
                     <article class="about-copy-item @(i == 0 ? "is-active" : "")" data-about-copy="@i">
                         <h2 class="university-section-title">@steps[i].Title</h2>
-                        <div class="about-prose"><p class="prose">@steps[i].Text</p></div>
+                        <div class="about-prose">
+                            @if (i == 3 && Model.Values.Count > 0)
+                            {
+                                <ul class="about-values prose">@foreach (var value in Model.Values) { <li>@value.Title</li> }</ul>
+                            }
+                            else { <p class="prose">@steps[i].Text</p> }
+                        </div>
                         <a class="about-link" href="@steps[i].Target">@steps[i].Link <span aria-hidden="true">→</span></a>
                     </article>
                 }
@@ -46,7 +52,12 @@
                 var main = Picture(i);
                 <article class="about-mobile-step" id="about-mobile-@i">
                     <div class="about-mobile-image"><img src="@main.Path" alt="@main.Alt" loading="lazy" decoding="async" /></div>
-                    <h2 class="university-section-title">@steps[i].Title</h2><p class="prose">@steps[i].Text</p>
+                    <h2 class="university-section-title">@steps[i].Title</h2>
+                    @if (i == 3 && Model.Values.Count > 0)
+                    {
+                        <ul class="about-values prose">@foreach (var value in Model.Values) { <li>@value.Title</li> }</ul>
+                    }
+                    else { <p class="prose">@steps[i].Text</p> }
                     <a class="about-link" href="@steps[i].Target">@steps[i].Link <span aria-hidden="true">→</span></a>
                 </article>
             }

@@ -4,6 +4,25 @@ Last verified: 2026-11-16.
 
 ## Latest error check
 
+- 2026-11-16 admin structure implemented: sidebar now follows Hero and About,
+  Academics, Founder, Contacts, Account Management. The combined university form
+  saves the optional About heading and ordered core-value list transactionally;
+  the public hero uses the saved image and both About layouts render values as
+  bullets. Contacts saves a validated time pair and formats it publicly, including
+  overnight ranges and the retained legacy-hours fallback. Founder fields follow
+  the requested labels and preserve stored birthdays. About images/social links
+  remain reachable through secondary disclosures; legacy editor routes remain.
+  Final normal build passed with zero warnings/errors; all 153 disposable HTTP/SQL
+  checks passed. Browser checks confirmed heading/value saves, live bullet preview,
+  contact time save/reload, and 1280px/390px layouts without horizontal overflow.
+  Fixed a browser-only jQuery step-validation exception by using minute-level native
+  time controls without an explicit step attribute. Existing mobile About dot-jump
+  behavior remains as previously documented below. Design detection reported only
+  the approved Lato font and the existing hidden selected-upload preview element.
+  Both disposable previews/databases were cleaned up. The normal Development app
+  is running at localhost:5182 from the final build; login returned HTTP 200.
+  Real university content/accounts were not changed during this implementation.
+
 - 2026-11-16 database update: after checking live metadata, added the requested
   optional About heading and separate office time-in/time-out columns. Retained
   existing office-hours text and all records (one university row, no contact rows).

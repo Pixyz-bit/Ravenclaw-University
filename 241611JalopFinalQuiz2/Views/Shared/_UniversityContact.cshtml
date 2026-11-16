@@ -1,6 +1,9 @@
 @model UniversityPageViewModel
 @{
     var contact = Model.Contact;
+    var hours = contact?.TimeIn is TimeOnly timeIn && contact.TimeOut is TimeOnly timeOut
+        ? $"{timeIn.ToString("h:mm tt", System.Globalization.CultureInfo.InvariantCulture)} – {timeOut.ToString("h:mm tt", System.Globalization.CultureInfo.InvariantCulture)}{(timeOut < timeIn ? " (next day)" : "") }"
+        : string.IsNullOrWhiteSpace(contact?.OfficeHours) ? "Not published yet" : contact.OfficeHours;
     var socialLinks = Model.SocialLinks.Where(social => Uri.TryCreate(social.Url, UriKind.Absolute, out var uri) && uri.Scheme == Uri.UriSchemeHttps).ToList();
 }
 <footer id="contact" class="university-footer" aria-labelledby="contact-title">
@@ -39,7 +42,7 @@
                 <div><dt>University address</dt><dd class="prose">@(string.IsNullOrWhiteSpace(contact?.AcademyAddress) ? "Not published yet" : contact.AcademyAddress)</dd></div>
                 <div><dt>Email</dt><dd>@if (!string.IsNullOrWhiteSpace(contact?.Email)) { <a href="mailto:@contact.Email">@contact.Email</a> } else { <span>Not published yet</span> }</dd></div>
                 <div><dt>Telephone</dt><dd>@if (!string.IsNullOrWhiteSpace(contact?.Telephone)) { <a href="tel:@contact.Telephone">@contact.Telephone</a> } else { <span>Not published yet</span> }</dd></div>
-                <div><dt>Office hours</dt><dd class="prose">@(string.IsNullOrWhiteSpace(contact?.OfficeHours) ? "Not published yet" : contact.OfficeHours)</dd></div>
+                <div><dt>Office hours</dt><dd class="prose">@hours</dd></div>
             </dl>
             @if (socialLinks.Count > 0)
             {

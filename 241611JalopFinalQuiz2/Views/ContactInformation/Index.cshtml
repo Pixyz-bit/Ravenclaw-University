@@ -1,12 +1,11 @@
 @model ContactInformationViewModel
 @{
     Layout = "_AdminLayout";
-    ViewData["Title"] = "Contact information";
-    var preview = new AdminPreviewViewModel("Contact preview", new[] { new AdminPreviewField("AcademyAddress", "Address", Model.AcademyAddress), new AdminPreviewField("Email", "Email", Model.Email), new AdminPreviewField("Telephone", "Telephone", Model.Telephone), new AdminPreviewField("OfficeHours", "Office hours", Model.OfficeHours) });
+    ViewData["Title"] = "Contacts";
+    var preview = new AdminPreviewViewModel("Contact preview", new[] { new AdminPreviewField("AcademyAddress", "University Address", Model.AcademyAddress), new AdminPreviewField("Email", "Email", Model.Email), new AdminPreviewField("Telephone", "Telephone", Model.Telephone), new AdminPreviewField("TimeIn", "Time In", Model.TimeIn?.ToString("HH:mm")), new AdminPreviewField("TimeOut", "Time Out", Model.TimeOut?.ToString("HH:mm")) });
 }
 <section class="editor-panel">
-    <p class="eyebrow">University content</p>
-    <h1>Contact information</h1>
+    <h1>Contacts</h1>
     @if (TempData["StatusMessage"] is string message) { <div class="status-message" role="status">@message</div> }
     <div asp-validation-summary="All" class="validation-summary" role="alert"></div>
 
@@ -22,7 +21,14 @@
                 <fieldset class="editor-fieldset"><legend>Ways to get in touch</legend>
                     <div class="field"><label asp-for="Email"></label><input asp-for="Email" type="email" maxlength="254" /><span asp-validation-for="Email" class="field-error"></span></div>
                     <div class="field"><label asp-for="Telephone"></label><input asp-for="Telephone" type="tel" maxlength="50" /><span asp-validation-for="Telephone" class="field-error"></span></div>
-                    <div class="field"><label asp-for="OfficeHours"></label><textarea asp-for="OfficeHours" rows="4" maxlength="300"></textarea><span asp-validation-for="OfficeHours" class="field-error"></span></div>
+                </fieldset>
+                <fieldset class="editor-fieldset"><legend>Office Hours</legend>
+                    <div class="form-grid">
+                        <div class="field"><label asp-for="TimeIn"></label><input asp-for="TimeIn" type="time" asp-format="{0:HH:mm}" aria-describedby="hours-help" /><span asp-validation-for="TimeIn" class="field-error"></span></div>
+                        <div class="field"><label asp-for="TimeOut"></label><input asp-for="TimeOut" type="time" asp-format="{0:HH:mm}" aria-describedby="hours-help" /><span asp-validation-for="TimeOut" class="field-error"></span></div>
+                    </div>
+                    <p class="muted" id="hours-help">Enter both times, or leave both empty. A time out earlier than time in ends the next day.</p>
+                    @if (!string.IsNullOrWhiteSpace(Model.OfficeHours)) { <p class="muted">Existing office hours: @Model.OfficeHours. This text is used when both times are empty.</p> }
                 </fieldset>
                 <div class="row-actions">
                     <button class="button button-primary" type="submit" disabled="@(ViewData["Unavailable"] is true)">Save changes</button>
@@ -33,5 +39,6 @@
         <partial name="_AdminContentPreview" model="preview" />
     </div>
 
+    <details><summary>Social links</summary><p>Manage the university’s published social accounts.</p><a class="button button-secondary" asp-controller="SocialLinks" asp-action="Index">Manage social links</a></details>
 </section>
 @section Scripts { <partial name="_ValidationScriptsPartial" /> }

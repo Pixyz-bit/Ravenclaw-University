@@ -13,7 +13,13 @@
     <dl class="admin-preview-fields">
         @foreach (var field in Model.Fields)
         {
-            <div><dt>@field.Label</dt><dd data-preview-field="@field.Name" data-preview-empty="@field.EmptyText">@(string.IsNullOrWhiteSpace(field.Value) ? field.EmptyText : field.Value)</dd></div>
+            <div><dt>@field.Label</dt><dd data-preview-field="@field.Name" data-preview-empty="@field.EmptyText" data-preview-list="@(field.IsList ? "true" : null)">
+                @if (field.IsList && !string.IsNullOrWhiteSpace(field.Value))
+                {
+                    <ul>@foreach (var value in field.Value.Split('\n').Select(value => value.Trim()).Where(value => value.Length > 0)) { <li>@value</li> }</ul>
+                }
+                else { @(string.IsNullOrWhiteSpace(field.Value) ? field.EmptyText : field.Value) }
+            </dd></div>
         }
     </dl>
     <p class="admin-save-state" role="status" data-dirty-state>Ready to edit</p>

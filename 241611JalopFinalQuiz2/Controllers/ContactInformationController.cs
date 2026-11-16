@@ -25,7 +25,9 @@ public class ContactInformationController(UniversityDbContext database, ILogger<
                 AcademyAddress = item.AcademyAddress,
                 Email = item.Email,
                 Telephone = item.Telephone,
-                OfficeHours = item.OfficeHours
+                OfficeHours = item.OfficeHours,
+                TimeIn = item.TimeIn,
+                TimeOut = item.TimeOut
             };
 
             return View(model);
@@ -39,6 +41,8 @@ public class ContactInformationController(UniversityDbContext database, ILogger<
         if (model.Id < 0) return NotFound();
         try
         {
+            model.OfficeHours = await database.ContactsTables.AsNoTracking().OrderBy(x => x.ContactId)
+                .Select(x => x.OfficeHours).FirstOrDefaultAsync();
             if (!ModelState.IsValid)
             {
 
@@ -50,7 +54,8 @@ public class ContactInformationController(UniversityDbContext database, ILogger<
             item.AcademyAddress = Clean(model.AcademyAddress);
             item.Email = Clean(model.Email);
             item.Telephone = Clean(model.Telephone);
-            item.OfficeHours = Clean(model.OfficeHours);
+            item.TimeIn = model.TimeIn;
+            item.TimeOut = model.TimeOut;
 
             await database.SaveChangesAsync();
             await transaction.CommitAsync();

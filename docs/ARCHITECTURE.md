@@ -81,7 +81,9 @@ diagnostic does not call SaveChanges, run migrations, or create a database.
 The university-info read now includes the editable About heading. A further
 read-only contact projection verifies the separate office time-in/time-out fields.
 Existing office-hours text is retained for compatibility; the new fields are
-nullable. Admin/public UI wiring for these additions remains pending.
+nullable. Hero and About now saves the heading and core-value list transactionally;
+Contacts saves the paired time values. The homepage reads these saved fields and
+falls back to the established heading/legacy office-hours text when empty.
 
 ## Authentication
 

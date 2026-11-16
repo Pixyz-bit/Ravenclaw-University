@@ -19,12 +19,12 @@ public static class ContentSections
     };
     public static string Label(ContentSection section) => section switch
     {
-        ContentSection.University => "University information",
-        ContentSection.Contacts => "Contact information",
+        ContentSection.University => "Hero and About",
+        ContentSection.Contacts => "Contacts",
         ContentSection.Values => "Core values",
         ContentSection.Photos => "About gallery",
-        ContentSection.Programs => "Academic programs",
-        ContentSection.Founders => "Founder information",
+        ContentSection.Programs => "Academics",
+        ContentSection.Founders => "Founder",
         ContentSection.SocialLinks => "Social links",
         _ => "Content"
     };

@@ -19,13 +19,17 @@ public class UniversityInformationController(UniversityDbContext database, Image
         try
         {
             var information = await database.AcademyInfoTables.AsNoTracking().OrderBy(x => x.AcademyInfoId).FirstOrDefaultAsync();
-            return View(information is null ? new UniversityInformationViewModel() : new UniversityInformationViewModel
+            var model = information is null ? new UniversityInformationViewModel() : new UniversityInformationViewModel
             {
                 HeroImg = information.HeroImg,
+                AboutHeading = information.AboutHeading,
                 AcademyDescription = information.AcademyDescription,
                 Mission = information.Mission,
                 Vision = information.Vision
-            });
+            };
+            model.CoreValuesText = string.Join("\n", await database.CoreValuesTables.AsNoTracking()
+                .OrderBy(x => x.CoreValueId).Select(x => x.Title).ToListAsync());
+            return View(model);
         }
         catch (Exception exception) { return Unavailable(exception, new UniversityInformationViewModel()); }
     }
@@ -54,12 +58,26 @@ public class UniversityInformationController(UniversityDbContext database, Image
                 information.HeroImg = uploadedPath;
             }
             information.AcademyDescription = Clean(model.AcademyDescription);
+            information.AboutHeading = Clean(model.AboutHeading);
             information.Mission = Clean(model.Mission);
             information.Vision = Clean(model.Vision);
+            // Only replace the value list when this form actually submitted it.
+            // Older clients can still save university details without clearing values.
+            if (Request.Form.ContainsKey(nameof(model.CoreValuesText)))
+            {
+                var values = await database.CoreValuesTables.OrderBy(x => x.CoreValueId).ToListAsync();
+                var titles = model.ValueTitles();
+                for (var i = 0; i < titles.Length; i++)
+                {
+                    if (i < values.Count) values[i].Title = titles[i];
+                    else database.CoreValuesTables.Add(new CoreValuesTable { Title = titles[i] });
+                }
+                database.CoreValuesTables.RemoveRange(values.Skip(titles.Length));
+            }
             await database.SaveChangesAsync();
             await transaction.CommitAsync();
             uploadedPath = null; // The saved row now owns this upload.
-            TempData["StatusMessage"] = "University information saved. Changes are now available on the university page.";
+            TempData["StatusMessage"] = "Hero and About saved. Changes are now available on the university page.";
             return RedirectToAction(nameof(Index), new { id = (int?)null });
         }
         catch (Exception exception) { images.Discard(uploadedPath); return Unavailable(exception, model); }

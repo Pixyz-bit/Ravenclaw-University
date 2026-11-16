@@ -1,20 +1,19 @@
 @model UniversityInformationViewModel
 @{
     Layout = "_AdminLayout";
-    ViewData["Title"] = "University information";
-    var preview = new AdminPreviewViewModel("University content preview", new[] { new AdminPreviewField("AcademyDescription", "Introduction", Model.AcademyDescription), new AdminPreviewField("Mission", "Mission", Model.Mission), new AdminPreviewField("Vision", "Vision", Model.Vision) }, Model.HeroImg, ShowImage: true, Portrait: false);
+    ViewData["Title"] = "Hero and About";
+    var preview = new AdminPreviewViewModel("Hero and About preview", new[] { new AdminPreviewField("AboutHeading", "About Heading", Model.AboutHeading), new AdminPreviewField("AcademyDescription", "About Description", Model.AcademyDescription), new AdminPreviewField("Mission", "Mission", Model.Mission), new AdminPreviewField("Vision", "Vision", Model.Vision), new AdminPreviewField("CoreValuesText", "Core Values", Model.CoreValuesText, IsList: true) }, Model.HeroImg, ShowImage: true, Portrait: false);
 }
 <section class="editor-panel">
-    <p class="eyebrow">University content</p>
-    <h1>University information</h1>
-    <p class="muted">Update the introduction, mission, vision, and main image students see on the university page.</p>
+    <h1>Hero and About</h1>
+    <p class="muted">Edit the hero image, introduction, purpose, and values shown on the university page.</p>
     @if (TempData["StatusMessage"] is string message)
     {
         <div class="status-message" role="status">@message</div>
     }
     <div class="admin-editor-grid">
         <div class="admin-editor-fields">
-            <h2>University details</h2>
+            <h2>Page content</h2>
             <form asp-controller="UniversityInformation" asp-action="Index" asp-route-id="" asp-route-confirmDelete="" method="post" data-admin-editor data-recovered="@(Context.Request.Method == "POST" ? "true" : "false")" enctype="multipart/form-data">
                 <div asp-validation-summary="All" class="validation-summary" role="alert"></div>
                 <fieldset class="editor-fieldset"><legend>Introduction and purpose</legend>
@@ -25,6 +24,12 @@
                         <span asp-validation-for="ImageUpload" class="field-error"></span>
                         @if (!string.IsNullOrWhiteSpace(Model.HeroImg) && SafeImageAttribute.IsSafeImage(Model.HeroImg)) { <img class="upload-preview" src="@Model.HeroImg" alt="Current hero image" /> }
                         <img class="upload-preview" alt="Selected image preview" hidden data-upload-preview />
+                    </div>
+                    <div class="field">
+                        <label asp-for="AboutHeading"></label>
+                        <input asp-for="AboutHeading" maxlength="150" aria-describedby="heading-help" />
+                        <small id="heading-help">Leave empty to use “A place for curious minds.”</small>
+                        <span asp-validation-for="AboutHeading" class="field-error"></span>
                     </div>
                     <div class="field">
                         <label asp-for="AcademyDescription"></label>
@@ -38,6 +43,14 @@
                         <div class="field"><label asp-for="Vision"></label><textarea asp-for="Vision" rows="5"></textarea><span asp-validation-for="Vision" class="field-error"></span></div>
                     </div>
                 </fieldset>
+                <fieldset class="editor-fieldset" id="core-values"><legend>Core Values</legend>
+                    <div class="field">
+                        <label asp-for="CoreValuesText"></label>
+                        <textarea asp-for="CoreValuesText" rows="6" aria-describedby="values-help"></textarea>
+                        <small id="values-help">Enter one value per line, up to 100 characters each. Values appear as a bulleted list. Remove a line to remove that value; leave empty to clear the list.</small>
+                        <span asp-validation-for="CoreValuesText" class="field-error"></span>
+                    </div>
+                </fieldset>
                 <div class="row-actions">
                     <button class="button button-primary" type="submit" disabled="@(ViewData["Unavailable"] is true)">Save changes</button>
                     <a class="button button-secondary" asp-controller="Home" asp-action="Index">View university</a>
@@ -46,5 +59,6 @@
         </div>
         <partial name="_AdminContentPreview" model="preview" />
     </div>
+    <details><summary>About images</summary><p>Manage the images used alongside the About chapters.</p><a class="button button-secondary" asp-controller="AboutGallery" asp-action="Index">Manage About images</a></details>
 </section>
 @section Scripts { <partial name="_ValidationScriptsPartial" /> }

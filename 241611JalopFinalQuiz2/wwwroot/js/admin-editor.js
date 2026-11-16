@@ -22,7 +22,15 @@ const editorStates = adminEditorForms.map(form => {
             if (!input) return;
             const value = input.type === 'checkbox' ? (input.checked ? 'Active' : 'Inactive')
                 : input.tagName === 'SELECT' ? input.selectedOptions[0]?.textContent.trim() : input.value.trim();
-            target.textContent = value || target.dataset.previewEmpty;
+            if (target.dataset.previewList === 'true' && value) {
+                const list = document.createElement('ul');
+                value.split('\n').map(line => line.trim()).filter(Boolean).forEach(line => {
+                    const item = document.createElement('li');
+                    item.textContent = line;
+                    list.append(item);
+                });
+                target.replaceChildren(list);
+            } else target.textContent = value || target.dataset.previewEmpty;
         });
         const image = preview?.querySelector('[data-preview-image]');
         if (image) {
