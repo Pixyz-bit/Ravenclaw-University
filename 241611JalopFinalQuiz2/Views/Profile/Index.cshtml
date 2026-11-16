@@ -1,25 +1,58 @@
 @model ProfileViewModel
-@{ ViewData["Title"] = "Personal information"; }
+@{
+    ViewData["Title"] = "Personal information";
+    var fullName = string.Join(" ", new[] { Model.FirstName, Model.MiddleName, Model.LastName }.Where(part => !string.IsNullOrWhiteSpace(part)));
+    var identity = new AccountMenuViewModel(string.IsNullOrWhiteSpace(fullName) ? Model.Username ?? "Your account" : fullName, Model.Username ?? "", Model.ProfileImg);
+}
 <section class="profile-page" aria-labelledby="profile-title">
-    <header class="profile-heading"><div><p class="eyebrow">Your account</p><h1 id="profile-title">Personal information</h1><p class="muted">Keep your name, birthday, and profile image up to date.</p></div><a class="button button-secondary" asp-controller="Home" asp-action="Index">Back to university</a></header>
+    <header class="profile-heading">
+        <a class="profile-back-link" asp-controller="Home" asp-action="Index"><span aria-hidden="true">←</span> Back to university</a>
+        <p class="eyebrow">Your account</p>
+        <h1 id="profile-title">Personal information</h1>
+        <p class="muted">Update your photo and personal details.</p>
+    </header>
     @if (TempData["StatusMessage"] is string message) { <p class="status-message" role="status">@message</p> }
     <div asp-validation-summary="All" class="validation-summary" role="alert"></div>
-    <div class="profile-workspace">
-        <aside class="profile-identity">
-            @if (!string.IsNullOrWhiteSpace(Model.ProfileImg) && SafeImageAttribute.IsSafeImage(Model.ProfileImg)) { <img src="@Model.ProfileImg" alt="Your profile image" /> }
-            else { <span class="profile-initial" aria-hidden="true">@(string.IsNullOrWhiteSpace(Model.Username) ? "?" : System.Globalization.StringInfo.GetNextTextElement(Model.Username).ToUpperInvariant())</span> }
-            <h2>@Model.Username</h2><p class="muted">University account</p>
-        </aside>
-        <form asp-action="Index" method="post" enctype="multipart/form-data">
-            <fieldset class="editor-fieldset"><legend>Personal details</legend><div class="form-grid">
-                <div class="field"><label asp-for="FirstName"></label><input asp-for="FirstName" autocomplete="given-name" maxlength="100" /><span asp-validation-for="FirstName" class="field-error"></span></div>
-                <div class="field"><label asp-for="LastName"></label><input asp-for="LastName" autocomplete="family-name" maxlength="100" /><span asp-validation-for="LastName" class="field-error"></span></div>
-                <div class="field"><label asp-for="MiddleName"></label><input asp-for="MiddleName" autocomplete="additional-name" maxlength="100" /><span asp-validation-for="MiddleName" class="field-error"></span></div>
-                <div class="field"><label asp-for="Birthday"></label><input asp-for="Birthday" type="date" autocomplete="bday" /><span asp-validation-for="Birthday" class="field-error"></span></div>
-            </div></fieldset>
-            <div class="field"><label asp-for="ImageUpload"></label><input asp-for="ImageUpload" type="file" accept="image/png,image/jpeg,image/webp" data-image-upload aria-describedby="profile-image-help" /><small id="profile-image-help">PNG, JPEG, or WebP, up to 5 MB. Leave empty to keep your current image.</small><span asp-validation-for="ImageUpload" class="field-error"></span><img class="upload-preview" alt="Selected profile image" hidden data-upload-preview /></div>
-            <div class="row-actions"><button class="button button-primary" type="submit" disabled="@(ViewData["Unavailable"] is true)">Save personal information</button><a class="button button-secondary" asp-controller="Home" asp-action="Index">Cancel</a></div>
-        </form>
-    </div>
+    <form asp-action="Index" method="post" enctype="multipart/form-data" class="profile-form" data-profile-editor data-recovered="@(Context.Request.Method == "POST" ? "true" : "false")">
+        <div class="profile-identity field">
+            <div class="profile-photo-stack">
+                @if (!string.IsNullOrWhiteSpace(Model.ProfileImg) && SafeImageAttribute.IsSafeImage(Model.ProfileImg))
+                { <img class="profile-photo" src="@Model.ProfileImg" alt="Your current profile photo" data-profile-current /> }
+                else { <span class="profile-initial" aria-hidden="true" data-profile-current>@identity.Initials</span> }
+                <img class="profile-photo" alt="Selected profile photo preview" hidden data-upload-preview />
+            </div>
+            <div class="profile-identity-copy"><h2>@identity.DisplayName</h2><p>@Model.Username</p></div>
+            <div class="profile-photo-controls">
+                <label asp-for="ImageUpload" data-profile-photo-label>Profile photo</label>
+                <input asp-for="ImageUpload" class="profile-photo-input" type="file" accept="image/png,image/jpeg,image/webp" data-image-upload aria-describedby="profile-image-help" />
+                <button class="button button-secondary" type="button" data-profile-choose aria-describedby="profile-image-help" hidden>Change photo</button>
+            </div>
+            <small id="profile-image-help">PNG, JPEG, or WebP, up to 5 MB. Your photo changes when you save.</small>
+            <span asp-validation-for="ImageUpload" class="field-error"></span>
+        </div>
+        <fieldset class="editor-fieldset profile-details">
+            <legend>Personal details</legend>
+            <p class="profile-field-note">Fields marked * are required.</p>
+            <div class="form-grid">
+                <div class="field"><label asp-for="FirstName">First name <span aria-hidden="true">*</span></label><input asp-for="FirstName" autocomplete="given-name" maxlength="100" /><span asp-validation-for="FirstName" class="field-error"></span></div>
+                <div class="field"><label asp-for="MiddleName">Middle name <span class="profile-optional">(optional)</span></label><input asp-for="MiddleName" autocomplete="additional-name" maxlength="100" /><span asp-validation-for="MiddleName" class="field-error"></span></div>
+                <div class="field"><label asp-for="LastName">Last name <span aria-hidden="true">*</span></label><input asp-for="LastName" autocomplete="family-name" maxlength="100" /><span asp-validation-for="LastName" class="field-error"></span></div>
+                <div class="field"><label asp-for="Birthday">Birthday <span class="profile-optional">(optional)</span></label><input asp-for="Birthday" type="date" autocomplete="bday" /><span asp-validation-for="Birthday" class="field-error"></span></div>
+            </div>
+        </fieldset>
+        <div class="profile-actions">
+            <p class="profile-draft-state" role="status" data-profile-dirty>No unsaved changes</p>
+            <div class="row-actions"><button class="button button-primary" type="submit" disabled="@(ViewData["Unavailable"] is true)">Save changes</button><a class="profile-cancel" asp-controller="Home" asp-action="Index">Cancel</a></div>
+        </div>
+    </form>
+    <dialog class="profile-unsaved-dialog" data-profile-unsaved aria-labelledby="profile-unsaved-title" aria-describedby="profile-unsaved-description">
+        <h2 id="profile-unsaved-title">Leave without saving?</h2>
+        <p id="profile-unsaved-description">Your personal information has unsaved changes. Keep editing, or discard the changes and leave.</p>
+        <div class="row-actions"><button class="button button-primary" type="button" data-profile-keep>Keep editing</button><button class="button button-secondary" type="button" data-profile-discard>Discard changes</button></div>
+    </dialog>
 </section>
-@section Scripts { <partial name="_ValidationScriptsPartial" /><script src="~/js/image-upload.js" asp-append-version="true"></script> }
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script src="~/js/image-upload.js" asp-append-version="true"></script>
+    <script src="~/js/profile-editor.js" asp-append-version="true"></script>
+}

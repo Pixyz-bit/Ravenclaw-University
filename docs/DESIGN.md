@@ -438,10 +438,20 @@ Manage website (Admin only). Sign out stays a separated POST action. Use interna
 chevrons rather than external-link arrows. Existing outside-click/Escape closing remains.
 The admin sidebar also provides the personal-information link.
 
-Personal information uses a dedicated page with public branding, name/birthday
-fields and a visible profile-image uploader. Desktop pairs a compact identity
-column with the form; phones stack them. Use the navy/ivory/gold palette and
-existing labeled inputs, status messages, inline errors, and 44px controls.
+Personal information uses a centered 640px form inside a 688px container, with
+public branding, a quiet Back to university link and compact serif heading.
+An identity strip shows the saved photo/full name/username, with Change photo
+beside them on desktop and below them on phones. Selection immediately previews
+in the same circular frame; it is persisted only on Save changes. Native upload
+controls remain available without JavaScript. Name fields follow first/middle/last
+order, then birthday; required/optional labels are explicit. Fields form two
+columns on desktop and one below 501px. A fine gold divider separates the compact
+actions: draft state, navy Save changes and quiet Cancel. Use the navy/ivory/gold
+palette, existing status messages/inline errors, and 44px controls.
+profile-editor.js tracks changes locally, warns on navigation/sign-out/refresh,
+and provides Keep editing / Discard changes with Escape support. Invalid forms
+keep Save usable. Reverted fields restore the clean state; failed POSTs remain
+dirty; cached-page restoration resets Save and recreates selected-photo previews.
 Username is displayed only. Browser tabs show exactly Ravenclaw University in
 all layouts. Shared page styles live in layouts/profile.css.
 

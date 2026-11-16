@@ -238,3 +238,9 @@ Cleanup removes that run's temporary upload directory as well as its SQL databas
 the resolved upload target is checked against the GUID-named test directory first.
 
 Founder is edit-only: its default GET loads the existing record, and POST requires that exact ID. Creation, deletion and collection controls are absent. Empty storage shows an explanatory state; duplicate records fail closed. The public view model holds one Founder instead of a list. No live founder data was changed.
+
+Personal information now uses a compact centered form with a full-name/photo strip,
+adjacent Change photo action and immediate local preview. First/middle/last name
+and birthday controls stack on phones. Draft status and navigation/sign-out/refresh
+warnings protect unsaved edits; Save changes and Cancel share one action area.
+Existing MVC validation, uploads, authorization and success feedback are retained.

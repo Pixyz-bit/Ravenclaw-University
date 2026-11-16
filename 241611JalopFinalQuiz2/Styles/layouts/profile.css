@@ -1,16 +1,52 @@
-/* Personal information uses the public identity and existing labeled form controls. */
+/* Compact personal-information editor, using the public navy/ivory/gold system. */
 @layer components {
     .portal-main:has(> .profile-page) { @apply w-full p-0; }
-    .profile-page { @apply max-w-[1100px] mx-auto px-[clamp(24px,5vw,64px)] py-[clamp(32px,5vw,64px)]; }
-    .profile-heading { @apply flex justify-between items-start flex-wrap gap-[24px] mb-[36px]; }
-    .profile-heading h1 { @apply font-heading text-[clamp(2rem,4vw,3.25rem)] leading-[1.15] m-0; }
-    .profile-heading .eyebrow { @apply text-blue mb-[12px]; }
-    .profile-workspace { @apply grid [grid-template-columns:220px_minmax(0,1fr)] gap-[48px] [border-top:1px_solid_var(--color-line)] pt-[32px]; }
-    .profile-identity img,.profile-initial { @apply w-[96px] h-[96px] rounded-full object-cover mb-[20px]; }
-    .profile-initial { @apply grid place-items-center bg-navy text-ivory font-bold text-[2rem]; }
-    .profile-identity h2 { @apply font-body font-bold text-[1.1rem] m-0 [overflow-wrap:anywhere]; }
-    .profile-identity p { @apply text-[.85rem]; }
-    .profile-workspace form { @apply m-0 min-w-0; }
+    .profile-page { @apply max-w-[688px] mx-auto px-[24px] py-[clamp(28px,4dvh,40px)]; }
+    .profile-heading { @apply mb-[24px]; }
+    .profile-back-link { @apply inline-flex items-center gap-[10px] min-h-[44px] text-muted text-[.8rem] no-underline mb-[12px]; }
+    .profile-back-link:hover { @apply text-navy underline; }
+    .profile-heading h1 { @apply font-heading text-[clamp(2rem,4vw,2.75rem)] leading-[1.15] m-0; }
+    .profile-heading .eyebrow { @apply text-blue mb-[8px]; }
+    .profile-heading > .muted { @apply text-[.9rem] mb-0 mt-[10px]; }
+    .profile-form { @apply m-0; }
+    .profile-identity { @apply grid [grid-template-columns:80px_minmax(0,1fr)_auto] items-center gap-[12px_20px] py-[24px] mb-[28px] [border-block:1px_solid_var(--color-line)]; }
+    .profile-photo-stack { @apply w-[80px] h-[80px] shrink-0; }
+    .profile-photo,.profile-initial { @apply w-[80px] h-[80px] rounded-full object-cover; }
+    .profile-initial { @apply grid place-items-center bg-navy text-ivory font-bold text-[1.5rem]; }
+    .profile-photo[hidden],.profile-photo-controls [hidden] { @apply hidden; }
+    .profile-identity:has([data-upload-preview]:not([hidden])) [data-profile-current] { @apply hidden; }
+    .profile-identity-copy { @apply min-w-0; }
+    .profile-identity-copy h2 { @apply font-body font-bold text-[1.05rem] leading-[1.4] m-0 [overflow-wrap:anywhere]; }
+    .profile-identity-copy p { @apply text-muted text-[.8rem] mt-[4px] mb-0 [overflow-wrap:anywhere]; }
+    .profile-photo-controls { @apply min-w-0; }
+    .profile-identity > small,.profile-identity > .field-error { @apply col-span-full; }
+    .profile-identity > small { @apply text-[.75rem] text-muted m-0; }
+    .profile-identity > .field-error:empty { @apply hidden; }
+    .profile-details legend { @apply text-navy text-[.8rem] tracking-[.06em] mb-[12px] pb-0 border-b-0; }
+    .profile-field-note { @apply text-muted text-[.75rem] mt-0 mb-[20px]; }
+    .profile-optional { @apply text-muted font-normal text-[.75rem]; }
+    .profile-page .form-grid { @apply gap-x-[20px]; }
+    .profile-page .field { @apply min-w-0; }
+    .profile-details .field { @apply mb-[20px]; }
     .profile-page .button,.profile-page .field input { @apply rounded-[6px]; }
-    @media(max-width:700px) { .profile-workspace { @apply [grid-template-columns:minmax(0,1fr)] gap-[24px]; } }
+    .profile-photo-controls .button { @apply min-h-[44px] text-[.8rem] px-[16px] py-[10px]; }
+    .profile-actions { @apply flex items-center justify-between flex-wrap gap-[12px] pt-[20px] [border-top:1px_solid_var(--color-line)]; }
+    .profile-actions .row-actions { @apply m-0 gap-[20px]; }
+    .profile-actions .button-primary { @apply min-w-[140px]; }
+    .profile-cancel { @apply inline-flex items-center min-h-[44px] text-muted text-[.85rem] [text-underline-offset:4px]; }
+    .profile-cancel:hover { @apply text-navy; }
+    .profile-draft-state { @apply text-muted text-[.75rem] m-0; }
+    .profile-draft-state.is-dirty { @apply text-blue font-bold; }
+    .profile-page > .status-message { @apply rounded-[6px] text-[.85rem]; }
+    .profile-unsaved-dialog { @apply w-[min(460px,calc(100vw_-_40px))] p-[24px] rounded-[12px] [border:1px_solid_var(--color-gold)] bg-ivory text-navy [box-shadow:0_24px_80px_#101d3440]; }
+    .profile-unsaved-dialog::backdrop { @apply [background:rgba(16,29,52,.6)]; }
+    .profile-unsaved-dialog h2 { @apply font-heading text-[1.8rem] leading-[1.2] m-0; }
+    .profile-unsaved-dialog p { @apply text-muted text-[.9rem] leading-[1.7] my-[20px]; }
+    @media(max-width:500px) {
+        .profile-page .form-grid { @apply [grid-template-columns:minmax(0,1fr)]; }
+        .profile-identity { @apply [grid-template-columns:64px_minmax(0,1fr)] gap-[12px_16px] py-[20px]; }
+        .profile-photo-stack,.profile-photo,.profile-initial { @apply w-[64px] h-[64px]; }
+        .profile-photo-controls { @apply col-span-full; }
+        .profile-actions { @apply items-start flex-col; }
+    }
 }

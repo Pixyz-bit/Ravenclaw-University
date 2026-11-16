@@ -163,6 +163,25 @@ Last verified: 2026-11-16.
 
 ## Completed
 
+- Implemented the approved Profile UI refinement: centered 640px form, compact
+  heading/back link, photo/full-name/username strip, adjacent Change photo with
+  immediate circular preview, first/middle/last/birthday field order, explicit
+  required/optional labels, navy Save changes and quiet Cancel. Phones stack fields
+  and photo controls; all actions meet 44px height. The native file picker remains
+  available without JavaScript. No backend fields or account permissions changed.
+- Added profile-editor.js for local clean/dirty tracking, validated saving state,
+  Keep editing/Discard changes navigation and sign-out guard, native refresh/close
+  warning and cached-page control/photo-preview restoration. Invalid forms keep
+  Save usable, failed POSTs remain dirty, and reverting fields restores clean state.
+- All 162 isolated HTTP/SQL checks passed. Browser tests confirmed 1440×900/390×844
+  layouts, a single phone column without horizontal overflow, Keep editing/Escape
+  preserving the draft, successful Discard leaving saved data unchanged, invalid
+  required-field feedback with enabled Save, Change photo file-chooser/preview,
+  successful photo/name save and clean-state reset. Browser console had no errors.
+  Screenshot: ignored TestResults/profile-compact-desktop.jpg. Browser mutations
+  were confined to the disposable database; no real account data changed. Final
+  build passed with zero warnings/errors and profile-editor.js passed node --check.
+
 - Reduced the account-menu width again, from 300px to 260px, retaining the below-name
   Admin badge, 16px padding and existing actions. Tailwind build and compiled-CSS
   width verification passed. Reviewed the Profile markup/styles for UI suggestions;
