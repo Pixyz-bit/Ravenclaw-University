@@ -98,11 +98,13 @@ It deliberately replaces these texts and the entire core-value list, preserving
 an existing university ID and hero image; it stops if multiple university rows
 exist. It is optional content only, never run automatically, and not a migration.
 
-Optional sample program content is in SeedPrograms.sql. It adds six clearly labelled
-fictional sample subjects with existing university illustrations, skipping matching
+Optional sample program content is in SeedPrograms.sql. It adds six fictional
+subjects with the approved images, skipping matching
 subject names case-insensitively. The user authorized applying it on 2026-11-12;
 six records were inserted into the local university database. This file contains
 data inserts only, is not run automatically, and is not a schema migration.
+The user requested removing "Sample program:" from all six descriptions on
+2026-11-16; both the live descriptions and seed now omit that prefix.
 Schema.sql remains the single consolidated schema definition.
 
 | Table | Purpose | Primary key |

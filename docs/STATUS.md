@@ -163,6 +163,16 @@ Last verified: 2026-11-16.
 
 ## Completed
 
+- Removed all About chapter action links from desktop and mobile, along with
+  their unused tuple fields and Tailwind styles. Chapter scrolling and mobile
+  slide-navigation dots remain. Removed only the inspected "Sample program: "
+  prefix from all six live subject descriptions in a guarded transaction;
+  readback confirmed six updates and preserved remaining description text.
+  Updated SeedPrograms.sql so new setups use the same clean descriptions.
+  Source checks confirmed no About action links or seed description prefixes;
+  Razor/Tailwind build passed with zero warnings/errors. No names, images, other
+  records, or schema were changed.
+
 - Academics now matches Founder's bounded sticky behavior above 700px wide and
   500px tall. The stage fills the viewport below the measured navbar, holds over
   a short scroll runway, then releases at the next section. Heading and carousel

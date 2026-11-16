@@ -178,8 +178,8 @@ crossfades, mobile dots, and reduced-motion behavior are retained.
 The chapter numbers, total count, and decorative gold line have been removed on
 desktop and mobile. Invisible scroll markers remain for chapter transitions.
 The About text panel uses ivory, larger navy serif titles, and comfortable Lato body
-text. Its contextual link pairs a bold label with a bordered circular arrow; hover
-and keyboard focus fill the arrow in blue. Typography and spacing scale with height
+text. About chapter action links were removed on desktop and mobile at the user's
+request on 2026-11-16. Mobile slide-navigation dots remain. Typography and spacing scale with height
 so the panel remains usable on short desktop screens. Existing content stays unchanged.
 On phones the rail height follows the active chapter; switching from long copy to
 a shorter chapter keeps the selected content in view instead of leaving blank space.
@@ -191,7 +191,8 @@ on hover, focus, open descriptions, or reduced-motion preference,
 and supports drag/swipe. Duplicate visual laps are hidden from assistive technology.
 The user requested automatic motion without a visible pause control. All program data
 continues coming from ProgramsTable. The user authorized six sample subjects on
-2026-11-12; their descriptions explicitly identify them as sample content.
+2026-11-12; on 2026-11-16 the user requested removing the "Sample program:" prefix
+from every description. The live descriptions and optional seed now omit it.
 
 Academics shares one viewport with the sticky navbar, using 100dvh minus its
 measured height. Above 700px wide and 500px tall, academics-stage sticks below

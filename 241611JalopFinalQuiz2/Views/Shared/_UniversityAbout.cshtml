@@ -2,10 +2,10 @@
 @{
     var steps = new[]
     {
-        (Title: string.IsNullOrWhiteSpace(Model.University?.AboutHeading) ? "A place for curious minds" : Model.University.AboutHeading, Text: Model.University?.AcademyDescription ?? "University information will be published here.", Link: "Explore academics", Target: "#academics"),
-        (Title: "Our mission", Text: Model.University?.Mission ?? "Our mission statement will be published here.", Link: "Contact the university", Target: "#contact"),
-        (Title: "Our vision", Text: Model.University?.Vision ?? "Our vision statement will be published here.", Link: "Meet our leadership", Target: "#leadership"),
-        (Title: "Our core values", Text: "Core values have not been published yet.", Link: "Explore academics", Target: "#academics")
+        (Title: string.IsNullOrWhiteSpace(Model.University?.AboutHeading) ? "A place for curious minds" : Model.University.AboutHeading, Text: Model.University?.AcademyDescription ?? "University information will be published here."),
+        (Title: "Our mission", Text: Model.University?.Mission ?? "Our mission statement will be published here."),
+        (Title: "Our vision", Text: Model.University?.Vision ?? "Our vision statement will be published here."),
+        (Title: "Our core values", Text: "Core values have not been published yet.")
     };
     var photos = Model.Photos.Where(photo => SafeImageAttribute.IsSafeImage(photo.ImagePath)).Select(photo => (Path: photo.ImagePath, Alt: photo.AltText ?? "University gallery image")).ToArray();
     var illustrations = new[] { "/images/hero/ravenclaw-common-room.png", "/images/hero/portrait-stairwell.png", "/images/hero/ravenclaw-eagle-wall.png", "/images/hero/great-hall.png" };
@@ -28,7 +28,6 @@
                             }
                             else { <p class="prose">@steps[i].Text</p> }
                         </div>
-                        <a class="about-link" href="@steps[i].Target">@steps[i].Link <span aria-hidden="true">→</span></a>
                     </article>
                 }
             </div>
@@ -58,7 +57,6 @@
                         <ul class="about-values prose">@foreach (var value in Model.Values) { <li>@value.Title</li> }</ul>
                     }
                     else { <p class="prose">@steps[i].Text</p> }
-                    <a class="about-link" href="@steps[i].Target">@steps[i].Link <span aria-hidden="true">→</span></a>
                 </article>
             }
         </div>
