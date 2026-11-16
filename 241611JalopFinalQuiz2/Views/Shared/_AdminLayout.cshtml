@@ -41,9 +41,15 @@
         <main id="main-content" class="admin-main">@RenderBody()</main>
         <footer class="admin-footer">© @DateTime.UtcNow.Year Ravenclaw University · Administration</footer>
     </div>
+    <dialog class="admin-unsaved-dialog" data-admin-unsaved aria-labelledby="unsaved-title" aria-describedby="unsaved-description">
+        <h2 id="unsaved-title">Leave without saving?</h2>
+        <p id="unsaved-description">Your draft has unsaved changes. Keep editing to save them, or discard the draft and continue.</p>
+        <div class="row-actions"><button class="button button-primary" type="button" data-keep-editing>Keep editing</button><button class="button button-secondary" type="button" data-discard-draft>Discard changes</button></div>
+    </dialog>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/js/admin-navigation.js" asp-append-version="true"></script>
     <script src="~/js/image-upload.js" asp-append-version="true"></script>
+    <script src="~/js/admin-editor.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

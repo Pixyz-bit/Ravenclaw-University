@@ -325,7 +325,9 @@ the user requested removal of the contextual topbar/account label. Sidebar links
 are one flat list, with no numeric prefixes or University content divider label.
 Account management follows the seven content links using the same active style.
 Below 901px, native sidebar disclosure collapses initially with JavaScript and
-remains usable without JavaScript. The dashboard provides a short publishing guide.
+remains usable without JavaScript. The dashboard shows real content/account counts,
+quick actions, and suggested updates derived from missing saved content. Counts are
+withheld when the database is unavailable; there are no invented analytics.
 
 Each content section has its own view, form model, and controller. University and
 contact settings open directly to a single save form. The other five sections show
@@ -335,6 +337,31 @@ Keep the established field, button, status, sidebar, and responsive form styling
 Image fields use native file pickers, format/size guidance, current-image previews,
 and selected-file previews. Account management reuses these fields and flat divided
 account rows with search and an inline edit form; no password fields are displayed.
+
+### Shared editing workspace (2026-11-16)
+
+The seven content editors and account editing use a wider two-column workspace:
+grouped forms on the left and a sticky draft preview on the right. Below 1101px
+they stack; the navy sidebar still collapses below 901px. Use the existing Lato,
+navy, ivory and gold tokens, fine dividers, 6px input/button corners and a restrained
+12px preview outline. Program previews show the portrait crop; image selection and
+text fields update locally. Previews summarize stored fields rather than claiming
+to reproduce every public layout. They do not autosave.
+
+Saved collections use divided rows, thumbnails where relevant, short descriptions,
+entry counts, explicit Edit, and quieter red Delete links to the existing confirmation
+page. Account rows can show their actual profile image, with no placeholder avatar.
+Save actions stay visible within long forms; success messages remain on the returned
+page. Inline errors keep Save usable and focus the first invalid field. Saving state
+is shown only after native/unobtrusive validation permits submission.
+
+Dirty forms show Unsaved changes. Internal navigation/search/sign-out opens a native
+HTML dialog with Keep editing / Discard changes, a focus trap and Escape support.
+Refresh/close uses beforeunload. Reverting fields restores the clean state; failed
+POSTs retain a dirty draft. No-JS forms retain server validation and ordinary saves.
+Reusable behavior is in admin-editor.js, shared markup in _AdminContentPreview.cshtml,
+and Tailwind styles in layouts/admin-editors.css. Dedicated controllers/form models/
+views remain intact. No topbar or sidebar numeric labels were reintroduced.
 
 ## Approved main logo (2026-11-11)
 

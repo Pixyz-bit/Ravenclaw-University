@@ -1,0 +1,20 @@
+@model AdminPreviewViewModel
+@{ var hasImage = !string.IsNullOrWhiteSpace(Model.ImagePath) && SafeImageAttribute.IsSafeImage(Model.ImagePath); }
+<aside class="admin-preview" aria-label="Draft content preview" data-admin-preview>
+    <div class="admin-preview-heading"><h2>@Model.Title</h2><span class="admin-draft-label">Draft</span></div>
+    <p class="admin-preview-note">Review your content here. Changes are not saved until you select Save.</p>
+    @if (Model.ShowImage)
+    {
+        <div class="admin-preview-media @(Model.Portrait ? "is-portrait" : "")">
+            <img src="@(hasImage ? Model.ImagePath : null)" alt="" hidden="@(!hasImage)" data-preview-image data-original-src="@(hasImage ? Model.ImagePath : "")" />
+            <span hidden="@hasImage" data-preview-image-empty>No image selected</span>
+        </div>
+    }
+    <dl class="admin-preview-fields">
+        @foreach (var field in Model.Fields)
+        {
+            <div><dt>@field.Label</dt><dd data-preview-field="@field.Name" data-preview-empty="@field.EmptyText">@(string.IsNullOrWhiteSpace(field.Value) ? field.EmptyText : field.Value)</dd></div>
+        }
+    </dl>
+    <p class="admin-save-state" role="status" data-dirty-state>Ready to edit</p>
+</aside>

@@ -86,6 +86,29 @@ Last verified: 2026-11-16.
 
 ## Completed
 
+- Improved the admin workspace while preserving the navy sidebar, ivory palette,
+  dedicated MVC editor files, roles, antiforgery and database schema. The dashboard
+  now reads real content/account counts and suggests updates for missing content.
+  All seven editors and account editing have grouped forms, responsive draft previews,
+  clear Save actions and success/error feedback. Saved program/gallery rows include
+  thumbnails; biography/social rows include summaries; account rows show existing
+  profile photos when present. No real accounts or public content were modified.
+- Added admin-editor.js for safe text/image previews, clean/dirty tracking, an
+  accessible Keep editing/Discard dialog (including Escape), native refresh/close
+  protection, and saving feedback after validation. Browser QA caught and fixed an
+  invalid-form Save button getting stuck disabled. Checkboxes/selects, failed POST
+  drafts and cached-page restoration are handled. Shared styles live in
+  Styles/layouts/admin-editors.css; _AdminContentPreview uses an explicit view model.
+- Final build passed with zero warnings/errors; admin-editor.js passed node --check.
+  All 126 existing isolated auth/content checks passed. Browser tests in the disposable
+  database verified live text/image previews, successful save feedback, invalid-field
+  handling with an enabled Save button, both dialog actions, Escape preserving a draft,
+  account active-state preview/reverting to clean, desktop two columns and 375×812
+  stacked layouts with no horizontal overflow. Browser console had no JS errors.
+  Both fixture servers were stopped and the test database was cleaned up. Screenshots
+  are under ignored TestResults/admin-*.jpg. Nested TestResults source copies caused
+  one build failure; excluding that folder from MSBuild resolved duplicate types/views.
+
 - Generated and applied Herbology (mandrake greenhouse) and Transfiguration
   (wand/parchment still life) from the user's new references. Inspected both outputs
   and verified unchanged workspace copies by SHA-256. The live guarded content

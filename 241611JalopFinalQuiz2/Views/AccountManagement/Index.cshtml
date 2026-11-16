@@ -1,5 +1,5 @@
 @model AccountManagementViewModel
-@{ Layout = "_AdminLayout"; ViewData["Title"] = "Account management"; }
+@{ Layout = "_AdminLayout"; ViewData["Title"] = "Account management"; var preview = new AdminPreviewViewModel("Account preview", new[] { new AdminPreviewField("Username", "Username", Model.Username), new AdminPreviewField("FirstName", "First name", Model.FirstName), new AdminPreviewField("LastName", "Last name", Model.LastName), new AdminPreviewField("MiddleName", "Middle name", Model.MiddleName), new AdminPreviewField("Birthday", "Birthday", Model.Birthday?.ToString("yyyy-MM-dd")), new AdminPreviewField("Role", "Role", Model.Role), new AdminPreviewField("IsActive", "Account access", Model.IsActive ? "Active" : "Inactive") }, Model.ProfileImg, ShowImage: true, Portrait: false); }
 <section class="editor-panel">
     <p class="eyebrow">Administration</p>
     <h1>Account management</h1>
@@ -8,27 +8,36 @@
     <div asp-validation-summary="All" class="validation-summary" role="alert"></div>
     @if (Model.Id > 0)
     {
-        <h2>Edit account</h2>
-        <form asp-action="Index" asp-route-id="" method="post" enctype="multipart/form-data">
-            <input asp-for="Id" type="hidden" /><input asp-for="Search" type="hidden" />
-            <div class="field"><label asp-for="Username"></label><input asp-for="Username" maxlength="100" autocomplete="off" /><span asp-validation-for="Username" class="field-error"></span></div>
-            <div class="form-grid">
-                <div class="field"><label asp-for="FirstName"></label><input asp-for="FirstName" maxlength="100" /><span asp-validation-for="FirstName" class="field-error"></span></div>
-                <div class="field"><label asp-for="LastName"></label><input asp-for="LastName" maxlength="100" /><span asp-validation-for="LastName" class="field-error"></span></div>
-                <div class="field"><label asp-for="MiddleName"></label><input asp-for="MiddleName" maxlength="100" /><span asp-validation-for="MiddleName" class="field-error"></span></div>
-                <div class="field"><label asp-for="Birthday"></label><input asp-for="Birthday" type="date" /><span asp-validation-for="Birthday" class="field-error"></span></div>
-                <div class="field"><label asp-for="Role"></label><select asp-for="Role"><option>Student</option><option>Admin</option></select><span asp-validation-for="Role" class="field-error"></span></div>
+        <div class="admin-editor-grid">
+            <div class="admin-editor-fields">
+                <h2>Edit account</h2>
+                <form asp-action="Index" asp-route-id="" method="post" data-admin-editor data-recovered="@(Context.Request.Method == "POST" ? "true" : "false")" enctype="multipart/form-data">
+                    <input asp-for="Id" type="hidden" /><input asp-for="Search" type="hidden" />
+                    <fieldset class="editor-fieldset"><legend>Account details</legend>
+                        <div class="field"><label asp-for="Username"></label><input asp-for="Username" maxlength="100" autocomplete="off" /><span asp-validation-for="Username" class="field-error"></span></div>
+                        <div class="form-grid">
+                            <div class="field"><label asp-for="FirstName"></label><input asp-for="FirstName" maxlength="100" /><span asp-validation-for="FirstName" class="field-error"></span></div>
+                            <div class="field"><label asp-for="LastName"></label><input asp-for="LastName" maxlength="100" /><span asp-validation-for="LastName" class="field-error"></span></div>
+                            <div class="field"><label asp-for="MiddleName"></label><input asp-for="MiddleName" maxlength="100" /><span asp-validation-for="MiddleName" class="field-error"></span></div>
+                            <div class="field"><label asp-for="Birthday"></label><input asp-for="Birthday" type="date" /><span asp-validation-for="Birthday" class="field-error"></span></div>
+                            <div class="field"><label asp-for="Role"></label><select asp-for="Role"><option>Student</option><option>Admin</option></select><span asp-validation-for="Role" class="field-error"></span></div>
+                        </div>
+                        </fieldset>
+                    <fieldset class="editor-fieldset"><legend>Account access and image</legend>
+                        <div class="field"><label class="checkbox-label"><input asp-for="IsActive" /> Active account</label><small>Inactive accounts cannot sign in. Your own account must remain an active Admin.</small></div>
+                        <div class="field">
+                            <label asp-for="ImageUpload"></label><input asp-for="ImageUpload" type="file" accept="image/png,image/jpeg,image/webp" aria-describedby="profile-help" data-image-upload />
+                            <small id="profile-help">PNG, JPEG, or WebP, up to 5 MB. Leave empty to keep the current image.</small>
+                            <span asp-validation-for="ImageUpload" class="field-error"></span>
+                            @if (!string.IsNullOrWhiteSpace(Model.ProfileImg) && SafeImageAttribute.IsSafeImage(Model.ProfileImg)) { <img class="upload-preview" src="@Model.ProfileImg" alt="Current profile image" /> }
+                            <img class="upload-preview" alt="Selected profile image preview" hidden data-upload-preview />
+                        </div>
+                    </fieldset>
+                    <div class="row-actions"><button class="button button-primary" type="submit" disabled="@(ViewData["Unavailable"] is true)">Save account</button><a class="button button-secondary" asp-action="Index" asp-route-id="">Cancel</a></div>
+                </form>
             </div>
-            <div class="field"><label class="checkbox-label"><input asp-for="IsActive" /> Active account</label><small>Inactive accounts cannot sign in. Your own account must remain an active Admin.</small></div>
-            <div class="field">
-                <label asp-for="ImageUpload"></label><input asp-for="ImageUpload" type="file" accept="image/png,image/jpeg,image/webp" aria-describedby="profile-help" data-image-upload />
-                <small id="profile-help">PNG, JPEG, or WebP, up to 5 MB. Leave empty to keep the current image.</small>
-                <span asp-validation-for="ImageUpload" class="field-error"></span>
-                @if (!string.IsNullOrWhiteSpace(Model.ProfileImg) && SafeImageAttribute.IsSafeImage(Model.ProfileImg)) { <img class="upload-preview" src="@Model.ProfileImg" alt="Current profile image" /> }
-                <img class="upload-preview" alt="Selected profile image preview" hidden data-upload-preview />
-            </div>
-            <div class="row-actions"><button class="button button-primary" type="submit" disabled="@(ViewData["Unavailable"] is true)">Save account</button><a class="button button-secondary" asp-action="Index" asp-route-id="">Cancel</a></div>
-        </form>
+            <partial name="_AdminContentPreview" model="preview" />
+        </div>
     }
     <h2 class="saved-entries-heading">Accounts</h2>
     <form asp-action="Index" asp-route-id="" method="get" class="account-search">
@@ -39,7 +48,9 @@
     <div class="content-list">
         @foreach (var account in Model.Items)
         {
-            <article class="content-row"><div><h3>@account.Username</h3><p class="muted">@account.FirstName @account.LastName · @account.Role · @(account.IsActive ? "Active" : "Inactive")</p></div><a class="button button-secondary" asp-action="Index" asp-route-id="@account.Id" asp-route-search="@Model.Search">Edit account</a></article>
+            <article class="content-row"><div class="content-entry-summary">
+@if (!string.IsNullOrWhiteSpace(account.ProfileImg) && SafeImageAttribute.IsSafeImage(account.ProfileImg)) { <img class="content-thumbnail account-thumbnail" src="@account.ProfileImg" alt="" loading="lazy" /> }
+<div><h3>@account.Username</h3><p class="muted">@account.FirstName @account.LastName · @account.Role · @(account.IsActive ? "Active" : "Inactive")</p></div></div><a class="button button-secondary" asp-action="Index" asp-route-id="@account.Id" asp-route-search="@Model.Search">Edit account</a></article>
         }
     </div>
 </section>

@@ -2,6 +2,7 @@
 @{
     Layout = "_AdminLayout";
     ViewData["Title"] = "University information";
+    var preview = new AdminPreviewViewModel("University content preview", new[] { new AdminPreviewField("AcademyDescription", "Introduction", Model.AcademyDescription), new AdminPreviewField("Mission", "Mission", Model.Mission), new AdminPreviewField("Vision", "Vision", Model.Vision) }, Model.HeroImg, ShowImage: true, Portrait: false);
 }
 <section class="editor-panel">
     <p class="eyebrow">University content</p>
@@ -11,29 +12,39 @@
     {
         <div class="status-message" role="status">@message</div>
     }
-    <form asp-controller="UniversityInformation" asp-action="Index" asp-route-id="" asp-route-confirmDelete="" method="post" enctype="multipart/form-data">
-        <div asp-validation-summary="All" class="validation-summary" role="alert"></div>
-            <div class="field">
-                <label asp-for="ImageUpload"></label>
-                <input asp-for="ImageUpload" type="file" accept="image/png,image/jpeg,image/webp" aria-describedby="image-help" data-image-upload />
-                <small id="image-help">PNG, JPEG, or WebP, up to 5 MB. Leave empty to keep the current image.</small>
-                <span asp-validation-for="ImageUpload" class="field-error"></span>
-                @if (!string.IsNullOrWhiteSpace(Model.HeroImg) && SafeImageAttribute.IsSafeImage(Model.HeroImg)) { <img class="upload-preview" src="@Model.HeroImg" alt="Current hero image" /> }
-                <img class="upload-preview" alt="Selected image preview" hidden data-upload-preview />
-            </div>
-        <div class="field">
-            <label asp-for="AcademyDescription"></label>
-            <textarea asp-for="AcademyDescription" rows="5"></textarea>
-            <span asp-validation-for="AcademyDescription" class="field-error"></span>
+    <div class="admin-editor-grid">
+        <div class="admin-editor-fields">
+            <h2>University details</h2>
+            <form asp-controller="UniversityInformation" asp-action="Index" asp-route-id="" asp-route-confirmDelete="" method="post" data-admin-editor data-recovered="@(Context.Request.Method == "POST" ? "true" : "false")" enctype="multipart/form-data">
+                <div asp-validation-summary="All" class="validation-summary" role="alert"></div>
+                <fieldset class="editor-fieldset"><legend>Introduction and purpose</legend>
+                    <div class="field">
+                        <label asp-for="ImageUpload"></label>
+                        <input asp-for="ImageUpload" type="file" accept="image/png,image/jpeg,image/webp" aria-describedby="image-help" data-image-upload />
+                        <small id="image-help">PNG, JPEG, or WebP, up to 5 MB. Leave empty to keep the current image.</small>
+                        <span asp-validation-for="ImageUpload" class="field-error"></span>
+                        @if (!string.IsNullOrWhiteSpace(Model.HeroImg) && SafeImageAttribute.IsSafeImage(Model.HeroImg)) { <img class="upload-preview" src="@Model.HeroImg" alt="Current hero image" /> }
+                        <img class="upload-preview" alt="Selected image preview" hidden data-upload-preview />
+                    </div>
+                    <div class="field">
+                        <label asp-for="AcademyDescription"></label>
+                        <textarea asp-for="AcademyDescription" rows="5"></textarea>
+                        <span asp-validation-for="AcademyDescription" class="field-error"></span>
+                    </div>
+                    </fieldset>
+                <fieldset class="editor-fieldset"><legend>Mission and vision</legend>
+                <div class="form-grid">
+                        <div class="field"><label asp-for="Mission"></label><textarea asp-for="Mission" rows="5"></textarea><span asp-validation-for="Mission" class="field-error"></span></div>
+                        <div class="field"><label asp-for="Vision"></label><textarea asp-for="Vision" rows="5"></textarea><span asp-validation-for="Vision" class="field-error"></span></div>
+                    </div>
+                </fieldset>
+                <div class="row-actions">
+                    <button class="button button-primary" type="submit" disabled="@(ViewData["Unavailable"] is true)">Save changes</button>
+                    <a class="button button-secondary" asp-controller="Home" asp-action="Index">View university</a>
+                </div>
+            </form>
         </div>
-        <div class="form-grid">
-            <div class="field"><label asp-for="Mission"></label><textarea asp-for="Mission" rows="5"></textarea><span asp-validation-for="Mission" class="field-error"></span></div>
-            <div class="field"><label asp-for="Vision"></label><textarea asp-for="Vision" rows="5"></textarea><span asp-validation-for="Vision" class="field-error"></span></div>
-        </div>
-        <div class="row-actions">
-            <button class="button button-primary" type="submit" disabled="@(ViewData["Unavailable"] is true)">Save changes</button>
-            <a class="button button-secondary" asp-controller="Home" asp-action="Index">View university</a>
-        </div>
-    </form>
+        <partial name="_AdminContentPreview" model="preview" />
+    </div>
 </section>
 @section Scripts { <partial name="_ValidationScriptsPartial" /> }

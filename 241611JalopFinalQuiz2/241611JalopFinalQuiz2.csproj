@@ -5,6 +5,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <RootNamespace>_241611JalopFinalQuiz2</RootNamespace>
+    <DefaultItemExcludes>$(DefaultItemExcludes);TestResults/**</DefaultItemExcludes>
   </PropertyGroup>
 
   <ItemGroup>

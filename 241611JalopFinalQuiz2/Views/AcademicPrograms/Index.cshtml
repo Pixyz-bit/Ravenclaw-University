@@ -2,6 +2,7 @@
 @{
     Layout = "_AdminLayout";
     ViewData["Title"] = "Academic programs";
+    var preview = new AdminPreviewViewModel("Program card preview", new[] { new AdminPreviewField("SubjectName", "Program name", Model.SubjectName), new AdminPreviewField("Description", "Description", Model.Description) }, Model.ImagePath, ShowImage: true, Portrait: true);
 }
 <section class="editor-panel">
     <p class="eyebrow">University content</p>
@@ -20,37 +21,48 @@
     }
     else
     {
-        <h2>@(Model.Id == 0 ? "Add entry" : "Edit entry")</h2>
-        <form asp-action="Index" asp-route-id="" asp-route-confirmDelete="" method="post" enctype="multipart/form-data">
-            <input asp-for="Id" type="hidden" />
-            <div class="field"><label asp-for="SubjectName"></label><input asp-for="SubjectName" maxlength="150" /><span asp-validation-for="SubjectName" class="field-error"></span></div>
-            <div class="field"><label asp-for="Description"></label><textarea asp-for="Description" rows="4"></textarea><span asp-validation-for="Description" class="field-error"></span></div>
-            <div class="field">
-                <label asp-for="ImageUpload"></label>
-                <input asp-for="ImageUpload" type="file" accept="image/png,image/jpeg,image/webp" aria-describedby="image-help" data-image-upload />
-                <small id="image-help">PNG, JPEG, or WebP, up to 5 MB. Leave empty to keep the current image.</small>
-                <span asp-validation-for="ImageUpload" class="field-error"></span>
-                @if (!string.IsNullOrWhiteSpace(Model.ImagePath) && SafeImageAttribute.IsSafeImage(Model.ImagePath)) { <img class="upload-preview" src="@Model.ImagePath" alt="Current program image" /> }
-                <img class="upload-preview" alt="Selected image preview" hidden data-upload-preview />
+        <div class="admin-editor-grid">
+            <div class="admin-editor-fields">
+                <h2>@(Model.Id == 0 ? "Add entry" : "Edit entry")</h2>
+                <form asp-action="Index" asp-route-id="" asp-route-confirmDelete="" method="post" data-admin-editor data-recovered="@(Context.Request.Method == "POST" ? "true" : "false")" enctype="multipart/form-data">
+                    <input asp-for="Id" type="hidden" />
+                    <fieldset class="editor-fieldset"><legend>Program information</legend>
+                        <div class="field"><label asp-for="SubjectName"></label><input asp-for="SubjectName" maxlength="150" /><span asp-validation-for="SubjectName" class="field-error"></span></div>
+                        <div class="field"><label asp-for="Description"></label><textarea asp-for="Description" rows="4"></textarea><span asp-validation-for="Description" class="field-error"></span></div>
+                        <div class="field">
+                            <label asp-for="ImageUpload"></label>
+                            <input asp-for="ImageUpload" type="file" accept="image/png,image/jpeg,image/webp" aria-describedby="image-help" data-image-upload />
+                            <small id="image-help">PNG, JPEG, or WebP, up to 5 MB. Leave empty to keep the current image.</small>
+                            <span asp-validation-for="ImageUpload" class="field-error"></span>
+                            @if (!string.IsNullOrWhiteSpace(Model.ImagePath) && SafeImageAttribute.IsSafeImage(Model.ImagePath)) { <img class="upload-preview" src="@Model.ImagePath" alt="Current program image" /> }
+                            <img class="upload-preview" alt="Selected image preview" hidden data-upload-preview />
+                        </div>
+                    </fieldset>
+                    <div class="row-actions">
+                        <button class="button button-primary" type="submit" disabled="@(ViewData["Unavailable"] is true)">Save changes</button>
+                        <a class="button button-secondary" asp-action="Index" asp-route-id="" asp-route-confirmDelete="">Cancel</a>
+                    </div>
+                </form>
             </div>
-            <div class="row-actions">
-                <button class="button button-primary" type="submit" disabled="@(ViewData["Unavailable"] is true)">Save changes</button>
-                <a class="button button-secondary" asp-action="Index" asp-route-id="" asp-route-confirmDelete="">Cancel</a>
-            </div>
-        </form>
+            <partial name="_AdminContentPreview" model="preview" />
+        </div>
     }
     @if (ViewData["Unavailable"] is not true)
     {
-        <h2 class="saved-entries-heading">Published entries</h2>
+        <div class="admin-section-heading saved-entries-heading"><h2>Saved entries</h2><span class="admin-count">@Model.Items.Count</span></div>
         @if (Model.Items.Count == 0) { <p class="empty-copy">No entries yet. Use the form above to add the first one.</p> }
         <div class="content-list">
             @foreach (var item in Model.Items)
             {
                 <article class="content-row">
-                    <div><h3>@item.SubjectName</h3></div>
+                    <div class="content-entry-summary">
+                        @if (!string.IsNullOrWhiteSpace(item.ImagePath) && SafeImageAttribute.IsSafeImage(item.ImagePath)) { <img class="content-thumbnail" src="@item.ImagePath" alt="" loading="lazy" /> }
+                        else { <span class="content-thumbnail-empty">No image</span> }
+                        <div><h3>@item.SubjectName</h3><p class="content-excerpt">@(string.IsNullOrWhiteSpace(item.Description) ? "No description yet" : item.Description)</p></div>
+                    </div>
                     <div class="row-actions">
                         <a class="button button-secondary" asp-action="Index" asp-route-id="@item.SubjectId">Edit</a>
-                        <a class="button button-secondary" asp-action="Index" asp-route-id="@item.SubjectId" asp-route-confirmDelete="true">Delete</a>
+                        <a class="button button-delete" asp-action="Index" asp-route-id="@item.SubjectId" asp-route-confirmDelete="true">Delete</a>
                     </div>
                 </article>
             }

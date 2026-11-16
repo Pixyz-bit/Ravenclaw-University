@@ -14,6 +14,13 @@
 - AdminContentController retains GET redirects for old bookmarks only. Shared
   ContentSections contains sidebar labels/routes; AdminContentValidation contains
   reusable input validators and the sidebar section interface, not CRUD behavior.
+- AdminController reads the existing UniversityContentService plus an account count
+  into AdminDashboardViewModel. Its overview is read-only. AdminPreviewViewModel and
+  _AdminContentPreview are shared presentation helpers; dedicated editor form models,
+  controllers and views remain separate. admin-editor.js handles local previews,
+  unsaved-change guards and validated saving feedback; it makes no network writes.
+- The project excludes nested TestResults/** from default MSBuild items so ignored
+  test source copies cannot be compiled/published as application controllers or views.
 - Views/Admin selects _AdminLayout through _ViewStart. Each dedicated content view
   selects that same layout explicitly. University views use _Layout; account views
   use _AccountLayout.

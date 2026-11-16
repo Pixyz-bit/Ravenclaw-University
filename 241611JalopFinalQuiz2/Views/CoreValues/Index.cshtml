@@ -2,6 +2,7 @@
 @{
     Layout = "_AdminLayout";
     ViewData["Title"] = "Core values";
+    var preview = new AdminPreviewViewModel("Core value preview", new[] { new AdminPreviewField("Title", "Value", Model.Title) });
 }
 <section class="editor-panel">
     <p class="eyebrow">University content</p>
@@ -20,19 +21,26 @@
     }
     else
     {
-        <h2>@(Model.Id == 0 ? "Add entry" : "Edit entry")</h2>
-        <form asp-action="Index" asp-route-id="" asp-route-confirmDelete="" method="post">
-            <input asp-for="Id" type="hidden" />
-            <div class="field"><label asp-for="Title"></label><input asp-for="Title" maxlength="100" /><span asp-validation-for="Title" class="field-error"></span></div>
-            <div class="row-actions">
-                <button class="button button-primary" type="submit" disabled="@(ViewData["Unavailable"] is true)">Save changes</button>
-                <a class="button button-secondary" asp-action="Index" asp-route-id="" asp-route-confirmDelete="">Cancel</a>
+        <div class="admin-editor-grid">
+            <div class="admin-editor-fields">
+                <h2>@(Model.Id == 0 ? "Add entry" : "Edit entry")</h2>
+                <form asp-action="Index" asp-route-id="" asp-route-confirmDelete="" method="post" data-admin-editor data-recovered="@(Context.Request.Method == "POST" ? "true" : "false")">
+                    <input asp-for="Id" type="hidden" />
+                    <fieldset class="editor-fieldset"><legend>Value details</legend>
+                        <div class="field"><label asp-for="Title"></label><input asp-for="Title" maxlength="100" /><span asp-validation-for="Title" class="field-error"></span></div>
+                    </fieldset>
+                    <div class="row-actions">
+                        <button class="button button-primary" type="submit" disabled="@(ViewData["Unavailable"] is true)">Save changes</button>
+                        <a class="button button-secondary" asp-action="Index" asp-route-id="" asp-route-confirmDelete="">Cancel</a>
+                    </div>
+                </form>
             </div>
-        </form>
+            <partial name="_AdminContentPreview" model="preview" />
+        </div>
     }
     @if (ViewData["Unavailable"] is not true)
     {
-        <h2 class="saved-entries-heading">Published entries</h2>
+        <div class="admin-section-heading saved-entries-heading"><h2>Saved entries</h2><span class="admin-count">@Model.Items.Count</span></div>
         @if (Model.Items.Count == 0) { <p class="empty-copy">No entries yet. Use the form above to add the first one.</p> }
         <div class="content-list">
             @foreach (var item in Model.Items)
@@ -41,7 +49,7 @@
                     <div><h3>@item.Title</h3></div>
                     <div class="row-actions">
                         <a class="button button-secondary" asp-action="Index" asp-route-id="@item.CoreValueId">Edit</a>
-                        <a class="button button-secondary" asp-action="Index" asp-route-id="@item.CoreValueId" asp-route-confirmDelete="true">Delete</a>
+                        <a class="button button-delete" asp-action="Index" asp-route-id="@item.CoreValueId" asp-route-confirmDelete="true">Delete</a>
                     </div>
                 </article>
             }

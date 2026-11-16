@@ -46,6 +46,16 @@ its Tailwind styling; no database changes were needed.
 
 ## Using the editors
 
+The admin dashboard now has real record counts, quick actions, and suggested updates
+for missing introduction/contact/program/leadership content. Editors use grouped
+forms beside a local draft preview (stacked on smaller screens). Typing and image
+selection update the preview without saving. Use Save to persist through the existing
+controller. Saved program/gallery entries show thumbnails; text collections show
+short summaries. Dirty edits warn before navigating away, searching accounts, or
+signing out; Keep editing/Escape retains the draft, while Discard changes continues.
+Refresh/close uses the browser warning. Inline validation and server-side permissions,
+antiforgery, upload checks, and delete confirmations remain in force.
+
 The approved Rowena Ravenclaw biography was saved on 2026-11-14 through the existing
 FounderTable content fields. It describes her canonical Hogwarts/Ravenclaw House
 background, then connects her legacy to this fictional university. The public
