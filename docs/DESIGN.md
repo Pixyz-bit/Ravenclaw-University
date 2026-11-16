@@ -282,7 +282,8 @@ alignment. The large motto and Our University navigation group are removed.
 
 Saved HTTPS social links appear below the crest/name under Follow us, with supported
 icons and readable platform names in a wrapping horizontal row. No social group is
-rendered when no valid links exist. Explore retains Home, About, and Academics.
+rendered when no valid links exist. Explore lists Home, About, Academics, Founder,
+and Contacts, linking to the existing page anchors.
 Contact retains address, email, telephone, office hours, and existing empty states.
 Copyright and Back to top sit below one full-width divider; the vertical contact
 divider is removed. At 1000px and narrower, columns stack in identity/socials,

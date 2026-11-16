@@ -4,6 +4,11 @@ Last verified: 2026-11-16.
 
 ## Latest error check
 
+- 2026-11-16: Added Founder and Contacts after Academics in the footer Explore
+  list, targeting the existing leadership and contact anchors. Source checks
+  confirmed both targets; normal Razor/Tailwind build passed with zero warnings
+  or errors. Restarted localhost:5182 and confirmed login HTTP 200. No data changes.
+
 - 2026-11-16: Removed Suggested updates and Quick actions from the admin dashboard,
   including their unused reminder-building logic. Moved Total Registered, Active
   Users, and Deactivated Users into Account Management above the directory. Totals

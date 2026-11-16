@@ -38,7 +38,7 @@ prompts and provenance are in docs/GENERATED_ASSETS.md.
 
 Contact is the full-width navy footer after Leadership, replacing the standalone
 contact section and small university footer. Desktop has three unequal columns:
-university identity with saved social links, Explore (Home/About/Academics), and
+university identity with saved social links, Explore (Home/About/Academics/Founder/Contacts), and
 contact details. The large motto and Our University links have been removed.
 Social links wrap horizontally below the university name and are omitted when
 none are published. Copyright and Back to top sit below one divider. Columns stack
