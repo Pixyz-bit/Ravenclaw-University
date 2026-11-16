@@ -215,7 +215,7 @@ try {
             $contentSection.RecordId=$recordId
         }
         $rendered = Send-Request $admin '/'
-        Assert-Check ($rendered.Body.Contains('Mira Velasco') -and $rendered.Body.Contains('account-menu-role') -and $rendered.Body.Contains('Manage website')) 'Admin menu shows saved full name, adjacent role badge and Manage website action'
+        Assert-Check ($rendered.Body.Contains('Mira Velasco') -and $rendered.Body.Contains('account-menu-role') -and $rendered.Body.Contains('Manage website')) 'Admin menu shows saved full name, role badge and Manage website action'
         $studentMenu = Send-Request $studentClient '/'
         Assert-Check ($studentMenu.Body.Contains('Mira Isabel Velasco') -and $studentMenu.Body.Contains('profile.student') -and -not $studentMenu.Body.Contains('account-menu-role') -and -not $studentMenu.Body.Contains('Manage website')) 'Student menu shows personal identity without admin badge or website-management action'
         Assert-Check ($rendered.Body.Contains('<title>Ravenclaw University</title>') -and $rendered.Body.Contains('/Profile') -and -not $rendered.Body.Contains('footer-socials')) 'Public title and account menu use the requested identity and personal-information link'

@@ -163,6 +163,12 @@ Last verified: 2026-11-16.
 
 ## Completed
 
+- Narrowed the account dropdown from 360px to 300px with 16px padding. Moved the
+  Admin badge below the saved name and removed the duplicate username line for
+  admins; student menus retain their username. Actions and role gating are unchanged.
+  Razor/Tailwind build passed with zero warnings/errors; source checks confirmed
+  the badge and username render in mutually exclusive branches. No data changes.
+
 - Matched the account-menu identity to the supplied reference: saved circular photo
   or full-name initials, saved first/middle/last name, Admin badge beside the name,
   and username below (there is no email column). Removed Signed in as and the heavy

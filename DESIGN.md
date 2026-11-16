@@ -35,7 +35,7 @@ links to Personal information for the signed-in account. All browser tab titles
 are Ravenclaw University. See the canonical reference for layout and behavior.
 
 The account menu follows the compact photo/name reference: saved full name with
-an inline Admin badge, username below, then matching Edit personal information
+the Admin badge below the name (without the redundant admin username), then matching Edit personal information
 and Admin-only Manage website rows. No invented email address or extra identity label.
 
 2026-11-16: compact three-column footer: university/socials, Explore, Contact.
