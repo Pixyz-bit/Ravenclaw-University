@@ -46,6 +46,7 @@ public partial class UniversityDbContext : DbContext
 
             entity.ToTable("AcademyInfoTable");
 
+            entity.Property(e => e.AboutHeading).HasMaxLength(150);
             entity.Property(e => e.HeroImg).HasMaxLength(500);
         });
 
@@ -59,6 +60,8 @@ public partial class UniversityDbContext : DbContext
             entity.Property(e => e.Email).HasMaxLength(254);
             entity.Property(e => e.OfficeHours).HasMaxLength(300);
             entity.Property(e => e.Telephone).HasMaxLength(50);
+            entity.Property(e => e.TimeIn).HasPrecision(0);
+            entity.Property(e => e.TimeOut).HasPrecision(0);
         });
 
         modelBuilder.Entity<CoreValuesTable>(entity =>

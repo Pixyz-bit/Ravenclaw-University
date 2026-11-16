@@ -71,6 +71,11 @@ success and whether the university-info table is empty. It exits before
 starting the HTTP server. Failure returns a nonzero process exit code. This
 diagnostic does not call SaveChanges, run migrations, or create a database.
 
+The university-info read now includes the editable About heading. A further
+read-only contact projection verifies the separate office time-in/time-out fields.
+Existing office-hours text is retained for compatibility; the new fields are
+nullable. Admin/public UI wiring for these additions remains pending.
+
 ## Authentication
 
 Role values are Admin and Student. MVC must require authentication for content

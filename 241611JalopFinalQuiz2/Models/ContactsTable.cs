@@ -14,4 +14,8 @@ public partial class ContactsTable
     public string? Telephone { get; set; }
 
     public string? OfficeHours { get; set; }
+
+    public TimeOnly? TimeIn { get; set; }
+
+    public TimeOnly? TimeOut { get; set; }
 }

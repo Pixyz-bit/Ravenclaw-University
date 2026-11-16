@@ -14,4 +14,6 @@ public partial class AcademyInfoTable
     public string? Mission { get; set; }
 
     public string? Vision { get; set; }
+
+    public string? AboutHeading { get; set; }
 }

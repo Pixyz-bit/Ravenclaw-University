@@ -1,5 +1,5 @@
 -- Ravenclaw University Db: schema for a fresh database.
--- Single consolidated schema, including all applied changes as of 2026-11-11.
+-- Single consolidated schema, including all applied changes as of 2026-11-16.
 -- Verified against live column metadata, primary keys, identities, and role CHECK.
 -- Run once in SSMS or the MSSQL extension. This is not an update script.
 -- GO separates batches and is handled by those tools.
@@ -16,7 +16,8 @@ CREATE TABLE dbo.AcademyInfoTable
     HeroImg NVARCHAR(500) NULL,
     AcademyDescription NVARCHAR(MAX) NULL,
     Mission NVARCHAR(MAX) NULL,
-    Vision NVARCHAR(MAX) NULL
+    Vision NVARCHAR(MAX) NULL,
+    AboutHeading NVARCHAR(150) NULL
 );
 GO
 
@@ -26,7 +27,9 @@ CREATE TABLE dbo.ContactsTable
     AcademyAddress NVARCHAR(500) NULL,
     Email NVARCHAR(254) NULL,
     Telephone NVARCHAR(50) NULL,
-    OfficeHours NVARCHAR(300) NULL
+    OfficeHours NVARCHAR(300) NULL,
+    TimeIn TIME(0) NULL,
+    TimeOut TIME(0) NULL
 );
 GO
 

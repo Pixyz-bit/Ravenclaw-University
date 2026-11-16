@@ -4,6 +4,18 @@ Last verified: 2026-11-16.
 
 ## Latest error check
 
+- 2026-11-16 database update: after checking live metadata, added the requested
+  optional About heading and separate office time-in/time-out columns. Retained
+  existing office-hours text and all records (one university row, no contact rows).
+  Regenerated the two affected EF entities from the live database and integrated
+  their mappings. Updated the sole consolidated Schema.sql; its fresh disposable
+  database matched all eight live tables' column types, lengths, precision,
+  nullability, and identities. The test database was removed. Separate-output
+  build passed with zero warnings/errors, and the extended EF read-only diagnostic
+  passed, including the new fields. Existing running website was left in place.
+  Admin input wiring, sidebar restructure, and public bullet rendering remain
+  pending; this unit completed the requested database/model/schema preparation.
+
 - 2026-11-16 admin field audit: compared live SQL column metadata with the EF
   entities and admin form models for the user's requested sidebar structure.
   About Heading is absent from both the database and models; the public heading

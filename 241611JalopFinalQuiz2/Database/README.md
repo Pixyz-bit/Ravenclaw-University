@@ -22,6 +22,20 @@ Do not rerun it against the current database. Future database changes must also
 be incorporated into this file so it always describes the complete current schema.
 Saving the schema file does not execute SQL or modify a live database.
 
+### Verified About heading and office-time update (2026-11-16)
+
+Added an optional About heading and separate optional office time-in/time-out
+values to the existing live tables. Existing office-hours text is retained for
+compatibility; no existing content was converted or overwritten. The two affected
+EF entity classes were regenerated from the live database, and their mappings
+were incorporated into UniversityDbContext. Exact definitions remain in Schema.sql.
+
+The consolidated schema was executed against a disposable database. All eight
+tables matched live column metadata, including types, lengths, precision,
+nullability, and identities. The disposable database was removed. Build and the
+extended read-only EF diagnostic passed. Admin controls and public rendering for
+these new fields still need wiring as part of the requested admin restructure.
+
 ### Verified personal-details update
 
 The user applied LastName, FirstName, MiddleName (NVARCHAR(100)), and Birthday
@@ -50,7 +64,9 @@ This uses the same configured UniversityDbContext as the application. It reads
 at most one row from AcademyInfoTable without change tracking, then at most one
 projection of LastName, FirstName, MiddleName, and Birthday from UserTable. It
 does not select password hashes or display record contents. Empty tables are
-successful checks. It exits without starting the website. Exit code 0 means success; code 1
+successful checks. It also reads the separate office-time fields from ContactsTable.
+The university-info read includes the optional About heading. It exits without
+starting the website. Exit code 0 means success; code 1
 means the check failed. No database or table is created, and no data is changed.
 
 Verified 2026-11-11 against the local Ravenclaw University Db: query passed;

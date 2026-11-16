@@ -94,6 +94,13 @@ if (args.Contains("--check-database", StringComparer.OrdinalIgnoreCase))
             .ToListAsync();
 
         Console.WriteLine("UserTable personal-detail columns read passed. No account data was displayed.");
+        await context.ContactsTables
+            .AsNoTracking()
+            .OrderBy(contact => contact.ContactId)
+            .Select(contact => new { contact.TimeIn, contact.TimeOut })
+            .Take(1)
+            .ToListAsync();
+        Console.WriteLine("ContactsTable office-time columns read passed. No contact data was displayed.");
         Console.WriteLine("Database read check passed.");
     }
     catch (Exception exception)
