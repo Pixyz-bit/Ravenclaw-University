@@ -4,6 +4,7 @@
         <header class="founders-heading">
             <h2 id="founders-title" class="university-section-title">Our founder</h2>
         </header>
+        <div class="founders-profiles" tabindex="0" role="region" aria-label="Founder biographies">
         @if (Model.Founders.Count == 0)
         {
             <p class="empty-copy founders-empty">Founder information will be published here.</p>
@@ -18,7 +19,7 @@
                         <img src="~/images/founders/rowena-ravenclaw.png" asp-append-version="true" width="970" height="1621" alt="Rowena Ravenclaw wearing a blue gown and holding a book" loading="lazy" decoding="async" />
                     </figure>
                 }
-                <div class="founder-biography">
+                <div class="founder-biography" tabindex="0" role="region" aria-labelledby="founder-@founder.FounderId">
                     <h3 id="founder-@founder.FounderId" class="university-subtitle">@founder.FounderName</h3>
                     <p class="founder-role">Founder</p>
                     @if (founder.Birthday.HasValue)
@@ -33,5 +34,6 @@
                 </div>
             </article>
         }
+        </div>
     </div>
 </section>

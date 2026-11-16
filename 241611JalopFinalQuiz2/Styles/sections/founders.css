@@ -6,6 +6,7 @@
     .founders-container {
         @apply w-full grid [grid-template-rows:auto_1fr] [min-height:calc(100dvh_-_var(--portal-header-height,85px)_-_var(--founders-top))];
     }
+    .founders-profiles { @apply min-w-0 min-h-0; }
     .founders-heading {
         @apply pb-[clamp(12px,2dvh,24px)] [border-bottom:1px_solid_var(--color-gold)];
     }
@@ -47,6 +48,25 @@
             @apply relative col-start-1 [grid-row:2/4] aspect-auto self-stretch min-h-0;
         }
         .founder-portrait img { @apply absolute inset-0; }
+    }
+    @media(min-width:701px) and (min-height:501px) {
+        .leadership-section {
+            @apply [--founders-height:calc(100dvh_-_var(--portal-header-height,85px))] [min-height:calc(var(--founders-height)_+_clamp(160px,30dvh,320px))];
+        }
+        .founders-container {
+            @apply sticky [top:calc(var(--portal-header-height,85px)_+_var(--founders-top))] [height:calc(var(--founders-height)_-_var(--founders-top))] min-h-0 [grid-template-rows:auto_minmax(0,1fr)];
+        }
+        .founders-profiles { @apply overflow-auto [scrollbar-width:thin]; }
+        .founder-profile { @apply min-h-full box-border; }
+        .founder-profile-portrait {
+            @apply h-full min-h-0 [grid-template-rows:minmax(0,1fr)];
+        }
+        .founder-profile-portrait .founder-biography {
+            @apply row-start-1 max-h-full overflow-auto [scrollbar-width:thin] [overflow-wrap:anywhere];
+        }
+        .founder-profile-portrait .founder-portrait {
+            @apply row-start-1 row-end-2 self-end h-full [max-height:min(480px,calc(var(--founders-height)_-_140px))];
+        }
     }
     @media(min-width:701px) and (max-height:650px) {
         .founder-description { @apply leading-[1.6]; }

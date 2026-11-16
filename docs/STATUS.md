@@ -132,6 +132,21 @@ Last verified: 2026-11-16.
 
 ## Completed
 
+- Founder now fills the remaining desktop viewport below the measured navbar and
+  existing small top inset, sticks over a short bounded scroll runway, and releases
+  before Contact. Portrait/content remain unchanged. Long biographies and multiple
+  founder records have labeled keyboard-scrollable regions. Phones and windows at
+  most 500px tall retain natural content flow. No database changes or new JS.
+- Founder layout verified using an isolated static markup fixture with the real
+  compiled Tailwind CSS and portrait: 1440×900 and 1280×600 stage bottoms matched
+  the viewport floor; scrolling 108px retained the sticky top; Contact released it.
+  375×812 and 1280×450 had no horizontal overflow and used the natural-flow fallback.
+  Long text keyboard scrolling, multiple records, and empty state were checked;
+  browser console had no errors. Screenshot: ignored TestResults/founder-sticky-desktop.jpg.
+  Initial build hit the running app's executable lock; stopped only that verified
+  workspace process before rebuilding; final build passed with zero warnings/errors.
+  Visual checks did not access real accounts.
+
 - Added dashboard account analytics: Total Registered, Active Users, and Deactivated
   Users, computed from saved accounts in one aggregate query. Active means enabled
   to sign in. Account management now follows the supplied row reference with

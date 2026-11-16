@@ -251,9 +251,17 @@ Top padding is halved to clamp(8px, 1.5dvh, 16px) per the latest user refinement
 Spacing and portrait width scale with viewport height; short desktop windows use
 tighter paragraph leading and a smaller motto. The leadership anchor cancels the
 global 16px breathing room, aligning the section directly below the navbar rather
-than adding a second navbar offset. Content remains in normal flow: long CMS text,
-multiple founders, phones, and extreme zoom may grow the section instead of hiding
-or clipping text. The approved desktop biography fits at 1280×600 and taller.
+than adding a second navbar offset.
+
+2026-11-16 refinement: above 700px wide and 500px tall, the Founder composition
+sticks below the measured navbar plus its existing top inset. The stage ends at
+the viewport floor; a short clamp(160px, 30dvh, 320px) scroll runway holds it before
+releasing naturally at Contact. Heading and biography rows use a bounded grid.
+Long biographies scroll in a keyboard-focusable labeled region; additional founder
+records scroll within the labeled collection. Portrait, colors, and content stay
+unchanged. Phones and windows 500px tall or shorter use natural document flow,
+allowing content to grow without clipping. No scroll interception or new animation
+script is used. Reusable Tailwind rules remain in sections/founders.css.
 
 ## Contact footer
 

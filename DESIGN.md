@@ -14,8 +14,10 @@ canonical reference for the current interaction rules.
 upper-body crop, database-backed biography, and no public message dropdown.
 
 Founder sizing follows the viewport minus the measured navbar height, with
-height-responsive spacing and a corrected anchor offset. See docs/DESIGN.md for
-the natural-growth exceptions on phones, long content, and zoom.
+height-responsive spacing and a corrected anchor offset. Desktop now uses a
+bounded sticky stage with a short scroll runway, keyboard-scrollable biographies,
+and release before Contact. Phones and very short windows use natural flow.
+See docs/DESIGN.md for the exact breakpoints and overflow behavior.
 
 2026-11-16: Dashboard followed by five admin sections; combined Hero and About editing with
 dynamic heading/hero image and bulleted core values; paired office-time controls.
