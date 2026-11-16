@@ -5,6 +5,7 @@ const titleSizes = new ResizeObserver(entries => entries.forEach(({target}) => {
 document.querySelectorAll('.program-card-title').forEach(title => titleSizes.observe(title));
 const programRail = document.querySelector('.program-rail');
 if (programRail && programRail.children.length > 1) {
+    const railInset = () => parseFloat(getComputedStyle(programRail).paddingInlineStart) || 24;
     const originals = [...programRail.children];
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
     let groupWidth = 0, hovering = false, dragging = false, startX = 0, startScroll = 0, moved = false, visible = false, last = 0;
@@ -21,7 +22,7 @@ if (programRail && programRail.children.length > 1) {
                 clone.addEventListener('click', event => {
                     event.preventDefault();
                     const card = originals[index];
-                    programRail.scrollLeft = card.offsetLeft - 24;
+                    programRail.scrollLeft = card.offsetLeft - programRail.offsetLeft - railInset();
                     card.open = !card.open;
                     card.querySelector('summary').focus({preventScroll:true});
                 });
@@ -39,7 +40,7 @@ if (programRail && programRail.children.length > 1) {
     const resize = new ResizeObserver(() => {
         if (!reduced.matches) groupWidth = originals[originals.length - 1].offsetLeft + originals[0].getBoundingClientRect().width + parseFloat(getComputedStyle(programRail).gap) - originals[0].offsetLeft;
         const open = originals.find(card => card.open);
-        if (open) programRail.scrollLeft = open.offsetLeft - programRail.offsetLeft - 24;
+        if (open) programRail.scrollLeft = open.offsetLeft - programRail.offsetLeft - railInset();
     }); resize.observe(programRail);
     const intersection = new IntersectionObserver(entries => { visible = entries[0].isIntersecting; }); intersection.observe(programRail);
     programRail.addEventListener('pointerenter', () => hovering = true);

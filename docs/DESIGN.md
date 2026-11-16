@@ -194,13 +194,21 @@ continues coming from ProgramsTable. The user authorized six sample subjects on
 2026-11-12; their descriptions explicitly identify them as sample content.
 
 Academics shares one viewport with the sticky navbar, using 100dvh minus its
-measured height. A two-row grid reserves space for the heading and gives the
-remaining height to the carousel. Padding, heading size, and gaps scale with
-viewport height; cards use an 8:11 ratio up to 550px tall and stay at least 220px
-wide. Captions show up to two title lines; opening a card displays the full title
-and a scrollable description. The section anchor aligns directly below the navbar.
-A 360px section minimum preserves readable content in very short/zoomed windows,
-where normal vertical scrolling remains available instead of clipping controls.
+measured height. Above 700px wide and 500px tall, academics-stage sticks below
+the navbar while its outer section provides the same clamp(160px, 30dvh, 320px)
+scroll runway as Founder. It releases at the following section. A two-row grid
+reserves space for the heading and gives the remaining height to the carousel.
+The heading and rail share clamp(24px, 5vw, 96px) horizontal gutters. Vertical
+padding is clamp(20px, 3dvh, 36px), with a clamp(16px, 2.5dvh, 28px) row gap;
+phones use 24px vertical padding and a 20px gap. The former heading width cap
+no longer offsets it from the carousel. Cards retain the 8:11 ratio, 550px height
+cap, and 220px minimum width. Captions show up to two title lines; activation
+reveals the full title and scrollable description. Looped-card navigation and
+resize alignment read the actual rail padding instead of a fixed 24px offset.
+Phones and windows at most 500px tall use natural vertical flow with a
+clamp(340px, 58dvh, 550px) carousel. The section anchor retains its navbar offset.
+Automatic motion, hover/focus/touch reveal, drag/swipe and reduced-motion behavior
+remain established. Sticky positioning adds no scroll interception.
 
 ### Program card reveal (2026-11-12)
 

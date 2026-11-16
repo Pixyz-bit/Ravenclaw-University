@@ -158,6 +158,21 @@ Last verified: 2026-11-16.
 
 ## Completed
 
+- Academics now matches Founder's bounded sticky behavior above 700px wide and
+  500px tall. The stage fills the viewport below the measured navbar, holds over
+  a short scroll runway, then releases at the next section. Heading and carousel
+  share responsive 24–96px horizontal gutters; height-based vertical padding/gaps
+  replace inconsistent spacing. Phones/very short screens use natural flow.
+  Looped-card navigation uses measured rail padding, preserving gutter alignment.
+- Academics browser checks used an isolated static fixture with the real compiled
+  CSS, subject images, and carousel script. Verified 1440×900/1280×600 viewport fit,
+  sticky hold, next-section release, automatic motion, long-title reveal, looped
+  card alignment, mobile open/close and keyboard description scrolling. At 375×812
+  and 1280×450, natural-flow layouts had no horizontal overflow. Empty state and
+  browser console checks passed. Screenshot: ignored TestResults/academics-sticky-desktop.jpg.
+  Final build passed with zero warnings/errors and program-showcase.js passed
+  node --check. No accounts, university content, or database schema were changed.
+
 - Founder now fills the remaining desktop viewport below the measured navbar and
   existing small top inset, sticks over a short bounded scroll runway, and releases
   before Contact. Portrait/content remain unchanged. Long biographies and multiple

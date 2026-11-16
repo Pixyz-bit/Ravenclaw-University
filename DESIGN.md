@@ -19,6 +19,11 @@ bounded sticky stage with a short scroll runway, keyboard-scrollable biographies
 and release before Contact. Phones and very short windows use natural flow.
 See docs/DESIGN.md for the exact breakpoints and overflow behavior.
 
+2026-11-16: Academics now uses the same bounded desktop sticky stage as Founder.
+Heading and carousel share responsive gutters, with height-based vertical spacing
+and natural-flow fallbacks on phones and very short screens. Existing card motion
+and reveals remain intact; see the canonical reference for exact sizing.
+
 2026-11-16: Dashboard followed by five admin sections; combined Hero and About editing with
 dynamic heading/hero image and bulleted core values; paired office-time controls.
 See docs/DESIGN.md for field grouping, compatibility fallbacks, and validation.

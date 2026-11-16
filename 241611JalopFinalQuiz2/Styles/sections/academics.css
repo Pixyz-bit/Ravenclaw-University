@@ -230,21 +230,29 @@
     }
 }
 
-/* Share one screen with the sticky navbar; the remaining grid row sizes the cards. */
+/* Shared gutters keep the heading and carousel aligned; small screens flow naturally. */
 .academics-showcase {
-    @apply grid [grid-template-columns:minmax(0,1fr)] [grid-template-rows:auto_minmax(0,1fr)] h-[calc(100dvh_-_var(--portal-header-height,85px))] min-h-[360px] gap-[clamp(16px,3dvh,40px)] [padding:clamp(16px,4dvh,48px)_0] scroll-mt-[-16px];
+    @apply [--academics-inset:clamp(24px,5vw,96px)] [--academics-height:calc(100dvh_-_var(--portal-header-height,85px))] p-0 scroll-mt-[-16px];
+}
+
+.academics-stage {
+    @apply grid [grid-template-columns:minmax(0,1fr)] [grid-template-rows:auto_minmax(0,1fr)] min-w-0 gap-[clamp(16px,2.5dvh,28px)] [padding:clamp(20px,3dvh,36px)_0] box-border bg-navy;
 }
 
 .academics-heading {
-    @apply m-0 [margin-inline:auto];
+    @apply w-full m-0 [padding-inline:var(--academics-inset)];
 }
 
+.academics-heading .eyebrow { @apply mb-[8px]; }
+.academics-heading h2 { @apply m-0; }
+.academics-empty { @apply w-full m-0 [padding-inline:var(--academics-inset)] self-start; }
+
 .program-viewport {
-    @apply min-h-0 min-w-0;
+    @apply min-h-0 min-w-0 h-[clamp(340px,58dvh,550px)];
 }
 
 .program-rail {
-    @apply w-full min-w-0 h-full items-center pt-[8px] pb-[8px];
+    @apply w-full min-w-0 h-full items-center [padding:8px_var(--academics-inset)] [scroll-padding-inline:var(--academics-inset)];
 }
 
 .program-card {
@@ -261,6 +269,20 @@
 
 .program-card-arrow {
     @apply basis-[36px] h-[36px];
+}
+
+@media(min-width:701px) and (min-height:501px) {
+    .academics-showcase {
+        @apply [min-height:calc(var(--academics-height)_+_clamp(160px,30dvh,320px))];
+    }
+    .academics-stage {
+        @apply sticky top-[var(--portal-header-height,85px)] h-[var(--academics-height)];
+    }
+    .program-viewport { @apply h-auto; }
+}
+
+@media(max-width:700px) {
+    .academics-stage { @apply gap-[20px] py-[24px]; }
 }
 /* Title-only resting state; the same content rises on hover, focus, or touch toggle. */
 .program-card-caption {
