@@ -1,7 +1,7 @@
 @model AdminDashboardViewModel
 @{ ViewData["Title"] = "Administration"; }
 <header class="admin-page-heading">
-    <div><p class="eyebrow">Administration</p><h1>Welcome, @User.Identity?.Name.</h1><p class="muted">A clear view of your university content, and what needs your attention.</p></div>
+    <div><p class="eyebrow">Administration</p><h1>Welcome, @User.Identity?.Name.</h1><p class="muted">An overview of your saved university content.</p></div>
     <a class="button button-secondary" asp-controller="Home" asp-action="Index">View university <span aria-hidden="true">↗</span></a>
 </header>
 @if (Model.Unavailable)
@@ -10,42 +10,12 @@
 }
 else
 {
-    <section class="admin-inventory" aria-labelledby="account-analytics-title">
-        <h2 id="account-analytics-title">Account analytics</h2>
-        <p class="muted">Active users are accounts enabled to sign in.</p>
-        <dl class="admin-metrics account-metrics">
-            <div><dt>Total Registered</dt><dd>@Model.Accounts</dd></div>
-            <div><dt>Active Users</dt><dd>@Model.ActiveUsers</dd></div>
-            <div><dt>Deactivated Users</dt><dd>@Model.DeactivatedUsers</dd></div>
-        </dl>
-    </section>
     <section class="admin-inventory" aria-labelledby="inventory-title">
         <h2 id="inventory-title">Content inventory</h2>
-        <dl class="admin-metrics">
+        <dl class="admin-metrics content-metrics">
             <div><dt>Academic programs</dt><dd>@Model.Programs</dd></div>
             <div><dt>Core values</dt><dd>@Model.CoreValues</dd></div>
             <div><dt>Saved gallery images</dt><dd>@Model.GalleryImages</dd></div>
-            <div><dt>Accounts</dt><dd>@Model.Accounts</dd></div>
         </dl>
     </section>
-    <div class="admin-dashboard-columns">
-        <section aria-labelledby="attention-title">
-            <div class="admin-section-heading"><h2 id="attention-title">Suggested updates</h2><span class="admin-count">@Model.Reminders.Count</span></div>
-            @if (Model.Reminders.Count == 0)
-            {
-                <div class="admin-empty-state"><h3>The essentials are in place.</h3><p>Review the university page to check how your saved content looks to students.</p></div>
-            }
-            @foreach (var reminder in Model.Reminders)
-            {
-                <a class="admin-overview-link" asp-controller="@reminder.Controller" asp-action="Index"><span><strong>@reminder.Title</strong><span>@reminder.Detail</span></span><span aria-hidden="true">→</span></a>
-            }
-        </section>
-        <section aria-labelledby="quick-actions-title">
-            <h2 id="quick-actions-title">Quick actions</h2>
-            <a class="admin-overview-link" asp-controller="AcademicPrograms" asp-action="Index"><span><strong>Add an academic program</strong><span>Manage subjects, descriptions, and images.</span></span><span aria-hidden="true">→</span></a>
-            <a class="admin-overview-link" asp-controller="UniversityInformation" asp-action="Index"><span><strong>Edit university information</strong><span>Keep your introduction, mission, and vision current.</span></span><span aria-hidden="true">→</span></a>
-            <a class="admin-overview-link" asp-controller="ContactInformation" asp-action="Index"><span><strong>Update contact details</strong><span>Review the information in your contact footer.</span></span><span aria-hidden="true">→</span></a>
-            <a class="admin-overview-link" asp-controller="AccountManagement" asp-action="Index"><span><strong>Manage accounts</strong><span>Find accounts and review their access.</span></span><span aria-hidden="true">→</span></a>
-        </section>
-    </div>
 }

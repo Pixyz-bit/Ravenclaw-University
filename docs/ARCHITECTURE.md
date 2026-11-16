@@ -14,8 +14,10 @@
 - AdminContentController retains GET redirects for old bookmarks only. Shared
   ContentSections contains sidebar labels/routes; AdminContentValidation contains
   reusable input validators and the sidebar section interface, not CRUD behavior.
-- AdminController reads the existing UniversityContentService plus an account count
-  into AdminDashboardViewModel. Its overview is read-only. AdminPreviewViewModel and
+- AdminController reads only program, core-value, and gallery counts into
+  AdminDashboardViewModel. AccountManagementController loads global account totals
+  separately from its filtered, capped directory query. Both overviews are read-only.
+  AdminPreviewViewModel and
   _AdminContentPreview are shared presentation helpers; dedicated editor form models,
   controllers and views remain separate. admin-editor.js handles local previews,
   unsaved-change guards and validated saving feedback; it makes no network writes.

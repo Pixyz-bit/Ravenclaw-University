@@ -293,13 +293,18 @@ try {
         $listToken = [Net.WebUtility]::HtmlDecode([regex]::Match($accounts.Body, 'name="__RequestVerificationToken"[^>]*value="([^"]+)"').Groups[1].Value)
         $toggleFields = @{id=$profileId;isActive='false';__RequestVerificationToken=$listToken;Username='forged.name';Role='Owner'}
         Assert-Check ((Send-Request $admin '/AccountManagement/SetActive' $toggleFields).Status -eq 302 -and (Invoke-TestSql "SELECT COUNT(*) FROM dbo.UserTable WHERE UserId=$profileId AND IsActive=0 AND Username=N'profile.student' AND Role=N'Student';") -eq '1') 'Quick deactivate only changes account access'
+        $totals = (Invoke-TestSql 'SELECT COUNT(*),SUM(CASE WHEN IsActive=1 THEN 1 ELSE 0 END),SUM(CASE WHEN IsActive=0 THEN 1 ELSE 0 END) FROM dbo.UserTable;') -split '\s+'
+        $filteredAccounts = Send-Request $admin '/AccountManagement?search=profile.student'
+        Assert-Check ($filteredAccounts.Status -eq 200 -and $filteredAccounts.Body.Contains("<dt>Total Registered</dt><dd>$($totals[0])</dd>") -and $filteredAccounts.Body.Contains("<dt>Active Users</dt><dd>$($totals[1])</dd>") -and $filteredAccounts.Body.Contains("<dt>Deactivated Users</dt><dd>$($totals[2])</dd>")) 'Filtered account directory retains global analytics after deactivation'
         $toggleFields.isActive='true'
         Assert-Check ((Send-Request $admin '/AccountManagement/SetActive' $toggleFields).Status -eq 302 -and (Invoke-TestSql "SELECT IsActive FROM dbo.UserTable WHERE UserId=$profileId;") -eq '1') 'Quick activate restores account access'
         $toggleFields.id=$adminId; $toggleFields.isActive='false'
         Assert-Check ((Send-Request $admin '/AccountManagement/SetActive' $toggleFields).Status -eq 302 -and (Invoke-TestSql "SELECT IsActive FROM dbo.UserTable WHERE UserId=$adminId;") -eq '1') 'Quick status action cannot deactivate the current admin'
         $totals = (Invoke-TestSql 'SELECT COUNT(*),SUM(CASE WHEN IsActive=1 THEN 1 ELSE 0 END),SUM(CASE WHEN IsActive=0 THEN 1 ELSE 0 END) FROM dbo.UserTable;') -split '\s+'
         $dashboard = Send-Request $admin '/Admin'
-        Assert-Check ($dashboard.Status -eq 200 -and $dashboard.Body.Contains("<dt>Total Registered</dt><dd>$($totals[0])</dd>") -and $dashboard.Body.Contains("<dt>Active Users</dt><dd>$($totals[1])</dd>") -and $dashboard.Body.Contains("<dt>Deactivated Users</dt><dd>$($totals[2])</dd>")) 'Dashboard account analytics match database totals'
+        Assert-Check ($dashboard.Status -eq 200 -and -not $dashboard.Body.Contains('Account analytics') -and -not $dashboard.Body.Contains('Suggested updates') -and -not $dashboard.Body.Contains('Quick actions')) 'Dashboard omits account analytics, suggestions, and quick actions'
+        $accountAnalytics = Send-Request $admin '/AccountManagement'
+        Assert-Check ($accountAnalytics.Status -eq 200 -and $accountAnalytics.Body.Contains("<dt>Total Registered</dt><dd>$($totals[0])</dd>") -and $accountAnalytics.Body.Contains("<dt>Active Users</dt><dd>$($totals[1])</dd>") -and $accountAnalytics.Body.Contains("<dt>Deactivated Users</dt><dd>$($totals[2])</dd>")) 'Account management analytics match database totals after reactivation'
         $hashBefore = Invoke-TestSql "SELECT CHECKSUM(PasswordHash) FROM dbo.UserTable WHERE UserId=$profileId;"
         $accountFields = @{Id=$profileId;Username='profile.student';FirstName='Mira';LastName='Updated surname';Role='Student';IsActive='false';__ImageBytes=$script:imageBytes}
         $accountSaved = Submit-Form $admin "/AccountManagement?id=$profileId" $accountFields

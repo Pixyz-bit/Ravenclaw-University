@@ -9,6 +9,7 @@
     .admin-inventory { @apply mb-[48px]; }
     .admin-inventory h2,.admin-dashboard-columns h2 { @apply font-body text-[1.1rem] font-bold m-0 mb-[20px]; }
     .admin-metrics { @apply grid [grid-template-columns:repeat(4,minmax(0,1fr))] m-0 [border-block:1px_solid_var(--color-line)]; }
+    .content-metrics { @apply [grid-template-columns:repeat(3,minmax(0,1fr))]; }
     .admin-metrics > div { @apply [padding:24px_20px] [border-right:1px_solid_var(--color-line)]; }
     .admin-metrics > div:first-child { @apply pl-0; }
     .admin-metrics > div:last-child { @apply border-r-0; }

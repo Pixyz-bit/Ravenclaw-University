@@ -341,8 +341,9 @@ the user requested removal of the contextual topbar/account label. Sidebar links
 are one flat list, with no numeric prefixes or University content divider label.
 Account Management uses the same active style.
 Below 901px, native sidebar disclosure collapses initially with JavaScript and
-remains usable without JavaScript. The dashboard shows real content/account counts,
-quick actions, and suggested updates derived from missing saved content. Counts are
+remains usable without JavaScript. The dashboard shows only real content counts;
+suggested updates and quick actions are removed. Account analytics belong above
+the directory in Account Management. Counts are
 withheld when the database is unavailable; there are no invented analytics.
 
 Hero and About combines the hero upload, About Heading, About Description, Mission,
@@ -394,9 +395,11 @@ views remain intact. No topbar or sidebar numeric labels were reintroduced.
 
 ### Account directory and analytics (2026-11-16)
 
-Dashboard account analytics show Total Registered, Active Users, and Deactivated
+Account Management analytics show Total Registered, Active Users, and Deactivated
 Users from saved account records. Active means enabled to sign in, not currently
-online. Use one divided metric strip, with no invented activity history.
+online. Use one divided metric strip above the directory, with no invented activity
+history. Totals cover all accounts regardless of search or the 100-row directory
+limit; omit the strip when account data is unavailable.
 
 Account management follows the supplied horizontal-row reference: circular profile
 photo or name initials, name and username, role pill, and labeled status pill.

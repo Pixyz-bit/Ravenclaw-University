@@ -17,5 +17,8 @@ public class AccountManagementViewModel
     [Display(Name = "Profile image")] public IFormFile? ImageUpload { get; set; }
     [BindNever] public string? ProfileImg { get; set; }
     [StringLength(100)] public string? Search { get; set; }
+    [BindNever] public int TotalAccounts { get; set; }
+    [BindNever] public int ActiveUsers { get; set; }
+    public int DeactivatedUsers => TotalAccounts - ActiveUsers;
     [BindNever, ValidateNever] public List<AccountManagementViewModel> Items { get; set; } = [];
 }

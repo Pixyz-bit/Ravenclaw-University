@@ -4,6 +4,18 @@ Last verified: 2026-11-16.
 
 ## Latest error check
 
+- 2026-11-16: Removed Suggested updates and Quick actions from the admin dashboard,
+  including their unused reminder-building logic. Moved Total Registered, Active
+  Users, and Deactivated Users into Account Management above the directory. Totals
+  are global, unaffected by search or the 100-row limit, and hidden on unavailable
+  data. Dashboard retains only content counts, queried directly without loading
+  university content or accounts. No account records or schema were changed.
+  Normal build passed with zero warnings/errors; all 155 disposable HTTP/SQL checks
+  passed, including filtered totals after deactivation and totals after reactivation.
+  Desktop 1280px and phone 390px compiled-Razor fixture checks confirmed the relocated
+  metrics and no horizontal overflow; dashboard no longer renders the removed panels.
+  Design detection flagged only the existing hidden selected-upload preview image.
+
 - 2026-11-16 footer refinement: implemented the approved three-column layout for
   university identity/socials, Explore, and Contact. Removed the footer motto and
   Our University links. Social links use the existing database source and wrap

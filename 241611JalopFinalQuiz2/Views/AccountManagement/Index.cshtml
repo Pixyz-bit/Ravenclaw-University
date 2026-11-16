@@ -4,6 +4,18 @@
     <p class="eyebrow">Administration</p>
     <h1>Account management</h1>
     <p class="muted">Find an account, review its information, or manage sign-in access.</p>
+    @if (ViewData["Unavailable"] is not true)
+    {
+        <section class="admin-inventory" aria-labelledby="account-analytics-title">
+            <h2 id="account-analytics-title">Account analytics</h2>
+            <p class="muted">Active users are accounts enabled to sign in. Totals include all accounts.</p>
+            <dl class="admin-metrics account-metrics">
+                <div><dt>Total Registered</dt><dd>@Model.TotalAccounts</dd></div>
+                <div><dt>Active Users</dt><dd>@Model.ActiveUsers</dd></div>
+                <div><dt>Deactivated Users</dt><dd>@Model.DeactivatedUsers</dd></div>
+            </dl>
+        </section>
+    }
     @if (TempData["StatusMessage"] is string message) { <div class="status-message" role="status">@message</div> }
     @if (TempData["AccountError"] is string accountError) { <div class="validation-summary" role="alert">@accountError</div> }
     <div asp-validation-summary="All" class="validation-summary" role="alert"></div>

@@ -116,6 +116,12 @@ public class AccountManagementController(UniversityDbContext database, ImageUplo
 
     private async Task LoadAccounts(AccountManagementViewModel model)
     {
+        // Analytics cover all accounts, independently of search and the directory's 100-row cap.
+        var totals = await database.UserTables.AsNoTracking().GroupBy(x => 1)
+            .Select(group => new { Total = group.Count(), Active = group.Count(x => x.IsActive) })
+            .SingleOrDefaultAsync();
+        model.TotalAccounts = totals?.Total ?? 0;
+        model.ActiveUsers = totals?.Active ?? 0;
         var query = Summaries();
         if (!string.IsNullOrWhiteSpace(model.Search))
         {
