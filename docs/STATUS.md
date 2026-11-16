@@ -4,6 +4,12 @@ Last verified: 2026-11-14.
 
 ## Latest error check
 
+- 2026-11-16: Started the local http Development server at localhost:5182.
+  Login returned HTTP 200 with the Ravenclaw University name. Restricted startup
+  could not access authentication keys; restarting the owned process with local
+  access resolved that startup issue. Logs are under ignored TestResults/LocalRun.
+  Authenticated database access was not checked during this startup task.
+
 - 2026-11-14 follow-up on the loading page: the web server responded immediately
   to anonymous requests, but its logs showed SQL execution timeouts during account
   session revalidation. SQL inspection found no active user-query blocker. Fresh
