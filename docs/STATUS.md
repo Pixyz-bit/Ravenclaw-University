@@ -4,6 +4,14 @@ Last verified: 2026-11-16.
 
 ## Latest error check
 
+- 2026-11-16 local startup requested again: SQL Server was stopped and port 5182
+  had no listener. Started MSSQLSERVER through Windows elevation and the existing
+  http Development build. SQL Server reports Running; the read-only EF database
+  diagnostic passed university, profile, and office-time reads. Login returned
+  HTTP 200, and a CSRF-protected POST with a nonexistent diagnostic username reached
+  ordinary credential validation. No schema/content scripts or data changes were
+  needed. The existing database was preserved and the app remains running locally.
+
 - 2026-11-16 follow-up sign-in recovery: SQL Server was running, but the web log
   showed pre-login handshake and account-query execution timeouts. Fresh EF reads
   passed and SQL inspection found no active user-query blocker. SQL reported its
