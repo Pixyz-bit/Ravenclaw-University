@@ -4,6 +4,14 @@ Last verified: 2026-11-14.
 
 ## Latest error check
 
+- 2026-11-16 login recovery: SQL Server (MSSQLSERVER) was stopped, and the
+  live login log reported connection failures. Started that service through
+  Windows administrator elevation. The app's read-only database diagnostic passed
+  both university and user-profile reads. A live CSRF-protected login POST using
+  a nonexistent diagnostic username reached ordinary credential validation without
+  the database-unavailable error. Successful user sign-in still needs user retry;
+  no account, content, schema, or service startup configuration was changed.
+
 - 2026-11-16: Started the local http Development server at localhost:5182.
   Login returned HTTP 200 with the Ravenclaw University name. Restricted startup
   could not access authentication keys; restarting the owned process with local
