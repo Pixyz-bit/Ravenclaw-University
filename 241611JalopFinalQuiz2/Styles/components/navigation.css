@@ -120,21 +120,25 @@ html:has(.portal-header) {
 }
 
 .account-dropdown {
-    @apply absolute z-20 right-0 [top:calc(100%_+_12px)] w-[300px] [max-width:calc(100vw_-_40px)] p-[16px] bg-ivory rounded-[12px] [border:1px_solid_var(--color-gold)] [box-shadow:0_16px_40px_#101d3430];
+    @apply absolute z-20 right-0 [top:calc(100%_+_12px)] w-[360px] [max-width:calc(100vw_-_40px)] p-[20px] bg-ivory rounded-[12px] [border:1px_solid_var(--color-gold)] [box-shadow:0_16px_40px_#101d3430];
 }
 
 .account-dropdown-name {
-    @apply block text-navy text-[1rem] [overflow-wrap:anywhere] mt-[3px];
+    @apply block text-navy text-[1rem] leading-[1.35] [overflow-wrap:anywhere];
 }
 .account-dropdown-identity { @apply flex items-center gap-[12px] pb-[16px] mb-[12px] [border-bottom:1px_solid_var(--color-line)]; }
-.account-dropdown-caption { @apply text-muted text-[.7rem] font-bold uppercase tracking-[.08em]; }
-.account-menu-avatar { @apply grid place-items-center w-[42px] h-[42px] shrink-0 rounded-full bg-navy text-ivory font-bold text-[1rem]; }
+.account-menu-person { @apply min-w-0 flex-1; }
+.account-menu-name-row { @apply flex items-center gap-[8px]; }
+.account-menu-name-row strong { @apply min-w-0; }
+.account-menu-role { @apply shrink-0 bg-navy text-ivory uppercase text-[.6rem] leading-[1.3] font-bold tracking-[.05em] px-[6px] py-[2px] rounded-[4px]; }
+.account-menu-username { @apply block text-muted text-[.85rem] leading-[1.5] mt-[3px] [overflow-wrap:anywhere]; }
+.account-menu-avatar { @apply grid place-items-center w-[52px] h-[52px] shrink-0 rounded-full bg-navy text-ivory font-bold text-[1rem] object-cover [border:1px_solid_var(--color-line)]; }
 
 .account-dropdown a,.account-dropdown button {
     @apply flex items-center justify-between gap-[12px] w-full min-h-[48px] [border:0] [padding:12px_10px] text-navy no-underline bg-transparent cursor-pointer text-left text-[.85rem] rounded-[6px];
 }
-.account-dropdown .account-profile-link { @apply bg-navy text-ivory font-bold mb-[8px]; }
-.account-dropdown .account-profile-link:hover { @apply bg-blue text-ivory; }
+.account-dropdown .account-profile-link { @apply font-bold; }
+.account-dropdown a > span { @apply text-[1.2rem] leading-none; }
 .account-dropdown form { @apply mt-[8px] pt-[8px] [border-top:1px_solid_var(--color-line)]; }
 .account-dropdown form button { @apply text-error; }
 

@@ -103,4 +103,10 @@ See AUTHENTICATION.md for setup, limits, and the disposable-database HTTP verifi
 
 ## Personal information and content simplification (2026-11-16)
 
+The existing cookie-validation projection also reads the signed-in account's
+personal names and profile image, populating a request-scoped AccountMenuViewModel
+only after the account passes the unchanged role/active/username checks. The menu
+partial uses this fresh identity without another database query or cookie claims.
+Admin badge and Manage website rendering still depend on the authorized role.
+
 ProfileController/ProfileViewModel/Views/Profile/Index.cshtml form a dedicated authenticated editor. Reads project only personal fields; writes target the cookie identity through ExecuteUpdate and update only personal names, birthday and image. Posted IDs, username, role and active flags are not accepted. Uploads reuse ImageUploadService and all saves require antiforgery. A changed/deactivated account cannot be updated through a stale session. Founder editing uses a serializable update of its single existing record, without create/delete actions. UniversityPageViewModel now holds one Founder. Social-link controllers, entity/mapping, form model/view, validators and read queries were removed alongside the empty live table; consolidated Schema.sql now has seven tables.

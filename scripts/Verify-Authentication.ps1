@@ -215,6 +215,9 @@ try {
             $contentSection.RecordId=$recordId
         }
         $rendered = Send-Request $admin '/'
+        Assert-Check ($rendered.Body.Contains('Mira Velasco') -and $rendered.Body.Contains('account-menu-role') -and $rendered.Body.Contains('Manage website')) 'Admin menu shows saved full name, adjacent role badge and Manage website action'
+        $studentMenu = Send-Request $studentClient '/'
+        Assert-Check ($studentMenu.Body.Contains('Mira Isabel Velasco') -and $studentMenu.Body.Contains('profile.student') -and -not $studentMenu.Body.Contains('account-menu-role') -and -not $studentMenu.Body.Contains('Manage website')) 'Student menu shows personal identity without admin badge or website-management action'
         Assert-Check ($rendered.Body.Contains('<title>Ravenclaw University</title>') -and $rendered.Body.Contains('/Profile') -and -not $rendered.Body.Contains('footer-socials')) 'Public title and account menu use the requested identity and personal-information link'
         Assert-Check ((Send-Request $admin '/SocialLinks').Status -eq 404 -and (Send-Request $admin '/AdminContent?section=SocialLinks').Status -eq 404 -and (Invoke-TestSql "SELECT COUNT(*) FROM sys.tables WHERE name=N'SocialLinksTable';") -eq '0') 'Social links routes and table are removed'
         $founderPage = Send-Request $admin '/FounderInformation'
@@ -239,6 +242,7 @@ try {
         Assert-Check ((Invoke-TestSql "SELECT CHECKSUM(PasswordHash) FROM dbo.UserTable WHERE UserId=$ownId;") -eq $ownHash -and (Invoke-TestSql "SELECT COUNT(*) FROM dbo.UserTable WHERE UserId=$otherId AND Username=N'verification.student' AND Role=N'Admin';") -eq '1') 'Profile save preserves password hashes and other accounts'
         $ownImage = Invoke-TestSql "SELECT ProfileImg FROM dbo.UserTable WHERE UserId=$ownId;"
         Assert-Check ($ownImage -match '^/images/uploads/[a-f0-9]{32}\.png$' -and (Send-Request $studentClient $ownImage).Status -eq 200) 'Personal profile image upload is stored and renders'
+        Assert-Check ((Send-Request $studentClient '/Profile').Body.Contains('class="account-menu-avatar" src="'+$ownImage+'"')) 'Account menu displays the saved profile photo after a personal update'
         Assert-Check ((Send-Request $studentClient '/Profile').Status -eq 200) 'Saving personal details preserves the active session'
         $ownFields.Remove('__ImageBytes'); $ownFields.Birthday=''
         Assert-Check ((Submit-Form $studentClient '/Profile' $ownFields).Status -eq 302 -and (Invoke-TestSql "SELECT ProfileImg FROM dbo.UserTable WHERE UserId=$ownId;") -eq $ownImage) 'Personal save retains the image when no replacement is selected'

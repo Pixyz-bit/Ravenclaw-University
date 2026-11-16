@@ -34,5 +34,9 @@ Account rows use aligned columns and navy View actions. The refined navbar menu
 links to Personal information for the signed-in account. All browser tab titles
 are Ravenclaw University. See the canonical reference for layout and behavior.
 
+The account menu follows the compact photo/name reference: saved full name with
+an inline Admin badge, username below, then matching Edit personal information
+and Admin-only Manage website rows. No invented email address or extra identity label.
+
 2026-11-16: compact three-column footer: university/socials, Explore, Contact.
 Removed the large motto and Our University links; columns stack on phones.

@@ -30,9 +30,9 @@
             <details class="account-menu">
                 <summary aria-label="Account options"><svg viewBox="0 0 24 24" width="25" height="25" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="8" r="3.5" /><path d="M5 21v-2a7 7 0 0 1 14 0v2" /></svg></summary>
                 <div class="account-dropdown">
-                    <div class="account-dropdown-identity"><span class="account-menu-avatar" aria-hidden="true">@(string.IsNullOrWhiteSpace(User.Identity?.Name) ? "?" : System.Globalization.StringInfo.GetNextTextElement(User.Identity.Name).ToUpperInvariant())</span><div><span class="account-dropdown-caption">Signed in as</span><strong class="account-dropdown-name">@User.Identity?.Name</strong></div></div>
-                    <a class="account-profile-link" asp-controller="Profile" asp-action="Index">Edit personal information <span aria-hidden="true">↗</span></a>
-                    @if (User.IsInRole("Admin")) { <a asp-controller="Admin" asp-action="Index">Administration <span aria-hidden="true">→</span></a> }
+                    <partial name="_AccountMenuIdentity" model="@(Context.Items[typeof(AccountMenuViewModel)] as AccountMenuViewModel ?? new AccountMenuViewModel(User.Identity?.Name ?? "Account", User.Identity?.Name ?? "", null))" />
+                    <a class="account-profile-link" asp-controller="Profile" asp-action="Index">Edit personal information <span aria-hidden="true">›</span></a>
+                    @if (User.IsInRole("Admin")) { <a asp-controller="Admin" asp-action="Index">Manage website <span aria-hidden="true">›</span></a> }
                     <form asp-controller="Account" asp-action="Logout" method="post"><button type="submit">Sign out</button></form>
                 </div>
             </details>

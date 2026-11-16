@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using _241611JalopFinalQuiz2.Data;
+using _241611JalopFinalQuiz2.ViewModels;
 
 namespace _241611JalopFinalQuiz2.Security;
 
@@ -17,12 +18,19 @@ public class UniversityCookieEvents(UniversityDbContext database, ILogger<Univer
             {
                 var account = await database.UserTables.AsNoTracking()
                     .Where(user => user.UserId == id)
-                    .Select(user => new { user.IsActive, user.Role, user.Username })
+                    .Select(user => new { user.IsActive, user.Role, user.Username,
+                        user.FirstName, user.MiddleName, user.LastName, user.ProfileImg })
                     .SingleOrDefaultAsync();
                 if (account is { IsActive: true } && account.Role is "Admin" or "Student"
                     && account.Role == context.Principal?.FindFirstValue(ClaimTypes.Role)
                     && account.Username == context.Principal?.Identity?.Name)
+                {
+                    var name = string.Join(" ", new[] { account.FirstName, account.MiddleName, account.LastName }
+                        .Where(part => !string.IsNullOrWhiteSpace(part)).Select(part => part!.Trim()));
+                    context.HttpContext.Items[typeof(AccountMenuViewModel)] = new AccountMenuViewModel(
+                        string.IsNullOrWhiteSpace(name) ? account.Username : name, account.Username, account.ProfileImg);
                     return;
+                }
             }
         }
         catch (Exception exception)

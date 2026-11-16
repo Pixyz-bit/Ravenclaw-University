@@ -163,6 +163,19 @@ Last verified: 2026-11-16.
 
 ## Completed
 
+- Matched the account-menu identity to the supplied reference: saved circular photo
+  or full-name initials, saved first/middle/last name, Admin badge beside the name,
+  and username below (there is no email column). Removed Signed in as and the heavy
+  profile CTA block; matching Edit personal information / Manage website rows sit
+  below. Manage website and the badge are Admin-only; Sign out remains a POST.
+  Fresh identity comes from the existing account-session validation projection,
+  with unchanged access checks and no extra query or new persisted claims.
+  Build passed with zero warnings/errors; all 162 isolated checks passed, including
+  full-name/middle-name display, saved-photo refresh and Admin/Student menu gating.
+  Browser checks at 1440×900 and 390×844 confirmed the badge beside the name and
+  above the username, with no horizontal overflow. Escape restored toggle focus;
+  console errors were absent. Screenshot: ignored TestResults/account-menu-reference.jpg.
+
 - Implemented the requested content/account simplification. Founder is now one
   existing, edit-only record: the default editor loads it directly, POST requires
   its ID, and add/delete/list controls and delete actions are gone. Public content

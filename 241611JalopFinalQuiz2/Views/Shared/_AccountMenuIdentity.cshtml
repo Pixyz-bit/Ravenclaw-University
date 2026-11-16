@@ -1,0 +1,10 @@
+@model AccountMenuViewModel
+<div class="account-dropdown-identity">
+    @if (!string.IsNullOrWhiteSpace(Model.ProfileImage) && SafeImageAttribute.IsSafeImage(Model.ProfileImage))
+    { <img class="account-menu-avatar" src="@Model.ProfileImage" alt="" /> }
+    else { <span class="account-menu-avatar" aria-hidden="true">@Model.Initials</span> }
+    <div class="account-menu-person">
+        <div class="account-menu-name-row"><strong class="account-dropdown-name">@Model.DisplayName</strong>@if (User.IsInRole("Admin")) { <span class="account-menu-role">Admin</span> }</div>
+        <span class="account-menu-username">@Model.Username</span>
+    </div>
+</div>
