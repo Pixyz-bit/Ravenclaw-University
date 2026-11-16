@@ -4,6 +4,15 @@ Last verified: 2026-11-16.
 
 ## Latest error check
 
+- 2026-11-16 admin field audit: compared live SQL column metadata with the EF
+  entities and admin form models for the user's requested sidebar structure.
+  About Heading is absent from both the database and models; the public heading
+  is hardcoded. Office hours exists as text, with no separate time-in/time-out
+  fields. Other requested content fields have existing database/entity mappings;
+  core values use separate records. Initial implementation edits were reverted
+  when the user requested this audit first. Database/schema/content were not
+  changed. Sidebar restructuring and public bullet rendering remain pending.
+
 - 2026-11-16 login recovery: SQL Server (MSSQLSERVER) was stopped, and the
   live login log reported connection failures. Started that service through
   Windows administrator elevation. The app's read-only database diagnostic passed
