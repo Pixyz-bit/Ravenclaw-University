@@ -265,19 +265,22 @@ script is used. Reusable Tailwind rules remain in sections/founders.css.
 
 ## Contact footer
 
-The approved reference-inspired contact footer replaces both the standalone contact
-section and the university page's small footer. It follows Leadership outside main,
-with a full-width navy surface, ivory text, gold accents, and generous responsive
-padding. The left roughly 70% contains the crest/name, the motto “Wit beyond measure
-is man's greatest treasure,” and Explore / Our University navigation. The right
-roughly 30% has Contact us, address, email, telephone, office hours, and published
-social links, separated by a fine vertical rule. Copyright and Back to top sit
-below a full-width horizontal divider. Below 901px columns stack with a horizontal
-divider. All links have visible focus and at least 44px height.
+The approved compact footer follows Leadership outside main, retaining its
+full-width navy surface, ivory text, gold accents, and responsive padding. Three
+unequal desktop columns show university identity/social links, Explore, and Contact
+us. The university column is widest; its name is slightly smaller to leave room
+for navigation. Explore and Contact headings share the same serif scale and top
+alignment. The large motto and Our University navigation group are removed.
 
-Mission & Vision and Core Values jump to their About chapter with the existing
-desktop scroll/mobile rail behavior; without JS they fall back to About. Contact
-retains id=contact, mailto/tel actions, approved icons, HTTPS-only social URLs, and
+Saved HTTPS social links appear below the crest/name under Follow us, with supported
+icons and readable platform names in a wrapping horizontal row. No social group is
+rendered when no valid links exist. Explore retains Home, About, and Academics.
+Contact retains address, email, telephone, office hours, and existing empty states.
+Copyright and Back to top sit below one full-width divider; the vertical contact
+divider is removed. At 1000px and narrower, columns stack in identity/socials,
+Explore, Contact order. All links retain visible focus and at least 44px height.
+
+Contact retains id=contact, mailto/tel actions, approved icons, HTTPS-only social URLs, and
 accessible new-tab labels. Unpublished fields remain labeled. There is no search
 bar, new route, database column, or inquiry form. _UniversityContact.cshtml and
 Styles/sections/contact.css own markup and Tailwind styles. The layout's optional
@@ -338,8 +341,9 @@ the user requested removal of the contextual topbar/account label. Sidebar links
 are one flat list, with no numeric prefixes or University content divider label.
 Account Management uses the same active style.
 Below 901px, native sidebar disclosure collapses initially with JavaScript and
-remains usable without JavaScript. The dashboard shows real content/account counts,
-quick actions, and suggested updates derived from missing saved content. Counts are
+remains usable without JavaScript. The dashboard shows only real content counts;
+suggested updates and quick actions are removed. Account analytics belong above
+the directory in Account Management. Counts are
 withheld when the database is unavailable; there are no invented analytics.
 
 Hero and About combines the hero upload, About Heading, About Description, Mission,
@@ -391,9 +395,11 @@ views remain intact. No topbar or sidebar numeric labels were reintroduced.
 
 ### Account directory and analytics (2026-11-16)
 
-Dashboard account analytics show Total Registered, Active Users, and Deactivated
+Account Management analytics show Total Registered, Active Users, and Deactivated
 Users from saved account records. Active means enabled to sign in, not currently
-online. Use one divided metric strip, with no invented activity history.
+online. Use one divided metric strip above the directory, with no invented activity
+history. Totals cover all accounts regardless of search or the 100-row directory
+limit; omit the strip when account data is unavailable.
 
 Account management follows the supplied horizontal-row reference: circular profile
 photo or name initials, name and username, role pill, and labeled status pill.

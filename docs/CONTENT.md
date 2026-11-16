@@ -37,10 +37,12 @@ or editor. The five new generated assets are in wwwroot/images/collegiate; their
 prompts and provenance are in docs/GENERATED_ASSETS.md.
 
 Contact is the full-width navy footer after Leadership, replacing the standalone
-contact section and small university footer. Identity, motto, and two groups of
-section links occupy the left; address, email, telephone, office hours, and social
-links occupy the right. Copyright and Back to top sit below a divider. Columns
-stack on phones. The existing Contact information and Social links editors supply
+contact section and small university footer. Desktop has three unequal columns:
+university identity with saved social links, Explore (Home/About/Academics), and
+contact details. The large motto and Our University links have been removed.
+Social links wrap horizontally below the university name and are omitted when
+none are published. Copyright and Back to top sit below one divider. Columns stack
+at 1000px and narrower in identity, Explore, Contact order. The existing Contacts and Social links editors supply
 the published values. _UniversityContact.cshtml owns markup and sections/contact.css
 its Tailwind styling; no database changes were needed.
 

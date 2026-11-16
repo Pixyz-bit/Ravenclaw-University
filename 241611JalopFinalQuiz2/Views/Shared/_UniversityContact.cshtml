@@ -13,41 +13,10 @@
                 <img src="~/images/branding/ravenclaw-university-crest.png" asp-append-version="true" width="1123" height="1401" alt="" aria-hidden="true" />
                 <span>Ravenclaw University</span>
             </a>
-            <p class="footer-motto">Wit beyond measure<br />is man's greatest treasure.</p>
-            <nav class="footer-navigation" aria-label="Footer navigation">
-                <div>
-                    <h2>Explore</h2>
-                    <ul>
-                        <li><a href="#home">Home</a></li>
-                        <li><a href="#about">About</a></li>
-                        <li><a href="#academics">Academics</a></li>
-                        @* Restore when the university gallery is visible again.
-                        <li><a href="#gallery">Gallery</a></li>
-                        *@
-                    </ul>
-                </div>
-                <div>
-                    <h2>Our University</h2>
-                    <ul>
-                        <li><a href="#about" data-about-jump="1">Mission &amp; Vision</a></li>
-                        <li><a href="#about" data-about-jump="3">Core Values</a></li>
-                        <li><a href="#leadership">Leadership</a></li>
-                    </ul>
-                </div>
-            </nav>
-        </div>
-        <div class="footer-contact">
-            <h2 id="contact-title">Contact us</h2>
-            <dl class="footer-contact-details">
-                <div><dt>University address</dt><dd class="prose">@(string.IsNullOrWhiteSpace(contact?.AcademyAddress) ? "Not published yet" : contact.AcademyAddress)</dd></div>
-                <div><dt>Email</dt><dd>@if (!string.IsNullOrWhiteSpace(contact?.Email)) { <a href="mailto:@contact.Email">@contact.Email</a> } else { <span>Not published yet</span> }</dd></div>
-                <div><dt>Telephone</dt><dd>@if (!string.IsNullOrWhiteSpace(contact?.Telephone)) { <a href="tel:@contact.Telephone">@contact.Telephone</a> } else { <span>Not published yet</span> }</dd></div>
-                <div><dt>Office hours</dt><dd class="prose">@hours</dd></div>
-            </dl>
             @if (socialLinks.Count > 0)
             {
                 <div class="footer-socials">
-                    <h3>Follow us</h3>
+                    <h2>Follow us</h2>
                     <ul aria-label="University social links">
                         @foreach (var social in socialLinks)
                         {
@@ -59,6 +28,23 @@
                     </ul>
                 </div>
             }
+        </div>
+        <nav class="footer-navigation" aria-label="Footer navigation">
+            <h2>Explore</h2>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#academics">Academics</a></li>
+            </ul>
+        </nav>
+        <div class="footer-contact">
+            <h2 id="contact-title">Contact us</h2>
+            <dl class="footer-contact-details">
+                <div><dt>University address</dt><dd class="prose">@(string.IsNullOrWhiteSpace(contact?.AcademyAddress) ? "Not published yet" : contact.AcademyAddress)</dd></div>
+                <div><dt>Email</dt><dd>@if (!string.IsNullOrWhiteSpace(contact?.Email)) { <a href="mailto:@contact.Email">@contact.Email</a> } else { <span>Not published yet</span> }</dd></div>
+                <div><dt>Telephone</dt><dd>@if (!string.IsNullOrWhiteSpace(contact?.Telephone)) { <a href="tel:@contact.Telephone">@contact.Telephone</a> } else { <span>Not published yet</span> }</dd></div>
+                <div><dt>Office hours</dt><dd class="prose">@hours</dd></div>
+            </dl>
         </div>
     </div>
     <div class="footer-bottom"><p>© @DateTime.UtcNow.Year Ravenclaw University</p><a href="#home">Back to top <span aria-hidden="true">↑</span></a></div>

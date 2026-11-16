@@ -22,3 +22,6 @@ See docs/DESIGN.md for the exact breakpoints and overflow behavior.
 2026-11-16: Dashboard followed by five admin sections; combined Hero and About editing with
 dynamic heading/hero image and bulleted core values; paired office-time controls.
 See docs/DESIGN.md for field grouping, compatibility fallbacks, and validation.
+
+2026-11-16: compact three-column footer: university/socials, Explore, Contact.
+Removed the large motto and Our University links; columns stack on phones.

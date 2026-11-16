@@ -4,6 +4,20 @@ Last verified: 2026-11-16.
 
 ## Latest error check
 
+- 2026-11-16 footer refinement: implemented the approved three-column layout for
+  university identity/socials, Explore, and Contact. Removed the footer motto and
+  Our University links. Social links use the existing database source and wrap
+  below the university name; an empty list renders no Follow us group. Retained
+  Home/About/Academics, contact information, copyright, and Back to top. Columns
+  stack at 1000px and narrower. The isolated preview build passed all 153 existing
+  checks. Browser review verified desktop heading alignment, 44px social targets,
+  empty social state, invalid-URL filtering, icon-free text fallback, phone stacking,
+  and no horizontal overflow at desktop/390px and near the desktop breakpoint.
+  Preview-only social/contact records were confined to the disposable database,
+  which was removed. Design detection found no issues. Final normal build passed
+  with zero warnings/errors; localhost:5182 was restarted and returned HTTP 200.
+  Real university data/schema and unrelated in-progress changes were preserved.
+
 - 2026-11-16 local startup requested again: SQL Server was stopped and port 5182
   had no listener. Started MSSQLSERVER through Windows elevation and the existing
   http Development build. SQL Server reports Running; the read-only EF database

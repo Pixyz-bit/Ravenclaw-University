@@ -1,47 +1,41 @@
-/* Contact footer: identity/navigation left, existing published contact data right. */
+/* Contact footer: identity/socials, Explore, and published contact details. */
 @layer components {
     .university-footer {
         @apply w-full bg-navy text-ivory [padding:clamp(40px,5vw,80px)_clamp(24px,5vw,96px)_24px] [border-top:1px_solid_var(--color-gold)] [scroll-margin-top:var(--portal-header-height,85px)];
     }
     .footer-columns {
-        @apply grid [grid-template-columns:minmax(0,7fr)_minmax(280px,3fr)] gap-[clamp(32px,5vw,88px)];
+        @apply grid [grid-template-columns:minmax(0,1.65fr)_minmax(120px,.55fr)_minmax(240px,1fr)] items-start gap-[clamp(28px,4vw,64px)];
     }
-    .footer-university,.footer-contact { @apply min-w-0; }
+    .footer-university,.footer-navigation,.footer-contact { @apply min-w-0; }
     .university-footer a {
         @apply text-ivory underline [text-decoration-color:rgba(244,240,230,.3)] [text-underline-offset:5px] [overflow-wrap:anywhere];
     }
     .university-footer a:hover { @apply text-gold [text-decoration-color:var(--color-gold)]; }
     .university-footer a:focus-visible { @apply [outline:2px_solid_var(--color-gold)] [outline-offset:5px]; }
     .university-footer .footer-brand {
-        @apply inline-flex items-center gap-[18px] no-underline font-heading text-[clamp(1.8rem,3vw,2.75rem)] leading-[1.1];
+        @apply inline-flex items-center gap-[16px] no-underline font-heading text-[clamp(1.75rem,2.4vw,2.5rem)] leading-[1.1];
     }
     .footer-brand img { @apply w-[52px] h-[66px] object-contain shrink-0; }
-    .footer-motto {
-        @apply font-heading italic text-[clamp(1.7rem,2.6vw,2.6rem)] leading-[1.18] text-gold [margin:28px_0_40px] max-w-[27ch];
-    }
-    .footer-navigation {
-        @apply grid [grid-template-columns:repeat(2,minmax(0,1fr))] gap-[24px] max-w-[700px];
-    }
-    .footer-navigation h2,.footer-socials h3 {
+    .footer-socials h2 {
         @apply font-body text-[.85rem] font-bold text-ivory tracking-[.06em] [margin:0_0_12px] leading-[1.5];
     }
     .university-footer ul { @apply list-none m-0 p-0; }
-    .footer-navigation a,.footer-socials a { @apply inline-flex items-center gap-[12px] min-h-[44px] text-[1rem]; }
-    .footer-contact { @apply [border-left:1px_solid_rgba(244,240,230,.18)] pl-[clamp(28px,4vw,64px)]; }
-    .footer-contact > h2 { @apply font-heading text-university-subtitle leading-[1.2] text-ivory [margin:0_0_28px]; }
+    .footer-navigation a,.footer-socials a { @apply inline-flex items-center gap-[8px] min-h-[44px] text-[1rem]; }
+    .footer-navigation > h2,.footer-contact > h2 { @apply font-heading text-university-subtitle leading-[1.2] text-ivory [margin:0_0_20px]; }
     .footer-contact-details { @apply m-0 grid gap-[20px]; }
     .footer-contact-details dt { @apply text-[.75rem] font-bold tracking-[.06em] text-gold mb-[4px]; }
     .footer-contact-details dd { @apply m-0 text-[1rem] leading-[1.65] [overflow-wrap:anywhere]; }
     .footer-contact-details a { @apply inline-flex items-center min-h-[44px]; }
     .footer-socials { @apply mt-[28px]; }
+    .footer-socials ul { @apply flex flex-wrap [column-gap:20px] [row-gap:4px]; }
+    .footer-socials a { @apply text-[.9rem]; }
     .footer-socials i { @apply w-[18px] text-center; }
     .footer-bottom {
         @apply flex items-center justify-between flex-wrap gap-[16px] mt-[48px] pt-[20px] [border-top:1px_solid_rgba(244,240,230,.18)] text-[.8rem];
     }
     .footer-bottom p { @apply m-0; }
     .footer-bottom a { @apply inline-flex items-center gap-[16px] min-h-[44px]; }
-    @media(max-width:900px) {
+    @media(max-width:1000px) {
         .footer-columns { @apply [grid-template-columns:minmax(0,1fr)]; }
-        .footer-contact { @apply border-l-0 pl-0 [border-top:1px_solid_rgba(244,240,230,.18)] pt-[32px]; }
     }
 }
