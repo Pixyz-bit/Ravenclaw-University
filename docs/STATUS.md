@@ -4,6 +4,13 @@ Last verified: 2026-11-16.
 
 ## Latest error check
 
+- 2026-11-16: Restored an explicit Dashboard link as the first admin sidebar
+  option, followed by the five content/account sections. It links to the existing
+  analytics dashboard and marks that route active. Updated the existing navigation
+  regression expectation and design/content references. Razor build passed with
+  zero warnings/errors; targeted markup checks confirmed link order and active
+  state. Restarted localhost:5182; login returned HTTP 200. No data changes.
+
 - 2026-11-16 admin structure implemented: sidebar now follows Hero and About,
   Academics, Founder, Contacts, Account Management. The combined university form
   saves the optional About heading and ordered core-value list transactionally;

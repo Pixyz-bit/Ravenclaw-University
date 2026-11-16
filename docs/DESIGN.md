@@ -321,8 +321,8 @@ images use a text fallback; the crest is not used as fake campus photography.
 Admin uses _AdminLayout through its folder-specific _ViewStart. Each dedicated
 content section selects _AdminLayout in its own Index view. The university navbar
 is not rendered in this shell. A 272px navy sidebar
-contains the approved crest and five links in this order: Hero and About,
-Academics, Founder, Contacts, Account Management. The crest links to the dashboard. The current
+contains the approved crest and six links in this order: Dashboard, Hero and About,
+Academics, Founder, Contacts, Account Management. The crest also links to the dashboard. The current
 page uses a blue active background and aria-current=page, including edit/delete
 and validation states. View university and POST Sign out sit below navigation.
 The ivory workspace uses Lato headings and opens directly to the page content;

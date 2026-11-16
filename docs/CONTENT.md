@@ -76,8 +76,8 @@ These are tentative university website contents.
 Database/SeedUniversityContent.sql records the approved copy; running it deliberately
 replaces those three text fields and the complete core-value list.
 
-Sign in as an Admin and open Administration. The sidebar contains Hero and About,
-Academics, Founder, Contacts, and Account Management, in that order. The crest opens
+Sign in as an Admin and open Administration. The sidebar contains Dashboard,
+Hero and About, Academics, Founder, Contacts, and Account Management, in that order. The crest also opens
 the dashboard. The admin layout is separate from the university navbar, highlights
 the current section, and has expandable navigation on phones.
 

@@ -17,6 +17,6 @@ Founder sizing follows the viewport minus the measured navbar height, with
 height-responsive spacing and a corrected anchor offset. See docs/DESIGN.md for
 the natural-growth exceptions on phones, long content, and zoom.
 
-2026-11-16: five-section admin navigation; combined Hero and About editing with
+2026-11-16: Dashboard followed by five admin sections; combined Hero and About editing with
 dynamic heading/hero image and bulleted core values; paired office-time controls.
 See docs/DESIGN.md for field grouping, compatibility fallbacks, and validation.

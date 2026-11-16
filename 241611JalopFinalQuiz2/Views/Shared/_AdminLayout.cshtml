@@ -22,6 +22,7 @@
         <details class="admin-navigation" open>
             <summary>Navigation</summary>
             <nav aria-label="Administration navigation">
+                <a class="admin-nav-link @(controller == "Admin" ? "is-active" : "")" aria-current="@(controller == "Admin" ? "page" : null)" asp-controller="Admin" asp-action="Index" asp-route-id="" asp-route-confirmDelete="">Dashboard</a>
                 @foreach (var contentSection in new[] { ContentSection.University, ContentSection.Programs, ContentSection.Founders, ContentSection.Contacts })
                 {
                     var active = activeSection == contentSection
