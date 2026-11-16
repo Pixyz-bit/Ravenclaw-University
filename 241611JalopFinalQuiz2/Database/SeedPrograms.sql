@@ -12,9 +12,9 @@ SELECT sample.SubjectName, sample.Description, sample.ImagePath
 FROM (VALUES
     (N'Astronomy', N'Sample program: Explore the night sky through star charts, planetary observation, and celestial navigation. Practice careful observation and learn to interpret the patterns above the university.', N'/images/programs/astronomy.png'),
     (N'Charms', N'Sample program: Study the principles of spellwork, precise wand movements, and clear incantations. Develop concentration through practical exercises and thoughtful problem solving.', N'/images/programs/charms.png'),
-    (N'Transfiguration', N'Sample program: Examine the theory and practice of changing the form of objects. Build accuracy, discipline, and an understanding of the limits of magical transformation.', N'/images/hero/portrait-stairwell.png'),
+    (N'Transfiguration', N'Sample program: Examine the theory and practice of changing the form of objects. Build accuracy, discipline, and an understanding of the limits of magical transformation.', N'/images/programs/transfiguration.png'),
     (N'Potions', N'Sample program: Discover how magical ingredients interact through measured preparation, careful brewing, and observation. Learn to document methods and evaluate results.', N'/images/programs/potions.png'),
-    (N'Herbology', N'Sample program: Learn to identify, cultivate, and care for magical plants. Explore their properties and uses while developing responsible handling and research skills.', N'/images/hero/ravenclaw-common-room.png'),
+    (N'Herbology', N'Sample program: Learn to identify, cultivate, and care for magical plants. Explore their properties and uses while developing responsible handling and research skills.', N'/images/programs/herbology.png'),
     (N'Defence Against the Dark Arts', N'Sample program: Explore protective magic, the recognition of magical threats, and practical defensive techniques. Develop sound judgement and confidence through guided exercises.', N'/images/programs/defence-against-the-dark-arts.png')
 ) AS sample(SubjectName, Description, ImagePath)
 WHERE NOT EXISTS (

@@ -1,9 +1,9 @@
 # University content and administration
 
-The approved generated subject images are now stored in the existing program
-records for Astronomy, Charms, Potions, and Defence Against the Dark Arts, using
-/images/programs/ paths. Their names/descriptions were preserved. Transfiguration
-and Herbology still use their earlier imagery. Academic Programs remains the editor
+The approved generated subject images are now stored in all six existing program
+records: Astronomy, Charms, Transfiguration, Potions, Herbology, and Defence Against
+the Dark Arts, using /images/programs/ paths. Their names/descriptions were preserved.
+Academic Programs remains the editor
 for future image replacements; no new database columns or rendering overrides exist.
 
 As of 2026-11-14, the university gallery and The Hogwarts Collegiate Circle are

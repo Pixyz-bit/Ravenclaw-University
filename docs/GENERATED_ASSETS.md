@@ -74,10 +74,9 @@ workbench photograph. No reference image was substituted as a generated asset.
 
 Generated with the built-in image tool from the user's supplied references. The
 outputs were visually inspected and copied without modification, with SHA-256
-equality checks. The user approved implementation on 2026-11-14. The four existing
-subject records now point to their corresponding generated files; names and
-descriptions were preserved. Transfiguration and Herbology retain their previous
-images because generated replacements are unavailable.
+equality checks. The user approved the first four images on 2026-11-14, followed
+by Herbology and Transfiguration on 2026-11-16. All six subject records now point
+to their corresponding generated files; names and descriptions were preserved.
 
 - `wwwroot/images/programs/defence-against-the-dark-arts.png`: 1536×1024 landscape.
   Reference: the uploaded live-action classroom still with blue pixies, floating
@@ -107,3 +106,19 @@ images because generated replacements are unavailable.
   saturated exhibition lighting with muted warm/cool cinematic light, natural
   material textures and fine film grain. No people, signature, watermark or UI.
   Original output copied unchanged and SHA-256 verified; approved and bound to Potions.
+
+### Additional subject images (2026-11-16)
+
+- `wwwroot/images/programs/herbology.png`: 1536×1024 landscape. Reference: the user's
+  greenhouse scene with a mandrake held by its leaves. Prompt: recreate its central
+  root-like mandrake, gardener's leather glove, dense unusual plants and potting
+  benches in a realistic cinematic fantasy-film style, natural muted greens/browns,
+  diffused daylight and fine film grain. Keep the mandrake/glove centered for card
+  cropping; no text, watermark or extra people. Copied unchanged, SHA-256 verified,
+  and applied to Herbology.
+- `wwwroot/images/programs/transfiguration.png`: 1536×1024 landscape. Reference: the
+  user's later still-life photograph of a diagonal wand on aged diagram-covered
+  parchment. Prompt: preserve the scholarly arrangement, ornate book and partial
+  brass instrument, with believable paper/wood textures, soft window light, muted
+  brown/ivory palette and fine film grain; no added people or glowing spell effects.
+  Copied unchanged, SHA-256 verified, and applied to Transfiguration.

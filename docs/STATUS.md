@@ -1,6 +1,6 @@
 # Current status
 
-Last verified: 2026-11-14.
+Last verified: 2026-11-16.
 
 ## Latest error check
 
@@ -64,6 +64,16 @@ Last verified: 2026-11-14.
   were removed; no real university records were changed by these checks.
 
 ## Completed
+
+- Generated and applied Herbology (mandrake greenhouse) and Transfiguration
+  (wand/parchment still life) from the user's new references. Inspected both outputs
+  and verified unchanged workspace copies by SHA-256. The live guarded content
+  update succeeded; SQL readback confirms all six subjects now use /images/programs/
+  files. Updated the sample seed and guarded image script to cover all six. No
+  subject names, descriptions, schema, or admin UI were changed.
+  Build passed with zero warnings/errors. After restarting the local website, both
+  new URLs returned HTTP 200 image/png with redirects disabled and exact file sizes
+  matching the workspace assets. SQL verification confirmed all six saved paths.
 
 - Applied the approved generated images to the existing Astronomy, Charms, Potions,
   and Defence Against the Dark Arts records using ApplyProgramImages.sql. SQL
@@ -581,12 +591,6 @@ Last verified: 2026-11-14.
   the same diagnostic succeeded with local SQL Server access.
 
 ## Not implemented / not verified
-
-- Transfiguration image generation was rejected by the built-in image tool at output
-  moderation on 2026-11-14; no generated file exists for that subject. The first
-  Charms and Potions attempts were also rejected; later user-supplied references
-  produced saved images for both. Those generation attempts did not modify records;
-  the later approved integration is recorded under Completed.
 
 - Mobile About dot navigation can stop at an intermediate chapter when selecting
   Vision from the introduction. The same result was reproduced using the previous

@@ -1,5 +1,5 @@
 -- User-approved CONTENT only; this does not alter the database schema.
--- Replaces only the four documented sample-image paths. Unexpected custom paths,
+-- Replaces only the six documented sample-image paths. Unexpected custom paths,
 -- missing subjects, or duplicate subject names stop the entire update.
 USE [Ravenclaw University Db];
 GO
@@ -13,7 +13,9 @@ DECLARE @Images TABLE (SubjectName NVARCHAR(150), OldPath NVARCHAR(500), NewPath
 INSERT @Images VALUES
     (N'Astronomy', N'/images/hero/ravenclaw-common-room.png', N'/images/programs/astronomy.png'),
     (N'Charms', N'/images/hero/ravenclaw-eagle-wall.png', N'/images/programs/charms.png'),
+    (N'Transfiguration', N'/images/hero/portrait-stairwell.png', N'/images/programs/transfiguration.png'),
     (N'Potions', N'/images/hero/great-hall.png', N'/images/programs/potions.png'),
+    (N'Herbology', N'/images/hero/ravenclaw-common-room.png', N'/images/programs/herbology.png'),
     (N'Defence Against the Dark Arts', N'/images/hero/ravenclaw-eagle-wall.png', N'/images/programs/defence-against-the-dark-arts.png');
 
 IF EXISTS (

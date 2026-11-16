@@ -135,10 +135,11 @@ Navigation wraps on smaller screens; page sections stack below 700px.
 
 ## About and Academics reference (2026-11-12)
 
-Approved academic-card imagery (2026-11-14): Astronomy, Charms, Potions, and
-Defence Against the Dark Arts use their generated /images/programs/ assets via
+Approved academic-card imagery (updated 2026-11-16): all six subjects use their
+generated /images/programs/ assets via
 the existing database ImagePath field. Existing cover cropping and hover behavior
-remain. Transfiguration and Herbology retain their earlier imagery pending assets.
+remain. Herbology uses the mandrake greenhouse image; Transfiguration uses the
+wand/parchment still life, both matched to the established muted cinematic style.
 
 About begins directly with “A place for curious minds.” The separate About label,
 quote introduction, and student-facing admin notice have been removed. There is no
