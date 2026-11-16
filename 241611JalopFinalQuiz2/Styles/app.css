@@ -11,6 +11,7 @@
 @import "./sections/university.css";
 @import "./layouts/admin.css";
 @import "./layouts/admin-editors.css";
+@import "./layouts/admin-accounts.css";
 @import "./components/navigation.css";
 @import "./sections/academics.css";
 @import "./sections/about.css";

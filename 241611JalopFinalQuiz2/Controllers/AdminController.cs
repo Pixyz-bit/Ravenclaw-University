@@ -16,12 +16,16 @@ public class AdminController(UniversityDbContext database, UniversityContentServ
         try
         {
             var page = await content.ReadAsync(cancellationToken);
+            var accounts = await database.UserTables.AsNoTracking().GroupBy(x => 1)
+                .Select(group => new { Total = group.Count(), Active = group.Count(x => x.IsActive) })
+                .SingleOrDefaultAsync(cancellationToken);
             var model = new AdminDashboardViewModel
             {
                 Programs = page.Programs.Count,
                 CoreValues = page.Values.Count,
                 GalleryImages = page.Photos.Count,
-                Accounts = await database.UserTables.CountAsync(cancellationToken)
+                Accounts = accounts?.Total ?? 0,
+                ActiveUsers = accounts?.Active ?? 0
             };
             if (string.IsNullOrWhiteSpace(page.University?.AcademyDescription)
                 || string.IsNullOrWhiteSpace(page.University?.Mission)

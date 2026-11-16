@@ -62,6 +62,13 @@ Its interactive terminal/password-entry path still requires a manual check.
 
 ## Verification
 
+Account management rows offer only Activate/Deactivate and View information.
+Details is an Admin-only, read-only profile page with no password/hash fields.
+SetActive is an antiforgery-protected Admin POST that changes only IsActive,
+preserves search, and retains the serializable own-account/last-active-Admin
+safeguards. Dashboard totals count all registered accounts, enabled accounts,
+and disabled accounts; these are account states, not online-session analytics.
+
 From the repository root in PowerShell, with SQL Server and sqlcmd available:
 
 ```powershell

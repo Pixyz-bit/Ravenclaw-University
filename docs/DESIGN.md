@@ -363,6 +363,22 @@ Reusable behavior is in admin-editor.js, shared markup in _AdminContentPreview.c
 and Tailwind styles in layouts/admin-editors.css. Dedicated controllers/form models/
 views remain intact. No topbar or sidebar numeric labels were reintroduced.
 
+### Account directory and analytics (2026-11-16)
+
+Dashboard account analytics show Total Registered, Active Users, and Deactivated
+Users from saved account records. Active means enabled to sign in, not currently
+online. Use one divided metric strip, with no invented activity history.
+
+Account management follows the supplied horizontal-row reference: circular profile
+photo or name initials, name and username, role pill, and labeled status pill.
+The only row actions are Activate/Deactivate and View information. Omit registration
+timestamps. View information opens a dedicated read-only page with saved profile
+fields; no email is invented because the account schema has none. On smaller
+screens actions wrap below identity/status. Keep the navy/ivory palette and 44px
+minimum controls. The current administrator's Deactivate action is disabled;
+server-side own-account and last-active-Admin safeguards also apply.
+Reusable Tailwind styling lives in layouts/admin-accounts.css.
+
 ## Approved main logo (2026-11-11)
 
 The user approved the cleaned transparent crest preview as the main university logo

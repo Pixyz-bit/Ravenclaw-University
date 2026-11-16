@@ -247,6 +247,21 @@ try {
         Assert-Check ($accounts.Status -eq 200 -and $accounts.Body.Contains('profile.student') -and -not $accounts.Body.Contains('PasswordHash')) 'Admin account list shows account summaries without password hashes'
         $profileId = Invoke-TestSql "SELECT UserId FROM dbo.UserTable WHERE Username=N'profile.student';"
         $adminId = Invoke-TestSql "SELECT UserId FROM dbo.UserTable WHERE Username=N'verification.student';"
+        $details = Send-Request $admin "/AccountManagement/Details?id=$profileId"
+        Assert-Check ($details.Status -eq 200 -and $details.Body.Contains('Account information') -and -not $details.Body.Contains('PasswordHash') -and -not $details.Body.Contains('Save account')) 'Account information is read-only and excludes password hashes'
+        Assert-Check ((Send-Request $studentClient "/AccountManagement/Details?id=$profileId").Location -like '*AccessDenied*') 'Students cannot view another account information page'
+        Assert-Check ((Send-Request $admin '/AccountManagement/SetActive' @{id=$profileId;isActive='false'}).Status -eq 400) 'Quick account status changes require antiforgery'
+        Assert-Check ((Send-Request $studentClient '/AccountManagement/SetActive' @{id=$profileId;isActive='false'}).Location -like '*AccessDenied*') 'Students cannot use quick account status changes'
+        $listToken = [Net.WebUtility]::HtmlDecode([regex]::Match($accounts.Body, 'name="__RequestVerificationToken"[^>]*value="([^"]+)"').Groups[1].Value)
+        $toggleFields = @{id=$profileId;isActive='false';__RequestVerificationToken=$listToken;Username='forged.name';Role='Owner'}
+        Assert-Check ((Send-Request $admin '/AccountManagement/SetActive' $toggleFields).Status -eq 302 -and (Invoke-TestSql "SELECT COUNT(*) FROM dbo.UserTable WHERE UserId=$profileId AND IsActive=0 AND Username=N'profile.student' AND Role=N'Student';") -eq '1') 'Quick deactivate only changes account access'
+        $toggleFields.isActive='true'
+        Assert-Check ((Send-Request $admin '/AccountManagement/SetActive' $toggleFields).Status -eq 302 -and (Invoke-TestSql "SELECT IsActive FROM dbo.UserTable WHERE UserId=$profileId;") -eq '1') 'Quick activate restores account access'
+        $toggleFields.id=$adminId; $toggleFields.isActive='false'
+        Assert-Check ((Send-Request $admin '/AccountManagement/SetActive' $toggleFields).Status -eq 302 -and (Invoke-TestSql "SELECT IsActive FROM dbo.UserTable WHERE UserId=$adminId;") -eq '1') 'Quick status action cannot deactivate the current admin'
+        $totals = (Invoke-TestSql 'SELECT COUNT(*),SUM(CASE WHEN IsActive=1 THEN 1 ELSE 0 END),SUM(CASE WHEN IsActive=0 THEN 1 ELSE 0 END) FROM dbo.UserTable;') -split '\s+'
+        $dashboard = Send-Request $admin '/Admin'
+        Assert-Check ($dashboard.Status -eq 200 -and $dashboard.Body.Contains("<dt>Total Registered</dt><dd>$($totals[0])</dd>") -and $dashboard.Body.Contains("<dt>Active Users</dt><dd>$($totals[1])</dd>") -and $dashboard.Body.Contains("<dt>Deactivated Users</dt><dd>$($totals[2])</dd>")) 'Dashboard account analytics match database totals'
         $hashBefore = Invoke-TestSql "SELECT CHECKSUM(PasswordHash) FROM dbo.UserTable WHERE UserId=$profileId;"
         $accountFields = @{Id=$profileId;Username='profile.student';FirstName='Mira';LastName='Updated surname';Role='Student';IsActive='false';__ImageBytes=$script:imageBytes}
         $accountSaved = Submit-Form $admin "/AccountManagement?id=$profileId" $accountFields

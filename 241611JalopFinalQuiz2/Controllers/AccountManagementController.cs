@@ -67,6 +67,45 @@ public class AccountManagementController(UniversityDbContext database, ImageUplo
         catch (Exception exception) { images.Discard(uploadedPath); return Unavailable(exception, model); }
     }
 
+    [HttpGet]
+    public async Task<IActionResult> Details(int id, string? search = null)
+    {
+        if (!ModelState.IsValid || id <= 0 || search?.Length > 100) return BadRequest();
+        try
+        {
+            var model = await Summaries().SingleOrDefaultAsync(x => x.Id == id);
+            if (model is null) return NotFound();
+            model.Search = search;
+            return View(model);
+        }
+        catch (Exception exception) { return Unavailable(exception, new AccountManagementViewModel()); }
+    }
+
+    [HttpPost, ValidateAntiForgeryToken]
+    public async Task<IActionResult> SetActive(int id, bool? isActive, string? search = null)
+    {
+        if (!ModelState.IsValid || id <= 0 || isActive is null || search?.Length > 100) return BadRequest();
+        try
+        {
+            await using var transaction = await database.Database.BeginTransactionAsync(IsolationLevel.Serializable);
+            var account = await database.UserTables.FindAsync(id);
+            if (account is null) return NotFound();
+            if (!isActive.Value && (User.FindFirstValue(ClaimTypes.NameIdentifier) == id.ToString()
+                || (account.IsActive && account.Role == "Admin"
+                    && !await database.UserTables.AnyAsync(x => x.UserId != id && x.IsActive && x.Role == "Admin"))))
+            {
+                TempData["AccountError"] = "You cannot deactivate your own account or the last active Admin.";
+                return RedirectToAction(nameof(Index), new { search });
+            }
+            account.IsActive = isActive.Value;
+            await database.SaveChangesAsync();
+            await transaction.CommitAsync();
+            TempData["StatusMessage"] = isActive.Value ? "Account activated." : "Account deactivated.";
+            return RedirectToAction(nameof(Index), new { search });
+        }
+        catch (Exception exception) { return Unavailable(exception, new AccountManagementViewModel { Search = search }); }
+    }
+
     // Project only fields needed on this screen; password hashes never enter the view.
     private IQueryable<AccountManagementViewModel> Summaries() => database.UserTables.AsNoTracking().Select(x => new AccountManagementViewModel
     {

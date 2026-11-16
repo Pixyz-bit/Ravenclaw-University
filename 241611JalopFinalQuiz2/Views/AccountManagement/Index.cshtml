@@ -3,8 +3,9 @@
 <section class="editor-panel">
     <p class="eyebrow">Administration</p>
     <h1>Account management</h1>
-    <p class="muted">Find an account to update its details, profile image, role, or access.</p>
+    <p class="muted">Find an account, review its information, or manage sign-in access.</p>
     @if (TempData["StatusMessage"] is string message) { <div class="status-message" role="status">@message</div> }
+    @if (TempData["AccountError"] is string accountError) { <div class="validation-summary" role="alert">@accountError</div> }
     <div asp-validation-summary="All" class="validation-summary" role="alert"></div>
     @if (Model.Id > 0)
     {
@@ -45,12 +46,30 @@
     </form>
     <p class="muted">Showing up to 100 accounts. Refine the search to find a specific account.</p>
     @if (Model.Items.Count == 0 && ViewData["Unavailable"] is not true) { <p>No matching accounts.</p> }
-    <div class="content-list">
+    <div class="account-directory">
         @foreach (var account in Model.Items)
         {
-            <article class="content-row"><div class="content-entry-summary">
-@if (!string.IsNullOrWhiteSpace(account.ProfileImg) && SafeImageAttribute.IsSafeImage(account.ProfileImg)) { <img class="content-thumbnail account-thumbnail" src="@account.ProfileImg" alt="" loading="lazy" /> }
-<div><h3>@account.Username</h3><p class="muted">@account.FirstName @account.LastName · @account.Role · @(account.IsActive ? "Active" : "Inactive")</p></div></div><a class="button button-secondary" asp-action="Index" asp-route-id="@account.Id" asp-route-search="@Model.Search">Edit account</a></article>
+            var fullName = string.Join(" ", new[] { account.FirstName, account.LastName }.Where(part => !string.IsNullOrWhiteSpace(part)));
+            var displayName = string.IsNullOrWhiteSpace(fullName) ? account.Username : fullName;
+            var initials = string.Concat((displayName ?? "?").Split(' ', StringSplitOptions.RemoveEmptyEntries).Take(2).Select(part => part[..1])).ToUpperInvariant();
+            var ownAccount = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value == account.Id.ToString();
+            <article class="account-directory-row" aria-label="@displayName">
+                <div class="account-identity">
+                    @if (!string.IsNullOrWhiteSpace(account.ProfileImg) && SafeImageAttribute.IsSafeImage(account.ProfileImg))
+                    { <img class="account-avatar" src="@account.ProfileImg" alt="" loading="lazy" /> }
+                    else { <span class="account-avatar account-initials" aria-hidden="true">@initials</span> }
+                    <div><h3>@displayName</h3><p>@account.Username</p></div>
+                </div>
+                <span class="account-role">@account.Role</span>
+                <span class="account-status @(account.IsActive ? "is-active" : "is-deactivated")"><span aria-hidden="true"></span>@(account.IsActive ? "Active" : "Deactivated")</span>
+                <div class="account-directory-actions">
+                    <form asp-action="SetActive" method="post">
+                        <input type="hidden" name="id" value="@account.Id" /><input type="hidden" name="isActive" value="@(!account.IsActive ? "true" : "false")" /><input type="hidden" name="search" value="@Model.Search" />
+                        <button type="submit" class="button @(account.IsActive ? "account-deactivate" : "account-activate")" disabled="@ownAccount" aria-label="@(account.IsActive ? "Deactivate" : "Activate") @displayName" title="@(ownAccount ? "Your account must remain active." : null)">@(account.IsActive ? "Deactivate" : "Activate")</button>
+                    </form>
+                    <a class="button button-secondary" asp-action="Details" asp-route-id="@account.Id" asp-route-search="@Model.Search" aria-label="View information for @displayName">View information</a>
+                </div>
+            </article>
         }
     </div>
 </section>

@@ -20,6 +20,7 @@ Styles/
     account.css              Login and registration layouts
     admin.css                Admin sidebar, workspace, dashboard
     admin-editors.css        Shared editor/preview layout, inventory, rows and draft dialog
+    admin-accounts.css       Account analytics, directory rows, status actions and details
   sections/
     university.css           Hero, shared content containers, legacy section helpers
     founders.css             Ivory founder biography and responsive portrait crop

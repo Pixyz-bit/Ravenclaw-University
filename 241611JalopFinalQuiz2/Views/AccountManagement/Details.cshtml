@@ -1,0 +1,21 @@
+@model AccountManagementViewModel
+@{ Layout = "_AdminLayout"; ViewData["Title"] = "Account information"; }
+<section class="editor-panel">
+    <p class="eyebrow">Account management</p>
+    <h1>Account information</h1>
+    <p class="muted">Saved profile and sign-in access for @Model.Username.</p>
+    <div class="account-information">
+        @if (!string.IsNullOrWhiteSpace(Model.ProfileImg) && SafeImageAttribute.IsSafeImage(Model.ProfileImg))
+        { <img class="account-detail-photo" src="@Model.ProfileImg" alt="Profile image for @Model.Username" /> }
+        <dl class="admin-preview-fields">
+            <div><dt>Username</dt><dd>@Model.Username</dd></div>
+            <div><dt>First name</dt><dd>@(Model.FirstName ?? "Not provided")</dd></div>
+            <div><dt>Middle name</dt><dd>@(Model.MiddleName ?? "Not provided")</dd></div>
+            <div><dt>Last name</dt><dd>@(Model.LastName ?? "Not provided")</dd></div>
+            <div><dt>Birthday</dt><dd>@(Model.Birthday?.ToString("dd MMM yyyy") ?? "Not provided")</dd></div>
+            <div><dt>Role</dt><dd>@Model.Role</dd></div>
+            <div><dt>Account status</dt><dd>@(Model.IsActive ? "Active" : "Deactivated")</dd></div>
+        </dl>
+    </div>
+    <a class="button button-secondary" asp-action="Index" asp-route-search="@Model.Search">Back to accounts</a>
+</section>

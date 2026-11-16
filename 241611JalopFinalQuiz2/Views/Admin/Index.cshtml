@@ -10,6 +10,15 @@
 }
 else
 {
+    <section class="admin-inventory" aria-labelledby="account-analytics-title">
+        <h2 id="account-analytics-title">Account analytics</h2>
+        <p class="muted">Active users are accounts enabled to sign in.</p>
+        <dl class="admin-metrics account-metrics">
+            <div><dt>Total Registered</dt><dd>@Model.Accounts</dd></div>
+            <div><dt>Active Users</dt><dd>@Model.ActiveUsers</dd></div>
+            <div><dt>Deactivated Users</dt><dd>@Model.DeactivatedUsers</dd></div>
+        </dl>
+    </section>
     <section class="admin-inventory" aria-labelledby="inventory-title">
         <h2 id="inventory-title">Content inventory</h2>
         <dl class="admin-metrics">

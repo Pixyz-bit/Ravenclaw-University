@@ -86,6 +86,25 @@ Last verified: 2026-11-16.
 
 ## Completed
 
+- Added dashboard account analytics: Total Registered, Active Users, and Deactivated
+  Users, computed from saved accounts in one aggregate query. Active means enabled
+  to sign in. Account management now follows the supplied row reference with
+  profile image/name initials, name/username, role and status pills, and only
+  Activate/Deactivate plus View information actions. Registration timestamps are
+  omitted. A dedicated read-only Details view excludes password hashes.
+- Quick status POSTs require Admin authorization and antiforgery, update only
+  IsActive, and retain own-account/last-active-Admin safeguards in a serializable
+  transaction. The existing direct edit route remains compatible. No real accounts
+  or schema were changed. Reusable Tailwind rules are in admin-accounts.css.
+- Verification: build passed with zero warnings/errors; 151 isolated integration
+  checks passed, including eight new account-details/status/analytics checks.
+  Browser checks verified desktop rows, successful fixture activation, read-only
+  details, dashboard totals, and 375px layouts without horizontal overflow; row
+  actions exceeded 44px height and the browser console had no errors. A repeated
+  suite for preview hit the known intermittent SQL timeout after earlier checks;
+  it cleaned its database. A separate disposable browser fixture was used instead.
+  Screenshot: ignored TestResults/account-directory-desktop.jpg.
+
 - Improved the admin workspace while preserving the navy sidebar, ivory palette,
   dedicated MVC editor files, roles, antiforgery and database schema. The dashboard
   now reads real content/account counts and suggests updates for missing content.
