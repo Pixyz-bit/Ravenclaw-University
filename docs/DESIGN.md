@@ -103,7 +103,11 @@ brand at left, Home/About/Academics/Contact/Leadership links at right, and a cir
 account control at right. Its dropdown has the username, Admin-only Administration
 link, and POST Sign out. Use a full-width midnight-navy background, ivory text,
 and a fine gold bottom rule. Align the inner content to the 1200px page container.
-Below 1001px, a native hamburger/Menu disclosure shows the navigation links.
+Below 1001px, a hamburger opens a navy drawer from the left. The public drawer
+uses the same navigation links, with a close button and backdrop; the account
+control remains beside the hamburger. Shared navigation-drawer.js handles focus
+trapping, Escape/backdrop closing, inert background and scroll locking. Resizing
+to desktop releases modal state. Without JS, native details keeps links usable.
 On the university homepage, the public navbar is fixed over the full-height hero
 with a transparent background and no bottom rule. Links and branding remain visible.
 As another section reaches the navbar (including anchor navigation), it becomes
@@ -162,27 +166,30 @@ About presents four database-backed chapters: introduction, mission, vision, and
 core values. On desktop, a full-width 50/50 composition keeps text on the left and
 one edge-to-edge image on the right. Both panels remain sticky below the navbar as
 vertical scrolling crossfades the active chapter. Each image fills its entire half
-using object-fit:cover; there is no inset/overlapping photo. Below 1024px, a swipeable
-snap rail and dots retain one image above each text chapter. About uses the four
+using object-fit:cover; there is no inset/overlapping photo. Below 1024px, vertical
+page scrolling switches the same sticky chapters, with an edge-to-edge image above
+the text. The horizontal snap rail and navigation dots are removed. About uses the four
 fixed approved university illustrations; gallery uploads do not override them.
 Text remains editable through Hero and About. No-JS content remains
 readable; reduced motion disables transition effects.
 
 The desktop story spans the full available page width with equal columns and no
-gap. Panel height is 100dvh minus the measured navbar height, and sticky top equals
+gap. Panel height is 100svh minus the measured navbar height, and sticky top equals
 that navbar height. The story starts immediately after the hero.
 Smaller desktop heights scale text spacing; long prose scrolls inside its text area
 rather than pushing controls below the viewport. Chapter count, scroll markers,
-crossfades, mobile dots, and reduced-motion behavior are retained.
+crossfades and reduced-motion behavior are retained on every screen size.
 
 The chapter numbers, total count, and decorative gold line have been removed on
 desktop and mobile. Invisible scroll markers remain for chapter transitions.
 The About text panel uses ivory, larger navy serif titles, and comfortable Lato body
 text. About chapter action links were removed on desktop and mobile at the user's
-request on 2026-11-16. Mobile slide-navigation dots remain. Typography and spacing scale with height
+request on 2026-11-16. Typography and spacing scale with height
 so the panel remains usable on short desktop screens. Existing content stays unchanged.
-On phones the rail height follows the active chapter; switching from long copy to
-a shorter chapter keeps the selected content in view instead of leaving blank space.
+On phones, one stable viewport stage follows vertical scroll markers. Images use
+a bounded 30svh height; copy starts immediately beneath them, and long prose scrolls
+inside a keyboard-focusable region. Short landscape screens use a smaller image.
+Without JS, all four mobile image/text chapters remain in normal vertical flow.
 
 Academics uses portrait program-image cards on a full-width dark section, with
 bottom titles, descriptions on activation, 5% image hover zoom over 700ms, and
@@ -286,14 +293,15 @@ full-width navy surface, ivory text, gold accents, and responsive padding. Three
 unequal desktop columns show university identity, Explore, and Contact
 us. The university column is widest; its name is slightly smaller to leave room
 for navigation. Explore and Contact headings share the same serif scale and top
-alignment. The large motto and Our University navigation group are removed.
+alignment. The separate Our University navigation group is removed.
 
 Social links and Follow us are removed. Explore lists Home, About, Academics, Founder,
 and Contacts, linking to the existing page anchors.
 Contact retains address, email, telephone, office hours, and existing empty states.
 Copyright and Back to top sit below one full-width divider; the vertical contact
-divider is removed. At 1000px and narrower, columns stack in identity,
-Explore, Contact order. All links retain visible focus and at least 44px height.
+divider is removed. At 1000px and narrower, identity spans the first row and
+Explore/Contact remain side by side below it, with more width for contact details.
+All links retain visible focus and at least 44px height.
 
 Contact retains id=contact and mailto/tel actions. Unpublished fields remain labeled. There is no search
 bar, new route, database column, or inquiry form. _UniversityContact.cshtml and
@@ -357,8 +365,10 @@ The ivory workspace uses Lato headings and opens directly to the page content;
 the user requested removal of the contextual topbar/account label. Sidebar links
 are one flat list, with no numeric prefixes or University content divider label.
 Account Management uses the same active style.
-Below 901px, native sidebar disclosure collapses initially with JavaScript and
-remains usable without JavaScript. The dashboard and content inventory are removed.
+Below 901px, a compact hamburger header opens the sidebar from the left using the
+same drawer behavior as public navigation. Close, Escape and backdrop restore
+focus; navigation/sign-out release the modal state before any unsaved-draft prompt.
+Native details remains usable without JavaScript. The dashboard and content inventory are removed.
 Account analytics belong above the directory in Account Management. Counts are
 withheld when the database is unavailable; there are no invented analytics.
 

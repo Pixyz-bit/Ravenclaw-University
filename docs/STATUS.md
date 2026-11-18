@@ -4,6 +4,23 @@ Last verified: 2026-11-18.
 
 ## Latest error check
 
+- 2026-11-18 mobile layout: replaced the About swipe/dot interaction with vertical
+  scroll-driven sticky chapters, image above text on phones and the established
+  desktop split. Long headings wrap and long prose remains keyboard-scrollable;
+  short landscape screens use a smaller image. No-JS mobile chapters use normal
+  vertical flow. Footer identity spans its first row and Explore/Contact sit side
+  by side below. Public/admin hamburger controls open shared left-side navy drawers
+  with close/backdrop/Escape, focus trapping, inert background and scroll lock.
+  Desktop resize releases modal state; navigation/sign-out preserve the existing
+  unsaved-draft dialog. Removed the old admin-navigation.js and mobile dots.
+  Twenty-three responsive/touch cases passed across 320–1440px, normal/reduced
+  motion, short portrait/landscape screens, long prose/150-character headings,
+  forward/back scroll, anchors, drawer resize cleanup and no-JS fallback. Screenshots
+  reviewed for About, both drawers and footer. All 183 isolated HTTP/SQL checks
+  passed and the temporary database was removed. Normal Razor/Tailwind build passed
+  with zero warnings/errors; updated JS syntax checks passed. Restarted localhost:5182.
+  No database/schema/content changes.
+
 - 2026-11-18 footer quote typography: enlarged the fixed quote to responsive
   28–36px Cormorant Garamond in the established gold, with medium weight, balanced
   wrapping, 1.25 line height and 24px separation from the brand. Tailwind build

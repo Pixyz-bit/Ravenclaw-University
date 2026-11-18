@@ -31,6 +31,11 @@
 - Styles/ contains Tailwind CSS v4 source split into base tokens, reusable components,
   layouts, and university sections. Shared semantic classes use @apply, preserving
   MVC markup and JavaScript hooks. Styles/README.md documents the folder structure.
+- navigation-drawer.js shares mobile public/admin drawer behavior over native details:
+  breakpoint state, focus trap, inert background, scroll lock and close handling.
+  Navigation/sign-out release this state before admin-editor.js prompts for drafts.
+  about-story.js selects the same marker-driven sticky chapters at all widths;
+  mobile CSS places the image above a bounded, scrollable text region.
 - The root package.json/package-lock.json pin the npm build dependencies. Normal
   dotnet builds run the Tailwind CLI; missing dependencies are installed with npm ci.
   wwwroot/css/site.css is generated, ignored by Git, and included in publish output.

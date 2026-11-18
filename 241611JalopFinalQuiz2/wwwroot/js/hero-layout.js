@@ -13,7 +13,8 @@ if (viewportHero && portalHeader) {
         const visibleFooterHeight = footerBounds
             ? Math.max(0, Math.min(footerBounds.bottom, window.innerHeight) - Math.max(footerBounds.top, 0))
             : 0;
-        const atFooter = Boolean(footerBounds && footerBounds.height > 0 && visibleFooterHeight >= footerBounds.height * 0.5);
+        const atFooter = !document.documentElement.classList.contains('navigation-drawer-open')
+            && Boolean(footerBounds && footerBounds.height > 0 && visibleFooterHeight >= footerBounds.height * 0.5);
         portalHeader.classList.toggle('is-footer-hidden', atFooter);
         portalHeader.inert = atFooter;
     };

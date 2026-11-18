@@ -1,160 +1,51 @@
-/* About: equal viewport halves, with one image for each scroll-switched chapter. */
+/* Scroll-driven About chapters: equal desktop halves, image above copy on phones. */
 @layer components {
-    .about-section {
-        @apply w-full bg-ivory text-ink [--about-sticky-top:var(--portal-header-height,85px)] [--about-visual-height:calc(100dvh_-_var(--about-sticky-top))];
-    }
-
-    .about-container {
-        @apply w-full;
-    }
-
-    .about-story-desktop {
-        @apply grid [grid-template-columns:repeat(2,minmax(0,1fr))] gap-0;
-    }
-
-    .about-copy-column,.about-visual-column {
-        @apply min-w-0;
-    }
-
-    .about-copy-column {
-        @apply bg-ivory;
-    }
-
-    .about-markers,.about-mobile {
-        @apply hidden;
-    }
-
-    .about-copy-item {
-        @apply [padding:clamp(24px,4dvh,48px)_clamp(32px,6vw,112px)] mb-[32px];
-    }
-
-    .about-copy-item h2,.about-mobile-step h2 {
-        @apply [margin:0_0_clamp(16px,2.5dvh,24px)] text-navy shrink-0 max-w-[20ch];
-    }
-
-    .about-prose {
-        @apply min-h-0 max-h-[min(280px,40dvh)] overflow-auto [flex:0_1_auto];
-    }
-
-    .about-copy-item .prose {
-        @apply text-ink max-w-[40ch] m-0;
-    }
-
-    .about-values {
-        @apply list-disc pl-[24px] [overflow-wrap:anywhere];
-    }
-
-    .about-values li + li {
-        @apply mt-[8px];
-    }
-
-    .about-image-stack {
-        @apply sticky top-[var(--about-sticky-top)] h-[var(--about-visual-height)] overflow-hidden;
-    }
-
-    .about-image-slide {
-        @apply relative w-full h-full hidden;
-    }
-
-    .about-image-slide.is-active {
-        @apply block;
-    }
-
-    .about-image-slide img,.about-mobile-image img {
-        @apply block w-full h-full object-cover;
-    }
-
-    @media(min-width:1024px) {
-        .about-section.is-enhanced .about-copy-column {
-            @apply grid [grid-template-areas:"stack"];
-        }
-
-        .about-section.is-enhanced .about-markers {
-            @apply block [grid-area:stack];
-        }
-
-        .about-marker {
-            @apply h-[min(90vh,520px)];
-        }
-
-        .about-section.is-enhanced .about-copy-stack {
-            @apply [grid-area:stack] sticky self-start top-[var(--about-sticky-top)] h-[var(--about-visual-height)];
-        }
-
-        .about-section.is-enhanced .about-copy-item {
-            @apply absolute inset-0 flex flex-col justify-center opacity-0 invisible pointer-events-none m-0 [transition:opacity_500ms_ease-out,visibility_500ms];
-        }
-
-        .about-section.is-enhanced .about-copy-item.is-active {
-            @apply opacity-100 visible pointer-events-auto;
-        }
-
-        .about-section.is-enhanced .about-image-slide {
-            @apply block absolute inset-0 opacity-0 invisible [transform:scale(1.02)] [transition:opacity_700ms_ease-out,transform_700ms_ease-out,visibility_700ms];
-        }
-
-        .about-section.is-enhanced .about-image-slide.is-active {
-            @apply opacity-100 visible [transform:scale(1)];
-        }
-    }
-
+    .about-section { @apply w-full bg-ivory text-ink [--about-sticky-top:var(--portal-header-height,85px)] [--about-visual-height:calc(100svh_-_var(--about-sticky-top))]; }
+    .about-container { @apply w-full; }
+    .about-story-desktop { @apply grid [grid-template-columns:repeat(2,minmax(0,1fr))] gap-0; }
+    .about-copy-column,.about-visual-column { @apply min-w-0; }
+    .about-copy-column { @apply bg-ivory; }
+    .about-markers,.about-mobile { @apply hidden; }
+    .about-copy-item { @apply [padding:clamp(24px,4dvh,48px)_clamp(32px,6vw,112px)] mb-[32px]; }
+    .about-copy-item h2,.about-mobile-step h2 { @apply [margin:0_0_clamp(16px,2.5dvh,24px)] text-navy shrink-0 max-w-[20ch] [overflow-wrap:anywhere]; }
+    .about-prose { @apply min-h-0 max-h-[min(280px,40dvh)] overflow-auto [flex:0_1_auto] [scrollbar-width:thin]; }
+    .about-copy-item .prose { @apply text-ink max-w-[40ch] m-0; }
+    .about-values { @apply list-disc pl-[24px] [overflow-wrap:anywhere]; }
+    .about-values li + li { @apply mt-[8px]; }
+    .about-image-stack { @apply sticky top-[var(--about-sticky-top)] h-[var(--about-visual-height)] overflow-hidden; }
+    .about-image-slide { @apply relative w-full h-full hidden; }
+    .about-image-slide.is-active { @apply block; }
+    .about-image-slide img,.about-mobile-image img { @apply block w-full h-full object-cover; }
+    .about-section.is-enhanced .about-copy-column { @apply grid [grid-template-areas:"stack"]; }
+    .about-section.is-enhanced .about-markers { @apply block [grid-area:stack]; }
+    .about-marker { @apply h-[min(90vh,520px)]; }
+    .about-section.is-enhanced .about-copy-stack { @apply [grid-area:stack] sticky self-start top-[var(--about-sticky-top)] h-[var(--about-visual-height)]; }
+    .about-section.is-enhanced .about-copy-item { @apply absolute inset-0 flex flex-col justify-center opacity-0 invisible pointer-events-none m-0 overflow-y-auto [scrollbar-width:thin] [transition:opacity_500ms_ease-out,visibility_500ms]; }
+    .about-section.is-enhanced .about-copy-item.is-active { @apply opacity-100 visible pointer-events-auto; }
+    .about-section.is-enhanced .about-image-slide { @apply block absolute inset-0 opacity-0 invisible [transform:scale(1.02)] [transition:opacity_700ms_ease-out,transform_700ms_ease-out,visibility_700ms]; }
+    .about-section.is-enhanced .about-image-slide.is-active { @apply opacity-100 visible [transform:scale(1)]; }
     @media(max-width:1023px) {
-        .about-story-desktop {
-            @apply hidden;
-        }
-
-        .about-mobile {
-            @apply block [padding:0_0_40px];
-        }
-
-        .about-mobile-rail {
-            @apply flex items-start gap-[24px] overflow-x-auto overflow-y-hidden snap-x snap-mandatory [scrollbar-width:none] pb-[24px];
-        }
-
-        .about-mobile-step {
-            @apply [flex:0_0_100%] min-w-0 snap-start;
-        }
-
-        .about-mobile-image {
-            @apply w-full [aspect-ratio:4/3] overflow-hidden mb-[24px];
-        }
-
-        .about-mobile-step h2 {
-            @apply mt-[20px];
-        }
-
-        .about-mobile-step .prose {
-            @apply text-ink;
-        }
-
-        .about-mobile-step > :not(.about-mobile-image) {
-            @apply mx-[24px];
-        }
-
-        .about-dots {
-            @apply flex justify-center gap-0;
-        }
-
-        .about-dots[hidden] {
-            @apply hidden;
-        }
-
-        .about-dots button {
-            @apply grid place-items-center w-[44px] h-[44px] [border:0] bg-transparent cursor-pointer;
-        }
-
-        .about-dots span {
-            @apply h-[4px] w-[8px] rounded-[2px] bg-muted;
-        }
-
-        .about-dots [aria-current=true] span {
-            @apply w-[24px] bg-navy;
-        }
+        .about-story-desktop { @apply hidden; }
+        .about-mobile { @apply block; }
+        .about-mobile-step { @apply pb-[32px]; }
+        .about-mobile-image { @apply w-full [aspect-ratio:4/3] overflow-hidden mb-[24px]; }
+        .about-mobile-step > :not(.about-mobile-image) { @apply mx-[24px]; }
+        .about-section.is-enhanced { @apply [--about-phone-image:clamp(120px,30svh,280px)]; }
+        .about-section.is-enhanced .about-mobile { @apply hidden; }
+        .about-section.is-enhanced .about-story-desktop { @apply grid [grid-template-columns:minmax(0,1fr)] [grid-template-areas:"stage"]; }
+        .about-section.is-enhanced .about-copy-column { @apply [grid-area:stage]; }
+        .about-section.is-enhanced .about-copy-stack { @apply [margin-top:var(--about-phone-image)] [top:calc(var(--about-sticky-top)_+_var(--about-phone-image))] [height:calc(var(--about-visual-height)_-_var(--about-phone-image))]; }
+        .about-section.is-enhanced .about-visual-column { @apply [grid-area:stage] sticky self-start top-[var(--about-sticky-top)] z-[1]; }
+        .about-section.is-enhanced .about-image-stack { @apply relative top-0 h-[var(--about-phone-image)]; }
+        .about-section.is-enhanced .about-copy-item { @apply justify-start px-[24px] py-[24px]; }
+        .about-section.is-enhanced .about-copy-item h2 { @apply text-[clamp(1.6rem,5vw,2.25rem)] leading-[1.12] mb-[16px]; }
+        .about-section.is-enhanced .about-prose { @apply max-h-none min-h-[min(100px,18svh)]; }
+        .about-marker { @apply h-[max(560px,85svh)]; }
     }
-
-    @media(prefers-reduced-motion:reduce) {
-        .about-section *, .about-section *::after {
-            @apply transition-none!;
-        }
+    @media(max-height:450px) and (max-width:1023px) {
+        .about-section.is-enhanced { @apply [--about-phone-image:90px]; }
+        .about-section.is-enhanced .about-copy-item { @apply py-[12px]; }
+        .about-section.is-enhanced .about-copy-item h2 { @apply text-[1.4rem] mb-[8px]; }
     }
+    @media(prefers-reduced-motion:reduce) { .about-section *, .about-section *::after { @apply transition-none!; } }
 }

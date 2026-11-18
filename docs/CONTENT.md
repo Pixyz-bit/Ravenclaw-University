@@ -169,8 +169,10 @@ and nonfuture account birthdays using Asia/Manila's date.
 About now follows the reference's sticky desktop composition: four chapters show
 the stored introduction, mission, vision, and core value titles. Four fixed approved
 university illustrations supply its images, independent of gallery uploads. On
-desktop there is one image per chapter. On smaller screens, chapters form a swipeable
-rail with navigation dots. No-JS content remains readable.
+desktop there is one image per chapter. On smaller screens, the image sits above
+the text in a sticky stage; ordinary vertical page scrolling changes chapters in
+both directions, without a swipe rail or dots. Long prose remains scrollable and
+keyboard accessible. No-JS mobile content uses a readable vertical chapter list.
 
 Academics uses a dark looping row of portrait image cards from ProgramsTable,
 with edge fades, image-zoom/arrow hover feedback, drag/swipe navigation, and native

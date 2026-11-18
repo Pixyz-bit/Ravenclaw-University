@@ -23,6 +23,8 @@
 .admin-navigation>summary {
     @apply hidden;
 }
+.admin-navigation-shell { @apply min-w-0; }
+.admin-navigation-shell > summary { @apply hidden; }
 
 .admin-nav-link {
     @apply min-h-[46px] flex items-center gap-[12px] [color:#d0d5df] [padding:11px_12px] no-underline rounded-[4px] text-[.85rem] leading-[1.4] [margin:2px_0];
@@ -126,6 +128,10 @@
     .admin-navigation>summary {
         @apply list-item cursor-pointer [padding:12px_8px] min-h-[44px] text-[.85rem];
     }
+    .admin-navigation-shell > summary { @apply flex items-center gap-[16px] min-h-[72px] px-[24px] py-[12px] bg-navy text-ivory font-heading text-[1.5rem] list-none cursor-pointer [border-bottom:1px_solid_var(--color-gold)]; }
+    .admin-navigation-shell > summary::-webkit-details-marker { @apply hidden; }
+    .admin-navigation-shell.drawer-mobile .admin-sidebar-label { @apply hidden; }
+    .admin-navigation-shell.drawer-mobile .admin-sidebar-bottom { @apply flex flex-col items-stretch mt-auto px-0 pt-[32px]; }
 }
 
 @media(max-width:900px) {

@@ -30,6 +30,9 @@
     .footer-bottom p { @apply m-0; }
     .footer-bottom a { @apply inline-flex items-center gap-[16px] min-h-[44px]; }
     @media(max-width:1000px) {
-        .footer-columns { @apply [grid-template-columns:minmax(0,1fr)]; }
+        .footer-columns { @apply [grid-template-columns:minmax(0,.8fr)_minmax(0,1.2fr)] gap-x-[24px]; }
+        .footer-university { @apply col-span-full; }
+        .footer-navigation > h2,.footer-contact > h2 { @apply text-[clamp(1.4rem,4vw,1.75rem)]; }
+        .footer-contact-details dd { @apply text-[.9rem]; }
     }
 }

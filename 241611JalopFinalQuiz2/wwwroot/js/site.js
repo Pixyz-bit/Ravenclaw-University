@@ -2,9 +2,6 @@
 const siteNavigation = document.querySelector('.site-navigation');
 if (siteNavigation) {
     const desktop = window.matchMedia('(min-width: 1001px)');
-    const updateNavigation = () => { siteNavigation.open = desktop.matches; };
-    updateNavigation();
-    desktop.addEventListener('change', updateNavigation);
     siteNavigation.querySelectorAll('a').forEach(link => link.addEventListener('click', event => {
         if (!desktop.matches) {
             siteNavigation.open = false;

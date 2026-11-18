@@ -1,5 +1,10 @@
 # Ravenclaw University design
 
+2026-11-18: Mobile About now uses vertical scroll-driven sticky chapters, image
+above text, without a horizontal rail/dots. Mobile footer keeps Explore and Contact
+side by side below the brand. Public/admin hamburger menus open navy drawers from
+the left, with focus trapping, backdrop/Escape closing and background scroll lock.
+
 2026-11-18: The fixed university quote sits beneath the footer brand. Founder
 editing and public content now include name and biography only; founder birthday
 and message/quote fields have been removed from the live database and models.
