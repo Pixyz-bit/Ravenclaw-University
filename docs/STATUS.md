@@ -4,6 +4,22 @@ Last verified: 2026-11-18.
 
 ## Latest error check
 
+- 2026-11-18 sign-in follow-up: app logs show SQL login-completion timeout (-2).
+  MSSQLSERVER was Running, a fresh EF read-only diagnostic passed, and inspection
+  found no active request blocking the university database. SQL reported its
+  physical-memory-low flag as 1, with about 115 MiB in its working set. Restarted
+  only the identified development app to clear its pool; five CSRF-protected login
+  POSTs with nonexistent diagnostic usernames reached ordinary credential rejection
+  in 1498, 55, 96, 17 and 37 ms. No real credentials or accounts were changed.
+  Further system inspection showed 7.38 GiB usable RAM and about 709 MiB available;
+  grouped working sets were about 3244 MiB for Chrome (31 processes), 742 MiB for
+  ChatGPT and 345 MiB for Antigravity IDE. This supports external memory pressure
+  as a contributor, without proving it is the sole timeout cause. Two later
+  read-only sqlcmd connections timed out during login/prelogin; SQL configuration
+  inspection could not complete. Connection stability remains unresolved despite
+  the temporary app recovery. Kept memory settings, encryption, schema and data
+  unchanged. The development app remains running on localhost:5182.
+
 - 2026-11-18: Implemented the approved My profile layout: unboxed photo/identity
   column left, Personal details / Change password tabs right, two-column personal
   fields and phone stacking. Removed instructional/required/optional/draft captions.
