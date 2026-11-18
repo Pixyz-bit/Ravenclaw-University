@@ -23,7 +23,7 @@ public class AccountManagementController(UniversityDbContext database, ImageUplo
             if (model is null) return NotFound();
             model.Search = search;
             await LoadAccounts(model);
-            return View(model);
+            return View("AccountManagement", model);
         }
         catch (Exception exception) { return Unavailable(exception, new AccountManagementViewModel()); }
     }
@@ -49,7 +49,7 @@ public class AccountManagementController(UniversityDbContext database, ImageUplo
             if (!string.IsNullOrWhiteSpace(model.Username) && await database.UserTables.AnyAsync(x => x.UserId != model.Id
                 && EF.Functions.Collate(x.Username, "Latin1_General_100_CI_AS") == model.Username.Trim()))
                 ModelState.AddModelError(nameof(model.Username), "This username is already in use.");
-            if (!ModelState.IsValid) { await LoadAccounts(model); return View(model); }
+            if (!ModelState.IsValid) { await LoadAccounts(model); return View("AccountManagement", model); }
             account.Username = model.Username!.Trim();
             account.FirstName = Clean(model.FirstName); account.MiddleName = Clean(model.MiddleName); account.LastName = Clean(model.LastName);
             account.Birthday = model.Birthday; account.Role = model.Role; account.IsActive = model.IsActive;
@@ -137,7 +137,7 @@ public class AccountManagementController(UniversityDbContext database, ImageUplo
         Response.StatusCode = 503;
         ViewData["Unavailable"] = true;
         ModelState.AddModelError("", "Account management is temporarily unavailable. Your changes were not confirmed. Please try again.");
-        return View("Index", model);
+        return View("AccountManagement", model);
     }
     private static string? Clean(string? value) => string.IsNullOrWhiteSpace(value) ? null : value.Trim();
 }

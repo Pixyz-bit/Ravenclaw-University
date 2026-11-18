@@ -28,7 +28,7 @@ public class AboutGalleryController(UniversityDbContext database, ImageUploadSer
             };
             model.ConfirmDelete = confirmDelete;
             model.Items = await database.AboutImagesTables.AsNoTracking().OrderBy(x => x.AboutImageId).ToListAsync();
-            return View(model);
+            return View("AboutGallery", model);
         }
         catch (Exception exception) { return Unavailable(exception, new AboutGalleryViewModel()); }
     }
@@ -47,7 +47,7 @@ public class AboutGalleryController(UniversityDbContext database, ImageUploadSer
             if (!ModelState.IsValid)
             {
                 model.Items = await database.AboutImagesTables.AsNoTracking().OrderBy(x => x.AboutImageId).ToListAsync();
-                return View(model);
+                return View("AboutGallery", model);
             }
 
             var item = model.Id == 0 ? new AboutImagesTable() : await database.AboutImagesTables.FindAsync(model.Id);
@@ -90,7 +90,7 @@ public class AboutGalleryController(UniversityDbContext database, ImageUploadSer
         Response.StatusCode = 503;
         ViewData["Unavailable"] = true;
         ModelState.AddModelError("", "This operation is temporarily unavailable. Your changes were not confirmed. Please try again.");
-        return View("Index", model);
+        return View("AboutGallery", model);
     }
 
     private static string? Clean(string? value) => string.IsNullOrWhiteSpace(value) ? null : value.Trim();

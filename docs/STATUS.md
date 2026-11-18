@@ -4,6 +4,17 @@ Last verified: 2026-11-18.
 
 ## Latest error check
 
+- 2026-11-18 section-named Razor views: renamed all nine Index.cshtml files to
+  match their containing sections (Home, Profile, AccountManagement,
+  UniversityInformation, AcademicPrograms, AboutGallery, CoreValues,
+  FounderInformation and ContactInformation). Controllers explicitly select the
+  renamed views for normal GETs, rejected forms, password responses and unavailable
+  states; existing Index actions, URLs and form targets are retained. All nine view
+  contents match their previous Git blobs. Updated current documentation references.
+  Razor/Tailwind build passed with zero warnings/errors. All 183 disposable HTTP/SQL
+  checks passed on retry; the earlier run hit a 20-second account-session SQL read
+  timeout, and restricted SQL access required local execution. The verifier cleaned
+  up its disposable database/uploads. No live university schema or data changes.
 - 2026-11-18 admin sidebar bottom gap: gave the navigation wrapper a navy background
   and desktop-only sticky positioning, viewport height and start alignment. This
   avoids the details content box constraining the inner sticky sidebar; navigation

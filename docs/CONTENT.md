@@ -107,7 +107,7 @@ dedicated editor URLs remain usable. Founder edits update only the name and biog
 | Academic programs | ProgramsTable | Add/edit/delete subjects, descriptions, and images |
 | Founder information | FounderTable | Edit the one existing founder name and biography |
 
-Each section now has one named controller, one form ViewModel, and one Index view.
+Each section now has one named controller, one form ViewModel, and one section-named view.
 The matching database-first EF entity remains in Models/. Every controller requires
 the Admin role. Fields map explicitly to that section's entity. Save/delete require
 POST and antiforgery validation. GET delete displays a confirmation without writing.
@@ -122,10 +122,10 @@ POST and antiforgery validation. GET delete displays a confirmation without writ
 | Founder information | FounderInformation |
 
 For example, follow Controllers/UniversityInformationController.cs to
-ViewModels/UniversityInformationViewModel.cs and Views/UniversityInformation/Index.cshtml.
+ViewModels/UniversityInformationViewModel.cs and Views/UniversityInformation/UniversityInformation.cshtml.
 That form edits Models/AcademyInfoTable.cs. University information directly displays
 all four content inputs; the identity ID is managed internally. Other collection
-pages put the add/edit form and published entries in their own single Index view.
+pages put the add/edit form and published entries in their own section-named view.
 Old /AdminContent?section=University links redirect to /UniversityInformation;
 old generic POST endpoints have been retired.
 
@@ -212,7 +212,7 @@ badge appears beside their name, with no self-deactivation action. Redundant pag
 captions and analytics headings are removed; the global totals remain above search.
 
 /AccountManagement is Admin-only, with its own controller, form ViewModel, and
-Index view. Search by username or name (up to 100 results), then edit names,
+section-named view. Search by username or name (up to 100 results), then edit names,
 username, optional birthday, role, active status, or upload a profile image.
 Accounts are created through student self-registration/the existing first-admin
 command. This screen does not create/delete accounts or reset passwords.

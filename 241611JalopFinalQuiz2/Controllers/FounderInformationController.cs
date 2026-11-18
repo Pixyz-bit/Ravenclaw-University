@@ -19,7 +19,7 @@ public class FounderInformationController(UniversityDbContext database, ILogger<
         {
             var item = await database.FounderTables.AsNoTracking().SingleOrDefaultAsync();
             if (id > 0 && item?.FounderId != id) return NotFound();
-            return View(item is null ? new FounderInformationViewModel() : new FounderInformationViewModel
+            return View("FounderInformation", item is null ? new FounderInformationViewModel() : new FounderInformationViewModel
             {
                 Id = item.FounderId, FounderName = item.FounderName,
                 Description = item.Description
@@ -37,7 +37,7 @@ public class FounderInformationController(UniversityDbContext database, ILogger<
             await using var transaction = await database.Database.BeginTransactionAsync(IsolationLevel.Serializable);
             var item = await database.FounderTables.SingleOrDefaultAsync();
             if (item is null || item.FounderId != model.Id) return NotFound();
-            if (!ModelState.IsValid) return View(model);
+            if (!ModelState.IsValid) return View("FounderInformation", model);
             item.FounderName = model.FounderName!.Trim();
             item.Description = Clean(model.Description);
             await database.SaveChangesAsync();
@@ -54,7 +54,7 @@ public class FounderInformationController(UniversityDbContext database, ILogger<
         Response.StatusCode = 503;
         ViewData["Unavailable"] = true;
         ModelState.AddModelError("", "Founder information is temporarily unavailable. Your changes were not confirmed. Please try again.");
-        return View("Index", model);
+        return View("FounderInformation", model);
     }
     private static string? Clean(string? value) => string.IsNullOrWhiteSpace(value) ? null : value.Trim();
 }

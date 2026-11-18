@@ -366,7 +366,7 @@ images use a text fallback; the crest is not used as fake campus photography.
 ## Separate administration shell
 
 The legacy /Admin route redirects to Hero and About. Each dedicated
-content section selects _AdminLayout in its own Index view. The university navbar
+content section selects _AdminLayout in its own section-named view. The university navbar
 is not rendered in this shell. A 272px navy sidebar
 contains the approved crest and five links in this order: Hero and About,
 Academics, Founder, Contacts, Account Management. The crest also links to Hero and About. The current

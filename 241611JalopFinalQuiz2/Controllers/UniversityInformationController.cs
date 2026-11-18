@@ -29,7 +29,7 @@ public class UniversityInformationController(UniversityDbContext database, Image
             };
             model.CoreValuesText = string.Join("\n", await database.CoreValuesTables.AsNoTracking()
                 .OrderBy(x => x.CoreValueId).Select(x => x.Title).ToListAsync());
-            return View(model);
+            return View("UniversityInformation", model);
         }
         catch (Exception exception) { return Unavailable(exception, new UniversityInformationViewModel()); }
     }
@@ -43,7 +43,7 @@ public class UniversityInformationController(UniversityDbContext database, Image
             model.HeroImg = await database.AcademyInfoTables.AsNoTracking().OrderBy(x => x.AcademyInfoId).Select(x => x.HeroImg).FirstOrDefaultAsync();
             var imageError = await images.ValidateAsync(model.ImageUpload);
             if (imageError is not null) ModelState.AddModelError(nameof(model.ImageUpload), imageError);
-            if (!ModelState.IsValid) return View(model);
+            if (!ModelState.IsValid) return View("UniversityInformation", model);
             // A single settings page edits the existing row, or creates the first row.
             await using var transaction = await database.Database.BeginTransactionAsync(IsolationLevel.Serializable);
             var information = await database.AcademyInfoTables.OrderBy(x => x.AcademyInfoId).FirstOrDefaultAsync();
@@ -89,7 +89,7 @@ public class UniversityInformationController(UniversityDbContext database, Image
         Response.StatusCode = 503;
         ViewData["Unavailable"] = true;
         ModelState.AddModelError("", "University information is temporarily unavailable. Your changes were not confirmed. Please try again.");
-        return View("Index", model);
+        return View("UniversityInformation", model);
     }
 
     private static string? Clean(string? value) => string.IsNullOrWhiteSpace(value) ? null : value.Trim();

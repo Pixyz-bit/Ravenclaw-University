@@ -16,7 +16,7 @@ Recorded 2026-11-11 from the project conversation.
 | Admin sidebar is flat and unnumbered, and workspace has no topbar | User requested removal of numeric prefixes, University content divider, and admin-topbar header |
 | Editable images use file uploads | Explicit user request supersedes path-only selection; hero/gallery/program/profile uploads retain database path columns |
 | Admins can manage existing accounts | User requested Account management; search/edit details, profile, role/status with self-lockout protection; passwords and account creation/deletion remain separate |
-| Each of seven admin content sections has a dedicated controller, form ViewModel, and Index view | User requested a clear one-to-one MVC structure for learning; retain existing database-first entities and use direct DbContext mapping |
+| Each of seven admin content sections has a dedicated controller, form ViewModel, and section-named view | User requested a clear one-to-one MVC structure for learning; retain existing database-first entities and use direct DbContext mapping |
 | University navbar uses the established navy design | User rejected the literal rounded outlined sketch implementation. Use a full-width navy bar, ivory text, fine gold divider, constrained aligned inner content, and a circular account control |
 | Hero follows the supplied reference composition | Full-width, viewport-height background; dark-left/light-right overlay; left-aligned header and supporting description; no CTA buttons. Reference navbar/branding are excluded |
 | Hero uses only the selected common-room image | Latest user correction supersedes the multi-image gallery; no selectors or rotation, and custom hero uploads do not override the selected background |

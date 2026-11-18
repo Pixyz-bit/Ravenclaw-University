@@ -105,7 +105,7 @@ intermediate-chapter issue reproduced with the previous stylesheet; see STATUS.m
 
 - [x] Build admin navigation linking directly to the content editors; remove Dashboard and content inventory (2026-11-18).
 - [x] Give administration its own layout with sidebar navigation, current-page indication, and a mobile disclosure menu.
-- [x] Split content sections into dedicated controllers, form ViewModels, and Index views; show university settings directly as four editable fields.
+- [x] Split content sections into dedicated controllers, form ViewModels, and section-named views; show university settings directly as four editable fields.
 - [x] Remove sidebar numeric prefixes/divider label and the admin topbar as requested.
 - [x] Add hero/gallery/program/profile image uploaders with previews and server validation.
 - [x] Add Admin-only account search/edit, role/status management, and self-lockout protection.
