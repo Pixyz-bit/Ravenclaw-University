@@ -277,7 +277,8 @@ quote and birthday displays are removed.
 ## Contact footer
 
 Show the fixed quote “Wit beyond measure is man's greatest treasure” beneath the
-Ravenclaw University brand, in the existing ivory serif style. It is not editable
+Ravenclaw University brand, in gold Cormorant Garamond at a responsive 28–36px,
+medium weight, balanced line wrapping and 1.25 line height. It is not editable
 content and requires no database column.
 
 The approved compact footer follows Leadership outside main, retaining its

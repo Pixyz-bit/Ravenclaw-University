@@ -4,6 +4,13 @@ Last verified: 2026-11-18.
 
 ## Latest error check
 
+- 2026-11-18 footer quote typography: enlarged the fixed quote to responsive
+  28–36px Cormorant Garamond in the established gold, with medium weight, balanced
+  wrapping, 1.25 line height and 24px separation from the brand. Tailwind build
+  passed; eight public/editor checks at 320/390/900/1440px passed, including gold
+  color and minimum size, placement and absence of overflow/JS errors. Desktop
+  and phone footer screenshots reviewed. No markup, database or content changes.
+
 - 2026-11-18 footer quote and founder schema simplification: placed the requested
   fixed quote beneath the footer brand and removed the founder quote/birthday
   controls, rendering, entity/form properties and controller mappings. Live SQL
