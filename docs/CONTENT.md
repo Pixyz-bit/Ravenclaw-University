@@ -254,3 +254,7 @@ new and confirmation fields. Tabs retain local drafts. Each form has its own Can
 and save action. Captions, instructions and draft-state text are removed; inline
 validation and navigation/sign-out/refresh protection remain. Password behavior and
 its isolated verification are documented in AUTHENTICATION.md.
+
+Admin identities consistently use the shared navy/ivory ADMIN badge in the account
+menu, Profile, account directory and account information. Students have no admin
+badge. Profile reads the authenticated role; account views use the displayed role.

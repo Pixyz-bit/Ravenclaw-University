@@ -13,6 +13,7 @@
     .profile-photo[hidden],.profile-photo-controls [hidden],.profile-page [hidden] { @apply hidden; }
     .profile-identity:has([data-upload-preview]:not([hidden])) [data-profile-current] { @apply hidden; }
     .profile-identity-copy { @apply min-w-0 mt-[24px] mb-[24px]; }
+    .profile-name { @apply flex items-center flex-wrap gap-[8px_10px]; }
     .profile-identity-copy h2 { @apply font-body font-bold text-[1.15rem] leading-[1.5] m-0 [overflow-wrap:anywhere]; }
     .profile-identity-copy p { @apply text-muted text-[.9rem] mt-[6px] mb-0 [overflow-wrap:anywhere]; }
     .profile-photo-controls { @apply min-w-0; }

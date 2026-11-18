@@ -70,7 +70,7 @@
                         @if (!string.IsNullOrWhiteSpace(fullName)) { <p>@account.Username</p> }
                     </div>
                 </div>
-                <span class="account-role @(account.Role == "Admin" ? "is-admin" : "")">@account.Role</span>
+                <span class="account-role">@if (account.Role == "Admin") { <partial name="_AdminBadge" /> } else { @account.Role }</span>
                 <span class="account-status @(account.IsActive ? "is-active" : "is-deactivated")"><span aria-hidden="true"></span>@(account.IsActive ? "Active" : "Deactivated")</span>
                 <div class="account-directory-actions">
                     @if (!ownAccount)

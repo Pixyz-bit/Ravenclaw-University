@@ -17,7 +17,6 @@
     .account-avatar { @apply w-[48px] h-[48px] rounded-full shrink-0 object-cover; }
     .account-initials { @apply grid place-items-center bg-[#e2e7eb] text-blue font-bold text-[.9rem] [border:1px_solid_#c3cdd5]; }
     .account-role { @apply justify-self-start text-[.85rem] text-muted; }
-    .account-role.is-admin { @apply text-navy font-bold; }
     .account-status { @apply inline-flex items-center gap-[8px] justify-self-start text-[.8rem] font-bold; }
     .account-status > span { @apply w-[7px] h-[7px] rounded-full bg-current; }
     .account-status.is-active { @apply text-[#245339]; }

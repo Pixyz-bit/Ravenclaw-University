@@ -1,5 +1,9 @@
 # Accepted decisions
 
+2026-11-18: The user-selected compact navy ADMIN badge is the canonical admin
+indicator. Reuse the shared partial/style in Profile and other account identity/
+role displays; students do not receive it. Role inputs retain native text options.
+
 Recorded 2026-11-11 from the project conversation.
 
 | Decision | Reason / consequence |

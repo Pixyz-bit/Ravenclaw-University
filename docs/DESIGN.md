@@ -424,7 +424,7 @@ history. Totals cover all accounts regardless of search or the 100-row directory
 limit; omit the strip when account data is unavailable.
 
 Account management uses flat horizontal rows with fine dividers: circular profile
-photo or pale-blue initials, name above username, plain role text (bold for Admin),
+photo or pale-blue initials, name above username, plain Student role text or the shared ADMIN badge,
 and a colored status dot with a text label. Avoid repeating a username when no
 saved name exists. The Your account badge sits beside the signed-in admin's name.
 The only row actions are Activate/Deactivate and View information. Omit registration
@@ -443,6 +443,13 @@ tint. Actions form a consistent second row on narrower screens, with 44px minimu
 targets. Content inventory and Dashboard are removed; account totals remain.
 
 ### Account navigation and personal information (2026-11-16)
+
+Always identify admins with the compact navy badge from the approved reference:
+ivory uppercase ADMIN text, bold 11px Lato, 4px corners, and 7px/3px horizontal/
+vertical padding. Reuse _AdminBadge.cshtml and .admin-badge in the account menu,
+Profile identity, account-directory role column and account details. Profile uses
+the authenticated role; directory/details use each displayed account's saved role.
+Do not show the badge for students. Native role-selection options remain plain text.
 
 Public navbar spacing is responsive within a 1440px container, using bold Lato
 links with gold underline feedback and a 48px account toggle. Preserve transparent

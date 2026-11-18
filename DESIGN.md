@@ -1,5 +1,9 @@
 # Ravenclaw University design
 
+2026-11-18: Always use the approved compact navy/ivory ADMIN badge as the admin
+indicator, especially beside the Profile name. Reuse _AdminBadge and .admin-badge
+in Profile, account menu, account rows and details; never show it for students.
+
 2026-11-18: My profile uses an unboxed identity/photo column left and Personal details /
 Change password tabs right. Keep navy/ivory/gold, existing serif heading and Lato forms.
 Two-column personal fields, separate password form, concise labels and no helper/draft

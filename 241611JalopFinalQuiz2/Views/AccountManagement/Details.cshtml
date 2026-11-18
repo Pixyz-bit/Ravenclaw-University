@@ -13,7 +13,7 @@
             <div><dt>Middle name</dt><dd>@(Model.MiddleName ?? "Not provided")</dd></div>
             <div><dt>Last name</dt><dd>@(Model.LastName ?? "Not provided")</dd></div>
             <div><dt>Birthday</dt><dd>@(Model.Birthday?.ToString("dd MMM yyyy") ?? "Not provided")</dd></div>
-            <div><dt>Role</dt><dd>@Model.Role</dd></div>
+            <div><dt>Role</dt><dd>@if (Model.Role == "Admin") { <partial name="_AdminBadge" /> } else { @Model.Role }</dd></div>
             <div><dt>Account status</dt><dd>@(Model.IsActive ? "Active" : "Deactivated")</dd></div>
         </dl>
     </div>

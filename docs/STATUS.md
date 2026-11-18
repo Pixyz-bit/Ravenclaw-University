@@ -4,6 +4,16 @@ Last verified: 2026-11-18.
 
 ## Latest error check
 
+- 2026-11-18: Standardized admin indicators using the user's compact navy/ivory
+  uppercase ADMIN badge. Added shared _AdminBadge markup and .admin-badge styling;
+  reused it beside the Profile name, in the account menu, directory role column
+  and account details. Profile/menu use the authenticated role; account views use
+  the displayed saved role. Student indicators remain plain text without an admin
+  badge. Normal Razor/Tailwind build passed with zero warnings/errors. Ten rendered
+  desktop/phone admin/student cases passed with matching styles, no overflow or JS
+  errors; phone Profile visual review passed. Design detection found no issues.
+  Restarted localhost:5182; login returned HTTP 200. No database or account changes.
+
 - 2026-11-18 sign-in follow-up: app logs show SQL login-completion timeout (-2).
   MSSQLSERVER was Running, a fresh EF read-only diagnostic passed, and inspection
   found no active request blocking the university database. SQL reported its

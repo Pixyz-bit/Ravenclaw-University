@@ -20,7 +20,10 @@
                 else { <span class="profile-initial" aria-hidden="true" data-profile-current>@identity.Initials</span> }
                 <img class="profile-photo" alt="Selected profile photo preview" hidden data-upload-preview />
             </div>
-            <div class="profile-identity-copy"><h2>@identity.DisplayName</h2><p>@Model.Username</p></div>
+            <div class="profile-identity-copy">
+                <div class="profile-name"><h2>@identity.DisplayName</h2>@if (User.IsInRole("Admin")) { <partial name="_AdminBadge" /> }</div>
+                <p>@Model.Username</p>
+            </div>
             <div class="profile-photo-controls">
                 <label asp-for="ImageUpload" data-profile-photo-label>Profile photo</label>
                 <input asp-for="ImageUpload" form="profile-details-form" class="profile-photo-input" type="file" accept="image/png,image/jpeg,image/webp" data-image-upload />

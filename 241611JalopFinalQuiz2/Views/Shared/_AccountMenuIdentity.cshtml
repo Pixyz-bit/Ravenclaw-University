@@ -5,7 +5,7 @@
     else { <span class="account-menu-avatar" aria-hidden="true">@Model.Initials</span> }
     <div class="account-menu-person">
         <strong class="account-dropdown-name">@Model.DisplayName</strong>
-        @if (User.IsInRole("Admin")) { <span class="account-menu-role">Admin</span> }
+        @if (User.IsInRole("Admin")) { <span class="account-menu-role"><partial name="_AdminBadge" /></span> }
         else { <span class="account-menu-username">@Model.Username</span> }
     </div>
 </div>
