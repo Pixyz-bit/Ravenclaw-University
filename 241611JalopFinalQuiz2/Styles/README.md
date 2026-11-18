@@ -14,7 +14,7 @@ Styles/
   components/
     branding.css             Crest and wordmark
     typography.css           Shared public section titles, subheadings, and body scale
-    forms.css                Fields, validation, buttons, uploads, editor rows
+    forms.css                Fields, validation, buttons, password eyes, uploads, editor rows
     navigation.css           Public navbar and account dropdown
   layouts/
     account.css              Login and registration layouts

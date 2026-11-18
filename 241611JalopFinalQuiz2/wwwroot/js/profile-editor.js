@@ -30,36 +30,29 @@ if (profilePage) {
     profilePage.querySelector('[data-profile-photo-label]').hidden = true;
     choose.hidden = false;
     choose.addEventListener('click', () => { activate(tabs[0]); imageInput.click(); });
-    const resetVisibility = form => form.querySelectorAll('[data-password-show]').forEach(button => {
-        document.getElementById(button.getAttribute('aria-controls')).type = 'password';
-        button.textContent = 'Show'; button.setAttribute('aria-pressed', 'false');
-        button.setAttribute('aria-label', button.getAttribute('aria-label').replace(/^Hide /, 'Show '));
-    });
-    profilePage.querySelectorAll('[data-password-show]').forEach(button => {
-        button.hidden = false;
-        button.addEventListener('click', () => {
-            const input = document.getElementById(button.getAttribute('aria-controls'));
-            const show = input.type === 'password';
-            input.type = show ? 'text' : 'password'; button.textContent = show ? 'Hide' : 'Show';
-            button.setAttribute('aria-pressed', String(show));
-            button.setAttribute('aria-label', button.getAttribute('aria-label').replace(/^(Show|Hide) /, show ? 'Hide ' : 'Show '));
-        });
-    });
+    profilePage.querySelectorAll('[data-profile-cancel]').forEach(link => link.addEventListener('click', event => {
+        event.preventDefault();
+        link.closest('form').reset();
+    }));
     const states = forms.map(form => {
         const save = form.querySelector('button[type=submit]');
         const disabled = save.disabled, label = save.textContent;
         // Check secrets in memory without making additional serialized copies.
         const controls = [...form.elements].filter(input => input.name && ['INPUT','SELECT','TEXTAREA'].includes(input.tagName) && input.type !== 'hidden');
-        const initial = controls.map(input => input.type === 'file' ? '' : input.value);
+        const initial = controls.map(input => input.type === 'file' ? '' : input.dataset.profileSaved ?? input.value);
         let recovered = form.dataset.recovered === 'true';
         const dirty = () => recovered || controls.some((input, index) => input.type === 'file' ? input.files.length > 0 : input.value !== initial[index]);
         const reset = () => {
             recovered = false;
+            controls.forEach(input => { if (input.dataset.profileSaved !== undefined) input.value = input.dataset.profileSaved; });
             if (window.jQuery?.fn.validate) window.jQuery(form).validate().resetForm();
             form.querySelectorAll('.input-validation-error').forEach(input => input.classList.remove('input-validation-error'));
             form.querySelectorAll('.field-validation-error').forEach(error => { error.textContent = ''; error.classList.replace('field-validation-error', 'field-validation-valid'); });
-            resetVisibility(form);
-            if (form.hasAttribute('data-profile-editor')) imageInput.dispatchEvent(new Event('change', { bubbles: true }));
+            if (form.hasAttribute('data-profile-editor')) {
+                const error = profilePage.querySelector('.profile-identity .field-error');
+                if (error) { error.textContent = ''; error.classList.remove('field-validation-error'); }
+                imageInput.dispatchEvent(new Event('change', { bubbles: true }));
+            }
         };
         // Reset default actions run after listeners (including their microtasks).
         form.addEventListener('reset', () => setTimeout(reset, 0));
@@ -77,7 +70,7 @@ if (profilePage) {
                 leaving = true; save.textContent = 'Saving…'; save.disabled = true;
             });
         });
-        return { form, dirty, restore: () => { save.disabled = disabled; save.textContent = label; resetVisibility(form); } };
+        return { form, dirty, restore: () => { save.disabled = disabled; save.textContent = label; } };
     });
     const dirty = () => states.some(state => state.dirty());
     const requestLeave = action => { pending = action; dialog.showModal(); dialog.querySelector('[data-profile-keep]').focus(); };

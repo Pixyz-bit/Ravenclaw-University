@@ -113,6 +113,9 @@ try {
     Assert-Check $ready 'Login page is anonymously accessible'
     Assert-Check ((Send-Request $anonymous '/css/site.css').Status -eq 200) 'Login CSS is anonymously accessible'
     Assert-Check ((Send-Request $anonymous '/lib/jquery/dist/jquery.min.js').Status -eq 200) 'Login scripts are anonymously accessible'
+    Assert-Check ((Send-Request $anonymous '/js/password-visibility.js').Status -eq 200) 'Password eye controls load without authentication'
+    Assert-Check ([regex]::Matches((Send-Request $anonymous '/Account/Login').Body, 'data-password-toggle').Count -eq 1) 'Sign-in has a password eye control'
+    Assert-Check ([regex]::Matches((Send-Request $anonymous '/Account/Register').Body, 'data-password-toggle').Count -eq 2) 'Registration has eye controls for both password fields'
     Assert-Check ((Send-Request $anonymous '/').Status -eq 302) 'Anonymous university access redirects to login'
     Assert-Check ((Send-Request $anonymous '/Admin').Status -eq 302) 'Anonymous admin access redirects to login'
     Assert-Check ((Send-Request $anonymous '/Account/Register' (Student-Fields 'csrf.test')).Status -eq 400) 'Registration rejects a missing antiforgery token'
@@ -228,6 +231,7 @@ try {
         Assert-Check ($studentMenu.Body.Contains('Mira Isabel Velasco') -and $studentMenu.Body.Contains('profile.student') -and -not $studentMenu.Body.Contains('account-menu-role') -and -not $studentMenu.Body.Contains('Manage website')) 'Student menu shows personal identity without admin badge or website-management action'
         Assert-Check ($rendered.Body.Contains('<title>Ravenclaw University</title>') -and $rendered.Body.Contains('/Profile') -and -not $rendered.Body.Contains('footer-socials')) 'Public title and account menu use the requested identity and personal-information link'
         Assert-Check ((Send-Request $admin '/SocialLinks').Status -eq 404 -and (Send-Request $admin '/AdminContent?section=SocialLinks').Status -eq 404 -and (Invoke-TestSql "SELECT COUNT(*) FROM sys.tables WHERE name=N'SocialLinksTable';") -eq '0') 'Social links routes and table are removed'
+        Assert-Check ((Send-Request $admin '/Home/Privacy').Status -eq 404) 'Unused starter Privacy route is removed'
         $founderPage = Send-Request $admin '/FounderInformation'
         Assert-Check ($founderPage.Body.Contains('name="FounderName"') -and -not $founderPage.Body.Contains('Add entry') -and -not $founderPage.Body.Contains('Saved entries')) 'Founder editor opens the one saved record without add or collection controls'
         Assert-Check ((Submit-Form $admin '/FounderInformation' @{Id='0';FounderName='Forged second founder'}).Status -eq 404 -and (Invoke-TestSql 'SELECT COUNT(*) FROM dbo.FounderTable;') -eq '1') 'Founder POST cannot create another entry'
@@ -243,7 +247,9 @@ try {
         $ownPage = Send-Request $studentClient "/Profile?id=$otherId"
         Assert-Check ($ownPage.Status -eq 200 -and $ownPage.Body.Contains('profile.student') -and -not $ownPage.Body.Contains('name="Role"') -and -not $ownPage.Body.Contains('PasswordHash')) 'Profile GET ignores a forged ID and exposes only personal fields'
         Assert-Check ((Send-Request $studentClient '/Profile' @{FirstName='Mira';LastName='Velasco'}).Status -eq 400) 'Personal information saves require antiforgery'
-        Assert-Check ((Submit-Form $studentClient '/Profile' @{FirstName='Mira';LastName='Velasco';Birthday='2999-01-01'}).Status -eq 200) 'Personal information rejects future birthdays'
+        $invalidProfile = Submit-Form $studentClient '/Profile' @{FirstName='Mira';LastName='Velasco';Birthday='2999-01-01'}
+        Assert-Check ($invalidProfile.Status -eq 200) 'Personal information rejects future birthdays'
+        Assert-Check ($invalidProfile.Body.Contains('data-profile-saved="2003-04-16"') -and $invalidProfile.Body.Contains('value="2999-01-01"')) 'Rejected Profile preserves the saved birthday separately from the attempted value for Cancel'
         Assert-Check ((Submit-Form $studentClient '/Profile' @{FirstName='';LastName='Velasco'}).Status -eq 200) 'Personal information requires a first name'
         $ownFields = @{Id=$otherId;Username='forged.user';Role='Admin';IsActive='false';FirstName='Mira';LastName='Profile update';Birthday='2000-01-01';__ImageBytes=$script:imageBytes}
         Assert-Check ((Submit-Form $studentClient '/Profile' $ownFields).Status -eq 302 -and (Invoke-TestSql "SELECT COUNT(*) FROM dbo.UserTable WHERE UserId=$ownId AND Username=N'profile.student' AND Role=N'Student' AND IsActive=1 AND LastName=N'Profile update' AND Birthday='2000-01-01';") -eq '1') 'Profile save updates only the signed-in account and cannot change role, username or access'
@@ -253,6 +259,7 @@ try {
         Assert-Check ((Send-Request $studentClient '/Profile/ChangePassword').Status -in @(404,405)) 'Password changes cannot be made through GET'
         $passwordPage = Send-Request $studentClient '/Profile?tab=password'
         Assert-Check ($passwordPage.Status -eq 200 -and $passwordPage.Body.Contains('id="profile-password-tab"') -and $passwordPage.Body.Contains('autocomplete="current-password"') -and -not $passwordPage.Body.Contains('No unsaved changes')) 'Profile provides password tab, password-manager semantics and no draft caption'
+        Assert-Check ([regex]::Matches($passwordPage.Body, 'data-password-toggle').Count -eq 3) 'All three profile password fields have eye controls'
         $newPassword = 'Test-Only-Changed-Scholar-2026'
         $badPassword = Submit-ProfilePassword $studentClient @{'Password.CurrentPassword'='wrong-current-secret';'Password.NewPassword'=$newPassword;'Password.ConfirmPassword'=$newPassword}
         Assert-Check ($badPassword.Status -eq 200 -and $badPassword.Body.Contains('Current password is incorrect.') -and -not $badPassword.Body.Contains('wrong-current-secret') -and -not $badPassword.Body.Contains($newPassword)) 'Wrong current password is rejected without reflecting submitted secrets'

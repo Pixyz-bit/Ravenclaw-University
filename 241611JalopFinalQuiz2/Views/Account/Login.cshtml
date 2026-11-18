@@ -15,7 +15,10 @@
         </div>
         <div class="field">
             <label asp-for="Password"></label>
-            <input asp-for="Password" autocomplete="current-password" maxlength="128" aria-required="true" aria-describedby="password-error" />
+            <div class="password-control">
+                <input asp-for="Password" autocomplete="current-password" maxlength="128" aria-required="true" aria-describedby="password-error" />
+                <partial name="_PasswordToggle" model='@("Password")' />
+            </div>
             <span asp-validation-for="Password" id="password-error" class="field-error"></span>
         </div>
         <button class="button button-primary" type="submit">Sign in <span aria-hidden="true">→</span></button>

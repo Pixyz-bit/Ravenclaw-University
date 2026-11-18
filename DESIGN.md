@@ -1,5 +1,10 @@
 # Ravenclaw University design
 
+2026-11-18: Shared eye/eye-off controls in every web password field, retaining the
+existing form style and keyboard focus rules. Profile Cancel restores persisted
+values after validation failures and preserves other-tab drafts. Mobile About height
+correction adjusts only window scroll, preserving the requested horizontal jump.
+
 2026-11-18: Always use the approved compact navy/ivory ADMIN badge as the admin
 indicator, especially beside the Profile name. Reuse _AdminBadge and .admin-badge
 in Profile, account menu, account rows and details; never show it for students.

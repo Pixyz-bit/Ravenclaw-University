@@ -251,7 +251,9 @@ My profile has a desktop identity/photo column on the left and Personal details 
 Change password tabs on the right, stacking on phones. Personal details edits names,
 birthday and the selected photo; password changes use a separate form with current,
 new and confirmation fields. Tabs retain local drafts. Each form has its own Cancel
-and save action. Captions, instructions and draft-state text are removed; inline
+and save action. Personal Cancel restores persisted values after failed validation;
+password Cancel clears and remasks only its own fields. All password inputs have
+shared eye controls. Captions, instructions and draft-state text are removed; inline
 validation and navigation/sign-out/refresh protection remain. Password behavior and
 its isolated verification are documented in AUTHENTICATION.md.
 

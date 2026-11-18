@@ -34,10 +34,6 @@
     .profile-actions { @apply flex items-center justify-end flex-wrap gap-[12px] mt-[32px]; }
     .profile-actions .button-primary { @apply min-w-[144px]; }
     [data-profile-password] > .field { @apply mb-[24px]; }
-    .profile-password-control { @apply relative; }
-    .profile-password-control input { @apply pr-[76px]; }
-    .profile-password-show { @apply absolute right-[4px] top-[3px] min-w-[60px] min-h-[42px] [padding:8px_10px] text-blue text-[.8rem] font-bold rounded-[4px] bg-transparent border-0; }
-    .profile-password-show:hover { @apply bg-[#e8e1d5]; }
     .profile-page > .status-message { @apply rounded-[6px] text-[.85rem] mb-[24px]; }
     .profile-unsaved-dialog { @apply w-[min(460px,calc(100vw_-_40px))] p-[24px] rounded-[12px] [border:1px_solid_var(--color-gold)] bg-ivory text-navy [box-shadow:0_24px_80px_#101d3440]; }
     .profile-unsaved-dialog::backdrop { @apply [background:rgba(16,29,52,.6)]; }

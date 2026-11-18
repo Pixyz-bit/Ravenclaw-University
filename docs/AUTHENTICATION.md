@@ -82,11 +82,23 @@ Success signs out this browser session and redirects to login with a confirmatio
 No schema changes or email/reset flows were added; other existing sessions are not
 revoked by this operation. Personal details and passwords use independent forms.
 
+Every web password input has a shared eye button, using the existing password-manager
+autocomplete modes and 128-character limits. Visibility changes remain local and
+never submit/copy/store the password. Labels and pressed state identify Show/Hide;
+reset and restored pages remask the inputs. No-JS forms retain masked native inputs.
+Personal Cancel restores saved values rather than rejected POST values; its ordinary
+GET link also works without JavaScript.
+
 Verified 2026-11-18: all 176 disposable HTTP/SQL checks passed, including missing CSRF,
 anonymous/GET rejection, incorrect current password, length/confirmation validation,
 unchanged-password rejection, unchanged hashes after failures, ownership tampering,
 success/sign-out, old-password rejection and new-password sign-in. Existing profile
 upload and content/account checks also passed. No university accounts were modified.
+
+Follow-up verification: 182 isolated HTTP/SQL checks passed after adding shared eye
+controls, saved-value Cancel metadata and removal of the unused Privacy route.
+Sixteen browser cases covered the requested UI regressions, including keyboard eyes,
+no unintended password-form submissions and Cancel with/without JavaScript.
 
 Account management rows offer only Activate/Deactivate and View information.
 Details is an Admin-only, read-only profile page with no password/hash fields.

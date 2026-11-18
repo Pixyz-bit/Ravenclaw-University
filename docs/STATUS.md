@@ -4,6 +4,24 @@ Last verified: 2026-11-18.
 
 ## Latest error check
 
+- 2026-11-18 audit follow-up: fixed F2/F3/F8. About height collapse now adjusts only
+  window scroll, so long-to-short chapter jumps retain their requested horizontal
+  target. Profile carries saved personal values separately from invalid attempted
+  values; Cancel restores them and preserves the other tab's draft. Native GET
+  Cancel links work without JS. Removed the unused Privacy action/view; authenticated
+  /Home/Privacy returns 404. Added one shared accessible eye/eye-off control to all
+  six web password inputs, retaining autocomplete, limits and validation. Visibility
+  changes do not submit/copy/store secrets; reset/pageshow remask inputs. All 182
+  extended disposable HTTP/SQL checks passed on retry; the first run was interrupted
+  by the existing 20-second request timeout. Sixteen targeted browser cases passed:
+  desktop/phone eyes and keyboard behavior, no accidental submits, rejected-value
+  Cancel, independent drafts, no-JS fallback, 320/390/800px long About jumps, reduced
+  motion, rapid selections and Privacy removal. No JS errors or horizontal overflow
+  were found; source detection returned no issues. Final normal Razor/Tailwind build
+  passed with zero warnings/errors. Restarted localhost:5182; login returned 200 with
+  its eye control. Disposable test databases/uploads were cleaned up. No university
+  data/schema changes.
+
 - 2026-11-18 whole-site audit: see AUDIT-2026-11-18.md for scope, exact reproduction
   steps and eight prioritized code/dependency findings. All 176 isolated HTTP/SQL
   checks passed; 52 final browser route/viewport cases returned 200 without horizontal
@@ -992,10 +1010,10 @@ Last verified: 2026-11-18.
 
 ## Not implemented / not verified
 
-- Audit repairs remain pending: supported .NET/EF target upgrade; long-content
-  mobile About dot navigation; Profile Cancel after server validation; full image
-  decode validation; floating-point carousel movement; bounded registration-deadlock
-  handling; build-tool advisory mitigation; and the unfinished Privacy route. See
+- Audit repairs remain pending: supported .NET/EF target upgrade; full image decode
+  validation; floating-point carousel movement; bounded registration-deadlock
+  handling; and build-tool advisory mitigation. About navigation, Profile Cancel
+  and the unused Privacy route were repaired in the follow-up above. See
   AUDIT-2026-11-18.md for priorities, evidence and separate operational SQL findings.
   Password error association/focus is an additional manual accessibility improvement.
 

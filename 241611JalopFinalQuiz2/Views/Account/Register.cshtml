@@ -37,13 +37,19 @@
         <div class="form-grid">
             <div class="field">
                 <label asp-for="Password">Password *</label>
-                <input asp-for="Password" autocomplete="new-password" maxlength="128" aria-required="true" aria-describedby="password-help password-error" />
+                <div class="password-control">
+                    <input asp-for="Password" autocomplete="new-password" maxlength="128" aria-required="true" aria-describedby="password-help password-error" />
+                    <partial name="_PasswordToggle" model='@("Password")' />
+                </div>
                 <small id="password-help">Use 8–128 characters.</small>
                 <span asp-validation-for="Password" id="password-error" class="field-error"></span>
             </div>
             <div class="field">
                 <label asp-for="ConfirmPassword">Confirm password *</label>
-                <input asp-for="ConfirmPassword" autocomplete="new-password" maxlength="128" aria-required="true" aria-describedby="confirm-error" />
+                <div class="password-control">
+                    <input asp-for="ConfirmPassword" autocomplete="new-password" maxlength="128" aria-required="true" aria-describedby="confirm-error" />
+                    <partial name="_PasswordToggle" model='@("ConfirmPassword")' />
+                </div>
                 <span asp-validation-for="ConfirmPassword" id="confirm-error" class="field-error"></span>
             </div>
         </div>

@@ -45,8 +45,14 @@ if (aboutStory) {
         const bounds = rail.getBoundingClientRect();
         rail.style.height = `${height}px`;
         if (height < previousHeight - 1 && bounds.top < 0 && bounds.bottom > 0) {
-            // Keep the chosen chapter in view when a much taller chapter collapses.
-            requestAnimationFrame(() => slide.scrollIntoView({block:'start',inline:'nearest',behavior:'instant'}));
+            // Correct only the page position. Scrolling an intermediate slide into
+            // view also scrolls its horizontal rail and cancels the requested jump.
+            requestAnimationFrame(() => {
+                const header = document.querySelector('.portal-header');
+                const top = window.scrollY + rail.getBoundingClientRect().top
+                    - (header?.getBoundingClientRect().height || 0) - 16;
+                window.scrollTo({ top, behavior: 'instant' });
+            });
         }
     };
     dots.forEach((dot, i) => dot.addEventListener('click', () => rail.scrollTo({ left: rail.children[i].offsetLeft - rail.children[0].offsetLeft, behavior: reduced.matches ? 'instant' : 'smooth' })));

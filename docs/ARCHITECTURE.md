@@ -119,5 +119,11 @@ validates current/new/confirmation independently of ProfileViewModel. PasswordHa
 and a conditional ExecuteUpdate change only the current user's matched hash; success
 signs out that browser session. Passwords never enter view values. JavaScript-free
 links select the forms server-side; ordinary upload/save remains available.
+Invalid personal-detail POSTs keep a separate projected SavedProfile in ViewData;
+encoded per-field saved values provide the local Cancel baseline without including
+passwords. Cancel GET links provide the same persisted state without JavaScript.
+_PasswordToggle and password-visibility.js are shared by login, registration and
+profile password fields through _ValidationScriptsPartial. The unused Home/Privacy
+action and starter view have been removed.
 
 ProfileController/ProfileViewModel/Views/Profile/Index.cshtml form a dedicated authenticated editor. Reads project only personal fields; writes target the cookie identity through ExecuteUpdate and update only personal names, birthday and image. Posted IDs, username, role and active flags are not accepted. Uploads reuse ImageUploadService and all saves require antiforgery. A changed/deactivated account cannot be updated through a stale session. Founder editing uses a serializable update of its single existing record, without create/delete actions. UniversityPageViewModel now holds one Founder. Social-link controllers, entity/mapping, form model/view, validators and read queries were removed alongside the empty live table; consolidated Schema.sql now has seven tables.

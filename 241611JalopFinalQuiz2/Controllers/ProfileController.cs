@@ -98,6 +98,7 @@ public class ProfileController(UniversityDbContext database, ImageUploadService 
         {
             var existing = await ReadProfile();
             if (existing is null) return NotFound();
+            ViewData["SavedProfile"] = existing;
             model.Username = existing.Username; model.ProfileImg = existing.ProfileImg;
             var imageError = await images.ValidateAsync(model.ImageUpload);
             if (imageError is not null) ModelState.AddModelError(nameof(model.ImageUpload), imageError);

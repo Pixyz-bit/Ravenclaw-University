@@ -1,5 +1,11 @@
 /* Shared Tailwind styles: components / forms. */
 @layer components {
+.password-control { @apply relative; }
+.field .password-control input[type] { @apply min-h-[48px] pr-[52px]; }
+.password-toggle { @apply absolute right-[3px] top-[2px] grid place-items-center w-[44px] h-[44px] p-0 border-0 rounded-[4px] bg-transparent text-blue; }
+.password-toggle:hover { @apply bg-[#e8e1d5]; }
+.password-toggle[hidden],.password-toggle svg[hidden] { @apply hidden; }
+
 .intro {
     @apply text-muted mb-[30px];
 }

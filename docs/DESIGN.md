@@ -476,11 +476,22 @@ line. Keep visible field labels, accessible required semantics and inline errors
 Photo selection previews within the identity circle and belongs to the personal
 details form; Save changes persists it. Username is display-only. The separate
 password form contains Current password, New password and Confirm password, with
-Show/Hide controls and its own Cancel / Update password actions. Personal details
+shared eye/eye-off controls and its own Cancel / Update password actions. Personal details
 has Cancel / Save changes. Do not repeat a panel heading below the selected tab.
-Cancel resets that form; password reset restores masked fields. Server validation
+Cancel restores persisted personal values, including after a rejected server POST;
+the saved baseline is separate from attempted field values. Other-tab drafts are
+retained. Password Cancel clears its fields and restores masking. Server validation
 returns the affected tab with empty password inputs. No-JS tab links navigate
 through /Profile and /Profile?tab=password, with the native upload control visible.
+Without JavaScript, Cancel reloads the saved state through the relevant GET link.
+
+All six web password fields (sign-in, registration/confirmation, current/new/confirm
+password change) use _PasswordToggle and password-visibility.js. Match the existing
+navy/ivory controls with a 44px eye target inside each input. Accessible Show/Hide
+labels identify the field and aria-pressed reports visibility. Keep maxlength,
+autocomplete and validation unchanged; eyes are non-submit buttons. Reset and
+page restoration remask fields. Without JS, eye controls stay hidden and passwords
+remain ordinary masked inputs. Shared styling is in components/forms.css.
 
 profile-editor.js supports arrow/Home/End tab navigation and preserves drafts
 across tab changes. Navigation/sign-out/refresh warnings remain, including when
