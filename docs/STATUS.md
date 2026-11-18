@@ -4,6 +4,16 @@ Last verified: 2026-11-18.
 
 ## Latest error check
 
+- 2026-11-18 admin sidebar bottom gap: gave the navigation wrapper a navy background
+  and desktop-only sticky positioning, viewport height and start alignment. This
+  avoids the details content box constraining the inner sticky sidebar; navigation
+  remains visible when the workspace scrolls to its footer. Mobile drawer rules
+  are unchanged. Tailwind build passed. Four headless Chrome fixture cases passed:
+  long desktop scrolled to bottom, short desktop, and mobile open/closed scrolled
+  to bottom, with navy coverage, sidebar/drawer bounds and no horizontal overflow.
+  The running localhost app returned HTTP 200 for the updated stylesheet. No Razor,
+  application behavior, database or content changes; no restart needed.
+
 - 2026-11-18 Academics drag fix: disabled native image dragging in Razor and blocked
   dragstart on the rail, including cloned cards and single-card rails. Mouse drag
   cleanup now handles release, cancellation, blur and missing pressed buttons;

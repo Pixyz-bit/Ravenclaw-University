@@ -23,7 +23,10 @@
 .admin-navigation>summary {
     @apply hidden;
 }
-.admin-navigation-shell { @apply min-w-0; }
+.admin-navigation-shell { @apply min-w-0 bg-navy; }
+@media(min-width:901px) {
+    .admin-navigation-shell { @apply sticky top-0 self-start h-[100dvh]; }
+}
 .admin-navigation-shell > summary { @apply hidden; }
 .admin-navigation nav { @apply grid gap-[6px]; }
 

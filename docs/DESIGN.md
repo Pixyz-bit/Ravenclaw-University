@@ -113,6 +113,10 @@ name in ivory Cormorant Garamond, with the close control aligned alongside it.
 Use a 24px separation before the header divider and 16px before the first link.
 Admin links have 48px minimum height and 6px gaps. Hide the duplicate original
 admin wordmark inside its mobile drawer; preserve the linked desktop wordmark.
+On desktop, the admin navigation wrapper is sticky, viewport-height and aligned
+to the grid row's start, with a navy background. Keep the sidebar visible through
+the bottom of long pages without exposing ivory below Sign out. Mobile retains
+the existing fixed drawer and normal closed-summary layout.
 On the university homepage, the public navbar is fixed over the full-height hero
 with a transparent background and no bottom rule. Links and branding remain visible.
 As another section reaches the navbar (including anchor navigation), it becomes
