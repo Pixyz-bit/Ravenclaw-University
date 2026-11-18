@@ -4,6 +4,15 @@ Last verified: 2026-11-18.
 
 ## Latest error check
 
+- 2026-11-18 unused-folder cleanup: inspected the remaining source folders and
+  removed empty Views/Admin, Views/AdminContent and Views/SocialLinks directories.
+  Verified each was empty before deletion and absent afterward. No other empty
+  source folders were found outside generated/dependency directories. Corrected
+  the obsolete Views/Admin _ViewStart architecture note. Git does not track empty
+  directories, so this progress commit records documentation only. No application
+  code, database data, uploads or existing UniversityDbContext.cs edits changed;
+  no rebuild was needed for empty-directory removal.
+
 - 2026-11-18 final code cleanup: permanently removed the hidden public Gallery and
   Hogwarts Collegiate Circle, their commented restore hooks, scripts, styles,
   pennants, gallery controller/form/view and unused homepage photo query/property.

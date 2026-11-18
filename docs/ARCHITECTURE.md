@@ -29,9 +29,9 @@
   unsaved-change guards and validated saving feedback; it makes no network writes.
 - The project excludes nested TestResults/** from default MSBuild items so ignored
   test source copies cannot be compiled/published as application controllers or views.
-- Views/Admin selects _AdminLayout through _ViewStart. Each dedicated content view
-  selects that same layout explicitly. University views use _Layout; account views
-  use _AccountLayout.
+- Each dedicated admin content view selects _AdminLayout explicitly. University
+  views use _Layout; account views use _AccountLayout. Empty legacy Views/Admin,
+  Views/AdminContent and Views/SocialLinks folders were removed.
 - wwwroot contains public static assets, never database scripts or private docs.
 - Styles/ contains Tailwind CSS v4 source split into base tokens, reusable components,
   layouts, and university sections. Shared semantic classes use @apply, preserving
