@@ -4,6 +4,23 @@ Last verified: 2026-11-18.
 
 ## Latest error check
 
+- 2026-11-18: Removed remaining admin group captions/dividers (legends remain
+  accessible), edit-status lines/Save dividers, office-hours hint, account-list limit hint, and
+  About image-management disclosure. Removed their unused status-label JS while
+  retaining dirty tracking and leave warnings. About text remains database-backed;
+  its desktop/mobile images now use fixed approved illustrations regardless of
+  gallery uploads. Existing gallery routes/data remain intact for compatibility.
+  Removed Edit personal information from the admin sidebar and styled View
+  university as an outlined button-style link above Sign out, sharing a row on
+  phones. Separate and normal Razor/Tailwind builds passed with zero warnings/errors;
+  JS syntax passed. Compiled-Razor fixtures passed 16 route/viewport combinations,
+  caption/legend/sidebar checks, selected-image preview and sidebar unsaved-leave
+  protection without JavaScript errors or horizontal overflow. About fixtures
+  proved uploaded-photo changes do not alter its images and text edits still render.
+  Desktop/phone visual review passed. Design detection reported only approved Lato.
+  Final CSS build passed; restarted localhost:5182 and confirmed login HTTP 200.
+  No database, account, or public text records were changed.
+
 - 2026-11-18 local startup requested again: MSSQLSERVER was already Running;
   the configured read-only EF diagnostic passed university, personal-detail,
   and office-time reads. The first build overlapped the diagnostic and failed

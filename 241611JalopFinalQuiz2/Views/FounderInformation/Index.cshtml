@@ -22,7 +22,6 @@
                             <div class="field"><label asp-for="FounderMessage"></label><textarea asp-for="FounderMessage" rows="8"></textarea><span asp-validation-for="FounderMessage" class="field-error"></span></div>
                         </div>
                     </fieldset>
-                    <p class="admin-save-state" role="status" data-dirty-state>Ready to edit</p>
                     <div class="row-actions">
                         <button class="button button-primary" type="submit" disabled="@(ViewData["Unavailable"] is true)">Save changes</button>
                         <a class="button button-secondary" asp-action="Index" asp-route-id="" asp-route-confirmDelete="">Cancel</a>

@@ -48,7 +48,6 @@
                         <span asp-validation-for="CoreValuesText" class="field-error"></span>
                     </div>
                 </fieldset>
-                <p class="admin-save-state" role="status" data-dirty-state>Ready to edit</p>
                 <div class="row-actions">
                     <button class="button button-primary" type="submit" disabled="@(ViewData["Unavailable"] is true)">Save changes</button>
                     <a class="button button-secondary" asp-controller="Home" asp-action="Index">View university</a>
@@ -56,6 +55,5 @@
             </form>
         </div>
     </div>
-    <details><summary>About images</summary><p>Manage the images used alongside the About chapters.</p><a class="button button-secondary" asp-controller="AboutGallery" asp-action="Index">Manage About images</a></details>
 </section>
 @section Scripts { <partial name="_ValidationScriptsPartial" /> }

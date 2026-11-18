@@ -25,11 +25,9 @@
     .admin-editor-grid--single { @apply [grid-template-columns:minmax(0,1fr)]; }
     .admin-main:has(.admin-editor-grid--single) { @apply max-w-none; }
     .admin-editor-grid--single .upload-preview:not([hidden]) { @apply block; }
-    .admin-editor-grid--single .admin-save-state { @apply max-w-none border-t-0 pt-0 mb-[8px]; }
     .editor-fieldset { @apply min-w-0 m-0 p-0 [border:0]; }
-    .editor-fieldset legend { @apply w-full font-bold text-[.75rem] uppercase tracking-[.08em] text-muted pb-[16px] mb-[20px] [border-bottom:1px_solid_var(--color-line)]; }
-    .editor-fieldset--quiet > legend { @apply sr-only; }
-    .admin-editor-fields .row-actions { @apply sticky bottom-0 z-10 bg-ivory [padding:16px_0] [border-top:1px_solid_var(--color-line)] mt-[12px]; }
+    .editor-fieldset legend { @apply sr-only; }
+    .admin-editor-fields .row-actions { @apply sticky bottom-0 z-10 bg-ivory [padding:16px_0] mt-[12px]; }
     .admin-editor-fields .button-primary { @apply min-w-[160px]; }
     .admin-main .button { @apply rounded-[6px]; }
     .admin-main .button:disabled { @apply opacity-60 cursor-not-allowed; }
@@ -49,8 +47,6 @@
     .admin-preview-fields { @apply m-0 grid gap-[20px]; }
     .admin-preview-fields dt { @apply text-muted text-[.72rem] font-bold mb-[5px]; }
     .admin-preview-fields dd { @apply m-0 text-navy text-[.9rem] leading-[1.7] whitespace-pre-line [overflow-wrap:anywhere] max-h-[220px] overflow-auto; }
-    .admin-save-state { @apply text-muted text-[.75rem] [border-top:1px_solid_var(--color-line)] pt-[16px] mb-0 mt-[24px]; }
-    .admin-save-state.is-dirty { @apply text-blue font-bold; }
     .admin-main .status-message { @apply rounded-[8px] [padding:16px_20px] font-bold text-[.9rem]; }
     .admin-main .field input,.admin-main .field textarea,.admin-main .field select { @apply rounded-[6px]; }
     .admin-main .field input:focus,.admin-main .field textarea:focus,.admin-main .field select:focus { @apply border-blue; }

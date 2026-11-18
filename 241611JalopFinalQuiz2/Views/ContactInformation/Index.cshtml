@@ -24,13 +24,11 @@
                 </fieldset>
                 <fieldset class="editor-fieldset"><legend>Office Hours</legend>
                     <div class="form-grid">
-                        <div class="field"><label asp-for="TimeIn"></label><input asp-for="TimeIn" type="time" asp-format="{0:HH:mm}" aria-describedby="hours-help" /><span asp-validation-for="TimeIn" class="field-error"></span></div>
-                        <div class="field"><label asp-for="TimeOut"></label><input asp-for="TimeOut" type="time" asp-format="{0:HH:mm}" aria-describedby="hours-help" /><span asp-validation-for="TimeOut" class="field-error"></span></div>
+                        <div class="field"><label asp-for="TimeIn"></label><input asp-for="TimeIn" type="time" asp-format="{0:HH:mm}" /><span asp-validation-for="TimeIn" class="field-error"></span></div>
+                        <div class="field"><label asp-for="TimeOut"></label><input asp-for="TimeOut" type="time" asp-format="{0:HH:mm}" /><span asp-validation-for="TimeOut" class="field-error"></span></div>
                     </div>
-                    <p class="muted" id="hours-help">Enter both times, or leave both empty. A time out earlier than time in ends the next day.</p>
                     @if (!string.IsNullOrWhiteSpace(Model.OfficeHours)) { <p class="muted">Existing office hours: @Model.OfficeHours. This text is used when both times are empty.</p> }
                 </fieldset>
-                <p class="admin-save-state" role="status" data-dirty-state>Ready to edit</p>
                 <div class="row-actions">
                     <button class="button button-primary" type="submit" disabled="@(ViewData["Unavailable"] is true)">Save changes</button>
                     <a class="button button-secondary" asp-controller="Home" asp-action="Index">View university</a>

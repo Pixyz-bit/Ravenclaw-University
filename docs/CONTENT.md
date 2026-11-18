@@ -48,8 +48,9 @@ its Tailwind styling; no database changes were needed.
 Administration opens Hero and About directly; the dashboard and content inventory
 were removed at the user's request. Only Academics has a local draft side preview
 (stacked on smaller screens). Other editors use full-width grouped forms with
-related fields in responsive columns, inline upload previews, and draft status
-above Save. Typing and image selection remain local until saved. Use Save to persist through the existing
+related fields in responsive columns and inline upload previews. All group legends
+are visually hidden but accessible. Edit-status lines and the account-limit/office-hours
+hints are removed. Typing and image selection remain local until saved. Use Save to persist through the existing
 controller. Saved program/gallery entries show thumbnails; text collections show
 short summaries. Dirty edits warn before navigating away, searching accounts, or
 signing out; Keep editing/Escape retains the draft, while Discard changes continues.
@@ -89,8 +90,8 @@ An empty heading uses the established “A place for curious minds” fallback.
 
 Contacts uses separate Time In/Time Out inputs: supply both or neither. The footer
 formats the saved pair, labels overnight ranges, and falls back to retained legacy
-office-hours text when both are empty. About images remain
-available through a secondary disclosure in Hero and About. Existing
+office-hours text when both are empty. About uses fixed university illustrations;
+the About images disclosure is removed from Hero and About. Its text remains editable. Existing
 dedicated editor URLs remain usable. Founder edits preserve stored birthdays;
 stored founder messages remain editable without adding a public message section.
 
@@ -165,9 +166,9 @@ supported icons, and nonfuture founder birthdays using Asia/Manila's date.
 ## Reading and errors
 
 About now follows the reference's sticky desktop composition: four chapters show
-the stored introduction, mission, vision, and core value titles. Uploaded gallery
-photos are used in overlapping main/inset image pairs; approved university
-illustrations fill empty photo slots. On smaller screens, chapters form a swipeable
+the stored introduction, mission, vision, and core value titles. Four fixed approved
+university illustrations supply its images, independent of gallery uploads. On
+desktop there is one image per chapter. On smaller screens, chapters form a swipeable
 rail with navigation dots. No-JS content remains readable.
 
 Academics uses a dark looping row of portrait image cards from ProgramsTable,

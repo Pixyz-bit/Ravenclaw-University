@@ -1,5 +1,12 @@
 # Ravenclaw University design
 
+2026-11-18: Admin sidebar View university is an outlined button-style link.
+Removed its Edit personal information link; personal editing stays in the public account menu.
+
+2026-11-18: All admin fieldset legends are visually hidden but accessible. Removed
+edit-status lines, office-hours/account-list hints, and About image-management controls.
+About text stays editable; its images use the fixed approved university illustrations.
+
 2026-11-18: Removed the specified admin introductory captions and redundant editor
 subheadings; first fieldset legends remain accessible but visually hidden. Account
 rows now fill the available width, with flat dividers, aligned actions, plain roles,

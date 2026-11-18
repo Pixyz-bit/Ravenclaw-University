@@ -42,7 +42,6 @@
                             <img class="upload-preview" alt="Selected profile image preview" hidden data-upload-preview />
                         </div>
                     </fieldset>
-                    <p class="admin-save-state" role="status" data-dirty-state>Ready to edit</p>
                     <div class="row-actions"><button class="button button-primary" type="submit" disabled="@(ViewData["Unavailable"] is true)">Save account</button><a class="button button-secondary" asp-action="Index" asp-route-id="">Cancel</a></div>
                 </form>
             </div>
@@ -52,7 +51,6 @@
     <form asp-action="Index" asp-route-id="" method="get" class="account-search">
         <div class="field"><label asp-for="Search">Search by username or name</label><input asp-for="Search" maxlength="100" /></div><button class="button button-secondary" type="submit">Search</button>
     </form>
-    <p class="muted">Showing up to 100 accounts. Refine the search to find a specific account.</p>
     @if (Model.Items.Count == 0 && ViewData["Unavailable"] is not true) { <p>No matching accounts.</p> }
     <div class="account-directory">
         <div class="account-directory-head" aria-hidden="true"><span>Account</span><span>Role</span><span>Status</span><span>Actions</span></div>

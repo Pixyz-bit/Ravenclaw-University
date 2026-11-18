@@ -41,11 +41,15 @@
 }
 
 .admin-site-link {
-    @apply flex justify-between min-h-[44px] items-center text-ivory text-[.85rem] mb-[12px];
+    @apply flex justify-center gap-[10px] w-full min-h-[48px] items-center text-ivory text-[.85rem] font-bold mb-[12px] [padding:12px_16px] [border:1px_solid_var(--color-gold)] rounded-[6px] no-underline;
+}
+
+.admin-site-link:hover {
+    @apply bg-ivory text-navy;
 }
 
 .admin-sidebar-bottom form {
-    @apply m-0;
+    @apply m-0 w-full;
 }
 
 .admin-sidebar-bottom button {
@@ -126,7 +130,7 @@
 
 @media(max-width:900px) {
     .admin-sidebar-bottom {
-        @apply flex items-center justify-between gap-[20px] [padding:12px_8px_0];
+        @apply grid [grid-template-columns:repeat(2,minmax(0,1fr))] items-center gap-[12px] [padding:12px_8px_0];
     }
 }
 

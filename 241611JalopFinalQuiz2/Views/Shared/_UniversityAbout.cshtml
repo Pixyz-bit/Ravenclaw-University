@@ -7,9 +7,8 @@
         (Title: "Our vision", Text: Model.University?.Vision ?? "Our vision statement will be published here."),
         (Title: "Our core values", Text: "Core values have not been published yet.")
     };
-    var photos = Model.Photos.Where(photo => SafeImageAttribute.IsSafeImage(photo.ImagePath)).Select(photo => (Path: photo.ImagePath, Alt: photo.AltText ?? "University gallery image")).ToArray();
     var illustrations = new[] { "/images/hero/ravenclaw-common-room.png", "/images/hero/portrait-stairwell.png", "/images/hero/ravenclaw-eagle-wall.png", "/images/hero/great-hall.png" };
-    (string Path, string Alt) Picture(int index) => photos.Length > 0 ? photos[index % photos.Length] : (illustrations[index % illustrations.Length], "Ravenclaw University illustration");
+    (string Path, string Alt) Picture(int index) => (illustrations[index % illustrations.Length], "Ravenclaw University illustration");
 }
 <section id="about" class="about-section" aria-label="About Ravenclaw University" data-about-story>
   <div class="about-container">

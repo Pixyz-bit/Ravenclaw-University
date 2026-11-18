@@ -163,9 +163,9 @@ core values. On desktop, a full-width 50/50 composition keeps text on the left a
 one edge-to-edge image on the right. Both panels remain sticky below the navbar as
 vertical scrolling crossfades the active chapter. Each image fills its entire half
 using object-fit:cover; there is no inset/overlapping photo. Below 1024px, a swipeable
-snap rail and dots retain one image above each text chapter. Uploaded About photos
-take priority; approved illustrations
-provide a visual fallback without inventing university facts. No-JS content remains
+snap rail and dots retain one image above each text chapter. About uses the four
+fixed approved university illustrations; gallery uploads do not override them.
+Text remains editable through Hero and About. No-JS content remains
 readable; reduced motion disables transition effects.
 
 The desktop story spans the full available page width with equal columns and no
@@ -342,7 +342,10 @@ is not rendered in this shell. A 272px navy sidebar
 contains the approved crest and five links in this order: Hero and About,
 Academics, Founder, Contacts, Account Management. The crest also links to Hero and About. The current
 page uses a blue active background and aria-current=page, including edit/delete
-and validation states. View university and POST Sign out sit below navigation.
+and validation states. View university is a full-width outlined button-style link
+with a small arrow, hover/focus feedback, and a 48px minimum height. It sits above
+POST Sign out on desktop; the two controls share a row on phones. Edit personal
+information is removed from this sidebar; the public account menu retains access.
 The ivory workspace uses Lato headings and opens directly to the page content;
 the user requested removal of the contextual topbar/account label. Sidebar links
 are one flat list, with no numeric prefixes or University content divider label.
@@ -354,8 +357,8 @@ withheld when the database is unavailable; there are no invented analytics.
 
 Hero and About combines the hero upload, About Heading, About Description, Mission,
 Vision, and Core Values in one save form. Enter one value per textarea line; the
-public chapter uses bullets. About images remain available via
-a secondary disclosure on that page. Contacts has University Address, Email,
+public chapter uses bullets. About imagery is fixed, and its image-management
+disclosure has been removed. Contacts has University Address, Email,
 Telephone, and paired native Time In/Time Out controls. Blank times retain the legacy office-hours fallback;
 overnight hours are labeled as ending the next day. Native time controls use
 minute precision without an explicit step attribute, which conflicts with the
@@ -380,8 +383,8 @@ account rows with search and an inline edit form; no password fields are display
 2026-11-18 simplification: Hero and About, Academics, Founder, and Contacts start
 directly with their labeled fields after the page heading. Remove the redundant
 Page content/Add entry/Edit founder/Contact details subheads, introductory captions,
-and visible first-group legends. Keep those fieldset legends screen-reader-only;
-later group headings still organize longer forms. Account Management has no
+and visible group legends. Keep all fieldset legends screen-reader-only.
+Account Management has no
 Administration eyebrow, introductory caption, Account analytics heading, or totals
 explanation. Keep its actual metrics and their labels.
 
@@ -389,8 +392,9 @@ Only Academics retains the two-column form and sticky draft preview; below 1101p
 they stack. All other editors use the full available width without a side preview,
 including legacy gallery/core-value editors. Related fields use responsive columns:
 mission/vision, founder biography/message, contact email/telephone and office times.
-Columns stack on phones. Upload previews stay beside their fields, and draft status
-sits above Save actions. The navy sidebar still collapses below 901px. Use the existing Lato,
+Columns stack on phones. Upload previews stay beside their fields. The edit-status
+line, office-hours explanatory hint, and account-list limit hint are removed.
+The navy sidebar still collapses below 901px. Use the existing Lato,
 navy, ivory and gold tokens, fine dividers, 6px input/button corners and a restrained
 12px preview outline. Program previews show the portrait crop; image selection and
 text fields update locally. Previews summarize stored fields rather than claiming
@@ -403,7 +407,7 @@ Save actions stay visible within long forms; success messages remain on the retu
 page. Inline errors keep Save usable and focus the first invalid field. Saving state
 is shown only after native/unobtrusive validation permits submission.
 
-Dirty forms show Unsaved changes. Internal navigation/search/sign-out opens a native
+Dirty tracking has no visible status line. Internal navigation/search/sign-out opens a native
 HTML dialog with Keep editing / Discard changes, a focus trap and Escape support.
 Refresh/close uses beforeunload. Reverting fields restores the clean state; failed
 POSTs retain a dirty draft. No-JS forms retain server validation and ordinary saves.
