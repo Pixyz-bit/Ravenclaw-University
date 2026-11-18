@@ -29,7 +29,7 @@ public class AcademicProgramsController(UniversityDbContext database, ImageUploa
             };
             model.ConfirmDelete = confirmDelete;
             model.Items = await database.ProgramsTables.AsNoTracking().OrderBy(x => x.SubjectId).ToListAsync();
-            return View("AcademicPrograms", model);
+            return View("~/Views/AcademicPrograms.cshtml", model);
         }
         catch (Exception exception) { return Unavailable(exception, new AcademicProgramsViewModel()); }
     }
@@ -47,7 +47,7 @@ public class AcademicProgramsController(UniversityDbContext database, ImageUploa
             if (!ModelState.IsValid)
             {
                 model.Items = await database.ProgramsTables.AsNoTracking().OrderBy(x => x.SubjectId).ToListAsync();
-                return View("AcademicPrograms", model);
+                return View("~/Views/AcademicPrograms.cshtml", model);
             }
 
             var item = model.Id == 0 ? new ProgramsTable() : await database.ProgramsTables.FindAsync(model.Id);
@@ -91,7 +91,7 @@ public class AcademicProgramsController(UniversityDbContext database, ImageUploa
         Response.StatusCode = 503;
         ViewData["Unavailable"] = true;
         ModelState.AddModelError("", "This operation is temporarily unavailable. Your changes were not confirmed. Please try again.");
-        return View("AcademicPrograms", model);
+        return View("~/Views/AcademicPrograms.cshtml", model);
     }
 
     private static string? Clean(string? value) => string.IsNullOrWhiteSpace(value) ? null : value.Trim();

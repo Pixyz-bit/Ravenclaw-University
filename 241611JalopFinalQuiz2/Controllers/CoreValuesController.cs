@@ -26,7 +26,7 @@ public class CoreValuesController(UniversityDbContext database, ILogger<CoreValu
             };
             model.ConfirmDelete = confirmDelete;
             model.Items = await database.CoreValuesTables.AsNoTracking().OrderBy(x => x.CoreValueId).ToListAsync();
-            return View("CoreValues", model);
+            return View("~/Views/CoreValues.cshtml", model);
         }
         catch (Exception exception) { return Unavailable(exception, new CoreValuesViewModel()); }
     }
@@ -40,7 +40,7 @@ public class CoreValuesController(UniversityDbContext database, ILogger<CoreValu
             if (!ModelState.IsValid)
             {
                 model.Items = await database.CoreValuesTables.AsNoTracking().OrderBy(x => x.CoreValueId).ToListAsync();
-                return View("CoreValues", model);
+                return View("~/Views/CoreValues.cshtml", model);
             }
 
             var item = model.Id == 0 ? new CoreValuesTable() : await database.CoreValuesTables.FindAsync(model.Id);
@@ -77,7 +77,7 @@ public class CoreValuesController(UniversityDbContext database, ILogger<CoreValu
         Response.StatusCode = 503;
         ViewData["Unavailable"] = true;
         ModelState.AddModelError("", "This operation is temporarily unavailable. Your changes were not confirmed. Please try again.");
-        return View("CoreValues", model);
+        return View("~/Views/CoreValues.cshtml", model);
     }
 
     private static string? Clean(string? value) => string.IsNullOrWhiteSpace(value) ? null : value.Trim();

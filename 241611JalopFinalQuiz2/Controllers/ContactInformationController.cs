@@ -30,7 +30,7 @@ public class ContactInformationController(UniversityDbContext database, ILogger<
                 TimeOut = item.TimeOut
             };
 
-            return View("ContactInformation", model);
+            return View("~/Views/ContactInformation.cshtml", model);
         }
         catch (Exception exception) { return Unavailable(exception, new ContactInformationViewModel()); }
     }
@@ -46,7 +46,7 @@ public class ContactInformationController(UniversityDbContext database, ILogger<
             if (!ModelState.IsValid)
             {
 
-                return View("ContactInformation", model);
+                return View("~/Views/ContactInformation.cshtml", model);
             }
             await using var transaction = await database.Database.BeginTransactionAsync(System.Data.IsolationLevel.Serializable);
             var item = await database.ContactsTables.OrderBy(x => x.ContactId).FirstOrDefaultAsync();
@@ -71,7 +71,7 @@ public class ContactInformationController(UniversityDbContext database, ILogger<
         Response.StatusCode = 503;
         ViewData["Unavailable"] = true;
         ModelState.AddModelError("", "This operation is temporarily unavailable. Your changes were not confirmed. Please try again.");
-        return View("ContactInformation", model);
+        return View("~/Views/ContactInformation.cshtml", model);
     }
 
     private static string? Clean(string? value) => string.IsNullOrWhiteSpace(value) ? null : value.Trim();

@@ -4,6 +4,20 @@ Last verified: 2026-11-18.
 
 ## Latest error check
 
+- 2026-11-18 flattened single-file view folders: moved AcademicPrograms,
+  ContactInformation, CoreValues, FounderInformation, Home, Profile and
+  UniversityInformation directly into Views/ and removed their empty folders.
+  All seven view contents are unchanged. Updated all 21 controller render paths,
+  including rejected-form and unavailable responses, to explicit ~/Views paths.
+  Account, AccountManagement and Shared retain their multi-file folders; shared
+  imports/layouts and existing URLs/actions are unchanged. Razor/Tailwind build
+  passed with zero warnings/errors. All 177 disposable HTTP/SQL checks passed on
+  retry. The first run stopped on the existing 20-second HTTP/SQL timeout; its
+  exact leftover disposable database was removed and absence verified before
+  retrying. Final test database/uploads were cleaned up by the verifier. Updated
+  architecture/content references; no live data/schema or existing context edits
+  changed. No interactive browser verification was needed for unchanged markup.
+
 - 2026-11-18 unused-folder cleanup: inspected the remaining source folders and
   removed empty Views/Admin, Views/AdminContent and Views/SocialLinks directories.
   Verified each was empty before deletion and absent afterward. No other empty

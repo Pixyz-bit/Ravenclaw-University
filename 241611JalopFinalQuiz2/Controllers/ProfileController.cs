@@ -32,7 +32,7 @@ public class ProfileController(UniversityDbContext database, ImageUploadService 
         try
         {
             var model = await ReadProfile();
-            return model is null ? NotFound() : View("Profile", model);
+            return model is null ? NotFound() : View("~/Views/Profile.cshtml", model);
         }
         catch (Exception exception) { return Unavailable(exception, new ProfileViewModel()); }
     }
@@ -78,7 +78,7 @@ public class ProfileController(UniversityDbContext database, ImageUploadService 
                     }
                 }
             }
-            return View("Profile", profile);
+            return View("~/Views/Profile.cshtml", profile);
         }
         catch (Exception exception) { return Unavailable(exception, profile ?? new ProfileViewModel()); }
         finally
@@ -102,7 +102,7 @@ public class ProfileController(UniversityDbContext database, ImageUploadService 
             model.Username = existing.Username; model.ProfileImg = existing.ProfileImg;
             var imageError = await images.ValidateAsync(model.ImageUpload);
             if (imageError is not null) ModelState.AddModelError(nameof(model.ImageUpload), imageError);
-            if (!ModelState.IsValid) return View("Profile", model);
+            if (!ModelState.IsValid) return View("~/Views/Profile.cshtml", model);
             if (model.ImageUpload is not null) uploadedPath = await images.SaveAsync(model.ImageUpload);
             var profilePath = uploadedPath ?? existing.ProfileImg;
             var firstName = model.FirstName!.Trim(); var lastName = model.LastName!.Trim();
@@ -127,6 +127,6 @@ public class ProfileController(UniversityDbContext database, ImageUploadService 
         logger.LogError(exception, "Personal information could not be loaded or saved.");
         Response.StatusCode = 503; ViewData["Unavailable"] = true;
         ModelState.AddModelError("", "Your personal information is temporarily unavailable. Changes were not confirmed. Please try again.");
-        return View("Profile", model);
+        return View("~/Views/Profile.cshtml", model);
     }
 }

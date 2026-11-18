@@ -89,7 +89,7 @@ The matching database-first EF entity remains in Models/. Every controller requi
 the Admin role. Fields map explicitly to that section's entity. Save/delete require
 POST and antiforgery validation. GET delete displays a confirmation without writing.
 
-| Section | Controller / ViewModel / view folder prefix |
+| Section | Controller / ViewModel / view filename prefix |
 | --- | --- |
 | University information | UniversityInformation |
 | Contact information | ContactInformation |
@@ -98,7 +98,7 @@ POST and antiforgery validation. GET delete displays a confirmation without writ
 | Founder information | FounderInformation |
 
 For example, follow Controllers/UniversityInformationController.cs to
-ViewModels/UniversityInformationViewModel.cs and Views/UniversityInformation/UniversityInformation.cshtml.
+ViewModels/UniversityInformationViewModel.cs and Views/UniversityInformation.cshtml.
 That form edits Models/AcademyInfoTable.cs. University information directly displays
 all four content inputs; the identity ID is managed internally. Other collection
 pages put the add/edit form and published entries in their own section-named view.

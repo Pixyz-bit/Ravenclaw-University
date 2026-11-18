@@ -8,7 +8,7 @@
 - Root namespace: _241611JalopFinalQuiz2.
 - Controllers handle HTTP requests; Models hold application data; Views hold Razor UI.
 - UniversityContentService assembles the read-only homepage. Each admin content
-  section has its own named controller, ViewModel, and Views/<Section>/<Section>.cshtml.
+  section has its own named controller, ViewModel, and section-named Razor view.
   Each controller maps its form fields directly to its existing EF entity and uses
   UniversityDbContext. No repository layer is needed.
 - Main Razor views use their section names instead of Index.cshtml: Home, Profile,
@@ -16,6 +16,11 @@
   CoreValues, FounderInformation and ContactInformation. Controllers explicitly
   select these views on GET, validation failure and unavailable responses; action
   names remain Index so existing routes, links and form actions continue to work.
+- Single-file view folders are flattened: AcademicPrograms, ContactInformation,
+  CoreValues, FounderInformation, Home, Profile and UniversityInformation live
+  directly under Views/. Their controllers use explicit ~/Views/<Name>.cshtml
+  paths. Account, AccountManagement and Shared retain their multi-file folders.
+  Views/_ViewImports.cshtml and _ViewStart.cshtml still apply to the moved views.
 - AdminContentController retains GET redirects for old bookmarks only. Shared
   ContentSections contains sidebar labels/routes; AdminContentValidation contains
   reusable input validators and the sidebar section interface, not CRUD behavior.
@@ -126,7 +131,7 @@ partial uses this fresh identity without another database query or cookie claims
 Admin badge and Manage website rendering still depend on the authorized role.
 
 Profile's presentation and draft behavior remain separate from persistence:
-Views/Profile/Profile.cshtml, layouts/profile.css and profile-editor.js provide the
+Views/Profile.cshtml, layouts/profile.css and profile-editor.js provide the
 responsive identity column and tabbed forms, shared image-upload preview integration,
 dirty tracking, native discard dialog and validated saving state. ProfileController
 owns both personal updates and the separate password POST. ChangePasswordViewModel
@@ -141,4 +146,4 @@ _PasswordToggle and password-visibility.js are shared by login, registration and
 profile password fields through _ValidationScriptsPartial. The unused Home/Privacy
 action and starter view have been removed.
 
-ProfileController/ProfileViewModel/Views/Profile/Profile.cshtml form a dedicated authenticated editor. Reads project only personal fields; writes target the cookie identity through ExecuteUpdate and update only personal names, birthday and image. Posted IDs, username, role and active flags are not accepted. Uploads reuse ImageUploadService and all saves require antiforgery. A changed/deactivated account cannot be updated through a stale session. Founder editing uses a serializable update of its single existing record, without create/delete actions. UniversityPageViewModel now holds one Founder. Social-link controllers, entity/mapping, form model/view, validators and read queries were removed alongside the empty live table; consolidated Schema.sql now has seven tables.
+ProfileController/ProfileViewModel/Views/Profile.cshtml form a dedicated authenticated editor. Reads project only personal fields; writes target the cookie identity through ExecuteUpdate and update only personal names, birthday and image. Posted IDs, username, role and active flags are not accepted. Uploads reuse ImageUploadService and all saves require antiforgery. A changed/deactivated account cannot be updated through a stale session. Founder editing uses a serializable update of its single existing record, without create/delete actions. UniversityPageViewModel now holds one Founder. Social-link controllers, entity/mapping, form model/view, validators and read queries were removed alongside the empty live table; consolidated Schema.sql now has seven tables.
