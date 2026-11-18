@@ -22,7 +22,7 @@ public class FounderInformationController(UniversityDbContext database, ILogger<
             return View(item is null ? new FounderInformationViewModel() : new FounderInformationViewModel
             {
                 Id = item.FounderId, FounderName = item.FounderName,
-                Description = item.Description, FounderMessage = item.FounderMessage
+                Description = item.Description
             });
         }
         catch (Exception exception) { return Unavailable(exception, new FounderInformationViewModel()); }
@@ -40,7 +40,6 @@ public class FounderInformationController(UniversityDbContext database, ILogger<
             if (!ModelState.IsValid) return View(model);
             item.FounderName = model.FounderName!.Trim();
             item.Description = Clean(model.Description);
-            item.FounderMessage = Clean(model.FounderMessage);
             await database.SaveChangesAsync();
             await transaction.CommitAsync();
             TempData["StatusMessage"] = "Founder information saved.";

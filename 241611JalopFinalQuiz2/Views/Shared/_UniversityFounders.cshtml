@@ -23,15 +23,7 @@
                 <div class="founder-biography" tabindex="0" role="region" aria-labelledby="founder-@founder.FounderId">
                     <h3 id="founder-@founder.FounderId" class="university-subtitle">@founder.FounderName</h3>
                     <p class="founder-role">Founder</p>
-                    @if (founder.Birthday.HasValue)
-                    {
-                        <p class="founder-date">Born <time datetime="@founder.Birthday.Value.ToString("yyyy-MM-dd")">@founder.Birthday.Value.ToString("MMMM d, yyyy", System.Globalization.CultureInfo.InvariantCulture)</time></p>
-                    }
                     <p class="founder-description prose">@(string.IsNullOrWhiteSpace(founder.Description) ? "A biography has not been published yet." : founder.Description)</p>
-                    @if (!string.IsNullOrWhiteSpace(founder.FounderMessage))
-                    {
-                        <blockquote class="founder-motto">@founder.FounderMessage</blockquote>
-                    }
                 </div>
             </article>
         }

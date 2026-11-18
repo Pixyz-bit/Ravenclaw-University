@@ -95,9 +95,9 @@ intermediate-chapter issue reproduced with the previous stylesheet; see STATUS.m
 - [x] Render the configured hero image with approved-crest fallback and university branding.
 - [x] Render description, mission, vision, core value titles, and About image gallery.
 - [x] Render subjects/programs with descriptions and images.
-- [x] Render entered founder names, optional birthdays, and biographies. The approved
-  2026-11-14 portrait layout uses Rowena's approved biography and motto; public
-  message rendering was removed. Stored messages remain editable in Administration.
+- [x] Render the founder name and biography with Rowena's approved portrait.
+  Founder birthday/message fields are removed from UI, models and live storage;
+  the fixed university quote appears beneath the footer brand.
 - [x] Render address, email, telephone, and office hours.
 - [x] Add empty-content and generic database-error states without exposing account data or connection details.
 
@@ -113,7 +113,7 @@ intermediate-chapter issue reproduced with the previous stylesheet; see STATUS.m
 - [x] Add, edit, and delete core value titles.
 - [x] Add, edit, and delete gallery image references and alternative text.
 - [x] Add, edit, and delete programs with descriptions and image selection.
-- [x] Manage founder details and the founder message.
+- [x] Edit the existing founder name and biography.
 - [x] Edit the single contact-information record.
 - [x] Remove social-link editing, queries, validation, rendering and storage.
 - [x] Use dedicated form/view models, server validation, anti-forgery protection, and POST mutations.
@@ -156,5 +156,5 @@ intermediate-chapter issue reproduced with the previous stylesheet; see STATUS.m
   and implemented after the original preselected-image plan.
 - Keep existing SQL identifiers and the simplified schema unless the user requests changes.
 
-- [x] Founder is edit-only and public content receives one record; existing birthday is preserved.
+- [x] Founder is edit-only and public content receives one record; storage contains ID, name and biography only.
 - [x] Signed-in users can edit their own personal information and profile image without modifying access or other accounts.

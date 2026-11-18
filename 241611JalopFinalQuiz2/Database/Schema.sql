@@ -1,5 +1,5 @@
 -- Ravenclaw University Db: schema for a fresh database.
--- Single consolidated schema, including all applied changes as of 2026-11-16.
+-- Single consolidated schema, including all applied changes as of 2026-11-18.
 -- Verified against live column metadata, primary keys, identities, and role CHECK.
 -- Run once in SSMS or the MSSQL extension. This is not an update script.
 -- GO separates batches and is handled by those tools.
@@ -61,9 +61,7 @@ CREATE TABLE dbo.FounderTable
 (
     FounderId INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
     FounderName NVARCHAR(150) NOT NULL,
-    Birthday DATE NULL,
-    Description NVARCHAR(MAX) NULL,
-    FounderMessage NVARCHAR(MAX) NULL
+    Description NVARCHAR(MAX) NULL
 );
 GO
 

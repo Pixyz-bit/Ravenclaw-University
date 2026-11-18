@@ -131,7 +131,7 @@ The hero uses the image saved in Hero and About, falling back to the approved
 Ravenclaw common-room image when no safe saved image exists. It remains a single
 static background, with no CTA buttons, extra slides, or rotation. A ResizeObserver tracks navbar height so hero and navbar fit together. Heading size and spacing scale with width and height. CSS supplies navbar-height fallbacks without JavaScript. The hero may grow on short screens/zoom rather than clip text. Subsequent content retains the centered
 1200px reading width and ivory sections, thin dividers, mission/vision and program layouts,
-gallery images, contact details, and founder biographies/messages. Unpublished content
+gallery images, contact details, and founder biographies. Unpublished content
 is labeled rather than invented. Razor encodes text and retains paragraph breaks.
 Navigation wraps on smaller screens; page sections stack below 700px.
 
@@ -242,11 +242,10 @@ the portrait begins level with Rowena's name and extends to the section bottom.
 The image is cropped from its top inside this flexible frame; phones retain the
 wider stacked crop, keeping her face, hands, and book visible.
 There is no full-body requirement and no message dropdown or public message block.
-Stored founder messages remain available in the existing admin editor; a separate
-message section is not implemented as part of this approved revision.
+Founder birthday and message/quote fields are removed from admin and storage.
 
 Founder descriptions remain editable database content for the one saved founder.
-The Rowena match uses her static portrait/motto; a differently named founder would
+The Rowena match uses her static portrait; a differently named founder would
 retain its own text without borrowing her identity. Empty/missing-biography states remain supported.
 
 The founder section now reserves 100dvh minus the measured navbar height. Its
@@ -272,11 +271,14 @@ unchanged. Phones and windows 500px tall or shorter use natural document flow,
 allowing content to grow without clipping. No scroll interception or new animation
 script is used. Reusable Tailwind rules remain in sections/founders.css.
 
-The founder biography's prominent serif quote is editable through Founder Quote
-in admin (existing FounderMessage storage). Keep its established typography and
-placement; preserve line breaks and wrap long text. Empty quotes are hidden.
+The founder section contains the saved name and biography only; its previous
+quote and birthday displays are removed.
 
 ## Contact footer
+
+Show the fixed quote “Wit beyond measure is man's greatest treasure” beneath the
+Ravenclaw University brand, in the existing ivory serif style. It is not editable
+content and requires no database column.
 
 The approved compact footer follows Leadership outside main, retaining its
 full-width navy surface, ivory text, gold accents, and responsive padding. Three
@@ -368,8 +370,8 @@ overnight hours are labeled as ending the next day. Native time controls use
 minute precision without an explicit step attribute, which conflicts with the
 bundled jQuery validator. Academics shows Subject Name and Subject Description,
 with an always-visible image uploader. Founder opens its one existing record with
-Founder Name, Founder Info, and Founder Message; no add/delete/list controls exist.
-Existing birthdays are preserved. Empty storage shows a setup message rather than
+Founder Name and Founder Info; no add/delete/list controls exist.
+Empty storage shows a setup message rather than
 an add form. The public page receives one founder rather than a collection.
 
 Each content section retains its view, form model, and controller. Singleton
@@ -395,7 +397,7 @@ explanation. Keep its actual metrics and their labels.
 Only Academics retains the two-column form and sticky draft preview; below 1101px
 they stack. All other editors use the full available width without a side preview,
 including legacy gallery/core-value editors. Related fields use responsive columns:
-mission/vision, founder biography/message, contact email/telephone and office times.
+mission/vision, founder biography, contact email/telephone and office times.
 Columns stack on phones. Upload previews stay beside their fields. The edit-status
 line, office-hours explanatory hint, and account-list limit hint are removed.
 The navy sidebar still collapses below 901px. Use the existing Lato,

@@ -21,7 +21,7 @@ function Assert-Check([bool]$Condition, [string]$Message) {
     Write-Output "PASS: $Message"
 }
 function Invoke-TestSql([string]$Query) {
-    $result = & sqlcmd -S $Server -E -l 5 -b -d $databaseName -h -1 -W -Q "SET NOCOUNT ON; $Query"
+    $result = & sqlcmd -S $Server -E -N -C -l 5 -b -d $databaseName -h -1 -W -Q "SET NOCOUNT ON; $Query"
     if ($LASTEXITCODE -ne 0) { throw 'Test database query failed.' }
     return ($result -join '').Trim()
 }
@@ -89,7 +89,7 @@ try {
     if ($LASTEXITCODE -ne 0) { throw 'Build failed.' }
     $schema = Get-Content (Join-Path $repoDir '241611JalopFinalQuiz2\Database\Schema.sql') -Raw
     $schema.Replace('Ravenclaw University Db', $databaseName) | Set-Content (Join-Path $tempDir 'schema.sql')
-    & sqlcmd -S $Server -E -l 5 -b -i (Join-Path $tempDir 'schema.sql')
+    & sqlcmd -S $Server -E -N -C -l 5 -b -i (Join-Path $tempDir 'schema.sql')
     if ($LASTEXITCODE -ne 0) { throw 'Could not create the isolated test database.' }
     $databaseCreated = $true
     $listener = [Net.Sockets.TcpListener]::new([Net.IPAddress]::Loopback, 0)
@@ -191,7 +191,7 @@ try {
             @{Name='Values';Controller='CoreValues';Table='CoreValuesTable';Key='CoreValueId';Fields=@{Title='Verification title'}},
             @{Name='Photos';Controller='AboutGallery';Table='AboutImagesTable';Key='AboutImageId';Fields=@{ImagePath='/images/branding/ravenclaw-university-crest.png';AltText='Verification image'}},
             @{Name='Programs';Controller='AcademicPrograms';Table='ProgramsTable';Key='SubjectId';Fields=@{SubjectName='Verification title';Description='Verification description';ImagePath='/images/branding/ravenclaw-university-crest.png'}},
-            @{Name='Founders';Controller='FounderInformation';Table='FounderTable';Key='FounderId';Fields=@{FounderName='Verification title';Birthday='1900-01-01';Description='Verification description';FounderMessage='Verification title'}}
+            @{Name='Founders';Controller='FounderInformation';Table='FounderTable';Key='FounderId';Fields=@{FounderName='Verification title';Description='Verification description'}}
         )
         foreach ($contentSection in $sections) {
             $name=$contentSection.Name; $route='/'+$contentSection.Controller; $fields=$contentSection.Fields.Clone()
@@ -230,6 +230,7 @@ try {
         $studentMenu = Send-Request $studentClient '/'
         Assert-Check ($studentMenu.Body.Contains('Mira Isabel Velasco') -and $studentMenu.Body.Contains('profile.student') -and -not $studentMenu.Body.Contains('account-menu-role') -and -not $studentMenu.Body.Contains('Manage website')) 'Student menu shows personal identity without admin badge or website-management action'
         Assert-Check ($rendered.Body.Contains('<title>Ravenclaw University</title>') -and $rendered.Body.Contains('/Profile') -and -not $rendered.Body.Contains('footer-socials')) 'Public title and account menu use the requested identity and personal-information link'
+        Assert-Check ($rendered.Body.Contains('<p class="footer-motto">Wit beyond measure is man') -and -not $rendered.Body.Contains('founder-motto') -and -not $rendered.Body.Contains('founder-date')) 'Fixed university quote appears in footer without a founder quote or birthday'
         Assert-Check ((Send-Request $admin '/SocialLinks').Status -eq 404 -and (Send-Request $admin '/AdminContent?section=SocialLinks').Status -eq 404 -and (Invoke-TestSql "SELECT COUNT(*) FROM sys.tables WHERE name=N'SocialLinksTable';") -eq '0') 'Social links routes and table are removed'
         Assert-Check ((Send-Request $admin '/Home/Privacy').Status -eq 404) 'Unused starter Privacy route is removed'
         $founderPage = Send-Request $admin '/FounderInformation'
@@ -325,9 +326,8 @@ try {
         $contactEditor = Send-Request $admin '/ContactInformation'
         Assert-Check ($contactEditor.Body.Contains('type="time"') -and $contactEditor.Body.Contains('name="TimeIn"') -and $contactEditor.Body.Contains('name="TimeOut"') -and $contactEditor.Body.Contains('value="22:00"')) 'Contacts reloads saved times into native time inputs'
         Assert-Check ((Submit-Form $admin '/ContactInformation' @{TimeIn='';TimeOut=''}).Status -eq 302 -and (Send-Request $admin '/').Body.Contains('Monday to Friday')) 'Clearing both times restores the retained legacy office-hours text'
-        Invoke-TestSql "UPDATE dbo.FounderTable SET Birthday='1900-01-01';" | Out-Null
         $founderId = Invoke-TestSql 'SELECT TOP(1) FounderId FROM dbo.FounderTable;'
-        Assert-Check ((Submit-Form $admin '/FounderInformation' @{Id=$founderId;FounderName='Verification title';Description='Verification biography';FounderMessage='Verification message'}).Status -eq 302 -and (Invoke-TestSql "SELECT COUNT(*) FROM dbo.FounderTable WHERE Birthday='1900-01-01';") -eq '1' -and -not (Send-Request $admin '/FounderInformation').Body.Contains('name="Birthday"')) 'Founder shows the requested fields and preserves existing birthdays'
+        Assert-Check ((Submit-Form $admin '/FounderInformation' @{Id=$founderId;FounderName='Verification title';Description='Verification biography'}).Status -eq 302 -and (Invoke-TestSql "SELECT COUNT(*) FROM dbo.FounderTable WHERE Description=N'Verification biography';") -eq '1' -and -not (Send-Request $admin '/FounderInformation').Body.Contains('name="FounderMessage"') -and (Invoke-TestSql "SELECT COUNT(*) FROM sys.columns WHERE object_id=OBJECT_ID(N'dbo.FounderTable') AND name IN ('Birthday','FounderMessage');") -eq '0') 'Founder saves name and biography without removed birthday/message columns'
         Assert-Check ((Send-Request $admin '/AdminContent/Edit?section=999').Status -eq 404) 'Unknown content section is rejected'
         Assert-Check ((Send-Request $admin '/AcademicPrograms?id=99999').Status -eq 404) 'Missing content record returns 404'
         $xss = Submit-Form $admin '/AcademicPrograms' @{SubjectName='<script>alert(1)</script>';Description='Text only'}
@@ -442,7 +442,7 @@ finally {
     $env:ImageUploads__RootPath = $oldUploadRoot
     if ($databaseCreated) {
         # The target is this script's GUID-named, newly created test database only.
-        & sqlcmd -S $Server -E -l 5 -b -d master -Q "ALTER DATABASE [$databaseName] SET SINGLE_USER WITH ROLLBACK IMMEDIATE; DROP DATABASE [$databaseName];"
+        & sqlcmd -S $Server -E -N -C -l 5 -b -d master -Q "ALTER DATABASE [$databaseName] SET SINGLE_USER WITH ROLLBACK IMMEDIATE; DROP DATABASE [$databaseName];"
         if ($LASTEXITCODE -ne 0) { Write-Warning "Could not remove disposable database $databaseName" }
     }
     $testUploads = [IO.Path]::GetFullPath((Join-Path $tempDir 'uploads'))

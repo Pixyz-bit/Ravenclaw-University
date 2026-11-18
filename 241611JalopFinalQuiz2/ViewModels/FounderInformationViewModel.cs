@@ -13,7 +13,4 @@ public class FounderInformationViewModel : IAdminSectionViewModel
     [Display(Name = "Founder Info")]
     public string? Description { get; set; }
 
-    [Display(Name = "Founder Quote")]
-    public string? FounderMessage { get; set; }
-
 }

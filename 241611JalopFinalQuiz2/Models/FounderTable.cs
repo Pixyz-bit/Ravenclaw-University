@@ -9,9 +9,5 @@ public partial class FounderTable
 
     public string FounderName { get; set; } = null!;
 
-    public DateOnly? Birthday { get; set; }
-
     public string? Description { get; set; }
-
-    public string? FounderMessage { get; set; }
 }

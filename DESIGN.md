@@ -1,5 +1,9 @@
 # Ravenclaw University design
 
+2026-11-18: The fixed university quote sits beneath the footer brand. Founder
+editing and public content now include name and biography only; founder birthday
+and message/quote fields have been removed from the live database and models.
+
 2026-11-18: Account information uses an unboxed identity/access column left and
 personal fields right, stacking on smaller screens. Keep the Back to accounts
 button beside the title. Directory actions use navy View information buttons,

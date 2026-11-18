@@ -61,13 +61,13 @@ The approved Rowena Ravenclaw biography was saved on 2026-11-14 through the exis
 FounderTable content fields. It describes her canonical Hogwarts/Ravenclaw House
 background, then connects her legacy to this fictional university. The public
 section uses an ivory portrait/text composition, with a responsive upper-body CSS
-crop. The admin's Founder Quote field controls the prominent quote below the
-biography; it uses the existing FounderMessage storage field. Render saved text
-as encoded plain text, preserving line breaks, and omit the quote when empty.
-No message dropdown or separate message section is shown.
+crop. Founder editing covers the name and biography only. Founder birthday and
+message/quote fields are removed from the application and live database. The fixed
+quote “Wit beyond measure is man's greatest treasure” appears beneath the university
+brand in the contact footer, rather than beneath the founder biography.
 The single matching Rowena record uses the approved static portrait. Schema.sql and database definitions are unchanged.
 Database/SeedFounder.sql records the approved content publication, runs only when
-deliberately invoked, and preserves birthdays and stored messages. It refuses multiple or differently named founders instead of adding another record.
+deliberately invoked, and preserves the existing founder ID and name. It refuses multiple or differently named founders instead of adding another record.
 
 The approved Ravenclaw-inspired About, Mission, and Vision copy was saved to the
 local database on 2026-11-12. Core values are Intelligence, Wisdom, Creativity,
@@ -94,8 +94,7 @@ Contacts uses separate Time In/Time Out inputs: supply both or neither. The foot
 formats the saved pair, labels overnight ranges, and falls back to retained legacy
 office-hours text when both are empty. About uses fixed university illustrations;
 the About images disclosure is removed from Hero and About. Its text remains editable. Existing
-dedicated editor URLs remain usable. Founder edits preserve stored birthdays;
-stored founder messages remain editable without adding a public message section.
+dedicated editor URLs remain usable. Founder edits update only the name and biography.
 
 | Editor | Database table | Behavior |
 | --- | --- | --- |
@@ -104,7 +103,7 @@ stored founder messages remain editable without adding a public message section.
 | Core values (legacy route) | CoreValuesTable | Individual title editor retained for existing links |
 | About gallery | AboutImagesTable | Add/edit/delete image paths and descriptions |
 | Academic programs | ProgramsTable | Add/edit/delete subjects, descriptions, and images |
-| Founder information | FounderTable | Edit the one existing founder name, biography, and message; preserve the birthday |
+| Founder information | FounderTable | Edit the one existing founder name and biography |
 
 Each section now has one named controller, one form ViewModel, and one Index view.
 The matching database-first EF entity remains in Models/. Every controller requires
@@ -163,7 +162,7 @@ Social links were removed from the application and the empty live table on 2026-
 
 Text is rendered with Razor encoding and preserved line breaks, not Html.Raw.
 Validation follows SQL lengths, required content titles, email/phone formats,
-supported icons, and nonfuture founder birthdays using Asia/Manila's date.
+and nonfuture account birthdays using Asia/Manila's date.
 
 ## Reading and errors
 

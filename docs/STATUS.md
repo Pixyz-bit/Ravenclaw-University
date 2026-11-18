@@ -4,6 +4,23 @@ Last verified: 2026-11-18.
 
 ## Latest error check
 
+- 2026-11-18 footer quote and founder schema simplification: placed the requested
+  fixed quote beneath the footer brand and removed the founder quote/birthday
+  controls, rendering, entity/form properties and controller mappings. Live SQL
+  inspection found no expression/index/default dependencies on the two requested
+  columns. A guarded transaction dropped FounderTable.Birthday/FounderMessage and
+  verified its one retained ID/name/biography row was unchanged. User birthdays are
+  unaffected. Unified Schema.sql now contains seven tables/35 columns, including
+  all prior applied changes; no incremental schema file was added. Updated the
+  optional founder content seed and regression fixtures. Normal Razor/Tailwind build
+  passed with zero warnings/errors. All 183 disposable HTTP/SQL checks passed,
+  including founder save, absent columns and footer placement; the temporary
+  database was removed. Eight rendered desktop/tablet/phone cases passed without
+  overflow/JS errors; footer screenshots reviewed. Runtime EF matches all 35
+  canonical columns, including types/lengths/time precision/nullability/keys/identity
+  and IsActive default. Restarted localhost:5182; HTTP 200 confirmed.
+  All 35 live SQL columns also match the updated runtime EF model.
+
 - 2026-11-18 SQL connection follow-up: MSSQLSERVER is Running. The normal app's
   read-only database diagnostic passed (university/profile/office-time reads in
   40/21/5ms). Explicit encrypted sqlcmd metadata reads also passed. Added

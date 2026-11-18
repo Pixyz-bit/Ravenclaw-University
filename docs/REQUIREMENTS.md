@@ -23,7 +23,8 @@ for compatibility with the documented schema.
 - About: university description, mission, vision, independently managed core value
   titles, and university photographs.
 - Academics: subjects/programs with names, descriptions, and images.
-- Founder: one existing record, edited only; name, biography and founder message. Retain the stored birthday.
+- Founder: one existing record, edited only; name and biography. Founder birthday
+  and message storage are removed. Show the fixed university quote in the footer.
 - Contact: address, email, telephone, and office hours.
 - User accounts include username, role, optional profile image, and active status.
 - UserTable also stores LastName, FirstName, MiddleName (each up to 100 characters),

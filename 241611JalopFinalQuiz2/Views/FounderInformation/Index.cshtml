@@ -15,12 +15,9 @@
                     <input asp-for="Id" type="hidden" />
                     <fieldset class="editor-fieldset editor-fieldset--quiet"><legend>Founder details</legend>
                         <div class="field"><label asp-for="FounderName"></label><input asp-for="FounderName" maxlength="150" /><span asp-validation-for="FounderName" class="field-error"></span></div>
-                        </fieldset>
-                    <fieldset class="editor-fieldset"><legend>Biography and quote</legend>
-                        <div class="form-grid">
-                            <div class="field"><label asp-for="Description"></label><textarea asp-for="Description" rows="8"></textarea><span asp-validation-for="Description" class="field-error"></span></div>
-                            <div class="field"><label asp-for="FounderMessage"></label><textarea asp-for="FounderMessage" rows="8"></textarea><span asp-validation-for="FounderMessage" class="field-error"></span></div>
-                        </div>
+                    </fieldset>
+                    <fieldset class="editor-fieldset"><legend>Biography</legend>
+                        <div class="field"><label asp-for="Description"></label><textarea asp-for="Description" rows="8"></textarea><span asp-validation-for="Description" class="field-error"></span></div>
                     </fieldset>
                     <div class="row-actions">
                         <button class="button button-primary" type="submit" disabled="@(ViewData["Unavailable"] is true)">Save changes</button>
