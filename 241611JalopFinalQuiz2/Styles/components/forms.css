@@ -102,19 +102,11 @@
     @apply resize-y;
 }
 
-.button-gold {
-    @apply bg-gold text-navy mt-[20px];
-}
-
-.editor-heading {
-    @apply flex items-center justify-between gap-[24px] mb-[32px];
-}
-
 .editor-panel {
     @apply max-w-[800px];
 }
 
-.editor-panel h1,.editor-heading h1 {
+.editor-panel h1 {
     @apply font-body text-[clamp(1.8rem,3vw,2.4rem)] font-bold;
 }
 
@@ -151,7 +143,7 @@
 }
 
 @media(max-width:700px) {
-    .editor-heading,.content-row {
+    .content-row {
         @apply items-start flex-col;
     }
 }

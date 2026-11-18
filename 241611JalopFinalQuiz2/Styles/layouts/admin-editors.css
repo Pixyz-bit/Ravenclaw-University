@@ -2,10 +2,6 @@
 @layer components {
     .admin-main .editor-panel { @apply max-w-none; }
     .admin-main > .editor-panel > h1 { @apply mb-[12px]; }
-    .admin-page-heading { @apply flex items-start justify-between flex-wrap gap-[24px] mb-[40px]; }
-    .admin-page-heading h1 { @apply m-0; }
-    .admin-page-heading .eyebrow { @apply text-blue mb-[10px]; }
-    .admin-page-heading p { @apply max-w-[58ch]; }
     .admin-inventory { @apply mb-[48px]; }
     .admin-inventory h2 { @apply font-body text-[1.1rem] font-bold m-0 mb-[20px]; }
     .admin-metrics { @apply grid [grid-template-columns:repeat(4,minmax(0,1fr))] m-0 [border-block:1px_solid_var(--color-line)]; }

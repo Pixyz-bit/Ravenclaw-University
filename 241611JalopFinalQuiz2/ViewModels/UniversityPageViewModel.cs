@@ -7,7 +7,6 @@ public class UniversityPageViewModel
     public AcademyInfoTable? University { get; set; }
     public ContactsTable? Contact { get; set; }
     public List<CoreValuesTable> Values { get; set; } = [];
-    public List<AboutImagesTable> Photos { get; set; } = [];
     public List<ProgramsTable> Programs { get; set; } = [];
     public FounderTable? Founder { get; set; }
     public bool Unavailable { get; set; }

@@ -23,13 +23,11 @@ Styles/
     admin-accounts.css       Account analytics, directory rows, status actions and details
     profile.css              Profile identity column, personal/password tabs and forms
   sections/
-    university.css           Hero, shared content containers, legacy section helpers
+    university.css           Hero and shared page/empty-state helpers
     founders.css             Ivory founder biography and responsive portrait crop
     academics.css            Program cards and automatic carousel
-    about.css                Sticky 50/50 text/image chapters and mobile rail
-    gallery.css              DriftWall gallery, static fallback, image dialog
-    collegiate.css           Curved rope, five house pennants, responsive banner row
-    contact.css              Simple address/hours, contact details, social links
+    about.css                Sticky text/image chapters and vertical mobile flow
+    contact.css              Contact footer, address and office hours
 ```
 
 Run from the repository root:

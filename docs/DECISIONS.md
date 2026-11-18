@@ -14,7 +14,7 @@ Recorded 2026-11-11 from the project conversation.
 | First content version is one authenticated page with section anchors | Implements the original five sections; separate detail pages can be added if requested |
 | Admin area has a separate sidebar layout | Explicit user request; five editor/account links have active states. Dashboard removed on 2026-11-18; administration opens Hero and About. |
 | Admin sidebar is flat and unnumbered, and workspace has no topbar | User requested removal of numeric prefixes, University content divider, and admin-topbar header |
-| Editable images use file uploads | Explicit user request supersedes path-only selection; hero/gallery/program/profile uploads retain database path columns |
+| Editable images use file uploads | Explicit user request supersedes path-only selection; hero/program/profile uploads retain database path columns |
 | Admins can manage existing accounts | User requested Account management; search/edit details, profile, role/status with self-lockout protection; passwords and account creation/deletion remain separate |
 | Each of seven admin content sections has a dedicated controller, form ViewModel, and section-named view | User requested a clear one-to-one MVC structure for learning; retain existing database-first entities and use direct DbContext mapping |
 | University navbar uses the established navy design | User rejected the literal rounded outlined sketch implementation. Use a full-width navy bar, ivory text, fine gold divider, constrained aligned inner content, and a circular account control |
@@ -44,3 +44,7 @@ Update or supersede a decision when the user changes it. Do not reintroduce
 earlier discarded requirements silently.
 
 2026-11-16: User removed social links across UI, backend, EF, and database. The inspected empty table was dropped with dependency/data guards. Founder is one existing, edit-only record with no admin add/delete actions. Public and admin account menus link to personal-information editing for the signed-in user. All tab titles show Ravenclaw University. Content analytics stay on Dashboard; account totals stay in Account Management.
+
+2026-11-18: Permanently remove the hidden Gallery and Collegiate Circle features,
+including gallery editing, scripts, styles and pennants. Retain the existing SQL
+schema/data and its database-first mappings; code cleanup does not drop tables.

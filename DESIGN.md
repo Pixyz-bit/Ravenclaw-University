@@ -47,7 +47,7 @@ Last refined: 2026-11-12. The canonical reference documents the unified public
 section palette and shared typography roles.
 
 Later refinements: title-only program cards with hover/keyboard reveal and mobile
-tap toggles; flat, scroll-driven gallery across two viewport heights. See the
+tap toggles. See the
 canonical reference for the current interaction rules.
 
 2026-11-14: approved ivory founder portrait/text composition with a responsive
@@ -93,3 +93,7 @@ Removed the large motto and Our University links; columns stack on phones.
 About directly; five editor/account links remain. Old /Admin links redirect there.
 
 2026-11-18: Only Academics retains its side preview. Other admin editors use the full available width, related fields in responsive columns, inline image previews and draft status above Save. Unsaved-change protection remains.
+
+2026-11-18: Gallery and Collegiate Circle are permanently removed, including
+their scripts, styles, gallery editor and pennants. The page flows from Academics
+to Founder. Keep all four fixed About illustrations and the established design.

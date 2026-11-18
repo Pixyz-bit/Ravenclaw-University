@@ -93,7 +93,7 @@ intermediate-chapter issue reproduced with the previous stylesheet; see STATUS.m
 - [x] Load Cormorant Garamond/Lato with fallback fonts for the implemented account layouts.
 - [ ] Prepare approved preselected images, descriptive alternative text, and missing-image fallbacks.
 - [x] Render the configured hero image with approved-crest fallback and university branding.
-- [x] Render description, mission, vision, core value titles, and About image gallery.
+- [x] Render description, mission, vision, core value titles, and fixed About illustrations.
 - [x] Render subjects/programs with descriptions and images.
 - [x] Render the founder name and biography with Rowena's approved portrait.
   Founder birthday/message fields are removed from UI, models and live storage;
@@ -107,11 +107,11 @@ intermediate-chapter issue reproduced with the previous stylesheet; see STATUS.m
 - [x] Give administration its own layout with sidebar navigation, current-page indication, and a mobile disclosure menu.
 - [x] Split content sections into dedicated controllers, form ViewModels, and section-named views; show university settings directly as four editable fields.
 - [x] Remove sidebar numeric prefixes/divider label and the admin topbar as requested.
-- [x] Add hero/gallery/program/profile image uploaders with previews and server validation.
+- [x] Add hero/program/profile image uploaders with previews and server validation.
 - [x] Add Admin-only account search/edit, role/status management, and self-lockout protection.
 - [x] Edit the single university-info record, including the hero image selection.
 - [x] Add, edit, and delete core value titles.
-- [x] Add, edit, and delete gallery image references and alternative text.
+- [x] Retired Gallery and Collegiate Circle code/assets/editor removed (2026-11-18).
 - [x] Add, edit, and delete programs with descriptions and image selection.
 - [x] Edit the existing founder name and biography.
 - [x] Edit the single contact-information record.

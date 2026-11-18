@@ -70,10 +70,6 @@
     @apply min-w-0 flex flex-col;
 }
 
-.role-label {
-    @apply text-[.65rem] [border:1px_solid_var(--color-line)] [padding:3px_8px] rounded-[3px] text-blue;
-}
-
 .admin-main {
     @apply w-full max-w-[1300px] [padding:40px_clamp(24px,4vw,60px)] [margin:0_auto] flex-1;
 }
@@ -84,30 +80,6 @@
 
 .admin-footer {
     @apply [padding:20px_36px] text-muted text-[.75rem] [border-top:1px_solid_var(--color-line)];
-}
-
-.admin-guide {
-    @apply mt-[40px] [border-top:1px_solid_var(--color-line)] pt-[24px] max-w-[800px];
-}
-
-.admin-guide h2 {
-    @apply font-body font-bold text-[1.3rem];
-}
-
-.admin-guide ol {
-    @apply pl-[24px] [margin:24px_0_32px];
-}
-
-.admin-guide li {
-    @apply [padding:10px_0_10px_8px];
-}
-
-.admin-guide li strong,.admin-guide li span {
-    @apply block;
-}
-
-.admin-guide li span {
-    @apply text-muted text-[.9rem] mt-[4px];
 }
 
 @media(max-width:900px) {

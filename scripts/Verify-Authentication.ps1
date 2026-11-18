@@ -184,18 +184,22 @@ try {
         Assert-Check ($universityPage.Status -eq 200 -and $universityPage.Body.Contains('name="ImageUpload"') -and $universityPage.Body.Contains('type="file"') -and $universityPage.Body.Contains('name="AcademyDescription"') -and $universityPage.Body.Contains('name="Mission"') -and $universityPage.Body.Contains('name="Vision"')) 'University page displays its image uploader and three text fields'
         Assert-Check (-not $adminEditor.Body.Contains('admin-nav-number') -and -not $adminEditor.Body.Contains('admin-nav-heading') -and -not $adminEditor.Body.Contains('class="admin-topbar"')) 'Admin sidebar has no numbers/divider and the admin topbar is removed'
         Assert-Check ((Send-Request $admin '/AdminContent?section=University').Location -like '/UniversityInformation*') 'Existing University information link redirects to its dedicated editor'
+        Assert-Check ((Send-Request $admin '/AboutGallery').Status -eq 404) 'Retired gallery editor is unavailable'
+        $retiredGalleryPost = Send-Request $admin '/AboutGallery' @{AltText='Retired';__RequestVerificationToken=[Net.WebUtility]::HtmlDecode([regex]::Match($universityPage.Body, 'name="__RequestVerificationToken"[^>]*value="([^"]+)"').Groups[1].Value)}
+        Assert-Check ($retiredGalleryPost.Status -in @(404,405) -and (Invoke-TestSql 'SELECT COUNT(*) FROM dbo.AboutImagesTable;') -eq '0') "Retired gallery POST cannot write (HTTP $($retiredGalleryPost.Status))"
+        Assert-Check ((Send-Request $admin '/AdminContent?section=Photos').Status -eq 404 -and (Send-Request $admin '/AdminContent?section=3').Status -eq 404) 'Retired gallery compatibility links are unavailable'
+        Assert-Check ((Send-Request $admin '/AdminContent?section=4').Location -like '/AcademicPrograms*') 'Existing numeric program links retain their meaning'
         Invoke-TestSql "INSERT INTO dbo.FounderTable (FounderName,Description) VALUES (N'Fixture founder',N'Fixture biography');" | Out-Null
         $sections = @(
             @{Name='University';Controller='UniversityInformation';Table='AcademyInfoTable';Key='AcademyInfoId';Fields=@{AboutHeading='Verification heading';AcademyDescription='Verification university description';Mission='Verification mission';Vision='Verification vision';HeroImg='/images/branding/ravenclaw-university-crest.png'}},
             @{Name='Contacts';Controller='ContactInformation';Table='ContactsTable';Key='ContactId';Fields=@{AcademyAddress='Verification campus';Email='office@university.example';Telephone='+63 912 345 6789';TimeIn='08:30';TimeOut='17:15'}},
             @{Name='Values';Controller='CoreValues';Table='CoreValuesTable';Key='CoreValueId';Fields=@{Title='Verification title'}},
-            @{Name='Photos';Controller='AboutGallery';Table='AboutImagesTable';Key='AboutImageId';Fields=@{ImagePath='/images/branding/ravenclaw-university-crest.png';AltText='Verification image'}},
             @{Name='Programs';Controller='AcademicPrograms';Table='ProgramsTable';Key='SubjectId';Fields=@{SubjectName='Verification title';Description='Verification description';ImagePath='/images/branding/ravenclaw-university-crest.png'}},
             @{Name='Founders';Controller='FounderInformation';Table='FounderTable';Key='FounderId';Fields=@{FounderName='Verification title';Description='Verification description'}}
         )
         foreach ($contentSection in $sections) {
             $name=$contentSection.Name; $route='/'+$contentSection.Controller; $fields=$contentSection.Fields.Clone()
-            if ($name -in @('University','Photos','Programs')) { $fields.__ImageBytes=$script:imageBytes }
+            if ($name -in @('University','Programs')) { $fields.__ImageBytes=$script:imageBytes }
             Assert-Check ((Send-Request $anonymous $route).Location -like '*Login*') "Anonymous cannot access $name editor"
             $studentClient = New-TestClient
             $studentLogin = Submit-Form $studentClient '/Account/Login' @{Username='profile.student';Password='Test-Only-Scholar-2026'}
@@ -205,7 +209,7 @@ try {
             $created = Submit-Form $admin $route $fields
             $recordId = Invoke-TestSql "SELECT TOP(1) [$($contentSection.Key)] FROM dbo.[$($contentSection.Table)] ORDER BY [$($contentSection.Key)] DESC;"
             Assert-Check ($created.Status -eq 302 -and [int]$recordId -gt 0) "Admin can save $name content"
-            if ($name -in @('University','Photos','Programs')) {
+            if ($name -in @('University','Programs')) {
                 $imageColumn = if ($name -eq 'University') { 'HeroImg' } else { 'ImagePath' }
                 $imageBefore = Invoke-TestSql "SELECT [$imageColumn] FROM dbo.[$($contentSection.Table)] WHERE [$($contentSection.Key)]=$recordId;"
                 Assert-Check ($imageBefore -match '^/images/uploads/[a-f0-9]{32}\.png$' -and (Send-Request $admin $imageBefore).Status -eq 200) "$name upload persists and can be displayed"
@@ -219,7 +223,7 @@ try {
             elseif ($fields.ContainsKey('AcademyAddress')) { $fields.AcademyAddress='Updated verification campus' }
             $updated = Submit-Form $admin "${route}?id=$recordId" $fields
             Assert-Check ($updated.Status -eq 302 -and (Send-Request $admin $route).Status -eq 200) "Admin can edit and list $name content"
-            if ($name -in @('University','Photos','Programs')) {
+            if ($name -in @('University','Programs')) {
                 Assert-Check ((Invoke-TestSql "SELECT [$imageColumn] FROM dbo.[$($contentSection.Table)] WHERE [$($contentSection.Key)]=$recordId;") -eq $imageBefore) "$name keeps the existing image when no replacement is selected"
             }
             Assert-Check ((Send-Request $admin $route @{}).Status -eq 400) "$name save requires an antiforgery token"
@@ -290,14 +294,15 @@ try {
         Assert-Check ($rendered.Body.Contains('src="'+$savedHero+'"') -and $rendered.Body.Contains('Verification heading')) 'Public hero and About heading use the saved admin content'
         Assert-Check ($rendered.Body.Contains('8:30 AM') -and $rendered.Body.Contains('5:15 PM')) 'Public office hours use the saved time pair'
         Assert-Check ($rendered.Status -eq 200 -and $rendered.Body.Contains('Updated verification description') -and $rendered.Body.Contains('Updated verification title') -and $rendered.Body.Contains('Updated verification campus')) 'University page renders persisted content from the tables'
+        Assert-Check (-not $rendered.Body.Contains('id="gallery"') -and -not $rendered.Body.Contains('collegiate') -and -not $rendered.Body.Contains('drift-wall.js')) 'Retired public sections and scripts are absent'
         $singleton = Submit-Form $admin '/UniversityInformation' @{HeroImg='';AcademyDescription='Updated verification description';Mission='Verification mission';Vision='Verification vision'}
         Assert-Check ($singleton.Status -eq 302 -and (Invoke-TestSql 'SELECT COUNT(*) FROM dbo.AcademyInfoTable;') -eq '1') 'University settings update the single existing record'
         $singleton = Submit-Form $admin '/ContactInformation' @{AcademyAddress='Updated verification campus'}
         Assert-Check ($singleton.Status -eq 302 -and (Invoke-TestSql 'SELECT COUNT(*) FROM dbo.ContactsTable;') -eq '1') 'Contact settings update the single existing record'
         $badHero = Submit-Form $admin '/UniversityInformation' @{__ImageBytes=[Text.Encoding]::UTF8.GetBytes('<script>invalid image</script>');__ImageName='fake.png'}
         Assert-Check ($badHero.Status -eq 200 -and $badHero.Body.Contains('do not match')) 'A fake PNG upload is rejected'
-        $badImage = Submit-Form $admin '/AboutGallery' @{__ImageBytes=$script:imageBytes;__ImageName='image.svg'}
-        Assert-Check ($badImage.Status -eq 200 -and (Invoke-TestSql 'SELECT COUNT(*) FROM dbo.AboutImagesTable;') -eq '1') 'Unsupported image extensions are rejected'
+        $badImage = Submit-Form $admin '/UniversityInformation' @{__ImageBytes=$script:imageBytes;__ImageName='image.svg'}
+        Assert-Check ($badImage.Status -eq 200 -and $badImage.Body.Contains('PNG, JPEG, or WebP')) 'Unsupported image extensions are rejected'
         $oversize = Submit-Form $admin '/UniversityInformation' @{__ImageBytes=[byte[]]::new(5 * 1024 * 1024 + 1);__ImageName='large.png'}
         Assert-Check ($oversize.Status -eq 200 -and $oversize.Body.Contains('5 MB')) 'Image uploads over 5 MB are rejected'
         $emptyValue = Submit-Form $admin '/CoreValues' @{Title=' '}

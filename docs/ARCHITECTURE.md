@@ -12,7 +12,7 @@
   Each controller maps its form fields directly to its existing EF entity and uses
   UniversityDbContext. No repository layer is needed.
 - Main Razor views use their section names instead of Index.cshtml: Home, Profile,
-  AccountManagement, UniversityInformation, AcademicPrograms, AboutGallery,
+  AccountManagement, UniversityInformation, AcademicPrograms,
   CoreValues, FounderInformation and ContactInformation. Controllers explicitly
   select these views on GET, validation failure and unavailable responses; action
   names remain Index so existing routes, links and form actions continue to work.
@@ -45,13 +45,18 @@
   dotnet builds run the Tailwind CLI; missing dependencies are installed with npm ci.
   wwwroot/css/site.css is generated, ignored by Git, and included in publish output.
   All three layouts load that one local asset; Node/npm are needed at build time.
-  The unused starter _Layout.cshtml.css was removed. Vendor styles remain external.
+  The unused starter _Layout.cshtml.css and Bootstrap distribution were removed.
+  Only the loaded minified jQuery/validation distributions and their licenses remain.
 - ImageUploadService stores runtime uploads outside source assets in App_Data/Uploads
   (or ImageUploads:RootPath), publicly served under /images/uploads. Database image
   columns continue storing paths. AccountManagement has its own controller/ViewModel/
   section-named view and uses existing UserTable; no schema changes are needed.
 
 ## Database
+
+The retired gallery has no controller, view model, view or homepage query.
+AboutImagesTable and its generated EF mapping remain for existing-database
+compatibility only. No gallery records or uploaded files were deleted.
 
 Use Microsoft SQL Server. Database/Schema.sql inside the application is the
 fresh-database creation source of truth. It is not executed automatically.

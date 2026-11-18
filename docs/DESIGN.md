@@ -52,7 +52,7 @@ The section-title scale responds to both viewport width and height so About and
 Academics remain usable on short screens. Explicit leading in the shared classes
 prevents inherited Tailwind line-height variables from overriding the role tokens.
 All public section h2s share the role, including both About variants, Academics,
-Gallery, Collegiate Circle, and Leadership. Footer Contact uses the secondary
+and Leadership. Footer Contact uses the secondary
 24–32px scale. Program-card controls, footer navigation, forms, account pages,
 and operational admin headings retain their compact Lato UI hierarchy.
 
@@ -62,15 +62,11 @@ No section height, animation, content, data source, or route was replaced.
 
 ## Composition
 
-Navigation -> Hero -> About -> Academics -> Gallery -> Collegiate Circle ->
-Leadership -> Contact footer. The implemented version uses one
-authenticated homepage with section anchors; separate detail pages remain optional.
-
-Gallery and The Hogwarts Collegiate Circle are temporarily hidden at the user's
-request (2026-11-14). The visible flow now goes directly from Academics to Leadership.
-Their partials, styles, scripts, assets, and gallery editor/data are retained.
-Homepage script includes and the footer Gallery link are hidden with the sections;
-restore them together when requested.
+Navigation -> Hero -> About -> Academics -> Founder -> Contact footer.
+The authenticated homepage uses section anchors. Gallery and The Hogwarts
+Collegiate Circle were permanently removed on 2026-11-18, including their
+templates, JavaScript, styles, pennants and gallery editor. About keeps its four
+fixed illustrations. No restoration placeholders remain.
 
 The public navbar order is Home, About, Academics, Founder, Contact. Founder keeps
 the existing #leadership anchor; desktop and the collapsed phone menu share this
@@ -144,7 +140,7 @@ The hero uses the image saved in Hero and About, falling back to the approved
 Ravenclaw common-room image when no safe saved image exists. It remains a single
 static background, with no CTA buttons, extra slides, or rotation. A ResizeObserver tracks navbar height so hero and navbar fit together. Heading size and spacing scale with width and height. CSS supplies navbar-height fallbacks without JavaScript. The hero may grow on short screens/zoom rather than clip text. Subsequent content retains the centered
 1200px reading width and ivory sections, thin dividers, mission/vision and program layouts,
-gallery images, contact details, and founder biographies. Unpublished content
+contact details and the founder biography. Unpublished content
 is labeled rather than invented. Razor encodes text and retains paragraph breaks.
 Navigation wraps on smaller screens; page sections stack below 700px.
 
@@ -172,7 +168,7 @@ and explicitly requested their layout/scroll/hover treatment. The 2026-11-12
 visual-unification request supersedes their separate warm-white/charcoal palette:
 About uses the university ivory/ink tokens and Academics uses midnight navy,
 ivory text, and gold accents. Secondary text on navy uses the shared on-navy
-token (#D0D5DF), including the gallery. Image colors remain unchanged. About
+token (#D0D5DF). Image colors remain unchanged. About
 retains the user's full-width equal split and mobile edge-to-edge images.
 
 About presents four database-backed chapters: introduction, mission, vision, and
@@ -182,7 +178,7 @@ vertical scrolling crossfades the active chapter. Each image fills its entire ha
 using object-fit:cover; there is no inset/overlapping photo. Below 1024px, vertical
 page scrolling switches the same sticky chapters, with an edge-to-edge image above
 the text. The horizontal snap rail and navigation dots are removed. About uses the four
-fixed approved university illustrations; gallery uploads do not override them.
+fixed approved university illustrations.
 Text remains editable through Hero and About. No-JS content remains
 readable; reduced motion disables transition effects.
 
@@ -249,7 +245,7 @@ reveal the caption when navigating to the summary or description.
 ## Founder portrait (2026-11-14)
 
 The approved ivory portrait reference replaces the previous plain founder list.
-Leadership retains its navigation anchor and sits between Collegiate Circle and
+Leadership retains its navigation anchor and sits between Academics and
 the contact footer. A shared section-title “Our founder” sits alone above a fine
 gold divider; the adjacent university wordmark was removed. Desktop places the
 portrait left and database-backed name, Founder role, biography, and Rowena's
@@ -323,46 +319,6 @@ Styles/sections/contact.css own markup and Tailwind styles. The layout's optiona
 Footer section avoids duplicate footers; unavailable-content and other pages keep
 the small fallback footer.
 
-## Scroll-driven university gallery
-
-The user's latest request supersedes the angled, automatically drifting treatment.
-Gallery occupies exactly 200dvh, with a sticky gallery-stage filling the viewport
-below the measured navbar. Its plane is flat, using translation only with no
-perspective, rotation, pointer parallax, or hover lift. Alternating column offsets
-follow clamped page-scroll progress; scrolling back reverses the effect, and idle
-columns remain fixed. Scroll events coalesce into a single requested frame rather
-than a self-scheduled animation loop. Resize rebuilds at the current progress.
-
-Images still come from About gallery uploads, then the approved illustrations.
-The heading keeps its localized top navy gradient and images retain their colors.
-Selecting an image opens the native full-image dialog, with Close/Escape support.
-Keyboard browsing reveals the accessible static grid; reduced motion and no-JS
-retain the same static fallback. Styles live in sections/gallery.css and behavior
-in drift-wall.js. All image sources and MVC/EF content paths remain established.
-
-## The Hogwarts Collegiate Circle
-
-This new section follows Gallery and uses the supplied curved-rope/pennant layout
-reference. The term "Collegiate Circle" replaces "sister universities" in the UI.
-Five freshly generated, transparent 793×1983 PNG banners share flat heraldic
-linework, geometric starburst fields, pointed bottoms, blackletter names, double
-borders, and print grain. Order: Gryffindor, Slytherin, Hogwarts, Ravenclaw,
-Hufflepuff. Hogwarts is centered and slightly larger, with an original H monogram
-on a quartered shield; the main university crest remains the approved original.
-
-A gold curved rope and small pegs connect the banners. Gentle spring-based sway
-reacts to the pointer and stops for reduced motion, offscreen content, or hidden
-tabs. Below 760px the row scrolls horizontally and starts centered on Hogwarts;
-native arrow-key scrolling and a short hint keep all five accessible. No external
-links or claimed real-world partnerships are introduced. Asset provenance and
-final built-in image-generation prompts are recorded in GENERATED_ASSETS.md.
-
-Administration uses flat divided lists and explicit Edit/Delete actions. Editors use
-Lato for operational headings, visible labels, native text/date/URL inputs, textarea
-controls, a supported icon selector, inline errors, and POST delete confirmation.
-University/contact sections allow editing one record with no UI deletes. Unavailable
-images use a text fallback; the crest is not used as fake campus photography.
-
 ## Separate administration shell
 
 The legacy /Admin route redirects to Hero and About. Each dedicated
@@ -421,7 +377,7 @@ explanation. Keep its actual metrics and their labels.
 
 Only Academics retains the two-column form and sticky draft preview; below 1101px
 they stack. All other editors use the full available width without a side preview,
-including legacy gallery/core-value editors. Related fields use responsive columns:
+including the legacy core-value editor. Related fields use responsive columns:
 mission/vision, founder biography, contact email/telephone and office times.
 Columns stack on phones. Upload previews stay beside their fields. The edit-status
 line, office-hours explanatory hint, and account-list limit hint are removed.

@@ -103,7 +103,7 @@ Schema.sql creates structure only and does not restore existing records.
 | --- | --- | --- |
 | AcademyInfoTable | Hero image, university description, mission, and vision | AcademyInfoId |
 | ContactsTable | Address, email, telephone, and office hours | ContactId |
-| AboutImagesTable | Gallery image paths and alternative text | AboutImageId |
+| AboutImagesTable | Retired gallery storage retained for compatibility; no application editor/read | AboutImageId |
 | UserTable | Login accounts, names, birthday, roles, profile image, and active status | UserId |
 | FounderTable | Founder name and biography | FounderId |
 | CoreValuesTable | Individually managed core value titles | CoreValueId |

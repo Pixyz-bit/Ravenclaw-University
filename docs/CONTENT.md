@@ -6,35 +6,13 @@ the Dark Arts, using /images/programs/ paths. Their names/descriptions were pres
 Academic Programs remains the editor
 for future image replacements; no new database columns or rendering overrides exist.
 
-As of 2026-11-14, the university gallery and The Hogwarts Collegiate Circle are
-temporarily hidden on the public homepage. Academics leads directly to the founder
-section. Their partials, assets, styles, scripts, and gallery editor/data remain
-intact; the homepage script includes and footer Gallery link are also hidden.
-
-The authenticated homepage has hero, About, academics, a drifting gallery, contact,
-and founder information. Navigation links jump to
-the corresponding sections. Admin image uploads and account management are now
-implemented. No enrollment, inquiry form, or extra tables were added. Schema.sql
-is the sole consolidated schema and includes the approved heading/office-time additions.
-
-The gallery's latest treatment is flat and page-scroll driven across a 200dvh
-section, with a viewport-sized sticky stage below navigation. Column offsets follow
-scroll progress rather than elapsed time; idle scrolling tracks do not advance.
-Perspective, rotation, and pointer parallax are removed. Existing image sources,
-dialogs, keyboard access, and reduced-motion/static fallbacks remain.
-
-The standalone gallery follows Academics and reuses AboutImagesTable through the
-existing About gallery editor. When no safe gallery images exist, the approved
-university illustrations appear. The original DriftWall reference is adapted to
-Razor, Tailwind, and vanilla JavaScript with the latest scroll-driven treatment;
-selecting an image opens its full-size preview.
-Keyboard and reduced-motion browsing use an ordinary image grid. No new database
-table, controller, or React runtime is needed for this read-only section.
-
-The Hogwarts Collegiate Circle follows the gallery. It is a static illustrated
-five-pennant display with Hogwarts in the center, not an additional database table
-or editor. The five new generated assets are in wwwroot/images/collegiate; their
-prompts and provenance are in docs/GENERATED_ASSETS.md.
+The university gallery and The Hogwarts Collegiate Circle were permanently removed
+on 2026-11-18. Their public partials, scripts, styles, pennants and gallery editor
+are deleted. The homepage renders Hero, About, Academics, Founder and Contact.
+About continues using all four fixed university illustrations.
+The unused gallery query and Photos page-model property are removed.
+AboutImagesTable and its database-first mapping remain solely for compatibility
+with the existing database; no live records, uploads or schema were changed.
 
 Contact is the full-width navy footer after Leadership, replacing the standalone
 contact section and small university footer. Desktop has three unequal columns:
@@ -51,7 +29,7 @@ were removed at the user's request. Only Academics has a local draft side previe
 related fields in responsive columns and inline upload previews. All group legends
 are visually hidden but accessible. Edit-status lines and the account-limit/office-hours
 hints are removed. Typing and image selection remain local until saved. Use Save to persist through the existing
-controller. Saved program/gallery entries show thumbnails; text collections show
+controller. Saved program entries show thumbnails; text collections show
 short summaries. Dirty edits warn before navigating away, searching accounts, or
 signing out; Keep editing/Escape retains the draft, while Discard changes continues.
 Refresh/close uses the browser warning. Inline validation and server-side permissions,
@@ -103,7 +81,6 @@ dedicated editor URLs remain usable. Founder edits update only the name and biog
 | Hero and About | AcademyInfoTable / CoreValuesTable | Create/edit university details and replace the value list in one save |
 | Contacts | ContactsTable | Create/edit contact details and paired office times |
 | Core values (legacy route) | CoreValuesTable | Individual title editor retained for existing links |
-| About gallery | AboutImagesTable | Add/edit/delete image paths and descriptions |
 | Academic programs | ProgramsTable | Add/edit/delete subjects, descriptions, and images |
 | Founder information | FounderTable | Edit the one existing founder name and biography |
 
@@ -117,7 +94,6 @@ POST and antiforgery validation. GET delete displays a confirmation without writ
 | University information | UniversityInformation |
 | Contact information | ContactInformation |
 | Core values | CoreValues |
-| About gallery | AboutGallery |
 | Academic programs | AcademicPrograms |
 | Founder information | FounderInformation |
 
@@ -141,16 +117,14 @@ The hero uses only the user-selected Ravenclaw common-room image at
 wwwroot/images/hero/ravenclaw-common-room.png, copied byte-for-byte from the latest
 attachment. The user superseded the gallery decision: there are no image selectors,
 extra slides, or automatic rotation. HeroImg uploads remain stored but do not override
-this explicitly selected background. Other generated scenes are retained as unused
-assets. No live database updates are needed.
+this explicitly selected background. The other three generated scenes are used by the About chapters. No live database updates are needed.
 
-Hero, gallery, program, and account-profile fields use multipart file uploaders
+Hero, program, and account-profile fields use multipart file uploaders
 with local previews. Choose PNG, JPEG, or WebP files up to 5 MB. The server checks
 extensions, file signatures, and size; SVG/HTML and mismatched signatures are rejected.
-Existing images are preserved when no replacement is selected. New gallery entries
-require a file. Image-path form values cannot override server-managed stored paths.
+Existing images are preserved when no replacement is selected. Image-path form values cannot override server-managed stored paths.
 Existing safe local/HTTPS image references still render, but the editors no longer
-ask the admin to enter paths. Gallery descriptions provide alternative text.
+ask the admin to enter paths.
 
 ImageUploadService saves UUID-named files in App_Data/Uploads, exposed under
 /images/uploads with a nosniff response header. Files are public website media.
@@ -170,7 +144,7 @@ and nonfuture account birthdays using Asia/Manila's date.
 
 About now follows the reference's sticky desktop composition: four chapters show
 the stored introduction, mission, vision, and core value titles. Four fixed approved
-university illustrations supply its images, independent of gallery uploads. On
+university illustrations supply its images, independent of editable content. On
 desktop there is one image per chapter. On smaller screens, the image sits above
 the text in a sticky stage; ordinary vertical page scrolling changes chapters in
 both directions, without a swipe rail or dots. Long prose remains scrollable and
@@ -178,7 +152,7 @@ keyboard accessible. No-JS mobile content uses a readable vertical chapter list.
 
 Academics uses a dark looping row of portrait image cards from ProgramsTable,
 with edge fades, image-zoom/arrow hover feedback, drag/swipe navigation, and native
-description disclosures. Motion pauses on hover/focus/open cards, manual pause, and
+description disclosures. Motion pauses on hover/focus/open cards, the
 reduced-motion preference. Duplicate visual laps are hidden from screen readers.
 Program images disable native browser dragging so mouse drags scroll the rail.
 Moving more than five pixels suppresses the following click; ordinary clicks still
@@ -192,7 +166,7 @@ scripts were removed on 2026-11-18 at the user's request. -IncludeContent -Previ
 adds clearly labelled programs to its disposable database after integration checks,
 so the visual preview can exercise scrolling even when production programs are empty.
 
-UniversityContentService reads the six content tables using AsNoTracking and
+UniversityContentService reads the five active content tables using AsNoTracking and
 sequential queries on one DbContext. It never queries user accounts for content.
 HomeController renders UniversityPageViewModel with clear unpublished/empty states.
 No founder dates, campus history, statistics, or programs were seeded into the
@@ -240,7 +214,7 @@ with zero build warnings/errors. Checks exercise every dedicated route, student 
 anonymous rejection, creation/editing, singleton updates, safe delete behavior,
 multipart uploads and preservation, size/type rejection, account updates, search,
 role/status rules, self-lockout protection, and unchanged password hashes.
-Account list/edit, sidebar, and hero/gallery/program upload forms were inspected on
+Account list/edit, sidebar, and hero/program upload forms were inspected on
 desktop/390px phones without horizontal overflow. Selecting a local profile file
 displayed a loaded image preview without submitting it. Final full accessibility
 and database-outage QA remain pending.

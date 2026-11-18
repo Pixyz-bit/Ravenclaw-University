@@ -14,7 +14,6 @@ public class UniversityContentService(UniversityDbContext database)
             University = await database.AcademyInfoTables.AsNoTracking().OrderBy(x => x.AcademyInfoId).FirstOrDefaultAsync(cancellationToken),
             Contact = await database.ContactsTables.AsNoTracking().OrderBy(x => x.ContactId).FirstOrDefaultAsync(cancellationToken),
             Values = await database.CoreValuesTables.AsNoTracking().OrderBy(x => x.CoreValueId).ToListAsync(cancellationToken),
-            Photos = await database.AboutImagesTables.AsNoTracking().OrderBy(x => x.AboutImageId).ToListAsync(cancellationToken),
             Programs = await database.ProgramsTables.AsNoTracking().OrderBy(x => x.SubjectId).ToListAsync(cancellationToken),
             Founder = await database.FounderTables.AsNoTracking().SingleOrDefaultAsync(cancellationToken)
         };
