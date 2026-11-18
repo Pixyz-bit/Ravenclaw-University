@@ -4,6 +4,17 @@ Last verified: 2026-11-18.
 
 ## Latest error check
 
+- 2026-11-18 supplied SQL comparison: the user's seven-table/35-column definition
+  matches consolidated Schema.sql for column names, types, lengths, time precision,
+  intended nullability, primary keys, identities and IsActive default. The paste
+  omits the Role CHECK retained in Schema.sql and the fresh-database setup batches;
+  explicit NULL declarations would make nullable intent independent of session
+  defaults. Current live verification did not complete: the sandbox diagnostic
+  reported Named Pipes access denied/login timeout, and the local-access metadata
+  retry returned Timeout expired without metadata. This comparison does not certify
+  current live database state. No SQL/schema/data or application changes were made;
+  the pre-existing UniversityDbContext.cs edit was left untouched.
+
 - 2026-11-18 drawer branding and spacing: replaced the public Navigation and
   mobile Administration headings with shared _DrawerBrand crest/name markup.
   Both drawers align the close control beside the two-line university identity;

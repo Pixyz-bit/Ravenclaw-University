@@ -157,14 +157,21 @@ SQL Server creates indexes for the primary keys.
 
 ## Comparison with the supplied schema
 
-Verified 2026-11-11 against live database metadata: all eight tables, 38 columns,
-column types, sizes, identity settings (seed/increment 1), nullability, primary keys,
-and the IsActive default match the user's supplied definition and Schema.sql.
-No foreign keys exist. Constraint names may differ because SQL Server generates them.
+Compared 2026-11-18: the latest supplied definition matches Schema.sql's seven
+tables and 35 columns, including types, lengths, time precision, intended
+nullability, primary keys, identity seed/increment and IsActive default. The paste
+omits the Role CHECK permitting Admin or Student, which Schema.sql retains from
+the previously verified live database. It also omits CREATE DATABASE, USE and GO
+for fresh setup. Constraint names and extra default parentheses do not affect
+these definitions. Use explicit NULL declarations, as in Schema.sql, to avoid
+depending on session/database nullability defaults. Remove the pasted backslash
+separators if they are literal characters in a script.
 
-The user's pasted export omits the Role CHECK, but the live database contains an
-enabled, trusted constraint permitting Admin or Student only. Schema.sql retains
-it to reflect the actual database. CREATE DATABASE, USE, and GO provide fresh setup.
+Current live verification was attempted but did not complete: the sandbox
+diagnostic reported Named Pipes access denied/login timeout, and the local-access
+metadata retry returned Timeout expired without metadata. This review confirms
+the repository comparison, not the current live database state. No database
+changes were made.
 
 ## Social-links removal and Founder policy (2026-11-16)
 
