@@ -4,12 +4,25 @@ Last verified: 2026-11-18.
 
 ## Latest error check
 
+- 2026-11-18 Academics drag fix: disabled native image dragging in Razor and blocked
+  dragstart on the rail, including cloned cards and single-card rails. Mouse drag
+  cleanup now handles release, cancellation, blur and missing pressed buttons;
+  unrelated pointers are ignored. Click suppression after dragging and native touch
+  scrolling remain. Twenty-two isolated JS event/source checks passed for normal/
+  reduced-motion rails, scroll deltas, click behavior and termination paths. JS
+  syntax and isolated Razor/Tailwind build passed with zero warnings/errors.
+  These are event-harness checks; interactive browser verification is not performed.
+  Initial normal build hit the running executable lock; stopped only the identified
+  project app, then rebuilt with zero warnings/errors. Restarted localhost:5182;
+  login returned HTTP 200 and the updated gallery script was served. This restart
+  also loads the static founder portrait. No live SQL or university content changes.
+
 - 2026-11-18 static founder portrait: removed the name-dependent rendering condition
   and made the existing portrait/layout unconditional for the saved founder.
   Alt text describes the image independently of editable content. Updated content
   and design guidance. Isolated Razor/Tailwind build passed with zero warnings or
   errors; source/asset checks confirmed one portrait and no name condition. No live
-  database changes. The running app has not yet been restarted with this change.
+  database changes. The subsequent gallery-fix restart above loads this change.
 
 - 2026-11-18 database-folder cleanup: removed the four optional content SQL scripts
   and the empty Updates folder at the user's request. Database/ now contains only

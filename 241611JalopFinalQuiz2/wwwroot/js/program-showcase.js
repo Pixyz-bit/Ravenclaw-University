@@ -4,11 +4,13 @@ const titleSizes = new ResizeObserver(entries => entries.forEach(({target}) => {
 }));
 document.querySelectorAll('.program-card-title').forEach(title => titleSizes.observe(title));
 const programRail = document.querySelector('.program-rail');
+// Keep native image/text dragging from taking over the horizontal scroll gesture.
+programRail?.addEventListener('dragstart', event => event.preventDefault());
 if (programRail && programRail.children.length > 1) {
     const railInset = () => parseFloat(getComputedStyle(programRail).paddingInlineStart) || 24;
     const originals = [...programRail.children];
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
-    let groupWidth = 0, hovering = false, dragging = false, startX = 0, startScroll = 0, moved = false, visible = false, last = 0;
+    let groupWidth = 0, hovering = false, dragging = false, activePointer = null, startX = 0, startScroll = 0, moved = false, visible = false, last = 0;
     const clones = [];
     const addCopies = () => {
         clones.forEach(clone => { titleSizes.unobserve(clone.querySelector('.program-card-title')); clone.remove(); }); clones.length = 0;
@@ -45,9 +47,26 @@ if (programRail && programRail.children.length > 1) {
     const intersection = new IntersectionObserver(entries => { visible = entries[0].isIntersecting; }); intersection.observe(programRail);
     programRail.addEventListener('pointerenter', () => hovering = true);
     programRail.addEventListener('pointerleave', () => hovering = false);
-    programRail.addEventListener('pointerdown', event => { if (event.button !== 0 || event.pointerType !== 'mouse') return; dragging = true; moved = false; startX = event.clientX; startScroll = programRail.scrollLeft; });
-    window.addEventListener('pointermove', event => { if (!dragging) return; const delta = event.clientX - startX; if (Math.abs(delta) > 5) moved = true; if (moved) { programRail.scrollLeft = startScroll - delta; programRail.classList.add('is-dragging'); } });
-    window.addEventListener('pointerup', () => { dragging = false; programRail.classList.remove('is-dragging'); });
+    const endDrag = () => { dragging = false; activePointer = null; programRail.classList.remove('is-dragging'); };
+    programRail.addEventListener('pointerdown', event => {
+        if (event.button !== 0 || event.pointerType !== 'mouse') return;
+        dragging = true; activePointer = event.pointerId; moved = false;
+        startX = event.clientX; startScroll = programRail.scrollLeft;
+    });
+    window.addEventListener('pointermove', event => {
+        if (!dragging || event.pointerId !== activePointer) return;
+        if (!(event.buttons & 1)) { endDrag(); return; }
+        const delta = event.clientX - startX;
+        if (Math.abs(delta) > 5) moved = true;
+        if (moved) {
+            event.preventDefault();
+            programRail.scrollLeft = startScroll - delta;
+            programRail.classList.add('is-dragging');
+        }
+    });
+    window.addEventListener('pointerup', event => { if (event.pointerId === activePointer) endDrag(); });
+    window.addEventListener('pointercancel', event => { if (event.pointerId === activePointer) endDrag(); });
+    window.addEventListener('blur', endDrag);
     programRail.addEventListener('click', event => { if (moved) { event.preventDefault(); event.stopPropagation(); moved = false; } }, true);
     const tick = time => {
         const delta = last ? Math.min(time - last, 50) : 0; last = time;

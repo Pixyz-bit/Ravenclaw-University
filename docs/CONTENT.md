@@ -180,6 +180,10 @@ Academics uses a dark looping row of portrait image cards from ProgramsTable,
 with edge fades, image-zoom/arrow hover feedback, drag/swipe navigation, and native
 description disclosures. Motion pauses on hover/focus/open cards, manual pause, and
 reduced-motion preference. Duplicate visual laps are hidden from screen readers.
+Program images disable native browser dragging so mouse drags scroll the rail.
+Moving more than five pixels suppresses the following click; ordinary clicks still
+open descriptions. Release, pointer cancellation, window blur and a released-button
+move end the drag. Touch scrolling retains the browser's native behavior.
 The user separately authorized six sample programs in the university database on
 2026-11-12. At the user's request on 2026-11-16, the "Sample program:" prefix was
 removed from all six saved descriptions and the then-existing seed; the remaining copy was preserved.

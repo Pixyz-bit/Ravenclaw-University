@@ -146,6 +146,10 @@ Navigation wraps on smaller screens; page sections stack below 700px.
 
 ## About and Academics reference (2026-11-12)
 
+Academics images must not use native browser image dragging. Mouse dragging scrolls
+the rail and ends on release, cancellation or window blur; a drag must not toggle a
+description. Ordinary clicks and native touch scrolling remain supported.
+
 Approved academic-card imagery (updated 2026-11-16): all six subjects use their
 generated /images/programs/ assets via
 the existing database ImagePath field. Existing cover cropping and hover behavior

@@ -35,7 +35,7 @@ else
                         <summary>
                             @if (!string.IsNullOrWhiteSpace(program.ImagePath) && SafeImageAttribute.IsSafeImage(program.ImagePath))
                             {
-                                <img class="program-card-image" src="@program.ImagePath" alt="" loading="lazy" decoding="async" data-content-image />
+                                <img class="program-card-image" src="@program.ImagePath" alt="" draggable="false" loading="lazy" decoding="async" data-content-image />
                                 <span class="program-image-placeholder" data-image-fallback hidden>Program image unavailable</span>
                             }
                             else { <span class="program-image-placeholder">Program image not yet published</span> }
