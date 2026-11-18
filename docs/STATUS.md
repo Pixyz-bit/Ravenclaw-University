@@ -4,6 +4,17 @@ Last verified: 2026-11-18.
 
 ## Latest error check
 
+- 2026-11-18 drawer branding and spacing: replaced the public Navigation and
+  mobile Administration headings with shared _DrawerBrand crest/name markup.
+  Both drawers align the close control beside the two-line university identity;
+  removed the duplicated original mobile admin wordmark. Added a 24px header
+  divider inset/16px following gap and 48px admin links separated by 6px. Ten
+  compiled public/admin browser cases passed at 320/390/900/980/1440px for image
+  loading, brand/close separation, header/link spacing, Escape/inert cleanup,
+  desktop branding preservation and no overflow or JS errors. Both mobile drawer
+  screenshots reviewed. Razor/Tailwind build passed with zero warnings/errors.
+  No database/content or drawer behavior changes.
+
 - 2026-11-18 mobile layout: replaced the About swipe/dot interaction with vertical
   scroll-driven sticky chapters, image above text on phones and the established
   desktop split. Long headings wrap and long prose remains keyboard-scrollable;

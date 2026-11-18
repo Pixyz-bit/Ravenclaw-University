@@ -108,6 +108,11 @@ uses the same navigation links, with a close button and backdrop; the account
 control remains beside the hamburger. Shared navigation-drawer.js handles focus
 trapping, Escape/backdrop closing, inert background and scroll locking. Resizing
 to desktop releases modal state. Without JS, native details keeps links usable.
+Both drawer headers use _DrawerBrand: a 40×52px crest beside the two-line university
+name in ivory Cormorant Garamond, with the close control aligned alongside it.
+Use a 24px separation before the header divider and 16px before the first link.
+Admin links have 48px minimum height and 6px gaps. Hide the duplicate original
+admin wordmark inside its mobile drawer; preserve the linked desktop wordmark.
 On the university homepage, the public navbar is fixed over the full-height hero
 with a transparent background and no bottom rule. Links and branding remain visible.
 As another section reaches the navbar (including anchor navigation), it becomes
@@ -359,7 +364,7 @@ Academics, Founder, Contacts, Account Management. The crest also links to Hero a
 page uses a blue active background and aria-current=page, including edit/delete
 and validation states. View university is a full-width outlined button-style link
 with a small arrow, hover/focus feedback, and a 48px minimum height. It sits above
-POST Sign out on desktop; the two controls share a row on phones. Edit personal
+POST Sign out on desktop and inside the mobile drawer. Edit personal
 information is removed from this sidebar; the public account menu retains access.
 The ivory workspace uses Lato headings and opens directly to the page content;
 the user requested removal of the contextual topbar/account label. Sidebar links

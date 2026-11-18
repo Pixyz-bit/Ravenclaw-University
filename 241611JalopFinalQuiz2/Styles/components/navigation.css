@@ -110,7 +110,9 @@ html:has(.portal-header) {
     @apply fixed z-[60] left-0 top-0 bottom-0 w-[340px] [max-width:calc(100vw_-_24px)] h-[100dvh] m-0 p-[24px] bg-navy text-ivory flex flex-col overflow-y-auto overscroll-contain [border-right:1px_solid_var(--color-gold)] [animation:drawer-enter_280ms_cubic-bezier(.16,1,.3,1)];
 }
 .drawer-ready.drawer-mobile[open] > .navigation-backdrop { @apply block fixed z-50 inset-0 w-full h-full m-0 p-0 border-0 bg-[#07101dc4]; }
-.drawer-mobile .drawer-heading { @apply flex items-center justify-between gap-[16px] pb-[20px] mb-[20px] [border-bottom:1px_solid_#c3a56840] text-gold font-bold text-[1rem]; }
+.drawer-mobile .drawer-heading { @apply flex items-center justify-between gap-[12px] pb-[24px] mb-[16px] [border-bottom:1px_solid_#c3a56840]; }
+.drawer-brand { @apply inline-flex items-center gap-[12px] min-w-0 text-ivory font-heading font-medium text-[1.4rem] leading-[1.1]; }
+.drawer-brand img { @apply w-[40px] h-[52px] shrink-0 object-contain; }
 .drawer-close { @apply grid place-items-center w-[44px] h-[44px] shrink-0 rounded-[6px] bg-transparent text-ivory [border:1px_solid_#c3a56880] cursor-pointer; }
 .drawer-close:hover { @apply bg-blue border-gold; }
 @keyframes drawer-enter { from { transform:translateX(-100%); } to { transform:translateX(0); } }
