@@ -4,6 +4,14 @@ Last verified: 2026-11-18.
 
 ## Latest error check
 
+- 2026-11-18 local startup requested again: MSSQLSERVER was already Running;
+  the configured read-only EF diagnostic passed university, personal-detail,
+  and office-time reads. The first build overlapped the diagnostic and failed
+  on its executable lock; rebuilding after it exited passed with zero warnings
+  or errors. Started the http Development app at localhost:5182 in the background;
+  login returned HTTP 200 with the Ravenclaw University name. The existing database
+  needed no creation script. No schema, account, or content data was changed.
+
 - 2026-11-18: Removed the screenshot-specified admin captions, redundant editor
   subheadings, first-group labels/dividers, and Account Management eyebrow/analytics
   heading/explanation. First fieldset legends remain accessible but visually hidden;
