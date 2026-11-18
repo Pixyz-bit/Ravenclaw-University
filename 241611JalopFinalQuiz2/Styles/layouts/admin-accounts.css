@@ -4,7 +4,7 @@
     .account-totals { @apply mt-[32px]; }
     .account-metrics { @apply [grid-template-columns:repeat(3,minmax(0,1fr))]; }
     .account-directory { @apply mt-[28px] [border-top:1px_solid_var(--color-line)]; }
-    .account-directory-row,.account-directory-head { @apply grid [grid-template-columns:minmax(180px,1fr)_80px_116px_272px] items-center gap-[24px] px-[16px]; }
+    .account-directory-row,.account-directory-head { @apply grid [grid-template-columns:minmax(240px,2fr)_repeat(2,minmax(116px,.75fr))_272px] items-center gap-[24px] px-[16px]; }
     .account-directory-head { @apply py-[14px] text-[.75rem] font-bold text-muted [border-bottom:1px_solid_var(--color-line)]; }
     .account-directory-head > :last-child { @apply text-right; }
     .account-directory-row { @apply py-[20px] min-h-[92px] [border-bottom:1px_solid_var(--color-line)]; }

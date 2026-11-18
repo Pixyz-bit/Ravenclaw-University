@@ -436,7 +436,8 @@ server-side own-account and last-active-Admin safeguards also apply.
 Reusable Tailwind styling lives in layouts/admin-accounts.css.
 
 2026-11-18 refinement: the account page fills the available workspace even when
-no edit form is open. Rows share fixed role/status/action columns and a muted
+no edit form is open. Rows share a flexible account column, equal flexible
+role/status columns, a reserved 272px action column and a muted
 column header; omit the rounded enclosing panel. Use quiet View information actions
 with a small arrow and aligned activation controls; hover/focus adds a subtle ivory
 tint. Actions form a consistent second row on narrower screens, with 44px minimum

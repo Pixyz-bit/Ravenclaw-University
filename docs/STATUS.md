@@ -4,6 +4,16 @@ Last verified: 2026-11-18.
 
 ## Latest error check
 
+- 2026-11-18 account column spacing: replaced the oversized remainder-only Account
+  track with proportional Account/Role/Status tracks; Role and Status have equal
+  widths and 116px minimums, while Actions retains its aligned 272px control area.
+  Existing tablet/phone wrapping and shared ADMIN indicators remain. Tailwind build
+  passed. Rendered account-directory browser checks passed at 320/390/600/900/1200/
+  1201/1440/1920px with five varied accounts, including long names, deactivated users
+  and the current account. Headers aligned with rows; cells/actions stayed contained
+  without page overflow or JS errors. Desktop screenshot visually reviewed. No
+  account data or database changes.
+
 - 2026-11-18 audit follow-up: fixed F2/F3/F8. About height collapse now adjusts only
   window scroll, so long-to-short chapter jumps retain their requested horizontal
   target. Profile carries saved personal values separately from invalid attempted
