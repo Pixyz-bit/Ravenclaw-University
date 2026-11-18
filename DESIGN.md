@@ -1,5 +1,10 @@
 # Ravenclaw University design
 
+2026-11-18: Account information uses an unboxed identity/access column left and
+personal fields right, stacking on smaller screens. Keep the Back to accounts
+button beside the title. Directory actions use navy View information buttons,
+soft red outlined Deactivate and soft green outlined Activate controls.
+
 2026-11-18: Shared eye/eye-off controls in every web password field, retaining the
 existing form style and keyboard focus rules. Profile Cancel restores persisted
 values after validation failures and preserves other-tab drafts. Mobile About height

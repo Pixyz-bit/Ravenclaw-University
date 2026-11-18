@@ -438,10 +438,19 @@ Reusable Tailwind styling lives in layouts/admin-accounts.css.
 2026-11-18 refinement: the account page fills the available workspace even when
 no edit form is open. Rows share a flexible account column, equal flexible
 role/status columns, a reserved 272px action column and a muted
-column header; omit the rounded enclosing panel. Use quiet View information actions
-with a small arrow and aligned activation controls; hover/focus adds a subtle ivory
+column header; omit the rounded enclosing panel. Use navy View information buttons
+with a small arrow and aligned outlined red Deactivate / green Activate controls;
+row hover/focus adds a subtle ivory
 tint. Actions form a consistent second row on narrower screens, with 44px minimum
 targets. Content inventory and Dashboard are removed; account totals remain.
+
+Account information fills the workspace with an unboxed identity/access column
+left (photo or initials, saved full name, username, role and labeled status dot)
+and a wider two-column personal-details grid right. Retain the shared ADMIN badge.
+Use fine dividers and the existing Lato/ivory/navy tokens; omit introductory captions.
+Place the outlined Back to accounts link beside the page title and retain its search
+parameter. Stack identity above personal details at 800px, and personal fields into
+one column at 600px. Keep all account fields read-only and all controls at least 44px.
 
 ### Account navigation and personal information (2026-11-16)
 

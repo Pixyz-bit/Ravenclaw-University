@@ -1,6 +1,6 @@
 /* Account analytics and the reference-led, responsive account directory. */
 @layer components {
-    .admin-main:has(.account-management-panel) { @apply max-w-none; }
+    .admin-main:has(.account-management-panel),.admin-main:has(.account-details-panel) { @apply max-w-none; }
     .account-totals { @apply mt-[32px]; }
     .account-metrics { @apply [grid-template-columns:repeat(3,minmax(0,1fr))]; }
     .account-directory { @apply mt-[28px] [border-top:1px_solid_var(--color-line)]; }
@@ -25,14 +25,33 @@
     .account-self-label { @apply text-blue text-[.7rem] font-bold bg-[#e2e7eb] rounded-[4px] px-[7px] py-[3px]; }
     .account-directory-actions form { @apply m-0; }
     .account-directory-actions .button { @apply w-full min-h-[44px] px-[12px] py-[10px] text-[.8rem] whitespace-nowrap; }
-    .account-view { @apply col-start-2 gap-[8px] border-transparent; }
+    .account-directory-actions .account-view { @apply col-start-2 gap-[8px] bg-navy text-ivory border-navy; }
+    .account-directory-actions .account-view:hover { @apply bg-blue border-blue; }
     .account-activate { @apply bg-[#e3eee5] text-[#245339] [border:1px_solid_#87a38d]; }
     .account-activate:hover { @apply bg-[#d3e4d6]; }
-    .account-deactivate { @apply bg-transparent text-[#963c31] border-transparent; }
+    .account-deactivate { @apply bg-[#f5e9e5] text-[#963c31] [border:1px_solid_#c69a91]; }
     .account-deactivate:hover { @apply bg-[#f5e5e1]; }
-    .account-information { @apply [border-block:1px_solid_var(--color-line)] py-[28px] my-[28px]; }
-    .account-information dl { @apply grid [grid-template-columns:repeat(2,minmax(0,1fr))] max-w-[700px]; }
-    .account-detail-photo { @apply w-[96px] h-[96px] object-cover rounded-full mb-[28px]; }
+    .account-details-heading { @apply flex items-center justify-between gap-[24px] mb-[32px]; }
+    .account-details-heading h1 { @apply m-0; }
+    .account-details-heading .button { @apply shrink-0 gap-[10px] min-h-[44px]; }
+    .account-information { @apply grid [grid-template-columns:minmax(220px,1fr)_minmax(0,2fr)] [border-block:1px_solid_var(--color-line)] py-[32px] gap-[40px]; }
+    .account-detail-identity { @apply min-w-0 pr-[40px] [border-right:1px_solid_var(--color-line)]; }
+    .account-detail-photo { @apply w-[88px] h-[88px] object-cover rounded-full mb-[20px] text-[1.5rem]; }
+    .account-detail-identity h2 { @apply font-body text-[1.25rem] font-bold leading-[1.35] m-0 [overflow-wrap:anywhere]; }
+    .account-detail-username { @apply text-muted text-[.9rem] mt-[6px] mb-0 [overflow-wrap:anywhere]; }
+    .account-detail-access { @apply grid gap-[20px] mt-[28px] mb-0; }
+    .account-detail-access dt { @apply text-muted text-[.75rem] font-bold mb-[8px]; }
+    .account-detail-access dd { @apply m-0 text-[.9rem]; }
+    .account-detail-personal { @apply min-w-0; }
+    .account-detail-personal h2 { @apply font-body text-[1.1rem] font-bold mt-0 mb-[24px]; }
+    .account-detail-fields { @apply [grid-template-columns:repeat(2,minmax(0,1fr))] gap-x-[32px] gap-y-[24px]; }
+    .account-detail-fields > div { @apply pb-[20px] [border-bottom:1px_solid_var(--color-line)]; }
+    @media(max-width:800px) {
+        .account-details-heading { @apply flex-wrap gap-[16px] mb-[24px]; }
+        .account-information { @apply [grid-template-columns:minmax(0,1fr)] gap-[28px] py-[24px]; }
+        .account-detail-identity { @apply pr-0 border-r-0 pb-[24px] [border-bottom:1px_solid_var(--color-line)]; }
+        .account-detail-access { @apply [grid-template-columns:repeat(2,minmax(0,1fr))]; }
+    }
     @media(max-width:1200px) {
         .account-directory-head { @apply hidden; }
         .account-directory-row { @apply [grid-template-columns:minmax(0,1fr)_auto_auto] gap-[16px]; }
@@ -45,7 +64,6 @@
         .account-directory-row { @apply [grid-template-columns:minmax(0,1fr)_auto] px-0 gap-[14px] py-[24px]; }
         .account-identity { @apply col-span-full; }
         .account-directory-actions { @apply w-full [grid-template-columns:minmax(0,1fr)_minmax(0,1.4fr)] gap-[10px] mt-[2px]; }
-        .account-directory-actions .account-view { @apply [border-color:var(--color-line)]; }
-        .account-information dl { @apply [grid-template-columns:minmax(0,1fr)]; }
+        .account-detail-fields { @apply [grid-template-columns:minmax(0,1fr)]; }
     }
 }

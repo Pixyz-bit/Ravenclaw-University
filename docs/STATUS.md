@@ -4,6 +4,19 @@ Last verified: 2026-11-18.
 
 ## Latest error check
 
+- 2026-11-18 account details and action polish: replaced the sparse details layout
+  with full-width identity/access and personal-details columns; added initials for
+  missing photos, retained the shared ADMIN badge and labeled status dots, removed
+  redundant introductory copy and moved Back to accounts beside the title.
+  Directory View information is now navy/ivory; Deactivate uses a soft red bordered
+  button alongside the existing green Activate treatment. Verified 24 rendered
+  details cases (admin/student/long-name fixtures at eight widths) and eight directory
+  viewport cases with five varied accounts. Column alignment, responsive stacking,
+  field coverage, badge roles, keyboard Back link and overflow checks passed with no
+  JS errors. Desktop/phone screenshots reviewed. Normal Razor/Tailwind build passed
+  with zero warnings/errors. Restarted localhost:5182; the site returned HTTP 200.
+  No database, authorization or account-mutation changes.
+
 - 2026-11-18 account column spacing: replaced the oversized remainder-only Account
   track with proportional Account/Role/Status tracks; Role and Status have equal
   widths and 116px minimums, while Actions retains its aligned 272px control area.

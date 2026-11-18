@@ -1,21 +1,35 @@
 @model AccountManagementViewModel
-@{ Layout = "_AdminLayout"; ViewData["Title"] = "Account information"; }
-<section class="editor-panel">
-    <p class="eyebrow">Account management</p>
-    <h1>Account information</h1>
-    <p class="muted">Saved profile and sign-in access for @Model.Username.</p>
+@{
+    Layout = "_AdminLayout"; ViewData["Title"] = "Account information";
+    var fullName = string.Join(" ", new[] { Model.FirstName, Model.MiddleName, Model.LastName }.Where(part => !string.IsNullOrWhiteSpace(part)));
+    var displayName = string.IsNullOrWhiteSpace(fullName) ? Model.Username ?? "Account" : fullName;
+    var initials = string.Concat(displayName.Split(' ', StringSplitOptions.RemoveEmptyEntries).Take(2).Select(part => part[..1])).ToUpperInvariant();
+}
+<section class="editor-panel account-details-panel">
+    <header class="account-details-heading">
+        <h1>Account information</h1>
+        <a class="button button-secondary" asp-action="Index" asp-route-search="@Model.Search"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M19 12H5m6-6-6 6 6 6" /></svg>Back to accounts</a>
+    </header>
     <div class="account-information">
-        @if (!string.IsNullOrWhiteSpace(Model.ProfileImg) && SafeImageAttribute.IsSafeImage(Model.ProfileImg))
-        { <img class="account-detail-photo" src="@Model.ProfileImg" alt="Profile image for @Model.Username" /> }
-        <dl class="admin-preview-fields">
-            <div><dt>Username</dt><dd>@Model.Username</dd></div>
+        <div class="account-detail-identity">
+            @if (!string.IsNullOrWhiteSpace(Model.ProfileImg) && SafeImageAttribute.IsSafeImage(Model.ProfileImg))
+            { <img class="account-detail-photo" src="@Model.ProfileImg" alt="" /> }
+            else { <span class="account-detail-photo account-initials" aria-hidden="true">@initials</span> }
+            <h2>@displayName</h2>
+            @if (!string.IsNullOrWhiteSpace(fullName)) { <p class="account-detail-username">@Model.Username</p> }
+            <dl class="account-detail-access">
+                <div><dt>Role</dt><dd>@if (Model.Role == "Admin") { <partial name="_AdminBadge" /> } else { @Model.Role }</dd></div>
+                <div><dt>Account status</dt><dd><span class="account-status @(Model.IsActive ? "is-active" : "is-deactivated")"><span aria-hidden="true"></span>@(Model.IsActive ? "Active" : "Deactivated")</span></dd></div>
+            </dl>
+        </div>
+        <div class="account-detail-personal">
+        <h2>Personal details</h2>
+        <dl class="admin-preview-fields account-detail-fields">
             <div><dt>First name</dt><dd>@(Model.FirstName ?? "Not provided")</dd></div>
             <div><dt>Middle name</dt><dd>@(Model.MiddleName ?? "Not provided")</dd></div>
             <div><dt>Last name</dt><dd>@(Model.LastName ?? "Not provided")</dd></div>
             <div><dt>Birthday</dt><dd>@(Model.Birthday?.ToString("dd MMM yyyy") ?? "Not provided")</dd></div>
-            <div><dt>Role</dt><dd>@if (Model.Role == "Admin") { <partial name="_AdminBadge" /> } else { @Model.Role }</dd></div>
-            <div><dt>Account status</dt><dd>@(Model.IsActive ? "Active" : "Deactivated")</dd></div>
         </dl>
+        </div>
     </div>
-    <a class="button button-secondary" asp-action="Index" asp-route-search="@Model.Search">Back to accounts</a>
 </section>
