@@ -4,6 +4,16 @@ Last verified: 2026-11-18.
 
 ## Latest error check
 
+- 2026-11-18 Founder Quote: renamed the admin Founder Message label to Founder Quote
+  and connected the public serif quote below the biography to its saved value.
+  Removed the hard-coded motto and Rowena-only condition for the quote; retained
+  the existing portrait rule and FounderMessage database/property names. Empty
+  quotes are omitted; Razor encodes text, and CSS preserves line breaks and wraps
+  long words. Build passed with zero warnings/errors. Six desktop/phone compiled
+  Razor/browser cases passed for saved text, script-text encoding, blank omission,
+  line breaks and editable label, without overflow or JS errors. Existing controller
+  save behavior is unchanged; no live data/schema changes were made.
+
 - 2026-11-18 account details and action polish: replaced the sparse details layout
   with full-width identity/access and personal-details columns; added initials for
   missing photos, retained the shared ADMIN badge and labeled status dots, removed

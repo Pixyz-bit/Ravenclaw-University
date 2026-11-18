@@ -61,8 +61,10 @@ The approved Rowena Ravenclaw biography was saved on 2026-11-14 through the exis
 FounderTable content fields. It describes her canonical Hogwarts/Ravenclaw House
 background, then connects her legacy to this fictional university. The public
 section uses an ivory portrait/text composition, with a responsive upper-body CSS
-crop and the existing motto. Founder messages are retained in the editor but no
-longer rendered publicly; no message dropdown or separate message section is shown.
+crop. The admin's Founder Quote field controls the prominent quote below the
+biography; it uses the existing FounderMessage storage field. Render saved text
+as encoded plain text, preserving line breaks, and omit the quote when empty.
+No message dropdown or separate message section is shown.
 The single matching Rowena record uses the approved static portrait. Schema.sql and database definitions are unchanged.
 Database/SeedFounder.sql records the approved content publication, runs only when
 deliberately invoked, and preserves birthdays and stored messages. It refuses multiple or differently named founders instead of adding another record.

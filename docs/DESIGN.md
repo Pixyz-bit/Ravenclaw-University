@@ -272,6 +272,10 @@ unchanged. Phones and windows 500px tall or shorter use natural document flow,
 allowing content to grow without clipping. No scroll interception or new animation
 script is used. Reusable Tailwind rules remain in sections/founders.css.
 
+The founder biography's prominent serif quote is editable through Founder Quote
+in admin (existing FounderMessage storage). Keep its established typography and
+placement; preserve line breaks and wrap long text. Empty quotes are hidden.
+
 ## Contact footer
 
 The approved compact footer follows Leadership outside main, retaining its

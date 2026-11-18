@@ -28,9 +28,9 @@
                         <p class="founder-date">Born <time datetime="@founder.Birthday.Value.ToString("yyyy-MM-dd")">@founder.Birthday.Value.ToString("MMMM d, yyyy", System.Globalization.CultureInfo.InvariantCulture)</time></p>
                     }
                     <p class="founder-description prose">@(string.IsNullOrWhiteSpace(founder.Description) ? "A biography has not been published yet." : founder.Description)</p>
-                    @if (isRowena)
+                    @if (!string.IsNullOrWhiteSpace(founder.FounderMessage))
                     {
-                        <blockquote class="founder-motto">“Wit beyond measure is man's greatest treasure.”</blockquote>
+                        <blockquote class="founder-motto">@founder.FounderMessage</blockquote>
                     }
                 </div>
             </article>
