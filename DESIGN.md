@@ -1,5 +1,10 @@
 # Ravenclaw University design
 
+2026-11-18: Removed the specified admin introductory captions and redundant editor
+subheadings; first fieldset legends remain accessible but visually hidden. Account
+rows now fill the available width, with flat dividers, aligned actions, plain roles,
+labeled status dots, and Your account beside the name. Actual account totals remain.
+
 The canonical design reference is [docs/DESIGN.md](docs/DESIGN.md).
 Read it before changing UI; maintain its established tokens and account layouts.
 

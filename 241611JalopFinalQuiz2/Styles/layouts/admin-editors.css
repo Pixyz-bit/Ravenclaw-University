@@ -28,6 +28,7 @@
     .admin-editor-grid--single .admin-save-state { @apply max-w-none border-t-0 pt-0 mb-[8px]; }
     .editor-fieldset { @apply min-w-0 m-0 p-0 [border:0]; }
     .editor-fieldset legend { @apply w-full font-bold text-[.75rem] uppercase tracking-[.08em] text-muted pb-[16px] mb-[20px] [border-bottom:1px_solid_var(--color-line)]; }
+    .editor-fieldset--quiet > legend { @apply sr-only; }
     .admin-editor-fields .row-actions { @apply sticky bottom-0 z-10 bg-ivory [padding:16px_0] [border-top:1px_solid_var(--color-line)] mt-[12px]; }
     .admin-editor-fields .button-primary { @apply min-w-[160px]; }
     .admin-main .button { @apply rounded-[6px]; }

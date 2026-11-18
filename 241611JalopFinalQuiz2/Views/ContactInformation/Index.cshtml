@@ -11,10 +11,9 @@
 
     <div class="admin-editor-grid admin-editor-grid--single">
         <div class="admin-editor-fields">
-            <h2>Contact details</h2>
             <form asp-action="Index" asp-route-id="" asp-route-confirmDelete="" method="post" data-admin-editor data-recovered="@(Context.Request.Method == "POST" ? "true" : "false")">
                 <input asp-for="Id" type="hidden" />
-                <fieldset class="editor-fieldset"><legend>Contact information</legend>
+                <fieldset class="editor-fieldset editor-fieldset--quiet"><legend>Contact information</legend>
                     <div class="field"><label asp-for="AcademyAddress"></label><textarea asp-for="AcademyAddress" rows="4" maxlength="500"></textarea><span asp-validation-for="AcademyAddress" class="field-error"></span></div>
                     </fieldset>
                 <fieldset class="editor-fieldset"><legend>Ways to get in touch</legend>

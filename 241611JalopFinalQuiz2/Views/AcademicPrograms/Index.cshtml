@@ -22,10 +22,9 @@
     {
         <div class="admin-editor-grid">
             <div class="admin-editor-fields">
-                <h2>@(Model.Id == 0 ? "Add entry" : "Edit entry")</h2>
                 <form asp-action="Index" asp-route-id="" asp-route-confirmDelete="" method="post" data-admin-editor data-recovered="@(Context.Request.Method == "POST" ? "true" : "false")" enctype="multipart/form-data">
                     <input asp-for="Id" type="hidden" />
-                    <fieldset class="editor-fieldset"><legend>Program information</legend>
+                    <fieldset class="editor-fieldset editor-fieldset--quiet"><legend>Program information</legend>
                         <div class="field"><label asp-for="SubjectName"></label><input asp-for="SubjectName" maxlength="150" /><span asp-validation-for="SubjectName" class="field-error"></span></div>
                         <div class="field"><label asp-for="Description"></label><textarea asp-for="Description" rows="4"></textarea><span asp-validation-for="Description" class="field-error"></span></div>
                         <div class="field">

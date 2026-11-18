@@ -5,17 +5,15 @@
 }
 <section class="editor-panel">
     <h1>Hero and About</h1>
-    <p class="muted">Edit the hero image, introduction, purpose, and values shown on the university page.</p>
     @if (TempData["StatusMessage"] is string message)
     {
         <div class="status-message" role="status">@message</div>
     }
     <div class="admin-editor-grid admin-editor-grid--single">
         <div class="admin-editor-fields">
-            <h2>Page content</h2>
             <form asp-controller="UniversityInformation" asp-action="Index" asp-route-id="" asp-route-confirmDelete="" method="post" data-admin-editor data-recovered="@(Context.Request.Method == "POST" ? "true" : "false")" enctype="multipart/form-data">
                 <div asp-validation-summary="All" class="validation-summary" role="alert"></div>
-                <fieldset class="editor-fieldset"><legend>Introduction and purpose</legend>
+                <fieldset class="editor-fieldset editor-fieldset--quiet"><legend>Introduction and purpose</legend>
                     <div class="field">
                         <label asp-for="ImageUpload"></label>
                         <input asp-for="ImageUpload" type="file" accept="image/png,image/jpeg,image/webp" aria-describedby="image-help" data-image-upload />

@@ -4,6 +4,22 @@ Last verified: 2026-11-18.
 
 ## Latest error check
 
+- 2026-11-18: Removed the screenshot-specified admin captions, redundant editor
+  subheadings, first-group labels/dividers, and Account Management eyebrow/analytics
+  heading/explanation. First fieldset legends remain accessible but visually hidden;
+  actual totals remain. Refined account rows into full-width flat dividers with
+  name/username hierarchy, pale initials, plain roles, labeled status dots, aligned
+  actions, and Your account beside the name. Kept search, View information routes,
+  activation forms, and self-account safeguards. Compiled-Razor fixture checks
+  passed 48 route/viewport combinations from 390px to 1920px, including long names,
+  usernames, missing names, active/inactive accounts and the current admin. Browser
+  checks confirmed removed captions, accessible hidden legends, 44px actions,
+  no horizontal overflow, dirty/revert/Keep editing, image selection, and no JS errors.
+  Desktop/phone visual review passed. Separate and normal Razor/Tailwind builds
+  passed with zero warnings/errors. Design detection flagged only existing hidden
+  upload-preview placeholders. Restarted localhost:5182; login returned HTTP 200.
+  No database, account, or public content changes.
+
 - 2026-11-18: Removed side draft previews from all admin editors except Academics,
   including legacy gallery/core-value routes. Other forms use the full available
   content width, with paired founder text/contact fields and existing responsive

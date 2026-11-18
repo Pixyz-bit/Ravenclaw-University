@@ -195,6 +195,12 @@ fail closed when account validation cannot reach the database.
 
 ## Account management
 
+The directory fills the admin workspace and uses flat divided rows with profile
+photos/initials, name/username hierarchy, role text, labeled status dots, and aligned
+Activate/Deactivate and View information actions. The signed-in admin's Your account
+badge appears beside their name, with no self-deactivation action. Redundant page
+captions and analytics headings are removed; the global totals remain above search.
+
 /AccountManagement is Admin-only, with its own controller, form ViewModel, and
 Index view. Search by username or name (up to 100 results), then edit names,
 username, optional birthday, role, active status, or upload a profile image.

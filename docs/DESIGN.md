@@ -377,6 +377,14 @@ account rows with search and an inline edit form; no password fields are display
 
 ### Shared editing workspace (2026-11-16)
 
+2026-11-18 simplification: Hero and About, Academics, Founder, and Contacts start
+directly with their labeled fields after the page heading. Remove the redundant
+Page content/Add entry/Edit founder/Contact details subheads, introductory captions,
+and visible first-group legends. Keep those fieldset legends screen-reader-only;
+later group headings still organize longer forms. Account Management has no
+Administration eyebrow, introductory caption, Account analytics heading, or totals
+explanation. Keep its actual metrics and their labels.
+
 Only Academics retains the two-column form and sticky draft preview; below 1101px
 they stack. All other editors use the full available width without a side preview,
 including legacy gallery/core-value editors. Related fields use responsive columns:
@@ -411,8 +419,10 @@ online. Use one divided metric strip above the directory, with no invented activ
 history. Totals cover all accounts regardless of search or the 100-row directory
 limit; omit the strip when account data is unavailable.
 
-Account management follows the supplied horizontal-row reference: circular profile
-photo or name initials, name and username, role pill, and labeled status pill.
+Account management uses flat horizontal rows with fine dividers: circular profile
+photo or pale-blue initials, name above username, plain role text (bold for Admin),
+and a colored status dot with a text label. Avoid repeating a username when no
+saved name exists. The Your account badge sits beside the signed-in admin's name.
 The only row actions are Activate/Deactivate and View information. Omit registration
 timestamps. View information opens a dedicated read-only page with saved profile
 fields; no email is invented because the account schema has none. On smaller
@@ -421,9 +431,12 @@ minimum controls. The current administrator has a quiet Your account label inste
 server-side own-account and last-active-Admin safeguards also apply.
 Reusable Tailwind styling lives in layouts/admin-accounts.css.
 
-2026-11-16 refinement: account rows share fixed role/status/action columns, a muted
-column header and one ivory outline, with navy View information actions and quieter
-status controls. Actions wrap on narrow screens. Content inventory and Dashboard are removed; account totals remain in Account Management.
+2026-11-18 refinement: the account page fills the available workspace even when
+no edit form is open. Rows share fixed role/status/action columns and a muted
+column header; omit the rounded enclosing panel. Use quiet View information actions
+with a small arrow and aligned activation controls; hover/focus adds a subtle ivory
+tint. Actions form a consistent second row on narrower screens, with 44px minimum
+targets. Content inventory and Dashboard are removed; account totals remain.
 
 ### Account navigation and personal information (2026-11-16)
 

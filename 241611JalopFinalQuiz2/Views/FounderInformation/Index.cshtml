@@ -7,15 +7,13 @@
     <h1>Founder</h1>
     @if (TempData["StatusMessage"] is string message) { <div class="status-message" role="status">@message</div> }
     <div asp-validation-summary="All" class="validation-summary" role="alert"></div>
-    <p class="muted">Edit the university founder information.</p>
     @if (Model.Id > 0)
     {
         <div class="admin-editor-grid admin-editor-grid--single">
             <div class="admin-editor-fields">
-                <h2>Edit founder</h2>
                 <form asp-action="Index" asp-route-id="" asp-route-confirmDelete="" method="post" data-admin-editor data-recovered="@(Context.Request.Method == "POST" ? "true" : "false")">
                     <input asp-for="Id" type="hidden" />
-                    <fieldset class="editor-fieldset"><legend>Founder details</legend>
+                    <fieldset class="editor-fieldset editor-fieldset--quiet"><legend>Founder details</legend>
                         <div class="field"><label asp-for="FounderName"></label><input asp-for="FounderName" maxlength="150" /><span asp-validation-for="FounderName" class="field-error"></span></div>
                         </fieldset>
                     <fieldset class="editor-fieldset"><legend>Biography and message</legend>

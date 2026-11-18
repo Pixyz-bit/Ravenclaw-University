@@ -221,7 +221,7 @@ try {
         Assert-Check ($rendered.Body.Contains('<title>Ravenclaw University</title>') -and $rendered.Body.Contains('/Profile') -and -not $rendered.Body.Contains('footer-socials')) 'Public title and account menu use the requested identity and personal-information link'
         Assert-Check ((Send-Request $admin '/SocialLinks').Status -eq 404 -and (Send-Request $admin '/AdminContent?section=SocialLinks').Status -eq 404 -and (Invoke-TestSql "SELECT COUNT(*) FROM sys.tables WHERE name=N'SocialLinksTable';") -eq '0') 'Social links routes and table are removed'
         $founderPage = Send-Request $admin '/FounderInformation'
-        Assert-Check ($founderPage.Body.Contains('Edit founder') -and -not $founderPage.Body.Contains('Add entry') -and -not $founderPage.Body.Contains('Saved entries')) 'Founder editor opens the one saved record without add or collection controls'
+        Assert-Check ($founderPage.Body.Contains('name="FounderName"') -and -not $founderPage.Body.Contains('Add entry') -and -not $founderPage.Body.Contains('Saved entries')) 'Founder editor opens the one saved record without add or collection controls'
         Assert-Check ((Submit-Form $admin '/FounderInformation' @{Id='0';FounderName='Forged second founder'}).Status -eq 404 -and (Invoke-TestSql 'SELECT COUNT(*) FROM dbo.FounderTable;') -eq '1') 'Founder POST cannot create another entry'
         $founderDelete = Send-Request $admin '/FounderInformation/Delete' @{id='1'}
         $legacyFounderDelete = Send-Request $admin '/AdminContent/Delete?section=Founders&id=1'
