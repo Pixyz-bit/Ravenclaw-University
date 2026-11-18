@@ -4,6 +4,25 @@ Last verified: 2026-11-18.
 
 ## Latest error check
 
+- 2026-11-18 whole-site audit: see AUDIT-2026-11-18.md for scope, exact reproduction
+  steps and eight prioritized code/dependency findings. All 176 isolated HTTP/SQL
+  checks passed; 52 final browser route/viewport cases returned 200 without horizontal
+  overflow, duplicate IDs or JS exceptions. Twenty-two axe scans reported no
+  automated violations. Seven unpublished-content screens, malformed routes,
+  Student authorization, reduced motion, synthesized touch, oversized passwords,
+  malformed dates and a separately unavailable database were exercised. Debug build,
+  Release publish and syntax checks for all ten own JS files passed. NuGet reported
+  no known vulnerable packages; npm reported three high-severity entries for one
+  underlying development-tool advisory. Reproduced long-content About dot failure,
+  Profile Cancel retaining rejected values, corrupt PNG acceptance, fractional
+  carousel stalling and duplicate-registration deadlock feedback. Target net9.0 is
+  now unsupported; Privacy still has starter copy. No application/dependency fixes
+  were made in this diagnostic audit. Final SQL low-memory flag was 0; the real
+  sign-in path reached normal dummy-credential rejection in 61ms, but intermittent
+  SQL stability remains unresolved. All test mutations stayed in the disposable DB;
+  audit servers, database and temporary uploads were removed after verification.
+  The normal localhost:5182 app remains running and its login returns HTTP 200.
+
 - 2026-11-18: Standardized admin indicators using the user's compact navy/ivory
   uppercase ADMIN badge. Added shared _AdminBadge markup and .admin-badge styling;
   reused it beside the Profile name, in the account menu, directory role column
@@ -973,10 +992,12 @@ Last verified: 2026-11-18.
 
 ## Not implemented / not verified
 
-- Mobile About dot navigation can stop at an intermediate chapter when selecting
-  Vision from the introduction. The same result was reproduced using the previous
-  stylesheet (before the shared typography changes). about-story.js was not changed
-  in this scoped visual pass; the navigation issue needs a separate fix.
+- Audit repairs remain pending: supported .NET/EF target upgrade; long-content
+  mobile About dot navigation; Profile Cancel after server validation; full image
+  decode validation; floating-point carousel movement; bounded registration-deadlock
+  handling; build-tool advisory mitigation; and the unfinished Privacy route. See
+  AUDIT-2026-11-18.md for priorities, evidence and separate operational SQL findings.
+  Password error association/focus is an additional manual accessibility improvement.
 
 - Replace the Hogwarts center banner's H-only emblem with the full uploaded crest.
   The original transparent logo is saved, but both built-in generation/edit attempts

@@ -19,6 +19,7 @@ GitHub: https://github.com/Pixyz-bit/Ravenclaw-University (branch: main).
 | ARCHITECTURE.md | MVC structure, database location, and implementation boundaries |
 | DECISIONS.md | Accepted decisions that should not be silently reversed |
 | STATUS.md | Verified implementation state, limitations, and next work |
+| [AUDIT-2026-11-18.md](AUDIT-2026-11-18.md) | Whole-site/code audit, reproduced edge cases, dependency findings and prioritized repairs |
 
 The application is in ../241611JalopFinalQuiz2/. Database documentation is in
 [Database/README.md](../241611JalopFinalQuiz2/Database/README.md), with the exact
