@@ -11,7 +11,7 @@ public partial class UniversityDbContext : DbContext
         : base(options)
     {
     }
-
+    //Declare an access point named AboutImagesTables which gives access to queries and operations involving those records.
     public virtual DbSet<AboutImagesTable> AboutImagesTables { get; set; }
 
     public virtual DbSet<AcademyInfoTable> AcademyInfoTables { get; set; }
@@ -24,16 +24,16 @@ public partial class UniversityDbContext : DbContext
 
     public virtual DbSet<ProgramsTable> ProgramsTables { get; set; }
 
-
     public virtual DbSet<UserTable> UserTables { get; set; }
 
+    //describes database mapping
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<AboutImagesTable>(entity =>
         {
-            entity.HasKey(e => e.AboutImageId).HasName("PK__AboutIma__4B9E4150EC311A20");
-            entity.ToTable("AboutImagesTable");
-            entity.Property(e => e.AltText).HasMaxLength(250);
+            entity.HasKey(e => e.AboutImageId).HasName("PK__AboutIma__4B9E4150EC311A20"); //Identifies the primary key
+            entity.ToTable("AboutImagesTable"); //database table this model belongs to.
+            entity.Property(e => e.AltText).HasMaxLength(250); //select which property to configure
             entity.Property(e => e.ImagePath).HasMaxLength(500);
         });
 

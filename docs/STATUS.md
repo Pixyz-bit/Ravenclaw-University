@@ -1,8 +1,13 @@
 # Current status
 
-Last verified: 2026-11-18.
+Last verified: 2026-11-19.
 
 ## Latest error check
+
+- 2026-11-19 learning comments: reviewed the database-context access/mapping
+  comments, content-service summary and AboutImagesTable whitespace cleanup.
+  Changes affect comments/formatting only; whitespace verification passed.
+  No runtime tests were needed because executable code is unchanged.
 
 - 2026-11-18 remaining local edits: reviewed and included the user's homepage
   and program-query comments plus database-context formatting cleanup. The diff

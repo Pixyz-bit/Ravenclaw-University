@@ -3,7 +3,7 @@ using _241611JalopFinalQuiz2.Data;
 using _241611JalopFinalQuiz2.ViewModels;
 
 namespace _241611JalopFinalQuiz2.Services;
-
+//Packages data from the database, returns to HomeController.cs.
 public class UniversityContentService(UniversityDbContext database)
 {
     public async Task<UniversityPageViewModel> ReadAsync(CancellationToken cancellationToken)
