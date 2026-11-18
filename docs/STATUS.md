@@ -4,6 +4,19 @@ Last verified: 2026-11-18.
 
 ## Latest error check
 
+- 2026-11-18 Admin/User view grouping: moved the five university-management views
+  and both account-management views into Views/Admin; Home and Profile now live
+  in Views/User. Removed the emptied AccountManagement folder. All nine views
+  retain identical markup; updated all 25 controller rendering references,
+  including account Details, validation and unavailable responses. Account and
+  Shared keep their existing contents. URLs, layouts and server authorization
+  remain unchanged; User pages are available to both signed-in roles. Updated
+  architecture/content documentation. Razor/Tailwind build passed with zero
+  warnings/errors and all 177 disposable HTTP/SQL checks passed; the verifier
+  cleaned up its test database/uploads. Existing HomeController comment and
+  UniversityDbContext edits were preserved and excluded from the commit. No live
+  data/schema changes or visual markup changes.
+
 - 2026-11-18 flattened single-file view folders: moved AcademicPrograms,
   ContactInformation, CoreValues, FounderInformation, Home, Profile and
   UniversityInformation directly into Views/ and removed their empty folders.

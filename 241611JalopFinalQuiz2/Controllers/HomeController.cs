@@ -21,12 +21,12 @@ namespace _241611JalopFinalQuiz2.Controllers
 
         public async Task<IActionResult> Index()
         {
-            try { return View("~/Views/Home.cshtml", await _content.ReadAsync(HttpContext.RequestAborted)); }
+            try { return View("~/Views/User/Home.cshtml", await _content.ReadAsync(HttpContext.RequestAborted)); }
             catch (Exception exception)
             {
                 _logger.LogError(exception, "University content could not be loaded.");
                 Response.StatusCode = 503;
-                return View("~/Views/Home.cshtml", new UniversityPageViewModel { Unavailable = true });
+                return View("~/Views/User/Home.cshtml", new UniversityPageViewModel { Unavailable = true });
             }
         }
 

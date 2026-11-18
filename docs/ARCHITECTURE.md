@@ -16,10 +16,11 @@
   CoreValues, FounderInformation and ContactInformation. Controllers explicitly
   select these views on GET, validation failure and unavailable responses; action
   names remain Index so existing routes, links and form actions continue to work.
-- Single-file view folders are flattened: AcademicPrograms, ContactInformation,
-  CoreValues, FounderInformation, Home, Profile and UniversityInformation live
-  directly under Views/. Their controllers use explicit ~/Views/<Name>.cshtml
-  paths. Account, AccountManagement and Shared retain their multi-file folders.
+- Views/Admin contains AcademicPrograms, ContactInformation, CoreValues,
+  FounderInformation, UniversityInformation, AccountManagement and Details.
+  Views/User contains Home and Profile, available to both signed-in roles.
+  Controllers use explicit ~/Views/Admin/ or ~/Views/User/ paths for these pages.
+  Account retains login/registration/access-denied views; Shared holds reusable UI.
   Views/_ViewImports.cshtml and _ViewStart.cshtml still apply to the moved views.
 - AdminContentController retains GET redirects for old bookmarks only. Shared
   ContentSections contains sidebar labels/routes; AdminContentValidation contains
@@ -35,8 +36,8 @@
 - The project excludes nested TestResults/** from default MSBuild items so ignored
   test source copies cannot be compiled/published as application controllers or views.
 - Each dedicated admin content view selects _AdminLayout explicitly. University
-  views use _Layout; account views use _AccountLayout. Empty legacy Views/Admin,
-  Views/AdminContent and Views/SocialLinks folders were removed.
+  views use _Layout; account views use _AccountLayout. The old AdminContent,
+  SocialLinks and per-page folders are removed.
 - wwwroot contains public static assets, never database scripts or private docs.
 - Styles/ contains Tailwind CSS v4 source split into base tokens, reusable components,
   layouts, and university sections. Shared semantic classes use @apply, preserving
@@ -131,7 +132,7 @@ partial uses this fresh identity without another database query or cookie claims
 Admin badge and Manage website rendering still depend on the authorized role.
 
 Profile's presentation and draft behavior remain separate from persistence:
-Views/Profile.cshtml, layouts/profile.css and profile-editor.js provide the
+Views/User/Profile.cshtml, layouts/profile.css and profile-editor.js provide the
 responsive identity column and tabbed forms, shared image-upload preview integration,
 dirty tracking, native discard dialog and validated saving state. ProfileController
 owns both personal updates and the separate password POST. ChangePasswordViewModel
@@ -146,4 +147,4 @@ _PasswordToggle and password-visibility.js are shared by login, registration and
 profile password fields through _ValidationScriptsPartial. The unused Home/Privacy
 action and starter view have been removed.
 
-ProfileController/ProfileViewModel/Views/Profile.cshtml form a dedicated authenticated editor. Reads project only personal fields; writes target the cookie identity through ExecuteUpdate and update only personal names, birthday and image. Posted IDs, username, role and active flags are not accepted. Uploads reuse ImageUploadService and all saves require antiforgery. A changed/deactivated account cannot be updated through a stale session. Founder editing uses a serializable update of its single existing record, without create/delete actions. UniversityPageViewModel now holds one Founder. Social-link controllers, entity/mapping, form model/view, validators and read queries were removed alongside the empty live table; consolidated Schema.sql now has seven tables.
+ProfileController/ProfileViewModel/Views/User/Profile.cshtml form a dedicated authenticated editor. Reads project only personal fields; writes target the cookie identity through ExecuteUpdate and update only personal names, birthday and image. Posted IDs, username, role and active flags are not accepted. Uploads reuse ImageUploadService and all saves require antiforgery. A changed/deactivated account cannot be updated through a stale session. Founder editing uses a serializable update of its single existing record, without create/delete actions. UniversityPageViewModel now holds one Founder. Social-link controllers, entity/mapping, form model/view, validators and read queries were removed alongside the empty live table; consolidated Schema.sql now has seven tables.
