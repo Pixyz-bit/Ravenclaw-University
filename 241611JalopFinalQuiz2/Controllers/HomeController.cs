@@ -19,7 +19,7 @@ namespace _241611JalopFinalQuiz2.Controllers
             _content = content;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index() //loads and displays the homepage
         {
             try { return View("~/Views/User/Home.cshtml", await _content.ReadAsync(HttpContext.RequestAborted)); }
             catch (Exception exception)

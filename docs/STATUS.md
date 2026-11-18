@@ -4,6 +4,12 @@ Last verified: 2026-11-18.
 
 ## Latest error check
 
+- 2026-11-18 remaining local edits: reviewed and included the user's homepage
+  and program-query comments plus database-context formatting cleanup. The diff
+  changes comments, whitespace and encoding only; no executable behavior/schema
+  changes. Whitespace checks passed. No regression rerun was needed; the latest
+  functional verification remains the 177 passing checks recorded below.
+
 - 2026-11-18 Admin/User view grouping: moved the five university-management views
   and both account-management views into Views/Admin; Home and Profile now live
   in Views/User. Removed the emptied AccountManagement folder. All nine views
