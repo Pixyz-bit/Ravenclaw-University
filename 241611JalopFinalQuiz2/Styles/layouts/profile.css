@@ -1,7 +1,7 @@
-/* Compact personal-information editor, using the public navy/ivory/gold system. */
+/* Full-width personal-information editor, using the public navy/ivory/gold system. */
 @layer components {
     .portal-main:has(> .profile-page) { @apply w-full p-0; }
-    .profile-page { @apply max-w-[688px] mx-auto px-[24px] py-[clamp(28px,4dvh,40px)]; }
+    .profile-page { @apply w-full max-w-none px-[clamp(24px,5vw,96px)] py-[clamp(28px,4dvh,40px)]; }
     .profile-heading { @apply mb-[24px]; }
     .profile-back-link { @apply inline-flex items-center gap-[10px] min-h-[44px] text-muted text-[.8rem] no-underline mb-[12px]; }
     .profile-back-link:hover { @apply text-navy underline; }
@@ -25,7 +25,7 @@
     .profile-details legend { @apply text-navy text-[.8rem] tracking-[.06em] mb-[12px] pb-0 border-b-0; }
     .profile-field-note { @apply text-muted text-[.75rem] mt-0 mb-[20px]; }
     .profile-optional { @apply text-muted font-normal text-[.75rem]; }
-    .profile-page .form-grid { @apply gap-x-[20px]; }
+    .profile-page .form-grid { @apply gap-x-[clamp(20px,2.5vw,40px)]; }
     .profile-page .field { @apply min-w-0; }
     .profile-details .field { @apply mb-[20px]; }
     .profile-page .button,.profile-page .field input { @apply rounded-[6px]; }
@@ -42,6 +42,9 @@
     .profile-unsaved-dialog::backdrop { @apply [background:rgba(16,29,52,.6)]; }
     .profile-unsaved-dialog h2 { @apply font-heading text-[1.8rem] leading-[1.2] m-0; }
     .profile-unsaved-dialog p { @apply text-muted text-[.9rem] leading-[1.7] my-[20px]; }
+    @media(min-width:1200px) {
+        .profile-page .form-grid { @apply [grid-template-columns:repeat(4,minmax(0,1fr))]; }
+    }
     @media(max-width:500px) {
         .profile-page .form-grid { @apply [grid-template-columns:minmax(0,1fr)]; }
         .profile-identity { @apply [grid-template-columns:64px_minmax(0,1fr)] gap-[12px_16px] py-[20px]; }

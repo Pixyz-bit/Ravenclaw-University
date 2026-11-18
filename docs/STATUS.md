@@ -170,6 +170,15 @@ Last verified: 2026-11-18.
 
 ## Completed
 
+- 2026-11-18: finished the requested full-width Profile refinement. Removed the
+  688px container cap, retained responsive 24–96px side padding, and made fields
+  use four columns from 1200px, two on tablets, and one below 501px. Existing photo,
+  save, validation and unsaved-draft behavior is unchanged; no data/backend changes.
+  Tailwind build passed. An isolated layout fixture using the real compiled CSS
+  confirmed 1440/1920px full-width layout, tablet/390px phone breakpoints, no
+  horizontal overflow, and 44px+ actions. Screenshot: ignored
+  TestResults/profile-wide-desktop.jpg. No real accounts were accessed for QA.
+
 - Implemented the approved Profile UI refinement: centered 640px form, compact
   heading/back link, photo/full-name/username strip, adjacent Change photo with
   immediate circular preview, first/middle/last/birthday field order, explicit

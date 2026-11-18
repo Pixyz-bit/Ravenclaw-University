@@ -38,10 +38,16 @@ The account menu follows the compact photo/name reference: saved full name with
 the Admin badge below the name (without the redundant admin username), then matching Edit personal information
 and Admin-only Manage website rows. No invented email address or extra identity label.
 
-Profile now uses a compact 640px centered editor, a full-name/photo identity strip,
+Profile now uses a full-width editor with responsive 24–96px side padding, a full-name/photo identity strip,
 Change photo with immediate preview, ordered name fields, a single phone column,
 and Save changes / Cancel with draft-state and discard protection. See the
 canonical reference for validation, fallback and keyboard behavior.
 
+2026-11-18: removed the Profile width cap to use the available screen space.
+Fields use four columns on wide desktops, two on tablets and one on phones.
+
 2026-11-16: compact three-column footer: university/socials, Explore, Contact.
 Removed the large motto and Our University links; columns stack on phones.
+
+2026-11-18: Dashboard and content inventory removed. Administration opens Hero and
+About directly; five editor/account links remain. Old /Admin links redirect there.
