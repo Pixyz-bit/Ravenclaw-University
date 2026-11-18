@@ -4,6 +4,25 @@ Last verified: 2026-11-18.
 
 ## Latest error check
 
+- 2026-11-18: Implemented the approved My profile layout: unboxed photo/identity
+  column left, Personal details / Change password tabs right, two-column personal
+  fields and phone stacking. Removed instructional/required/optional/draft captions.
+  Added an authenticated, CSRF-protected, rate-limited password POST using the
+  existing hasher, current-password verification, 8–128-character new-password
+  rules, confirmation and an atomic original-hash/account-state check. Posted IDs
+  are ignored; passwords are cleared before rendering. Success signs out this
+  browser session and redirects to login. Other sessions are not globally revoked.
+  Photo uploads, local drafts, keyboard tabs, native no-JS forms, separate Cancel
+  actions and navigation/sign-out warnings remain. Browser testing found and fixed
+  native file-reset timing; all five 320–1920px layouts and tab/draft/photo/password
+  visibility/no-JS checks passed without overflow or JS errors. All 176 disposable
+  HTTP/SQL checks passed, including password failures, ownership tampering, successful
+  change/sign-out, old-password rejection, new-password login and existing content/
+  account/upload checks. Separate and normal Razor/Tailwind builds passed with zero
+  warnings/errors. Design detection flagged only the existing hidden upload-preview
+  placeholder. Restarted localhost:5182; login returned HTTP 200 and anonymous
+  Profile returned 302. No university records or schema were changed.
+
 - 2026-11-18: Removed remaining admin group captions/dividers (legends remain
   accessible), edit-status lines/Save dividers, office-hours hint, account-list limit hint, and
   About image-management disclosure. Removed their unused status-label JS while

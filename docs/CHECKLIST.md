@@ -80,6 +80,9 @@ intermediate-chapter issue reproduced with the previous stylesheet; see STATUS.m
 - [x] Define session expiration and make deactivated-account access consistent with the requirement.
 - [x] Verify logged-out, active student, active admin, inactive, and invalid-login behavior.
 - [x] Add and verify account POST rate limiting.
+- [x] Implement the two-column profile with personal/password tabs and verify
+  self-service password changes, current-password/confirmation rules, CSRF,
+  ownership isolation, success sign-out and old/new password login behavior.
 
 ## 4. Shared interface and student-facing content
 

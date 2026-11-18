@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
 namespace _241611JalopFinalQuiz2.ViewModels;
 
@@ -12,4 +13,5 @@ public class ProfileViewModel
     [PastBirthday, DataType(DataType.Date)] public DateOnly? Birthday { get; set; }
     [Display(Name = "Profile image")] public IFormFile? ImageUpload { get; set; }
     [BindNever] public string? ProfileImg { get; set; }
+    [BindNever, ValidateNever] public ChangePasswordViewModel Password { get; set; } = new();
 }

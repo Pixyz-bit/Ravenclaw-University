@@ -75,6 +75,14 @@ function Student-Fields([string]$Username) {
         Password='Test-Only-Scholar-2026'; ConfirmPassword='Test-Only-Scholar-2026' }
 }
 
+function Submit-ProfilePassword($Client, [hashtable]$Fields) {
+    $page = Send-Request $Client '/Profile?tab=password'
+    $token = [regex]::Match($page.Body, 'name="__RequestVerificationToken"[^>]*value="([^"]+)"')
+    if (-not $token.Success) { throw 'Missing password-form antiforgery token.' }
+    $Fields['__RequestVerificationToken'] = [Net.WebUtility]::HtmlDecode($token.Groups[1].Value)
+    return Send-Request $Client '/Profile/ChangePassword' $Fields
+}
+
 try {
     $testOutput = Join-Path $tempDir 'app'
     & dotnet build $projectFile --no-restore --output $testOutput
@@ -240,6 +248,30 @@ try {
         $ownFields = @{Id=$otherId;Username='forged.user';Role='Admin';IsActive='false';FirstName='Mira';LastName='Profile update';Birthday='2000-01-01';__ImageBytes=$script:imageBytes}
         Assert-Check ((Submit-Form $studentClient '/Profile' $ownFields).Status -eq 302 -and (Invoke-TestSql "SELECT COUNT(*) FROM dbo.UserTable WHERE UserId=$ownId AND Username=N'profile.student' AND Role=N'Student' AND IsActive=1 AND LastName=N'Profile update' AND Birthday='2000-01-01';") -eq '1') 'Profile save updates only the signed-in account and cannot change role, username or access'
         Assert-Check ((Invoke-TestSql "SELECT CHECKSUM(PasswordHash) FROM dbo.UserTable WHERE UserId=$ownId;") -eq $ownHash -and (Invoke-TestSql "SELECT COUNT(*) FROM dbo.UserTable WHERE UserId=$otherId AND Username=N'verification.student' AND Role=N'Admin';") -eq '1') 'Profile save preserves password hashes and other accounts'
+        Assert-Check ((Send-Request $anonymous '/Profile/ChangePassword' @{}).Location -like '*Login*') 'Anonymous password changes require authentication'
+        Assert-Check ((Send-Request $studentClient '/Profile/ChangePassword' @{}).Status -eq 400) 'Password changes require antiforgery'
+        Assert-Check ((Send-Request $studentClient '/Profile/ChangePassword').Status -in @(404,405)) 'Password changes cannot be made through GET'
+        $passwordPage = Send-Request $studentClient '/Profile?tab=password'
+        Assert-Check ($passwordPage.Status -eq 200 -and $passwordPage.Body.Contains('id="profile-password-tab"') -and $passwordPage.Body.Contains('autocomplete="current-password"') -and -not $passwordPage.Body.Contains('No unsaved changes')) 'Profile provides password tab, password-manager semantics and no draft caption'
+        $newPassword = 'Test-Only-Changed-Scholar-2026'
+        $badPassword = Submit-ProfilePassword $studentClient @{'Password.CurrentPassword'='wrong-current-secret';'Password.NewPassword'=$newPassword;'Password.ConfirmPassword'=$newPassword}
+        Assert-Check ($badPassword.Status -eq 200 -and $badPassword.Body.Contains('Current password is incorrect.') -and -not $badPassword.Body.Contains('wrong-current-secret') -and -not $badPassword.Body.Contains($newPassword)) 'Wrong current password is rejected without reflecting submitted secrets'
+        $shortPassword = Submit-ProfilePassword $studentClient @{'Password.CurrentPassword'='Test-Only-Scholar-2026';'Password.NewPassword'='short';'Password.ConfirmPassword'='short'}
+        Assert-Check ($shortPassword.Status -eq 200 -and $shortPassword.Body.Contains('minimum length')) 'Password changes enforce the existing minimum length'
+        $mismatchedPassword = Submit-ProfilePassword $studentClient @{'Password.CurrentPassword'='Test-Only-Scholar-2026';'Password.NewPassword'=$newPassword;'Password.ConfirmPassword'='different-confirmation'}
+        Assert-Check ($mismatchedPassword.Status -eq 200 -and $mismatchedPassword.Body.Contains('Passwords do not match.')) 'Password confirmation must match'
+        $samePassword = Submit-ProfilePassword $studentClient @{'Password.CurrentPassword'='Test-Only-Scholar-2026';'Password.NewPassword'='Test-Only-Scholar-2026';'Password.ConfirmPassword'='Test-Only-Scholar-2026'}
+        Assert-Check ($samePassword.Status -eq 200 -and $samePassword.Body.Contains('Choose a different password.')) 'An unchanged password is rejected'
+        Assert-Check ((Invoke-TestSql "SELECT CHECKSUM(PasswordHash) FROM dbo.UserTable WHERE UserId=$ownId;") -eq $ownHash) 'Rejected password changes preserve the saved hash'
+        $otherHash = Invoke-TestSql "SELECT CHECKSUM(PasswordHash) FROM dbo.UserTable WHERE UserId=$otherId;"
+        $passwordSaved = Submit-ProfilePassword $studentClient @{'Password.CurrentPassword'='Test-Only-Scholar-2026';'Password.NewPassword'=$newPassword;'Password.ConfirmPassword'=$newPassword;Id=$otherId;Role='Admin';Username='forged.user'}
+        Assert-Check ($passwordSaved.Status -eq 302 -and $passwordSaved.Location -like '*Login*' -and (Invoke-TestSql "SELECT CHECKSUM(PasswordHash) FROM dbo.UserTable WHERE UserId=$ownId;") -ne $ownHash) 'A valid password change updates its hash and redirects to sign in'
+        Assert-Check ((Send-Request $studentClient '/Profile').Location -like '*Login*') 'Successful password change signs out the current session'
+        Assert-Check ((Invoke-TestSql "SELECT CHECKSUM(PasswordHash) FROM dbo.UserTable WHERE UserId=$otherId;") -eq $otherHash -and (Invoke-TestSql "SELECT COUNT(*) FROM dbo.UserTable WHERE UserId=$ownId AND Username=N'profile.student' AND Role=N'Student' AND IsActive=1 AND LastName=N'Profile update';") -eq '1') 'Password change ignores forged ownership/role and preserves personal data and other accounts'
+        $oldLogin = Submit-Form $studentClient '/Account/Login' @{Username='profile.student';Password='Test-Only-Scholar-2026'}
+        Assert-Check ($oldLogin.Status -eq 200 -and $oldLogin.Body.Contains('Unable to sign in')) 'Previous password can no longer sign in'
+        $newLogin = Submit-Form $studentClient '/Account/Login' @{Username='profile.student';Password=$newPassword}
+        Assert-Check ($newLogin.Status -eq 302 -and (Send-Request $studentClient '/Profile').Status -eq 200) 'New password signs in and restores access to the profile'
         $ownImage = Invoke-TestSql "SELECT ProfileImg FROM dbo.UserTable WHERE UserId=$ownId;"
         Assert-Check ($ownImage -match '^/images/uploads/[a-f0-9]{32}\.png$' -and (Send-Request $studentClient $ownImage).Status -eq 200) 'Personal profile image upload is stored and renders'
         Assert-Check ((Send-Request $studentClient '/Profile').Body.Contains('class="account-menu-avatar" src="'+$ownImage+'"')) 'Account menu displays the saved profile photo after a personal update'

@@ -454,26 +454,33 @@ username line for admins; students retain their username beneath the name. No em
 The dropdown is 260px wide with 16px padding. Below the identity divider, matching rows offer Edit personal information and
 Manage website (Admin only). Sign out stays a separated POST action. Use internal
 chevrons rather than external-link arrows. Existing outside-click/Escape closing remains.
-The admin sidebar also provides the personal-information link.
+The admin sidebar omits personal editing; the public account menu retains it.
 
-Personal information uses the full available page width without a centered cap,
-with clamp(24px, 5vw, 96px) horizontal padding and responsive field gaps. Four
-columns share wide screens from 1200px; tablets use two and phones below 501px
-use one. This supersedes the earlier 640px centered form. It retains
-public branding, a quiet Back to university link and compact serif heading.
-An identity strip shows the saved photo/full name/username, with Change photo
-beside them on desktop and below them on phones. Selection immediately previews
-in the same circular frame; it is persisted only on Save changes. Native upload
-controls remain available without JavaScript. Name fields follow first/middle/last
-order, then birthday; required/optional labels are explicit. A fine gold divider separates the compact
-actions: draft state, navy Save changes and quiet Cancel. Use the navy/ivory/gold
-palette, existing status messages/inline errors, and 44px controls.
-profile-editor.js tracks changes locally, warns on navigation/sign-out/refresh,
-and provides Keep editing / Discard changes with Escape support. Invalid forms
-keep Save usable. Reverted fields restore the clean state; failed POSTs remain
-dirty; cached-page restoration resets Save and recreates selected-photo previews.
-Username is displayed only. Browser tabs show exactly Ravenclaw University in
-all layouts. Shared page styles live in layouts/profile.css.
+My profile uses the full available width with clamp(24px, 5vw, 96px) side padding.
+Desktop has an unboxed identity column on the left (96px photo/initials, saved full
+name, username and Change photo), and Personal details / Change password tabs on
+the right. Personal fields use two columns, becoming one below 501px. At 800px and
+narrower the identity sits above the tabs. Keep the established ivory surface,
+navy buttons, gold active-tab underline, serif page heading and Lato form labels.
+Back to university sits opposite My profile. Omit the Your account eyebrow,
+introductory paragraph, upload instructions, required/optional notes and draft-state
+line. Keep visible field labels, accessible required semantics and inline errors.
+
+Photo selection previews within the identity circle and belongs to the personal
+details form; Save changes persists it. Username is display-only. The separate
+password form contains Current password, New password and Confirm password, with
+Show/Hide controls and its own Cancel / Update password actions. Personal details
+has Cancel / Save changes. Do not repeat a panel heading below the selected tab.
+Cancel resets that form; password reset restores masked fields. Server validation
+returns the affected tab with empty password inputs. No-JS tab links navigate
+through /Profile and /Profile?tab=password, with the native upload control visible.
+
+profile-editor.js supports arrow/Home/End tab navigation and preserves drafts
+across tab changes. Navigation/sign-out/refresh warnings remain, including when
+submitting one form while the other has unsaved edits. Keep editing / Discard changes
+uses the existing native dialog. Back-cache restoration clears password inputs and
+restores selected-photo previews. Browser titles remain Ravenclaw University.
+Shared page styles live in layouts/profile.css.
 
 ## Approved main logo (2026-11-11)
 

@@ -112,8 +112,12 @@ Admin badge and Manage website rendering still depend on the authorized role.
 
 Profile's presentation and draft behavior remain separate from persistence:
 Views/Profile/Index.cshtml, layouts/profile.css and profile-editor.js provide the
-compact responsive form, shared image-upload preview integration, dirty tracking,
-native discard dialog and validated saving state. ProfileController still owns all
-account writes. With JavaScript disabled the ordinary native upload/save remains.
+responsive identity column and tabbed forms, shared image-upload preview integration,
+dirty tracking, native discard dialog and validated saving state. ProfileController
+owns both personal updates and the separate password POST. ChangePasswordViewModel
+validates current/new/confirmation independently of ProfileViewModel. PasswordHasher
+and a conditional ExecuteUpdate change only the current user's matched hash; success
+signs out that browser session. Passwords never enter view values. JavaScript-free
+links select the forms server-side; ordinary upload/save remains available.
 
 ProfileController/ProfileViewModel/Views/Profile/Index.cshtml form a dedicated authenticated editor. Reads project only personal fields; writes target the cookie identity through ExecuteUpdate and update only personal names, birthday and image. Posted IDs, username, role and active flags are not accepted. Uploads reuse ImageUploadService and all saves require antiforgery. A changed/deactivated account cannot be updated through a stale session. Founder editing uses a serializable update of its single existing record, without create/delete actions. UniversityPageViewModel now holds one Founder. Social-link controllers, entity/mapping, form model/view, validators and read queries were removed alongside the empty live table; consolidated Schema.sql now has seven tables.

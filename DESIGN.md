@@ -1,5 +1,10 @@
 # Ravenclaw University design
 
+2026-11-18: My profile uses an unboxed identity/photo column left and Personal details /
+Change password tabs right. Keep navy/ivory/gold, existing serif heading and Lato forms.
+Two-column personal fields, separate password form, concise labels and no helper/draft
+captions. Stack below 801px. See docs/DESIGN.md and docs/AUTHENTICATION.md.
+
 2026-11-18: Admin sidebar View university is an outlined button-style link.
 Removed its Edit personal information link; personal editing stays in the public account menu.
 

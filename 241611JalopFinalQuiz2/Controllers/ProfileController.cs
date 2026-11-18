@@ -1,8 +1,13 @@
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using _241611JalopFinalQuiz2.Data;
+using _241611JalopFinalQuiz2.Models;
 using _241611JalopFinalQuiz2.Services;
 using _241611JalopFinalQuiz2.ViewModels;
 
@@ -10,7 +15,8 @@ namespace _241611JalopFinalQuiz2.Controllers;
 
 [Authorize]
 [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
-public class ProfileController(UniversityDbContext database, ImageUploadService images, ILogger<ProfileController> logger) : Controller
+public class ProfileController(UniversityDbContext database, ImageUploadService images,
+    IPasswordHasher<UserTable> hasher, ILogger<ProfileController> logger) : Controller
 {
     private int CurrentId => int.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out var id) ? id : 0;
     private Task<ProfileViewModel?> ReadProfile() => database.UserTables.AsNoTracking()
@@ -20,14 +26,68 @@ public class ProfileController(UniversityDbContext database, ImageUploadService 
         .SingleOrDefaultAsync();
 
     [HttpGet]
-    public async Task<IActionResult> Index()
+    public async Task<IActionResult> Index(string? tab)
     {
+        ViewData["PasswordTab"] = tab == "password";
         try
         {
             var model = await ReadProfile();
             return model is null ? NotFound() : View(model);
         }
         catch (Exception exception) { return Unavailable(exception, new ProfileViewModel()); }
+    }
+
+    [HttpPost, ValidateAntiForgeryToken, EnableRateLimiting("account-forms")]
+    public async Task<IActionResult> ChangePassword([Bind(Prefix = "Password")] ChangePasswordViewModel password)
+    {
+        ViewData["PasswordTab"] = true;
+        ProfileViewModel? profile = null;
+        try
+        {
+            profile = await ReadProfile();
+            if (profile is null) return NotFound();
+            if (ModelState.IsValid)
+            {
+                var user = await database.UserTables.AsNoTracking().SingleOrDefaultAsync(user => user.UserId == CurrentId);
+                if (user is null) return NotFound();
+                if (!user.IsActive || user.Role != User.FindFirstValue(ClaimTypes.Role)
+                    || user.Username != User.Identity?.Name) return Forbid();
+                PasswordVerificationResult verified;
+                try { verified = hasher.VerifyHashedPassword(user, user.PasswordHash, password.CurrentPassword); }
+                catch (FormatException) { verified = PasswordVerificationResult.Failed; }
+                if (verified == PasswordVerificationResult.Failed)
+                    ModelState.AddModelError("Password.CurrentPassword", "Current password is incorrect.");
+                else if (password.CurrentPassword == password.NewPassword)
+                    ModelState.AddModelError("Password.NewPassword", "Choose a different password.");
+                else
+                {
+                    var originalHash = user.PasswordHash;
+                    var newHash = hasher.HashPassword(user, password.NewPassword);
+                    // A concurrent password/account change must not be overwritten.
+                    var changed = await database.UserTables.Where(account => account.UserId == CurrentId
+                            && account.IsActive && account.Username == user.Username && account.Role == user.Role
+                            && account.PasswordHash == originalHash)
+                        .ExecuteUpdateAsync(setters => setters.SetProperty(account => account.PasswordHash, newHash));
+                    if (changed != 1)
+                        ModelState.AddModelError("", "Your account changed. Reload the page and try again.");
+                    else
+                    {
+                        await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+                        TempData["StatusMessage"] = "Password updated. Sign in with your new password.";
+                        return RedirectToAction("Login", "Account");
+                    }
+                }
+            }
+            return View("Index", profile);
+        }
+        catch (Exception exception) { return Unavailable(exception, profile ?? new ProfileViewModel()); }
+        finally
+        {
+            // Never retain submitted secrets in a rendered model or attempted-value state.
+            password.CurrentPassword = password.NewPassword = password.ConfirmPassword = "";
+            foreach (var key in ModelState.Keys.Where(key => key.StartsWith("Password.", StringComparison.Ordinal)).ToArray())
+                ModelState.SetModelValue(key, null, null);
+        }
     }
 
     [HttpPost, ValidateAntiForgeryToken, RequestSizeLimit(6 * 1024 * 1024)]

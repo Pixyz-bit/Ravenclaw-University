@@ -247,8 +247,10 @@ the resolved upload target is checked against the GUID-named test directory firs
 
 Founder is edit-only: its default GET loads the existing record, and POST requires that exact ID. Creation, deletion and collection controls are absent. Empty storage shows an explanatory state; duplicate records fail closed. The public view model holds one Founder instead of a list. No live founder data was changed.
 
-Personal information now uses a compact centered form with a full-name/photo strip,
-adjacent Change photo action and immediate local preview. First/middle/last name
-and birthday controls stack on phones. Draft status and navigation/sign-out/refresh
-warnings protect unsaved edits; Save changes and Cancel share one action area.
-Existing MVC validation, uploads, authorization and success feedback are retained.
+My profile has a desktop identity/photo column on the left and Personal details /
+Change password tabs on the right, stacking on phones. Personal details edits names,
+birthday and the selected photo; password changes use a separate form with current,
+new and confirmation fields. Tabs retain local drafts. Each form has its own Cancel
+and save action. Captions, instructions and draft-state text are removed; inline
+validation and navigation/sign-out/refresh protection remain. Password behavior and
+its isolated verification are documented in AUTHENTICATION.md.

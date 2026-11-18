@@ -50,9 +50,9 @@ Its interactive terminal/password-entry path still requires a manual check.
   follows the request scheme. Use a published app and HTTPS when deploying.
 - Every authenticated request rechecks the database account's active status, role,
   and username. Deactivation, deletion, or a role/name change rejects the session.
-  Database validation errors fail closed. Password-reset/session-wide revocation
-  is outside the implemented account scope.
-- Login/registration POSTs share a 30-request/minute per-client-IP fixed-window
+  Database validation errors fail closed. Self-service password changes sign out
+  the current session; recovery/reset and session-wide revocation remain outside scope.
+- Login/registration/password-change POSTs share a 30-request/minute per-client-IP fixed-window
   limit; rejection returns HTTP 429. This is in-process, not a distributed limiter.
   Configure trusted proxies deliberately if deploying behind one.
 - All account POSTs use anti-forgery checks. Logout is POST-only. Login return URLs
@@ -65,11 +65,28 @@ Its interactive terminal/password-entry path still requires a manual check.
 Personal information is available at /Profile to authenticated Admin and Student
 accounts. The dedicated form edits only the signed-in account's names, optional
 birthday and profile image. Identity comes from the cookie, never a posted ID.
-Username, role, IsActive and password are outside this form model and remain
-unchanged. Writes require antiforgery and an active account with the same role.
+Username, role, IsActive and password remain unchanged by the personal-details POST.
+Writes require antiforgery and an active account with the same role.
 Reads project personal fields only; uploads reuse existing validation/storage.
 Saving names preserves the session because the login username does not change.
-The public account menu and admin sidebar link to this page.
+The public account menu links to this page; the admin sidebar omits personal editing.
+
+The Change password tab posts a dedicated ChangePasswordViewModel to
+/Profile/ChangePassword. It requires authentication, antiforgery, the current password,
+a different 8–128-character new password and matching confirmation. The registered
+ASP.NET Core PasswordHasher verifies and hashes secrets. An atomic conditional update
+checks the original hash, active state, username and role before changing only the
+signed-in account's hash. Posted IDs/roles/usernames are ignored. Password values are
+cleared from models and attempted-value state before rendering validation errors.
+Success signs out this browser session and redirects to login with a confirmation.
+No schema changes or email/reset flows were added; other existing sessions are not
+revoked by this operation. Personal details and passwords use independent forms.
+
+Verified 2026-11-18: all 176 disposable HTTP/SQL checks passed, including missing CSRF,
+anonymous/GET rejection, incorrect current password, length/confirmation validation,
+unchanged-password rejection, unchanged hashes after failures, ownership tampering,
+success/sign-out, old-password rejection and new-password sign-in. Existing profile
+upload and content/account checks also passed. No university accounts were modified.
 
 Account management rows offer only Activate/Deactivate and View information.
 Details is an Admin-only, read-only profile page with no password/hash fields.

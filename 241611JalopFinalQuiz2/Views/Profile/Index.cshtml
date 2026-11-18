@@ -1,20 +1,19 @@
 @model ProfileViewModel
 @{
-    ViewData["Title"] = "Personal information";
+    ViewData["Title"] = "My profile";
     var fullName = string.Join(" ", new[] { Model.FirstName, Model.MiddleName, Model.LastName }.Where(part => !string.IsNullOrWhiteSpace(part)));
     var identity = new AccountMenuViewModel(string.IsNullOrWhiteSpace(fullName) ? Model.Username ?? "Your account" : fullName, Model.Username ?? "", Model.ProfileImg);
+    var passwordTab = ViewData["PasswordTab"] is true;
+    var recoveredDetails = Context.Request.Method == "POST" && !passwordTab;
 }
-<section class="profile-page" aria-labelledby="profile-title">
+<section class="profile-page" aria-labelledby="profile-title" data-profile-page>
     <header class="profile-heading">
-        <a class="profile-back-link" asp-controller="Home" asp-action="Index"><span aria-hidden="true">←</span> Back to university</a>
-        <p class="eyebrow">Your account</p>
-        <h1 id="profile-title">Personal information</h1>
-        <p class="muted">Update your photo and personal details.</p>
+        <h1 id="profile-title">My profile</h1>
+        <a class="button button-secondary profile-back-link" asp-controller="Home" asp-action="Index">Back to university</a>
     </header>
     @if (TempData["StatusMessage"] is string message) { <p class="status-message" role="status">@message</p> }
-    <div asp-validation-summary="All" class="validation-summary" role="alert"></div>
-    <form asp-action="Index" method="post" enctype="multipart/form-data" class="profile-form" data-profile-editor data-recovered="@(Context.Request.Method == "POST" ? "true" : "false")">
-        <div class="profile-identity field">
+    <div class="profile-layout">
+        <aside class="profile-identity field" aria-label="Profile photo and identity">
             <div class="profile-photo-stack">
                 @if (!string.IsNullOrWhiteSpace(Model.ProfileImg) && SafeImageAttribute.IsSafeImage(Model.ProfileImg))
                 { <img class="profile-photo" src="@Model.ProfileImg" alt="Your current profile photo" data-profile-current /> }
@@ -24,30 +23,53 @@
             <div class="profile-identity-copy"><h2>@identity.DisplayName</h2><p>@Model.Username</p></div>
             <div class="profile-photo-controls">
                 <label asp-for="ImageUpload" data-profile-photo-label>Profile photo</label>
-                <input asp-for="ImageUpload" class="profile-photo-input" type="file" accept="image/png,image/jpeg,image/webp" data-image-upload aria-describedby="profile-image-help" />
-                <button class="button button-secondary" type="button" data-profile-choose aria-describedby="profile-image-help" hidden>Change photo</button>
+                <input asp-for="ImageUpload" form="profile-details-form" class="profile-photo-input" type="file" accept="image/png,image/jpeg,image/webp" data-image-upload />
+                <button class="button button-secondary" type="button" data-profile-choose hidden>Change photo</button>
             </div>
-            <small id="profile-image-help">PNG, JPEG, or WebP, up to 5 MB. Your photo changes when you save.</small>
             <span asp-validation-for="ImageUpload" class="field-error"></span>
-        </div>
-        <fieldset class="editor-fieldset profile-details">
-            <legend>Personal details</legend>
-            <p class="profile-field-note">Fields marked * are required.</p>
-            <div class="form-grid">
-                <div class="field"><label asp-for="FirstName">First name <span aria-hidden="true">*</span></label><input asp-for="FirstName" autocomplete="given-name" maxlength="100" /><span asp-validation-for="FirstName" class="field-error"></span></div>
-                <div class="field"><label asp-for="MiddleName">Middle name <span class="profile-optional">(optional)</span></label><input asp-for="MiddleName" autocomplete="additional-name" maxlength="100" /><span asp-validation-for="MiddleName" class="field-error"></span></div>
-                <div class="field"><label asp-for="LastName">Last name <span aria-hidden="true">*</span></label><input asp-for="LastName" autocomplete="family-name" maxlength="100" /><span asp-validation-for="LastName" class="field-error"></span></div>
-                <div class="field"><label asp-for="Birthday">Birthday <span class="profile-optional">(optional)</span></label><input asp-for="Birthday" type="date" autocomplete="bday" /><span asp-validation-for="Birthday" class="field-error"></span></div>
+        </aside>
+        <div class="profile-editors">
+            <nav class="profile-tabs" role="tablist" aria-label="Profile settings">
+                <a id="profile-details-tab" asp-action="Index" role="tab" aria-controls="profile-details-panel" aria-selected="@(!passwordTab ? "true" : "false")" tabindex="@(passwordTab ? "-1" : "0")" data-profile-tab="details">Personal details</a>
+                <a id="profile-password-tab" asp-action="Index" asp-route-tab="password" role="tab" aria-controls="profile-password-panel" aria-selected="@(passwordTab ? "true" : "false")" tabindex="@(passwordTab ? "0" : "-1")" data-profile-tab="password">Change password</a>
+            </nav>
+            <div id="profile-details-panel" role="tabpanel" aria-labelledby="profile-details-tab" hidden="@passwordTab">
+                <form id="profile-details-form" asp-action="Index" method="post" enctype="multipart/form-data" class="profile-form" data-profile-editor data-recovered="@(recoveredDetails ? "true" : "false")">
+                    <div asp-validation-summary="ModelOnly" class="validation-summary" role="alert"></div>
+                    <div class="form-grid">
+                        <div class="field"><label asp-for="FirstName"></label><input asp-for="FirstName" autocomplete="given-name" maxlength="100" aria-required="true" /><span asp-validation-for="FirstName" class="field-error"></span></div>
+                        <div class="field"><label asp-for="MiddleName"></label><input asp-for="MiddleName" autocomplete="additional-name" maxlength="100" /><span asp-validation-for="MiddleName" class="field-error"></span></div>
+                        <div class="field"><label asp-for="LastName"></label><input asp-for="LastName" autocomplete="family-name" maxlength="100" aria-required="true" /><span asp-validation-for="LastName" class="field-error"></span></div>
+                        <div class="field"><label asp-for="Birthday"></label><input asp-for="Birthday" type="date" autocomplete="bday" /><span asp-validation-for="Birthday" class="field-error"></span></div>
+                    </div>
+                    <div class="profile-actions"><button class="button button-secondary" type="reset" data-profile-cancel>Cancel</button><button class="button button-primary" type="submit" disabled="@(ViewData["Unavailable"] is true)">Save changes</button></div>
+                </form>
             </div>
-        </fieldset>
-        <div class="profile-actions">
-            <p class="profile-draft-state" role="status" data-profile-dirty>No unsaved changes</p>
-            <div class="row-actions"><button class="button button-primary" type="submit" disabled="@(ViewData["Unavailable"] is true)">Save changes</button><a class="profile-cancel" asp-controller="Home" asp-action="Index">Cancel</a></div>
+            <div id="profile-password-panel" role="tabpanel" aria-labelledby="profile-password-tab" hidden="@(!passwordTab)">
+                <form asp-action="ChangePassword" method="post" class="profile-form" data-profile-password>
+                    <div asp-validation-summary="ModelOnly" class="validation-summary" role="alert"></div>
+                    @foreach (var field in new[] { "CurrentPassword", "NewPassword", "ConfirmPassword" })
+                    {
+                        var label = field == "CurrentPassword" ? "Current password" : field == "NewPassword" ? "New password" : "Confirm password";
+                        var fieldName = "Password." + field;
+                        var inputId = "Password_" + field;
+                        <div class="field">
+                            <label for="@inputId">@label</label>
+                            <div class="profile-password-control">
+                                <input id="@inputId" name="@fieldName" type="password" autocomplete="@(field == "CurrentPassword" ? "current-password" : "new-password")" maxlength="128" aria-required="true" required />
+                                <button class="profile-password-show" type="button" aria-controls="@inputId" aria-pressed="false" aria-label="Show @label.ToLowerInvariant()" data-password-show hidden>Show</button>
+                            </div>
+                            @Html.ValidationMessage(fieldName, null, new { @class = "field-error" })
+                        </div>
+                    }
+                    <div class="profile-actions"><button class="button button-secondary" type="reset" data-profile-cancel>Cancel</button><button class="button button-primary" type="submit" disabled="@(ViewData["Unavailable"] is true)">Update password</button></div>
+                </form>
+            </div>
         </div>
-    </form>
+    </div>
     <dialog class="profile-unsaved-dialog" data-profile-unsaved aria-labelledby="profile-unsaved-title" aria-describedby="profile-unsaved-description">
         <h2 id="profile-unsaved-title">Leave without saving?</h2>
-        <p id="profile-unsaved-description">Your personal information has unsaved changes. Keep editing, or discard the changes and leave.</p>
+        <p id="profile-unsaved-description">Your changes have not been saved.</p>
         <div class="row-actions"><button class="button button-primary" type="button" data-profile-keep>Keep editing</button><button class="button button-secondary" type="button" data-profile-discard>Discard changes</button></div>
     </dialog>
 </section>
