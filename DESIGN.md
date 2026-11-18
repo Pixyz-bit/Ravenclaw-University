@@ -48,6 +48,3 @@ Fields use four columns on wide desktops, two on tablets and one on phones.
 
 2026-11-16: compact three-column footer: university/socials, Explore, Contact.
 Removed the large motto and Our University links; columns stack on phones.
-
-2026-11-18: Dashboard and content inventory removed. Administration opens Hero and
-About directly; five editor/account links remain. Old /Admin links redirect there.
