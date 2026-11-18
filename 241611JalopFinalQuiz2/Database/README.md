@@ -16,10 +16,10 @@ Current structure: seven tables and 35 columns. On 2026-11-18 the user requested
 removal of FounderTable's birthday and message columns. Live dependencies were
 inspected first; a guarded transaction removed only those two columns and checked
 that the founder's retained ID, name and biography were unchanged. Models, editor,
-public view, optional founder seed and consolidated Schema.sql reflect this state.
+public view and consolidated Schema.sql reflect this state.
 Account birthdays remain supported. The footer quote is fixed presentation text.
-No incremental schema file is retained; optional seed/image scripts are content
-operations, not additional schema definitions.
+No incremental schema file is retained. Optional content scripts were removed
+on 2026-11-18 at the user's request.
 
 Open Schema.sql in SSMS or the MSSQL extension, connect to the intended SQL
 Server instance, and execute the whole script once to create a fresh database
@@ -93,36 +93,11 @@ with local SQL access. This validates these reads, not every mapping in the sche
 
 ## Tables
 
-All six approved generated subject images are the defaults in SeedPrograms.sql.
-Astronomy, Charms, Potions, and Defence Against the Dark Arts were applied locally
-on 2026-11-14; Herbology and Transfiguration followed on 2026-11-16. Existing matching
-subjects are still preserved by that seed script. ApplyProgramImages.sql is a
-separate, deliberate CONTENT update for those existing subjects: it changes only
-their ImagePath values and requires exactly one record per subject and either its
-documented old placeholder or its approved new image. Unexpected/custom paths stop
-the transaction for review. It does not change schema, names, descriptions, or
-other subjects. Neither content script is executed automatically by the app.
-
-SeedFounder.sql contains the approved Rowena Ravenclaw biography, applied to the
-previously empty founder table on 2026-11-14. It inserts her when absent or updates
-only her biography when exactly one matching name exists, stopping on duplicates.
-It preserves other founders and the existing matching founder's ID/name. This is optional
-content, not an automatic startup action or a schema change.
-
-SeedUniversityContent.sql contains the user-approved tentative About, Mission,
-Vision, and four core values. It was applied to the local database on 2026-11-12.
-It deliberately replaces these texts and the entire core-value list, preserving
-an existing university ID and hero image; it stops if multiple university rows
-exist. It is optional content only, never run automatically, and not a migration.
-
-Optional sample program content is in SeedPrograms.sql. It adds six fictional
-subjects with the approved images, skipping matching
-subject names case-insensitively. The user authorized applying it on 2026-11-12;
-six records were inserted into the local university database. This file contains
-data inserts only, is not run automatically, and is not a schema migration.
-The user requested removing "Sample program:" from all six descriptions on
-2026-11-16; both the live descriptions and seed now omit that prefix.
-Schema.sql remains the single consolidated schema definition.
+Database/ contains only Schema.sql and this README. The optional founder, program,
+university-content and program-image scripts, along with the empty Updates folder,
+were removed on 2026-11-18 at the user's request. Existing database content is
+unaffected. Enter content through the admin editors for a fresh database;
+Schema.sql creates structure only and does not restore existing records.
 
 | Table | Purpose | Primary key |
 | --- | --- | --- |

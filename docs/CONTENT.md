@@ -66,8 +66,8 @@ message/quote fields are removed from the application and live database. The fix
 quote “Wit beyond measure is man's greatest treasure” appears beneath the university
 brand in the contact footer, rather than beneath the founder biography.
 The single matching Rowena record uses the approved static portrait. Schema.sql and database definitions are unchanged.
-Database/SeedFounder.sql records the approved content publication, runs only when
-deliberately invoked, and preserves the existing founder ID and name. It refuses multiple or differently named founders instead of adding another record.
+The optional founder content script was removed on 2026-11-18 at the user's request.
+Manage the saved founder through the admin editor.
 
 The approved Ravenclaw-inspired About, Mission, and Vision copy was saved to the
 local database on 2026-11-12. Core values are Intelligence, Wisdom, Creativity,
@@ -75,8 +75,8 @@ and A Lifelong Love of Learning. About now starts directly with “A place for c
 minds”; the separate quote/header and admin notice have been removed. The closing
 sentence beginning “Here, every perspective” was removed from the approved copy.
 These are tentative university website contents.
-Database/SeedUniversityContent.sql records the approved copy; running it deliberately
-replaces those three text fields and the complete core-value list.
+The optional university content script was removed on 2026-11-18 at the user's
+request. Manage these saved values through the admin editor.
 
 Sign in as an Admin and open Administration. The sidebar contains
 Hero and About, Academics, Founder, Contacts, and Account Management, in that order. The crest also opens
@@ -180,9 +180,9 @@ description disclosures. Motion pauses on hover/focus/open cards, manual pause, 
 reduced-motion preference. Duplicate visual laps are hidden from screen readers.
 The user separately authorized six sample programs in the university database on
 2026-11-12. At the user's request on 2026-11-16, the "Sample program:" prefix was
-removed from all six saved descriptions and the seed; the remaining copy was preserved.
-Subjects can be edited or deleted in Admin. Database/SeedPrograms.sql adds them to a new setup
-without overwriting matching records. -IncludeContent -Preview
+removed from all six saved descriptions and the then-existing seed; the remaining copy was preserved.
+Subjects can be edited or deleted in Admin. The optional program seed and image-update
+scripts were removed on 2026-11-18 at the user's request. -IncludeContent -Preview
 adds clearly labelled programs to its disposable database after integration checks,
 so the visual preview can exercise scrolling even when production programs are empty.
 

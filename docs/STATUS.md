@@ -4,6 +4,14 @@ Last verified: 2026-11-18.
 
 ## Latest error check
 
+- 2026-11-18 database-folder cleanup: removed the four optional content SQL scripts
+  and the empty Updates folder at the user's request. Database/ now contains only
+  Schema.sql and README.md. Updated database/content guidance; historical entries
+  below describe the scripts when they existed. Verified the folder contents,
+  unchanged Schema.sql and absence of script references outside historical status.
+  No database commands were executed or application behavior changed. The existing
+  UniversityDbContext.cs user edit was left untouched.
+
 - 2026-11-18 supplied SQL comparison: the user's seven-table/35-column definition
   matches consolidated Schema.sql for column names, types, lengths, time precision,
   intended nullability, primary keys, identities and IsActive default. The paste
