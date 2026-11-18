@@ -1,8 +1,15 @@
 # Current status
 
-Last verified: 2026-11-16.
+Last verified: 2026-11-18.
 
 ## Latest error check
+
+- 2026-11-18 local startup: MSSQLSERVER was already Running. The configured
+  read-only EF diagnostic passed university, personal-detail, and office-time
+  reads. Normal Razor/Tailwind build passed with zero warnings/errors. Started
+  the http Development app at localhost:5182; login returned HTTP 200 with the
+  Ravenclaw University name. SQL Server and the app remain running. No schema,
+  content, or account data was changed; the existing database needed no setup.
 
 - 2026-11-16: Added Founder and Contacts after Academics in the footer Explore
   list, targeting the existing leadership and contact anchors. Source checks
