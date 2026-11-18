@@ -4,6 +4,21 @@ Last verified: 2026-11-18.
 
 ## Latest error check
 
+- 2026-11-18 database/model alignment review: exported the compiled runtime EF model
+  and compared all 37 columns across seven tables with consolidated Schema.sql.
+  SQL types, lengths/precision, nullability, primary keys and SQL Server identity
+  strategies matched; IsActive's true default also matches. Reviewed entity/form/
+  controller/public-view mappings, including Founder Quote -> FounderMessage,
+  password forms -> PasswordHash, separate office times and gallery storage.
+  UI-only upload/confirmation/search fields intentionally have no database column;
+  profile/registration required names are stricter than nullable legacy storage.
+  Username uniqueness and singleton content policies remain application-enforced;
+  the SQL Role CHECK exists in Schema.sql but is not declared in EF's model.
+  A read-only live SQL metadata query did not complete and its diagnostic process
+  was stopped; this review does not certify current live-database drift or data
+  integrity. No SQL/schema/data or application changes were made. Corrected the
+  stale current table count and obsolete social-icon rule in database documentation.
+
 - 2026-11-18 Founder Quote: renamed the admin Founder Message label to Founder Quote
   and connected the public serif quote below the biography to its saved value.
   Removed the hard-coded motto and Rowena-only condition for the quote; retained

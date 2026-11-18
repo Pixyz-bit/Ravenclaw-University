@@ -51,7 +51,7 @@ to update the existing database. After a future authorized database change, upda
 the consolidated schema and regenerate affected models. The agent's verification
 uses read-only queries; the user applied the personal-details change.
 
-Eight independent tables serve one university. There are no foreign keys or extra
+Seven independent tables serve one university. There are no foreign keys or extra
 indexes; SQL Server creates primary-key indexes. Keep one university-info row and
 one contact row through application logic. See Database/README.md for details.
 
