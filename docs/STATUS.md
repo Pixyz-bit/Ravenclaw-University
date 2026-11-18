@@ -4,6 +4,23 @@ Last verified: 2026-11-18.
 
 ## Latest error check
 
+- 2026-11-18 SQL connection follow-up: MSSQLSERVER is Running. The normal app's
+  read-only database diagnostic passed (university/profile/office-time reads in
+  40/21/5ms). Explicit encrypted sqlcmd metadata reads also passed. Added
+  scripts/Check-Database.ps1 with encrypted Windows authentication, existing local
+  development certificate policy, 5-second login/10-second query timeouts and a
+  20-second overall process limit. It reads metadata/memory only. Five real HTTP
+  antiforgery-protected login POSTs with nonexistent diagnostic usernames reached
+  ordinary credential rejection in 58/38/22/31/29ms; none returned unavailable.
+  Live metadata now confirms all 37 columns across seven tables match runtime EF
+  types/lengths/time precision/nullability/identities. This resolves the previous
+  review's live-column verification gap. SQL physical/virtual memory-low flags were
+  both 0; about 1.07GiB OS memory was available on a 7.38GiB system. No SQL restart,
+  configuration/schema/data changes or changes to app encryption were necessary.
+  An unavailable-port check failed promptly in 7.1 seconds. Recovery is verified
+  now; the earlier intermittent connection/memory issue is
+  not proven permanently resolved.
+
 - 2026-11-18 database/model alignment review: exported the compiled runtime EF model
   and compared all 37 columns across seven tables with consolidated Schema.sql.
   SQL types, lengths/precision, nullability, primary keys and SQL Server identity

@@ -54,6 +54,14 @@ server-side. See ../../docs/AUTHENTICATION.md for first-admin creation and tests
 
 ## Verifying the application connection
 
+From the repository root, `pwsh -File scripts/Check-Database.ps1` performs a
+read-only local SQL metadata/memory check. It requires sqlcmd and permission to
+read SQL Server memory diagnostics. It uses encrypted Windows authentication and
+the same trusted-development-certificate policy as the local application. Login
+and query timeouts are bounded, with a 20-second overall process limit. It never
+restarts SQL Server or changes data/configuration. Optional Server/Database
+parameters select the intended local development target.
+
 From the MVC project directory (the folder containing the .csproj), run:
 
 ```powershell
