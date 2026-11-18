@@ -65,7 +65,9 @@ crop. Founder editing covers the name and biography only. Founder birthday and
 message/quote fields are removed from the application and live database. The fixed
 quote “Wit beyond measure is man's greatest treasure” appears beneath the university
 brand in the contact footer, rather than beneath the founder biography.
-The single matching Rowena record uses the approved static portrait. Schema.sql and database definitions are unchanged.
+The founder uses the approved static portrait regardless of the saved name or
+biography. Its alt text describes the image without depending on the editable name.
+Schema.sql and database definitions are unchanged.
 The optional founder content script was removed on 2026-11-18 at the user's request.
 Manage the saved founder through the admin editor.
 

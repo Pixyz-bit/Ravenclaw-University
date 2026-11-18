@@ -257,8 +257,9 @@ There is no full-body requirement and no message dropdown or public message bloc
 Founder birthday and message/quote fields are removed from admin and storage.
 
 Founder descriptions remain editable database content for the one saved founder.
-The Rowena match uses her static portrait; a differently named founder would
-retain its own text without borrowing her identity. Empty/missing-biography states remain supported.
+The approved portrait is static and remains visible regardless of edits to the
+founder's name or biography (user instruction, 2026-11-18). Use descriptive alt
+text independent of the saved name. Empty/missing-biography states remain supported.
 
 The founder section now reserves 100dvh minus the measured navbar height. Its
 heading occupies an automatic grid row and the portrait/biography fills the rest.

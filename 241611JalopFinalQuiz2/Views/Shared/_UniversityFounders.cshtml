@@ -12,14 +12,10 @@
         else
         {
             var founder = Model.Founder;
-            var isRowena = string.Equals(founder.FounderName.Trim(), "Rowena Ravenclaw", StringComparison.OrdinalIgnoreCase);
-            <article class="founder-profile @(isRowena ? "founder-profile-portrait" : null)" aria-labelledby="founder-@founder.FounderId">
-                @if (isRowena)
-                {
-                    <figure class="founder-portrait">
-                        <img src="~/images/founders/rowena-ravenclaw.png" asp-append-version="true" width="970" height="1621" alt="Rowena Ravenclaw wearing a blue gown and holding a book" loading="lazy" decoding="async" />
-                    </figure>
-                }
+            <article class="founder-profile founder-profile-portrait" aria-labelledby="founder-@founder.FounderId">
+                <figure class="founder-portrait">
+                    <img src="~/images/founders/rowena-ravenclaw.png" asp-append-version="true" width="970" height="1621" alt="Portrait of a woman wearing a blue gown and holding a book" loading="lazy" decoding="async" />
+                </figure>
                 <div class="founder-biography" tabindex="0" role="region" aria-labelledby="founder-@founder.FounderId">
                     <h3 id="founder-@founder.FounderId" class="university-subtitle">@founder.FounderName</h3>
                     <p class="founder-role">Founder</p>

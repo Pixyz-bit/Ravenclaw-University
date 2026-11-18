@@ -4,6 +4,13 @@ Last verified: 2026-11-18.
 
 ## Latest error check
 
+- 2026-11-18 static founder portrait: removed the name-dependent rendering condition
+  and made the existing portrait/layout unconditional for the saved founder.
+  Alt text describes the image independently of editable content. Updated content
+  and design guidance. Isolated Razor/Tailwind build passed with zero warnings or
+  errors; source/asset checks confirmed one portrait and no name condition. No live
+  database changes. The running app has not yet been restarted with this change.
+
 - 2026-11-18 database-folder cleanup: removed the four optional content SQL scripts
   and the empty Updates folder at the user's request. Database/ now contains only
   Schema.sql and README.md. Updated database/content guidance; historical entries
