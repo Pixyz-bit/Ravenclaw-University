@@ -17,12 +17,11 @@
 <body class="admin-body">
     <a class="skip-link" href="#main-content">Skip to administration content</a>
     <aside class="admin-sidebar">
-        <a class="wordmark" asp-controller="Admin" asp-action="Index" asp-route-id="" asp-route-confirmDelete=""><img class="university-logo" src="~/images/branding/ravenclaw-university-crest.png" asp-append-version="true" width="1123" height="1401" alt="" /><span>Ravenclaw<br />University</span></a>
+        <a class="wordmark" asp-controller="UniversityInformation" asp-action="Index" asp-route-id="" asp-route-confirmDelete=""><img class="university-logo" src="~/images/branding/ravenclaw-university-crest.png" asp-append-version="true" width="1123" height="1401" alt="" /><span>Ravenclaw<br />University</span></a>
         <p class="admin-sidebar-label">Administration</p>
         <details class="admin-navigation" open>
             <summary>Navigation</summary>
             <nav aria-label="Administration navigation">
-                <a class="admin-nav-link @(controller == "Admin" ? "is-active" : "")" aria-current="@(controller == "Admin" ? "page" : null)" asp-controller="Admin" asp-action="Index" asp-route-id="" asp-route-confirmDelete="">Dashboard</a>
                 @foreach (var contentSection in new[] { ContentSection.University, ContentSection.Programs, ContentSection.Founders, ContentSection.Contacts })
                 {
                     var active = activeSection == contentSection

@@ -18,7 +18,7 @@ Styles/
     navigation.css           Public navbar and account dropdown
   layouts/
     account.css              Login and registration layouts
-    admin.css                Admin sidebar, workspace, dashboard
+    admin.css                Admin sidebar and workspace
     admin-editors.css        Shared editor/preview layout, inventory, rows and draft dialog
     admin-accounts.css       Account analytics, directory rows, status actions and details
     profile.css              Self-service personal information and profile identity layout

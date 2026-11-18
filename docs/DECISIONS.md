@@ -8,7 +8,7 @@ Recorded 2026-11-11 from the project conversation.
 | Official institution name: Ravenclaw University | Explicit user correction; use consistently in branding and future work |
 | Approved transparent Ravenclaw crest is the main university logo | User approved the imagegen-cleaned supplied crest and authorized website integration after preview |
 | First content version is one authenticated page with section anchors | Implements the original five sections; separate detail pages can be added if requested |
-| Admin area has a separate sidebar layout | Explicit user request; Dashboard and each content section have dedicated navigation with an active state |
+| Admin area has a separate sidebar layout | Explicit user request; five editor/account links have active states. Dashboard removed on 2026-11-18; administration opens Hero and About. |
 | Admin sidebar is flat and unnumbered, and workspace has no topbar | User requested removal of numeric prefixes, University content divider, and admin-topbar header |
 | Editable images use file uploads | Explicit user request supersedes path-only selection; hero/gallery/program/profile uploads retain database path columns |
 | Admins can manage existing accounts | User requested Account management; search/edit details, profile, role/status with self-lockout protection; passwords and account creation/deletion remain separate |

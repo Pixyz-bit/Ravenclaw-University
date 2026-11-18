@@ -4,6 +4,16 @@ Last verified: 2026-11-18.
 
 ## Latest error check
 
+- 2026-11-18: Removed Dashboard and its content inventory, including the view,
+  model, count queries, sidebar link, and unused styles. Admin sign-in, Manage
+  website, and the sidebar crest now open Hero and About; the protected /Admin
+  route redirects there for old bookmarks. Account Management totals remain.
+  Razor/Tailwind build passed with zero warnings/errors; all 162 disposable
+  HTTP/SQL checks passed, including the redirect and five-link navigation.
+  Browser review confirmed /Admin opens Hero and About without Dashboard or
+  inventory. Design detection flagged only the existing approved Lato font.
+  Restarted localhost:5182; login returned HTTP 200. No live database changes.
+
 - 2026-11-18 local startup: MSSQLSERVER was already Running. The configured
   read-only EF diagnostic passed university, personal-detail, and office-time
   reads. Normal Razor/Tailwind build passed with zero warnings/errors. Started

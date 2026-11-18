@@ -43,7 +43,7 @@ public class AccountController(AccountService accounts, ILogger<AccountControlle
                 new ClaimsPrincipal(identity), new AuthenticationProperties { IsPersistent = false });
 
             if (Url.IsLocalUrl(model.ReturnUrl)) return LocalRedirect(model.ReturnUrl!);
-            return RedirectToAction("Index", user.Role == "Admin" ? "Admin" : "Home");
+            return RedirectToAction("Index", user.Role == "Admin" ? "UniversityInformation" : "Home");
         }
         catch (Exception exception)
         {

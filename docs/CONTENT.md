@@ -45,8 +45,8 @@ its Tailwind styling; no database changes were needed.
 
 ## Using the editors
 
-The admin dashboard now has real record counts, quick actions, and suggested updates
-for missing introduction/contact/program/leadership content. Editors use grouped
+Administration opens Hero and About directly; the dashboard and content inventory
+were removed at the user's request. Editors use grouped
 forms beside a local draft preview (stacked on smaller screens). Typing and image
 selection update the preview without saving. Use Save to persist through the existing
 controller. Saved program/gallery entries show thumbnails; text collections show
@@ -74,9 +74,9 @@ These are tentative university website contents.
 Database/SeedUniversityContent.sql records the approved copy; running it deliberately
 replaces those three text fields and the complete core-value list.
 
-Sign in as an Admin and open Administration. The sidebar contains Dashboard,
+Sign in as an Admin and open Administration. The sidebar contains
 Hero and About, Academics, Founder, Contacts, and Account Management, in that order. The crest also opens
-the dashboard. The admin layout is separate from the university navbar, highlights
+Hero and About. Old /Admin links redirect there. The admin layout is separate from the university navbar, highlights
 the current section, and has expandable navigation on phones.
 
 Hero and About edits the saved hero image, About Heading/Description, Mission,

@@ -32,7 +32,7 @@
                 <div class="account-dropdown">
                     <partial name="_AccountMenuIdentity" model="@(Context.Items[typeof(AccountMenuViewModel)] as AccountMenuViewModel ?? new AccountMenuViewModel(User.Identity?.Name ?? "Account", User.Identity?.Name ?? "", null))" />
                     <a class="account-profile-link" asp-controller="Profile" asp-action="Index">Edit personal information <span aria-hidden="true">›</span></a>
-                    @if (User.IsInRole("Admin")) { <a asp-controller="Admin" asp-action="Index">Manage website <span aria-hidden="true">›</span></a> }
+                    @if (User.IsInRole("Admin")) { <a asp-controller="UniversityInformation" asp-action="Index">Manage website <span aria-hidden="true">›</span></a> }
                     <form asp-controller="Account" asp-action="Logout" method="post"><button type="submit">Sign out</button></form>
                 </div>
             </details>

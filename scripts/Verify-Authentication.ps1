@@ -158,10 +158,10 @@ try {
     Invoke-TestSql "UPDATE dbo.UserTable SET IsActive=1, Role=N'Admin' WHERE Username=N'verification.student';" | Out-Null
     $admin = New-TestClient
     $adminLogin = Submit-Form $admin '/Account/Login' @{ Username='verification.student'; Password='Test-Only-Scholar-2026' }
-    Assert-Check ($adminLogin.Status -eq 302 -and (Send-Request $admin '/Admin').Status -eq 200) 'Admin can access administration'
+    Assert-Check ($adminLogin.Status -eq 302 -and $adminLogin.Location -like '/UniversityInformation*' -and (Send-Request $admin '/UniversityInformation').Status -eq 200) 'Admin can access administration'
     if ($IncludeContent) {
-        $adminDashboard = Send-Request $admin '/Admin'
-        Assert-Check ($adminDashboard.Body.Contains('aria-label="Administration navigation"') -and -not $adminDashboard.Body.Contains('aria-label="Main navigation"')) 'Admin dashboard uses a separate sidebar layout'
+        $adminEditor = Send-Request $admin '/UniversityInformation'
+        Assert-Check ($adminEditor.Body.Contains('aria-label="Administration navigation"') -and -not $adminEditor.Body.Contains('aria-label="Main navigation"')) 'Admin editor uses a separate sidebar layout'
         $programList = Send-Request $admin '/AcademicPrograms'
         $activeLinks = [regex]::Matches($programList.Body,'<a\b[^>]*aria-current="page"[^>]*>.*?</a>',[Text.RegularExpressions.RegexOptions]::Singleline)
         Assert-Check ($activeLinks.Count -eq 1 -and $activeLinks[0].Value.Contains('Academics')) 'Content sidebar marks only the current section active'
@@ -169,9 +169,9 @@ try {
         Assert-Check ($universityPage.Body.Contains('name="AboutHeading"') -and $universityPage.Body.Contains('name="CoreValuesText"')) 'Hero and About includes the heading and combined core-value editor'
         $nav = [regex]::Match($universityPage.Body, '<nav aria-label="Administration navigation">(.*?)</nav>', [Text.RegularExpressions.RegexOptions]::Singleline).Groups[1].Value
         $navNames = [regex]::Matches($nav, '<a\b[^>]*>(.*?)</a>', [Text.RegularExpressions.RegexOptions]::Singleline) | ForEach-Object { [Net.WebUtility]::HtmlDecode($_.Groups[1].Value.Trim()) }
-        Assert-Check (($navNames -join '|') -eq 'Dashboard|Hero and About|Academics|Founder|Contacts|Account Management') 'Sidebar shows Dashboard first, followed by the five content sections'
+        Assert-Check (($navNames -join '|') -eq 'Hero and About|Academics|Founder|Contacts|Account Management') 'Sidebar shows only the five content sections'
         Assert-Check ($universityPage.Status -eq 200 -and $universityPage.Body.Contains('name="ImageUpload"') -and $universityPage.Body.Contains('type="file"') -and $universityPage.Body.Contains('name="AcademyDescription"') -and $universityPage.Body.Contains('name="Mission"') -and $universityPage.Body.Contains('name="Vision"')) 'University page displays its image uploader and three text fields'
-        Assert-Check (-not $adminDashboard.Body.Contains('admin-nav-number') -and -not $adminDashboard.Body.Contains('admin-nav-heading') -and -not $adminDashboard.Body.Contains('class="admin-topbar"')) 'Admin sidebar has no numbers/divider and the admin topbar is removed'
+        Assert-Check (-not $adminEditor.Body.Contains('admin-nav-number') -and -not $adminEditor.Body.Contains('admin-nav-heading') -and -not $adminEditor.Body.Contains('class="admin-topbar"')) 'Admin sidebar has no numbers/divider and the admin topbar is removed'
         Assert-Check ((Send-Request $admin '/AdminContent?section=University').Location -like '/UniversityInformation*') 'Existing University information link redirects to its dedicated editor'
         Invoke-TestSql "INSERT INTO dbo.FounderTable (FounderName,Description) VALUES (N'Fixture founder',N'Fixture biography');" | Out-Null
         $sections = @(
@@ -332,7 +332,7 @@ try {
         Assert-Check ((Send-Request $admin '/AccountManagement/SetActive' $toggleFields).Status -eq 302 -and (Invoke-TestSql "SELECT IsActive FROM dbo.UserTable WHERE UserId=$adminId;") -eq '1') 'Quick status action cannot deactivate the current admin'
         $totals = (Invoke-TestSql 'SELECT COUNT(*),SUM(CASE WHEN IsActive=1 THEN 1 ELSE 0 END),SUM(CASE WHEN IsActive=0 THEN 1 ELSE 0 END) FROM dbo.UserTable;') -split '\s+'
         $dashboard = Send-Request $admin '/Admin'
-        Assert-Check ($dashboard.Status -eq 200 -and -not $dashboard.Body.Contains('Account analytics') -and -not $dashboard.Body.Contains('Suggested updates') -and -not $dashboard.Body.Contains('Quick actions')) 'Dashboard omits account analytics, suggestions, and quick actions'
+        Assert-Check ($dashboard.Status -eq 302 -and $dashboard.Location -like '/UniversityInformation*' -and -not $universityPage.Body.Contains('Content inventory') -and -not $nav.Contains('Dashboard')) 'Removed dashboard redirects to Hero and About without inventory or dashboard navigation'
         $accountAnalytics = Send-Request $admin '/AccountManagement'
         Assert-Check ($accountAnalytics.Status -eq 200 -and $accountAnalytics.Body.Contains("<dt>Total Registered</dt><dd>$($totals[0])</dd>") -and $accountAnalytics.Body.Contains("<dt>Active Users</dt><dd>$($totals[1])</dd>") -and $accountAnalytics.Body.Contains("<dt>Deactivated Users</dt><dd>$($totals[2])</dd>")) 'Account management analytics match database totals after reactivation'
         $hashBefore = Invoke-TestSql "SELECT CHECKSUM(PasswordHash) FROM dbo.UserTable WHERE UserId=$profileId;"

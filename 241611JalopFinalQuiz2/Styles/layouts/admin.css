@@ -1,13 +1,5 @@
 /* Shared Tailwind styles: layouts / admin. */
 @layer components {
-.dashboard-list {
-    @apply mt-[36px];
-}
-
-.dashboard-link {
-    @apply flex items-center justify-between gap-[24px] [padding:24px_0] [border-top:1px_solid_var(--color-line)] no-underline text-[1.1rem] font-bold;
-}
-
 .admin-body {
     @apply grid [grid-template-columns:272px_minmax(0,1fr)] min-h-[100dvh];
 }
