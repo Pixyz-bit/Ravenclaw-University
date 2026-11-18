@@ -46,9 +46,10 @@ its Tailwind styling; no database changes were needed.
 ## Using the editors
 
 Administration opens Hero and About directly; the dashboard and content inventory
-were removed at the user's request. Editors use grouped
-forms beside a local draft preview (stacked on smaller screens). Typing and image
-selection update the preview without saving. Use Save to persist through the existing
+were removed at the user's request. Only Academics has a local draft side preview
+(stacked on smaller screens). Other editors use full-width grouped forms with
+related fields in responsive columns, inline upload previews, and draft status
+above Save. Typing and image selection remain local until saved. Use Save to persist through the existing
 controller. Saved program/gallery entries show thumbnails; text collections show
 short summaries. Dirty edits warn before navigating away, searching accounts, or
 signing out; Keep editing/Escape retains the draft, while Discard changes continues.

@@ -3,6 +3,7 @@ const adminEditorForms = [...document.querySelectorAll('form[data-admin-editor]'
 let adminLeaving = false;
 const editorStates = adminEditorForms.map(form => {
     const preview = form.closest('.admin-editor-grid')?.querySelector('[data-admin-preview]');
+    const stateLabel = form.querySelector('[data-dirty-state]') || preview?.querySelector('[data-dirty-state]');
     const signature = () => JSON.stringify([...form.elements]
         .filter(input => input.name && ['INPUT', 'SELECT', 'TEXTAREA'].includes(input.tagName) && !['hidden', 'submit', 'button'].includes(input.type))
         .map(input => [input.name, input.type === 'file' ? [...input.files].map(file => [file.name, file.size, file.lastModified]) : input.type === 'checkbox' ? input.checked : input.value]));
@@ -11,7 +12,6 @@ const editorStates = adminEditorForms.map(form => {
     let dirty = recovered;
     const update = () => {
         dirty = recovered || signature() !== initial;
-        const stateLabel = preview?.querySelector('[data-dirty-state]');
         if (stateLabel) {
             const message = dirty ? 'Unsaved changes' : 'Ready to edit';
             if (stateLabel.textContent !== message) stateLabel.textContent = message;
@@ -54,7 +54,6 @@ const editorStates = adminEditorForms.map(form => {
         queueMicrotask(() => {
             if (event.defaultPrevented || !form.checkValidity() || form.querySelector('.input-validation-error')) return;
             adminLeaving = true;
-            const stateLabel = preview?.querySelector('[data-dirty-state]');
             if (stateLabel) stateLabel.textContent = 'Saving changes…';
             form.querySelectorAll('button[type=submit]').forEach(button => { button.disabled = true; button.textContent = 'Saving…'; });
         });

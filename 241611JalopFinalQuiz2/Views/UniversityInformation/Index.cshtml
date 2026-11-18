@@ -2,7 +2,6 @@
 @{
     Layout = "_AdminLayout";
     ViewData["Title"] = "Hero and About";
-    var preview = new AdminPreviewViewModel("Hero and About preview", new[] { new AdminPreviewField("AboutHeading", "About Heading", Model.AboutHeading), new AdminPreviewField("AcademyDescription", "About Description", Model.AcademyDescription), new AdminPreviewField("Mission", "Mission", Model.Mission), new AdminPreviewField("Vision", "Vision", Model.Vision), new AdminPreviewField("CoreValuesText", "Core Values", Model.CoreValuesText, IsList: true) }, Model.HeroImg, ShowImage: true, Portrait: false);
 }
 <section class="editor-panel">
     <h1>Hero and About</h1>
@@ -11,7 +10,7 @@
     {
         <div class="status-message" role="status">@message</div>
     }
-    <div class="admin-editor-grid">
+    <div class="admin-editor-grid admin-editor-grid--single">
         <div class="admin-editor-fields">
             <h2>Page content</h2>
             <form asp-controller="UniversityInformation" asp-action="Index" asp-route-id="" asp-route-confirmDelete="" method="post" data-admin-editor data-recovered="@(Context.Request.Method == "POST" ? "true" : "false")" enctype="multipart/form-data">
@@ -51,13 +50,13 @@
                         <span asp-validation-for="CoreValuesText" class="field-error"></span>
                     </div>
                 </fieldset>
+                <p class="admin-save-state" role="status" data-dirty-state>Ready to edit</p>
                 <div class="row-actions">
                     <button class="button button-primary" type="submit" disabled="@(ViewData["Unavailable"] is true)">Save changes</button>
                     <a class="button button-secondary" asp-controller="Home" asp-action="Index">View university</a>
                 </div>
             </form>
         </div>
-        <partial name="_AdminContentPreview" model="preview" />
     </div>
     <details><summary>About images</summary><p>Manage the images used alongside the About chapters.</p><a class="button button-secondary" asp-controller="AboutGallery" asp-action="Index">Manage About images</a></details>
 </section>

@@ -2,7 +2,6 @@
 @{
     Layout = "_AdminLayout";
     ViewData["Title"] = "Contacts";
-    var preview = new AdminPreviewViewModel("Contact preview", new[] { new AdminPreviewField("AcademyAddress", "University Address", Model.AcademyAddress), new AdminPreviewField("Email", "Email", Model.Email), new AdminPreviewField("Telephone", "Telephone", Model.Telephone), new AdminPreviewField("TimeIn", "Time In", Model.TimeIn?.ToString("HH:mm")), new AdminPreviewField("TimeOut", "Time Out", Model.TimeOut?.ToString("HH:mm")) });
 }
 <section class="editor-panel">
     <h1>Contacts</h1>
@@ -10,7 +9,7 @@
     <div asp-validation-summary="All" class="validation-summary" role="alert"></div>
 
 
-    <div class="admin-editor-grid">
+    <div class="admin-editor-grid admin-editor-grid--single">
         <div class="admin-editor-fields">
             <h2>Contact details</h2>
             <form asp-action="Index" asp-route-id="" asp-route-confirmDelete="" method="post" data-admin-editor data-recovered="@(Context.Request.Method == "POST" ? "true" : "false")">
@@ -19,8 +18,10 @@
                     <div class="field"><label asp-for="AcademyAddress"></label><textarea asp-for="AcademyAddress" rows="4" maxlength="500"></textarea><span asp-validation-for="AcademyAddress" class="field-error"></span></div>
                     </fieldset>
                 <fieldset class="editor-fieldset"><legend>Ways to get in touch</legend>
-                    <div class="field"><label asp-for="Email"></label><input asp-for="Email" type="email" maxlength="254" /><span asp-validation-for="Email" class="field-error"></span></div>
-                    <div class="field"><label asp-for="Telephone"></label><input asp-for="Telephone" type="tel" maxlength="50" /><span asp-validation-for="Telephone" class="field-error"></span></div>
+                    <div class="form-grid">
+                        <div class="field"><label asp-for="Email"></label><input asp-for="Email" type="email" maxlength="254" /><span asp-validation-for="Email" class="field-error"></span></div>
+                        <div class="field"><label asp-for="Telephone"></label><input asp-for="Telephone" type="tel" maxlength="50" /><span asp-validation-for="Telephone" class="field-error"></span></div>
+                    </div>
                 </fieldset>
                 <fieldset class="editor-fieldset"><legend>Office Hours</legend>
                     <div class="form-grid">
@@ -30,13 +31,13 @@
                     <p class="muted" id="hours-help">Enter both times, or leave both empty. A time out earlier than time in ends the next day.</p>
                     @if (!string.IsNullOrWhiteSpace(Model.OfficeHours)) { <p class="muted">Existing office hours: @Model.OfficeHours. This text is used when both times are empty.</p> }
                 </fieldset>
+                <p class="admin-save-state" role="status" data-dirty-state>Ready to edit</p>
                 <div class="row-actions">
                     <button class="button button-primary" type="submit" disabled="@(ViewData["Unavailable"] is true)">Save changes</button>
                     <a class="button button-secondary" asp-controller="Home" asp-action="Index">View university</a>
                 </div>
             </form>
         </div>
-        <partial name="_AdminContentPreview" model="preview" />
     </div>
 
 </section>

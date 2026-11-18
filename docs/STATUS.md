@@ -4,6 +4,20 @@ Last verified: 2026-11-18.
 
 ## Latest error check
 
+- 2026-11-18: Removed side draft previews from all admin editors except Academics,
+  including legacy gallery/core-value routes. Other forms use the full available
+  content width, with paired founder text/contact fields and existing responsive
+  mission/vision, account, and office-time groups. Retained inline image previews,
+  relocated draft status above Save, and kept unsaved-change protection. Phone
+  Save actions use normal flow to avoid covering fields. Compiled-Razor fixtures
+  passed 21 route/viewport checks at 1440px, 1920px, and 390px without horizontal
+  overflow; browser checks passed dirty/revert/Keep editing and selected-image
+  preview behavior without JavaScript errors. Visual review confirmed desktop and
+  phone layouts. Normal Razor/Tailwind build passed with zero warnings/errors after
+  releasing the existing development executable lock. Restarted localhost:5182;
+  login returned HTTP 200. Design detection reported only existing hidden upload
+  preview placeholders. No database, content, or account records were changed.
+
 - 2026-11-18: Removed Dashboard and its content inventory, including the view,
   model, count queries, sidebar link, and unused styles. Admin sign-in, Manage
   website, and the sidebar crest now open Hero and About; the protected /Admin

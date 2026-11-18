@@ -2,7 +2,6 @@
 @{
     Layout = "_AdminLayout";
     ViewData["Title"] = "Core values";
-    var preview = new AdminPreviewViewModel("Core value preview", new[] { new AdminPreviewField("Title", "Value", Model.Title) });
 }
 <section class="editor-panel">
     <p class="eyebrow">University content</p>
@@ -21,7 +20,7 @@
     }
     else
     {
-        <div class="admin-editor-grid">
+        <div class="admin-editor-grid admin-editor-grid--single">
             <div class="admin-editor-fields">
                 <h2>@(Model.Id == 0 ? "Add entry" : "Edit entry")</h2>
                 <form asp-action="Index" asp-route-id="" asp-route-confirmDelete="" method="post" data-admin-editor data-recovered="@(Context.Request.Method == "POST" ? "true" : "false")">
@@ -29,13 +28,13 @@
                     <fieldset class="editor-fieldset"><legend>Value details</legend>
                         <div class="field"><label asp-for="Title"></label><input asp-for="Title" maxlength="100" /><span asp-validation-for="Title" class="field-error"></span></div>
                     </fieldset>
+                    <p class="admin-save-state" role="status" data-dirty-state>Ready to edit</p>
                     <div class="row-actions">
                         <button class="button button-primary" type="submit" disabled="@(ViewData["Unavailable"] is true)">Save changes</button>
                         <a class="button button-secondary" asp-action="Index" asp-route-id="" asp-route-confirmDelete="">Cancel</a>
                     </div>
                 </form>
             </div>
-            <partial name="_AdminContentPreview" model="preview" />
         </div>
     }
     @if (ViewData["Unavailable"] is not true)

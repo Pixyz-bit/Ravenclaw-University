@@ -51,3 +51,5 @@ Removed the large motto and Our University links; columns stack on phones.
 
 2026-11-18: Dashboard and content inventory removed. Administration opens Hero and
 About directly; five editor/account links remain. Old /Admin links redirect there.
+
+2026-11-18: Only Academics retains its side preview. Other admin editors use the full available width, related fields in responsive columns, inline image previews and draft status above Save. Unsaved-change protection remains.

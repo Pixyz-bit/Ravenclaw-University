@@ -22,6 +22,10 @@
     .admin-editor-fields > h2 { @apply font-body text-[1.2rem] font-bold [margin:0_0_24px]; }
     .admin-editor-fields form { @apply mt-0; }
     .admin-editor-fields .upload-preview { @apply hidden; }
+    .admin-editor-grid--single { @apply [grid-template-columns:minmax(0,1fr)]; }
+    .admin-main:has(.admin-editor-grid--single) { @apply max-w-none; }
+    .admin-editor-grid--single .upload-preview:not([hidden]) { @apply block; }
+    .admin-editor-grid--single .admin-save-state { @apply max-w-none border-t-0 pt-0 mb-[8px]; }
     .editor-fieldset { @apply min-w-0 m-0 p-0 [border:0]; }
     .editor-fieldset legend { @apply w-full font-bold text-[.75rem] uppercase tracking-[.08em] text-muted pb-[16px] mb-[20px] [border-bottom:1px_solid_var(--color-line)]; }
     .admin-editor-fields .row-actions { @apply sticky bottom-0 z-10 bg-ivory [padding:16px_0] [border-top:1px_solid_var(--color-line)] mt-[12px]; }
@@ -67,6 +71,7 @@
         .admin-preview { @apply static max-h-none; }
     }
     @media(max-width:600px) {
+        .admin-editor-grid--single .admin-editor-fields .row-actions { @apply static; }
         .admin-metrics { @apply [grid-template-columns:repeat(2,minmax(0,1fr))]; }
         .admin-metrics > div { @apply [padding:16px_12px] [border-bottom:1px_solid_var(--color-line)]; }
         .admin-metrics > div:first-child { @apply pl-[12px]; }

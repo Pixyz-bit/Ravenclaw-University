@@ -353,8 +353,8 @@ Account analytics belong above the directory in Account Management. Counts are
 withheld when the database is unavailable; there are no invented analytics.
 
 Hero and About combines the hero upload, About Heading, About Description, Mission,
-Vision, and Core Values in one save form. Enter one value per textarea line; its
-draft preview and public chapter use bullets. About images remain available via
+Vision, and Core Values in one save form. Enter one value per textarea line; the
+public chapter uses bullets. About images remain available via
 a secondary disclosure on that page. Contacts has University Address, Email,
 Telephone, and paired native Time In/Time Out controls. Blank times retain the legacy office-hours fallback;
 overnight hours are labeled as ending the next day. Native time controls use
@@ -377,9 +377,12 @@ account rows with search and an inline edit form; no password fields are display
 
 ### Shared editing workspace (2026-11-16)
 
-The remaining content editors and account editing use a wider two-column workspace:
-grouped forms on the left and a sticky draft preview on the right. Below 1101px
-they stack; the navy sidebar still collapses below 901px. Use the existing Lato,
+Only Academics retains the two-column form and sticky draft preview; below 1101px
+they stack. All other editors use the full available width without a side preview,
+including legacy gallery/core-value editors. Related fields use responsive columns:
+mission/vision, founder biography/message, contact email/telephone and office times.
+Columns stack on phones. Upload previews stay beside their fields, and draft status
+sits above Save actions. The navy sidebar still collapses below 901px. Use the existing Lato,
 navy, ivory and gold tokens, fine dividers, 6px input/button corners and a restrained
 12px preview outline. Program previews show the portrait crop; image selection and
 text fields update locally. Previews summarize stored fields rather than claiming
