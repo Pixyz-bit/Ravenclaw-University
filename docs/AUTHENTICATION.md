@@ -10,7 +10,7 @@ No schema changes were needed; Schema.sql remains the single schema source.
 From the MVC project directory, run `dotnet run`, then open the URL printed in
 the terminal. Launch profiles select Development and enable local static assets.
 Account routes are /Account/Register and /Account/Login. The protected university
-portal is / and the protected administration starter is /Admin.
+portal is / and administration opens at /UniversityInformation.
 
 Registration requires first/last name, a 3–100 character username (letters,
 numbers, periods, underscores, hyphens), an 8–128 character password, and matching
@@ -38,7 +38,7 @@ Its interactive terminal/password-entry path still requires a manual check.
 
 - Fallback authorization requires login for MVC content by default. Only login,
   registration, the generic error handler, and public static assets are anonymous.
-- /Admin, the dedicated content controllers, and /AccountManagement use server-side
+- The dedicated content controllers and /AccountManagement use server-side
   Admin authorization. The legacy /AdminContent controller is removed. Students can read
   university content but cannot access editors or POST content mutations.
 - Passwords use ASP.NET Core PasswordHasher. Hashes are upgraded on login when needed.

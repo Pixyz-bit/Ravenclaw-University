@@ -117,7 +117,7 @@ try {
     Assert-Check ([regex]::Matches((Send-Request $anonymous '/Account/Login').Body, 'data-password-toggle').Count -eq 1) 'Sign-in has a password eye control'
     Assert-Check ([regex]::Matches((Send-Request $anonymous '/Account/Register').Body, 'data-password-toggle').Count -eq 2) 'Registration has eye controls for both password fields'
     Assert-Check ((Send-Request $anonymous '/').Status -eq 302) 'Anonymous university access redirects to login'
-    Assert-Check ((Send-Request $anonymous '/Admin').Status -eq 302) 'Anonymous admin access redirects to login'
+    Assert-Check ((Send-Request $anonymous '/UniversityInformation').Location -like '*Login*') 'Anonymous admin access redirects to login'
     Assert-Check ((Send-Request $anonymous '/Account/Register' (Student-Fields 'csrf.test')).Status -eq 400) 'Registration rejects a missing antiforgery token'
 
     $future = Student-Fields 'future.test'; $future.Birthday = '2999-01-01'
@@ -147,7 +147,7 @@ try {
     $login = Submit-Form $anonymous '/Account/Login' @{ Username='VERIFICATION.STUDENT'; Password='Test-Only-Scholar-2026'; ReturnUrl='https://example.invalid/escape' }
     Assert-Check ($login.Status -eq 302 -and $login.Location -notlike 'http*') 'Login succeeds case-insensitively and blocks external return URLs'
     Assert-Check ((Send-Request $anonymous '/').Status -eq 200) 'Student can access the university'
-    $denied = Send-Request $anonymous '/Admin'
+    $denied = Send-Request $anonymous '/UniversityInformation'
     Assert-Check ($denied.Status -eq 302 -and $denied.Location -like '*AccessDenied*') 'Student cannot access admin by URL'
     Assert-Check ((Send-Request $anonymous '/Account/AccessDenied').Status -eq 403) 'Access-denied page returns 403'
     if ($IncludeContent) {
@@ -375,7 +375,7 @@ try {
         Assert-Check ((Send-Request $admin '/AccountManagement/SetActive' $toggleFields).Status -eq 302 -and (Invoke-TestSql "SELECT IsActive FROM dbo.UserTable WHERE UserId=$adminId;") -eq '1') 'Quick status action cannot deactivate the current admin'
         $totals = (Invoke-TestSql 'SELECT COUNT(*),SUM(CASE WHEN IsActive=1 THEN 1 ELSE 0 END),SUM(CASE WHEN IsActive=0 THEN 1 ELSE 0 END) FROM dbo.UserTable;') -split '\s+'
         $dashboard = Send-Request $admin '/Admin'
-        Assert-Check ($dashboard.Status -eq 302 -and $dashboard.Location -like '/UniversityInformation*' -and -not $universityPage.Body.Contains('Content inventory') -and -not $nav.Contains('Dashboard')) 'Removed dashboard redirects to Hero and About without inventory or dashboard navigation'
+        Assert-Check ($dashboard.Status -eq 404 -and -not $universityPage.Body.Contains('Content inventory') -and -not $nav.Contains('Dashboard')) 'Retired /Admin route returns 404 and the editor has no dashboard navigation'
         $accountAnalytics = Send-Request $admin '/AccountManagement'
         Assert-Check ($accountAnalytics.Status -eq 200 -and $accountAnalytics.Body.Contains("<dt>Total Registered</dt><dd>$($totals[0])</dd>") -and $accountAnalytics.Body.Contains("<dt>Active Users</dt><dd>$($totals[1])</dd>") -and $accountAnalytics.Body.Contains("<dt>Deactivated Users</dt><dd>$($totals[2])</dd>")) 'Account management analytics match database totals after reactivation'
         $hashBefore = Invoke-TestSql "SELECT CHECKSUM(PasswordHash) FROM dbo.UserTable WHERE UserId=$profileId;"
@@ -401,7 +401,7 @@ try {
         Assert-Check ($searchResult.Status -eq 200 -and $searchResult.Body.Contains('profile.student') -and -not $searchResult.Body.Contains('<h3>verification.student</h3>')) 'Account search filters the list'
     }
     Invoke-TestSql "UPDATE dbo.UserTable SET Role=N'Student' WHERE Username=N'verification.student';" | Out-Null
-    Assert-Check ((Send-Request $admin '/Admin').Status -eq 302) 'Role change invalidates an existing admin session'
+    Assert-Check ((Send-Request $admin '/UniversityInformation').Location -like '*Login*') 'Role change invalidates an existing admin session'
     Submit-Form $anonymous '/Account/Login' @{ Username='verification.student'; Password='Test-Only-Scholar-2026' } | Out-Null
     Invoke-TestSql "UPDATE dbo.UserTable SET IsActive=0 WHERE Username=N'verification.student';" | Out-Null
     Assert-Check ((Send-Request $anonymous '/').Status -eq 302) 'Deactivation invalidates an existing student session'

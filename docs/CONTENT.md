@@ -60,7 +60,7 @@ request. Manage these saved values through the admin editor.
 
 Sign in as an Admin and open Administration. The sidebar contains
 Hero and About, Academics, Founder, Contacts, and Account Management, in that order. The crest also opens
-Hero and About. Old /Admin links redirect there. The admin layout is separate from the university navbar, highlights
+Hero and About at /UniversityInformation. The admin layout is separate from the university navbar, highlights
 the current section, and has expandable navigation on phones.
 
 Hero and About edits the saved hero image, About Heading/Description, Mission,

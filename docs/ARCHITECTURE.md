@@ -8,7 +8,7 @@
 - Root namespace: _241611JalopFinalQuiz2.
 - Controllers handle HTTP requests; Models hold application data; Views hold Razor UI.
 - Controllers are grouped by purpose: Authentication contains AccountController;
-  Admin contains AcademicPrograms, AccountManagement, Admin,
+  Admin contains AcademicPrograms, AccountManagement,
   ContactInformation, FounderInformation and UniversityInformation
   controllers; PersonalInformation contains ProfileController; Website contains
   HomeController. All retain the existing Controllers namespace and conventional
@@ -32,8 +32,8 @@
   redirect to editors. Current navigation links directly to each editor. Shared
   ContentSections contains sidebar labels/routes; AdminContentValidation contains
   reusable input validators and the sidebar section interface, not CRUD behavior.
-- AdminController retains an Admin-only redirect to UniversityInformation for
-  old /Admin links. The dashboard view, model, and content-count queries are removed.
+- /UniversityInformation opens Hero and About directly. The legacy /Admin
+  redirect has been removed along with the former dashboard.
   AccountManagementController loads global account totals
   separately from its filtered, capped directory query. These totals are read-only.
   AdminPreviewViewModel and
@@ -124,7 +124,7 @@ hashing and anti-forgery protection for state-changing forms.
 
 Cookie authentication and a fallback login policy are configured in Program.cs.
 AccountController handles anonymous login/registration and protected POST logout.
-AdminController requires Admin. HomeController requires login through the fallback.
+The admin editors require Admin. HomeController requires login through the fallback.
 AccountService handles password hashing/verification and serialized account creation;
 UniversityCookieEvents revalidates active status and roles on each request.
 FirstAdminCommand provides an interactive, local-only first-admin bootstrap.

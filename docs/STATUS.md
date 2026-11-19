@@ -4,6 +4,12 @@ Last verified: 2026-11-19.
 
 ## Latest error check
 
+- 2026-11-19 legacy /Admin removal: deleted AdminController and its redirect.
+  Manage Website and default admin sign-in open Hero and About directly at
+  /UniversityInformation. Build passed with zero warnings and errors. All 168
+  disposable HTTP/SQL checks passed, including the retired route's 404 and
+  authorization on the current editor. The development app was not restarted.
+
 - 2026-11-19 standalone Core Values editor removal: deleted its controller,
   view and form model. Hero and About remains the editor for saved core values.
   The route audit found no other standalone duplicate editor. Account Details

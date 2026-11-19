@@ -321,7 +321,7 @@ the small fallback footer.
 
 ## Separate administration shell
 
-The legacy /Admin route redirects to Hero and About. Each dedicated
+Manage Website opens Hero and About at /UniversityInformation. Each dedicated
 content section selects _AdminLayout in its own section-named view. The university navbar
 is not rendered in this shell. A 272px navy sidebar
 contains the approved crest and five links in this order: Hero and About,
