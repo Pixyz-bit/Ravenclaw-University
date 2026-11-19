@@ -4,6 +4,14 @@ Last verified: 2026-11-19.
 
 ## Latest error check
 
+- 2026-11-19 SQL retry: reran scripts/Check-Database.ps1. Restricted access
+  failed with Named Pipes access denied and login timeout. The local-access retry
+  returned only `Timeout expired`, with no metadata; sqlcmd exited zero, causing
+  the diagnostic to print a misleading success message. This is not a passing
+  database check. Both SQL Server services were confirmed Running with local
+  access. Database responsiveness remains unverified; diagnostic output validation
+  still needs repair. No service restart, SQL configuration, schema or data changes.
+
 - 2026-11-19 sign-in availability diagnosis: confirmed the displayed temporary
   error is the login exception handler, distinct from credential rejection.
   Both MSSQLSERVER and MSSQL$MSSQLSERVER01 services were Running; the configured
