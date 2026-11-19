@@ -88,6 +88,9 @@ choices override this planning reference and should be recorded here.
 
 ## Implemented account surface (2026-11-11)
 
+The 404 page uses the account layout, with a plain Page not found heading and
+a link back to the university homepage.
+
 Shared account layout uses a navy editorial panel with the approved university crest,
 motto, and fine architectural arch; ivory form panel uses visible labels and a
 navy primary action. Below 850px the story panel reduces to the wordmark.

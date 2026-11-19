@@ -7,6 +7,9 @@
 - Framework: ASP.NET Core MVC targeting net9.0; nullable reference types enabled.
 - Root namespace: _241611JalopFinalQuiz2.
 - Controllers handle HTTP requests; Models hold application data; Views hold Razor UI.
+- Unmatched URLs return HTTP 404 before the login policy runs. The status-page
+  middleware renders the shared NotFound view for empty 404 responses and keeps
+  the requested URL in the browser.
 - Controllers are grouped by purpose: Authentication contains AccountController;
   Admin contains AcademicPrograms, AccountManagement,
   ContactInformation, FounderInformation and UniversityInformation

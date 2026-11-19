@@ -1,8 +1,14 @@
 # Current status
 
-Last verified: 2026-11-19.
+Last verified: 2026-11-20.
 
 ## Latest error check
+
+- 2026-11-20 custom 404 page: unmatched URLs show the Ravenclaw University
+  account layout with a link home and keep HTTP 404. Build passed without
+  warnings or errors. Isolated HTTP checks covered nested URLs, retired routes,
+  a missing asset, HEAD, and the existing login and editor responses. Reviewed
+  desktop and narrow browser captures of the page.
 
 - 2026-11-19 legacy /Admin removal: deleted AdminController and its redirect.
   Manage Website and default admin sign-in open Hero and About directly at

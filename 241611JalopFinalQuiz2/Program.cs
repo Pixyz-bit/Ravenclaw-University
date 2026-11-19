@@ -3,6 +3,10 @@ using _241611JalopFinalQuiz2.Data;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Abstractions;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using _241611JalopFinalQuiz2.Models;
 using _241611JalopFinalQuiz2.Security;
 using _241611JalopFinalQuiz2.Services;
@@ -122,6 +126,19 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseStatusCodePages(async status =>
+{
+    var context = status.HttpContext;
+    if (context.Response.StatusCode != StatusCodes.Status404NotFound) return;
+
+    var page = new ViewResult
+    {
+        ViewName = "~/Views/Shared/NotFound.cshtml",
+        StatusCode = StatusCodes.Status404NotFound,
+        ViewData = new ViewDataDictionary(new EmptyModelMetadataProvider(), new ModelStateDictionary())
+    };
+    await page.ExecuteResultAsync(new ActionContext(context, new RouteData(), new ActionDescriptor()));
+});
 var imageUploads = app.Services.GetRequiredService<ImageUploadService>();
 Directory.CreateDirectory(imageUploads.RootPath);
 app.UseStaticFiles(new StaticFileOptions
@@ -131,6 +148,11 @@ app.UseStaticFiles(new StaticFileOptions
     OnPrepareResponse = context => context.Context.Response.Headers["X-Content-Type-Options"] = "nosniff"
 });
 app.UseRouting();
+
+// An unknown URL has no endpoint to authorize.
+app.Use((context, next) => context.GetEndpoint() is null
+    ? Results.NotFound().ExecuteAsync(context)
+    : next(context));
 
 app.UseRateLimiter();
 app.UseAuthentication();
