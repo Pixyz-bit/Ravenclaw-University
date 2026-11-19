@@ -7,6 +7,12 @@
 - Framework: ASP.NET Core MVC targeting net9.0; nullable reference types enabled.
 - Root namespace: _241611JalopFinalQuiz2.
 - Controllers handle HTTP requests; Models hold application data; Views hold Razor UI.
+- Controllers are grouped by purpose: Authentication contains AccountController;
+  Admin contains AcademicPrograms, AccountManagement, AdminContent, Admin,
+  ContactInformation, CoreValues, FounderInformation and UniversityInformation
+  controllers; PersonalInformation contains ProfileController; Website contains
+  HomeController. All retain the existing Controllers namespace and conventional
+  routes; these folders do not introduce MVC Areas or change access rules.
 - UniversityContentService assembles the read-only homepage. Each admin content
   section has its own named controller, ViewModel, and section-named Razor view.
   Each controller maps its form fields directly to its existing EF entity and uses

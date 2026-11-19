@@ -4,6 +4,14 @@ Last verified: 2026-11-19.
 
 ## Latest error check
 
+- 2026-11-19 controller grouping: moved all 11 controllers into Authentication
+  (Account), Admin (the eight administration controllers), PersonalInformation
+  (Profile) and Website (Home). Verified each file matches its original Git blob
+  exactly; namespaces, routes, views and authorization remain unchanged. Updated
+  architecture guidance. Isolated Razor/Tailwind build passed with zero warnings
+  or errors, and whitespace verification passed. No runtime HTTP/SQL tests were
+  run for this folder-only change; no database changes or app restart were needed.
+
 - 2026-11-19 requested SQL recovery: initial reads hung again. Direct service
   control lacked administrator rights; Windows administrator helpers were used.
   The first restart timed out while SQLSERVERAGENT was StopPending. A subsequent
