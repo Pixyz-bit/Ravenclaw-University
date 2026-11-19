@@ -4,6 +4,17 @@ Last verified: 2026-11-19.
 
 ## Latest error check
 
+- 2026-11-19 pasted sign-in-log review: confirmed fast 1-8 ms reads followed by
+  35-second session/account query timeouts and a post-login connection timeout.
+  ValidatePrincipal signs out when its read fails; login then displays the generic
+  availability error. Local diagnostics also intermittently timed out. One dedicated
+  diagnostic connection succeeded with memory flags 0 and no sampled blocking;
+  a subsequent diagnostic timed out. OS free RAM briefly fell to about 241 MB.
+  Independently verified repeated MSSQLSERVER Windows event 701 at 09:49 for
+  insufficient memory in default/internal pools, supporting the memory-pressure
+  diagnosis below despite intermittent recovery. Exact waits during the pasted
+  failure remain unproven. No application, SQL settings, services or data changed.
+
 - 2026-11-19 hero-upload diagnosis: user confirmed a 12.2 MB image and
   ERR_CONNECTION_ABORTED after Save at http://localhost:5182/UniversityInformation.
   This exceeds the controller's 6 MiB request limit and the image service's 5 MiB
