@@ -152,7 +152,7 @@ try {
     Assert-Check ((Send-Request $anonymous '/Account/AccessDenied').Status -eq 403) 'Access-denied page returns 403'
     if ($IncludeContent) {
         Assert-Check (-not (Send-Request $anonymous '/').Body.Contains('admin-sidebar')) 'Student university page keeps its own layout'
-        Assert-Check ((Send-Request $anonymous '/AdminContent/Index?section=Programs').Location -like '*AccessDenied*') 'Student cannot access content editors'
+        Assert-Check ((Send-Request $anonymous '/AcademicPrograms').Location -like '*AccessDenied*') 'Student cannot access content editors'
         Assert-Check ((Send-Request $anonymous '/AcademicPrograms' @{SubjectName='Tampered'}).Location -like '*AccessDenied*') 'Student cannot POST content changes'
         Assert-Check ((Invoke-TestSql 'SELECT COUNT(*) FROM dbo.ProgramsTable;') -eq '0') 'Rejected student request changed no content'
     }
@@ -183,12 +183,12 @@ try {
         Assert-Check (($navNames -join '|') -eq 'Hero and About|Academics|Founder|Contacts|Account Management') 'Sidebar shows only the five content sections'
         Assert-Check ($universityPage.Status -eq 200 -and $universityPage.Body.Contains('name="ImageUpload"') -and $universityPage.Body.Contains('type="file"') -and $universityPage.Body.Contains('name="AcademyDescription"') -and $universityPage.Body.Contains('name="Mission"') -and $universityPage.Body.Contains('name="Vision"')) 'University page displays its image uploader and three text fields'
         Assert-Check (-not $adminEditor.Body.Contains('admin-nav-number') -and -not $adminEditor.Body.Contains('admin-nav-heading') -and -not $adminEditor.Body.Contains('class="admin-topbar"')) 'Admin sidebar has no numbers/divider and the admin topbar is removed'
-        Assert-Check ((Send-Request $admin '/AdminContent?section=University').Location -like '/UniversityInformation*') 'Existing University information link redirects to its dedicated editor'
+        Assert-Check ((Send-Request $admin '/AdminContent').Status -eq 404 -and (Send-Request $admin '/AdminContent?section=University').Status -eq 404) 'Removed AdminContent routes no longer redirect to editors'
         Assert-Check ((Send-Request $admin '/AboutGallery').Status -eq 404) 'Retired gallery editor is unavailable'
         $retiredGalleryPost = Send-Request $admin '/AboutGallery' @{AltText='Retired';__RequestVerificationToken=[Net.WebUtility]::HtmlDecode([regex]::Match($universityPage.Body, 'name="__RequestVerificationToken"[^>]*value="([^"]+)"').Groups[1].Value)}
         Assert-Check ($retiredGalleryPost.Status -in @(404,405) -and (Invoke-TestSql 'SELECT COUNT(*) FROM dbo.AboutImagesTable;') -eq '0') "Retired gallery POST cannot write (HTTP $($retiredGalleryPost.Status))"
         Assert-Check ((Send-Request $admin '/AdminContent?section=Photos').Status -eq 404 -and (Send-Request $admin '/AdminContent?section=3').Status -eq 404) 'Retired gallery compatibility links are unavailable'
-        Assert-Check ((Send-Request $admin '/AdminContent?section=4').Location -like '/AcademicPrograms*') 'Existing numeric program links retain their meaning'
+        Assert-Check ((Send-Request $admin '/AdminContent?section=4').Status -eq 404 -and (Send-Request $admin '/AdminContent/Edit?section=Programs&id=1').Status -eq 404) 'Removed numeric and edit compatibility links return 404'
         Invoke-TestSql "INSERT INTO dbo.FounderTable (FounderName,Description) VALUES (N'Fixture founder',N'Fixture biography');" | Out-Null
         $sections = @(
             @{Name='University';Controller='UniversityInformation';Table='AcademyInfoTable';Key='AcademyInfoId';Fields=@{AboutHeading='Verification heading';AcademyDescription='Verification university description';Mission='Verification mission';Vision='Verification vision';HeroImg='/images/branding/ravenclaw-university-crest.png'}},
@@ -333,7 +333,7 @@ try {
         Assert-Check ((Submit-Form $admin '/ContactInformation' @{TimeIn='';TimeOut=''}).Status -eq 302 -and (Send-Request $admin '/').Body.Contains('Monday to Friday')) 'Clearing both times restores the retained legacy office-hours text'
         $founderId = Invoke-TestSql 'SELECT TOP(1) FounderId FROM dbo.FounderTable;'
         Assert-Check ((Submit-Form $admin '/FounderInformation' @{Id=$founderId;FounderName='Verification title';Description='Verification biography'}).Status -eq 302 -and (Invoke-TestSql "SELECT COUNT(*) FROM dbo.FounderTable WHERE Description=N'Verification biography';") -eq '1' -and -not (Send-Request $admin '/FounderInformation').Body.Contains('name="FounderMessage"') -and (Invoke-TestSql "SELECT COUNT(*) FROM sys.columns WHERE object_id=OBJECT_ID(N'dbo.FounderTable') AND name IN ('Birthday','FounderMessage');") -eq '0') 'Founder saves name and biography without removed birthday/message columns'
-        Assert-Check ((Send-Request $admin '/AdminContent/Edit?section=999').Status -eq 404) 'Unknown content section is rejected'
+        Assert-Check ((Send-Request $admin '/AdminContent/Edit?section=999').Status -eq 404) 'Removed AdminContent edit route is unavailable for unknown sections'
         Assert-Check ((Send-Request $admin '/AcademicPrograms?id=99999').Status -eq 404) 'Missing content record returns 404'
         $xss = Submit-Form $admin '/AcademicPrograms' @{SubjectName='<script>alert(1)</script>';Description='Text only'}
         $encoded = Send-Request $admin '/'

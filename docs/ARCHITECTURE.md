@@ -8,7 +8,7 @@
 - Root namespace: _241611JalopFinalQuiz2.
 - Controllers handle HTTP requests; Models hold application data; Views hold Razor UI.
 - Controllers are grouped by purpose: Authentication contains AccountController;
-  Admin contains AcademicPrograms, AccountManagement, AdminContent, Admin,
+  Admin contains AcademicPrograms, AccountManagement, Admin,
   ContactInformation, CoreValues, FounderInformation and UniversityInformation
   controllers; PersonalInformation contains ProfileController; Website contains
   HomeController. All retain the existing Controllers namespace and conventional
@@ -28,7 +28,8 @@
   Controllers use explicit ~/Views/Admin/ or ~/Views/User/ paths for these pages.
   Account retains login/registration/access-denied views; Shared holds reusable UI.
   Views/_ViewImports.cshtml and _ViewStart.cshtml still apply to the moved views.
-- AdminContentController retains GET redirects for old bookmarks only. Shared
+- AdminContentController has been removed; old /AdminContent links no longer
+  redirect to editors. Current navigation links directly to each editor. Shared
   ContentSections contains sidebar labels/routes; AdminContentValidation contains
   reusable input validators and the sidebar section interface, not CRUD behavior.
 - AdminController retains an Admin-only redirect to UniversityInformation for

@@ -4,6 +4,16 @@ Last verified: 2026-11-19.
 
 ## Latest error check
 
+- 2026-11-19 AdminContent removal: deleted the legacy redirect controller after
+  confirming current navigation targets the dedicated editors directly. Updated
+  architecture, content/access guidance and regression assertions for retired
+  /AdminContent routes; retained AdminController and shared preview/navigation
+  helpers. Razor/Tailwind build passed with zero warnings/errors; all 177 disposable
+  HTTP/SQL checks passed, including current sidebar/editor access and old-route
+  404 responses. Initial restricted SQL access failed before test database creation;
+  the subsequent local verification passed and cleaned up its test database/uploads.
+  No live data/schema changes. The running development app was not restarted.
+
 - 2026-11-19 controller grouping: moved all 11 controllers into Authentication
   (Account), Admin (the eight administration controllers), PersonalInformation
   (Profile) and Website (Home). Verified each file matches its original Git blob

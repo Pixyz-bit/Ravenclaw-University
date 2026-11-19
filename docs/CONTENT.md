@@ -97,13 +97,13 @@ POST and antiforgery validation. GET delete displays a confirmation without writ
 | Academic programs | AcademicPrograms |
 | Founder information | FounderInformation |
 
-For example, follow Controllers/UniversityInformationController.cs to
+For example, follow Controllers/Admin/UniversityInformationController.cs to
 ViewModels/UniversityInformationViewModel.cs and Views/Admin/UniversityInformation.cshtml.
 That form edits Models/AcademyInfoTable.cs. University information directly displays
 all four content inputs; the identity ID is managed internally. Other collection
 pages put the add/edit form and published entries in their own section-named view.
-Old /AdminContent?section=University links redirect to /UniversityInformation;
-old generic POST endpoints have been retired.
+The old /AdminContent controller and its redirects have been removed. Use the
+dedicated editor URLs such as /UniversityInformation; the sidebar uses these directly.
 
 The university/contact editors enforce one record through a serializable check-and-
 save transaction. Existing externally created duplicates are not automatically deleted;
