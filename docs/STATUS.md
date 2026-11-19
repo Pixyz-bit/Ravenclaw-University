@@ -4,6 +4,12 @@ Last verified: 2026-11-19.
 
 ## Latest error check
 
+- 2026-11-19 local startup: the development build passed with zero warnings and
+  errors. Started the site at http://localhost:5182 and verified the login page
+  returned HTTP 200. MSSQLSERVER was already running. The metadata check timed
+  out, and the first application check timed out reading UserTable. A retry
+  completed the university, profile and office-time reads in 42, 24 and 5 ms.
+
 - 2026-11-19 AdminContent removal: deleted the legacy redirect controller after
   confirming current navigation targets the dedicated editors directly. Updated
   architecture, content/access guidance and regression assertions for retired
