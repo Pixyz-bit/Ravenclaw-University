@@ -20,8 +20,12 @@
   section has its own named controller, ViewModel, and section-named Razor view.
   Each controller maps its form fields directly to its existing EF entity and uses
   UniversityDbContext. No repository layer is needed.
-- The five Manage Website ViewModels live in ViewModels/Admin and follow the
-  sidebar names. They share the existing ViewModels namespace.
+- ViewModels/Admin contains the five Manage Website form models named for
+  the sidebar, plus the admin preview and sidebar helpers. Authentication
+  contains the login and registration form models, PersonalInformation contains
+  the profile and change-password form models, and Website contains the
+  university homepage model. Shared contains the account menu model and
+  validation helpers used across pages. All use the existing ViewModels namespace.
 - Main Razor views use their section names instead of Index.cshtml: Home, Profile,
   AccountManagement, UniversityInformation, AcademicPrograms,
   FounderInformation and ContactInformation. Controllers explicitly

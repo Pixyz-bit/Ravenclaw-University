@@ -4,6 +4,11 @@ Last verified: 2026-11-20.
 
 ## Latest error check
 
+- 2026-11-20 ViewModel folder grouping: moved the remaining nine files into
+  Admin, Authentication, PersonalInformation, Website and Shared. Each moved
+  file matches its original Git contents. The isolated Razor and Tailwind
+  build passed with zero warnings and errors.
+
 - 2026-11-20 admin ViewModels: moved the five Manage Website form models into
   ViewModels/Admin and renamed the Hero and About, Academics, Founder and Contacts
   classes to match the sidebar. Core values remain on the Hero and About form.
