@@ -4,6 +4,25 @@ Last verified: 2026-11-19.
 
 ## Latest error check
 
+- 2026-11-19 SQL/upload availability diagnosis: Windows Application events from
+  the configured default instance show repeated error 701 at 09:49 (insufficient
+  memory in default/internal pools), plus earlier 17890 paging warnings. Both
+  instances show paging warnings. OS samples showed roughly 603–877 MiB available
+  RAM and 80% committed memory; SQL's physical-memory-low flag was 1. The configured
+  default instance has an effectively unlimited max-server-memory setting. These
+  observations support memory pressure as the leading cause of intermittent SQL
+  timeouts, without establishing the exact failing login wait. Minimal encrypted
+  Shared Memory and Named Pipe queries subsequently passed; the university database
+  is ONLINE and the application's EF university/profile/office-time reads passed
+  in 39/448/193 ms. No blocked requests were observed in the sampled request list.
+  Recovery is intermittent, not proven permanent. ERRORLOG file and startup-parameter
+  registry access were denied; readable Windows SQL events supplied the evidence.
+  No SQL configuration, services, database records or schema were changed.
+  For the reported hero-upload browser reachability error, the active app uses the
+  http launch profile: http://localhost:5182/Account/Login returned 200, while
+  https://localhost:7008 refused connections with no listener. The failed browser
+  URL still needs confirmation; no live hero upload was submitted.
+
 - 2026-11-19 SQL retry: reran scripts/Check-Database.ps1. Restricted access
   failed with Named Pipes access denied and login timeout. The local-access retry
   returned only `Timeout expired`, with no metadata; sqlcmd exited zero, causing
