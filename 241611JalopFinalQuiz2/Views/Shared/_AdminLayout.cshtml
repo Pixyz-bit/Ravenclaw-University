@@ -27,8 +27,7 @@
             <nav aria-label="Administration navigation">
                 @foreach (var contentSection in new[] { ContentSection.University, ContentSection.Programs, ContentSection.Founders, ContentSection.Contacts })
                 {
-                    var active = activeSection == contentSection
-                        || (contentSection == ContentSection.University && activeSection == ContentSection.Values);
+                    var active = activeSection == contentSection;
                     <a class="admin-nav-link @(active ? "is-active" : "")" aria-current="@(active ? "page" : null)" asp-controller="@ContentSections.ControllerName(contentSection)" asp-action="Index" asp-route-id="" asp-route-confirmDelete="">@ContentSections.Label(contentSection)</a>
                 }
                 <a class="admin-nav-link @(controller == "AccountManagement" ? "is-active" : "")" aria-current="@(controller == "AccountManagement" ? "page" : null)" asp-controller="AccountManagement" asp-action="Index" asp-route-id="" asp-route-confirmDelete="">Account Management</a>

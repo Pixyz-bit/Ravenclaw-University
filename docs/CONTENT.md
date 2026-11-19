@@ -80,7 +80,6 @@ dedicated editor URLs remain usable. Founder edits update only the name and biog
 | --- | --- | --- |
 | Hero and About | AcademyInfoTable / CoreValuesTable | Create/edit university details and replace the value list in one save |
 | Contacts | ContactsTable | Create/edit contact details and paired office times |
-| Core values (legacy route) | CoreValuesTable | Individual title editor retained for existing links |
 | Academic programs | ProgramsTable | Add/edit/delete subjects, descriptions, and images |
 | Founder information | FounderTable | Edit the one existing founder name and biography |
 
@@ -93,7 +92,6 @@ POST and antiforgery validation. GET delete displays a confirmation without writ
 | --- | --- |
 | University information | UniversityInformation |
 | Contact information | ContactInformation |
-| Core values | CoreValues |
 | Academic programs | AcademicPrograms |
 | Founder information | FounderInformation |
 
@@ -104,6 +102,8 @@ all four content inputs; the identity ID is managed internally. Other collection
 pages put the add/edit form and published entries in their own section-named view.
 The old /AdminContent controller and its redirects have been removed. Use the
 dedicated editor URLs such as /UniversityInformation; the sidebar uses these directly.
+Hero and About is now the only core values editor. The standalone /CoreValues page
+has been removed.
 
 The university/contact editors enforce one record through a serializable check-and-
 save transaction. Existing externally created duplicates are not automatically deleted;

@@ -376,8 +376,8 @@ Administration eyebrow, introductory caption, Account analytics heading, or tota
 explanation. Keep its actual metrics and their labels.
 
 Only Academics retains the two-column form and sticky draft preview; below 1101px
-they stack. All other editors use the full available width without a side preview,
-including the legacy core-value editor. Related fields use responsive columns:
+they stack. All other editors use the full available width without a side preview.
+Related fields use responsive columns:
 mission/vision, founder biography, contact email/telephone and office times.
 Columns stack on phones. Upload previews stay beside their fields. The edit-status
 line, office-hours explanatory hint, and account-list limit hint are removed.

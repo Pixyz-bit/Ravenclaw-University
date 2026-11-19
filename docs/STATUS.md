@@ -4,6 +4,15 @@ Last verified: 2026-11-19.
 
 ## Latest error check
 
+- 2026-11-19 standalone Core Values editor removal: deleted its controller,
+  view and form model. Hero and About remains the editor for saved core values.
+  The route audit found no other standalone duplicate editor. Account Details
+  is linked within Account Management, Access Denied and Error are system pages,
+  and /Admin is a compatibility redirect. Build passed with zero warnings and
+  errors. All 168 disposable HTTP/SQL checks passed, including retirement of
+  /CoreValues and saving and displaying values through Hero and About. The
+  live database was untouched and the development app was not restarted.
+
 - 2026-11-19 local startup: the development build passed with zero warnings and
   errors. Started the site at http://localhost:5182 and verified the login page
   returned HTTP 200. MSSQLSERVER was already running. The metadata check timed

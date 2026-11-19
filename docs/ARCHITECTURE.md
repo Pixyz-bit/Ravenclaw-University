@@ -9,7 +9,7 @@
 - Controllers handle HTTP requests; Models hold application data; Views hold Razor UI.
 - Controllers are grouped by purpose: Authentication contains AccountController;
   Admin contains AcademicPrograms, AccountManagement, Admin,
-  ContactInformation, CoreValues, FounderInformation and UniversityInformation
+  ContactInformation, FounderInformation and UniversityInformation
   controllers; PersonalInformation contains ProfileController; Website contains
   HomeController. All retain the existing Controllers namespace and conventional
   routes; these folders do not introduce MVC Areas or change access rules.
@@ -19,10 +19,10 @@
   UniversityDbContext. No repository layer is needed.
 - Main Razor views use their section names instead of Index.cshtml: Home, Profile,
   AccountManagement, UniversityInformation, AcademicPrograms,
-  CoreValues, FounderInformation and ContactInformation. Controllers explicitly
+  FounderInformation and ContactInformation. Controllers explicitly
   select these views on GET, validation failure and unavailable responses; action
   names remain Index so existing routes, links and form actions continue to work.
-- Views/Admin contains AcademicPrograms, ContactInformation, CoreValues,
+- Views/Admin contains AcademicPrograms, ContactInformation,
   FounderInformation, UniversityInformation, AccountManagement and Details.
   Views/User contains Home and Profile, available to both signed-in roles.
   Controllers use explicit ~/Views/Admin/ or ~/Views/User/ paths for these pages.

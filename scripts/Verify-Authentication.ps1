@@ -191,9 +191,8 @@ try {
         Assert-Check ((Send-Request $admin '/AdminContent?section=4').Status -eq 404 -and (Send-Request $admin '/AdminContent/Edit?section=Programs&id=1').Status -eq 404) 'Removed numeric and edit compatibility links return 404'
         Invoke-TestSql "INSERT INTO dbo.FounderTable (FounderName,Description) VALUES (N'Fixture founder',N'Fixture biography');" | Out-Null
         $sections = @(
-            @{Name='University';Controller='UniversityInformation';Table='AcademyInfoTable';Key='AcademyInfoId';Fields=@{AboutHeading='Verification heading';AcademyDescription='Verification university description';Mission='Verification mission';Vision='Verification vision';HeroImg='/images/branding/ravenclaw-university-crest.png'}},
+            @{Name='University';Controller='UniversityInformation';Table='AcademyInfoTable';Key='AcademyInfoId';Fields=@{AboutHeading='Verification heading';AcademyDescription='Verification university description';Mission='Verification mission';Vision='Verification vision';HeroImg='/images/branding/ravenclaw-university-crest.png';CoreValuesText='Verification title'}},
             @{Name='Contacts';Controller='ContactInformation';Table='ContactsTable';Key='ContactId';Fields=@{AcademyAddress='Verification campus';Email='office@university.example';Telephone='+63 912 345 6789';TimeIn='08:30';TimeOut='17:15'}},
-            @{Name='Values';Controller='CoreValues';Table='CoreValuesTable';Key='CoreValueId';Fields=@{Title='Verification title'}},
             @{Name='Programs';Controller='AcademicPrograms';Table='ProgramsTable';Key='SubjectId';Fields=@{SubjectName='Verification title';Description='Verification description';ImagePath='/images/branding/ravenclaw-university-crest.png'}},
             @{Name='Founders';Controller='FounderInformation';Table='FounderTable';Key='FounderId';Fields=@{FounderName='Verification title';Description='Verification description'}}
         )
@@ -216,10 +215,11 @@ try {
                 $fields.Remove('__ImageBytes')
             }
             $fields.Id=$recordId
-            if ($fields.ContainsKey('AcademyDescription')) { $fields.AcademyDescription='Updated verification description' }
+            if ($name -eq 'University') {
+                $fields.AcademyDescription='Updated verification description'
+                $fields.CoreValuesText='Updated verification title'
+            }
             elseif ($fields.ContainsKey('Description')) { $fields.Description='Updated verification description' }
-            elseif ($fields.ContainsKey('Title')) { $fields.Title='Updated verification title' }
-            elseif ($fields.ContainsKey('AltText')) { $fields.AltText='Updated verification image' }
             elseif ($fields.ContainsKey('AcademyAddress')) { $fields.AcademyAddress='Updated verification campus' }
             $updated = Submit-Form $admin "${route}?id=$recordId" $fields
             Assert-Check ($updated.Status -eq 302 -and (Send-Request $admin $route).Status -eq 200) "Admin can edit and list $name content"
@@ -305,8 +305,7 @@ try {
         Assert-Check ($badImage.Status -eq 200 -and $badImage.Body.Contains('PNG, JPEG, or WebP')) 'Unsupported image extensions are rejected'
         $oversize = Submit-Form $admin '/UniversityInformation' @{__ImageBytes=[byte[]]::new(5 * 1024 * 1024 + 1);__ImageName='large.png'}
         Assert-Check ($oversize.Status -eq 200 -and $oversize.Body.Contains('5 MB')) 'Image uploads over 5 MB are rejected'
-        $emptyValue = Submit-Form $admin '/CoreValues' @{Title=' '}
-        Assert-Check ($emptyValue.Status -eq 200 -and (Invoke-TestSql 'SELECT COUNT(*) FROM dbo.CoreValuesTable;') -eq '1') 'Blank required content title is rejected'
+        Assert-Check ((Send-Request $admin '/CoreValues').Status -eq 404 -and (Send-Request $admin '/CoreValues/Delete' @{Id='1'}).Status -in @(404,405) -and (Invoke-TestSql 'SELECT COUNT(*) FROM dbo.CoreValuesTable;') -eq '1') 'Standalone Core Values editor and delete action are retired without removing saved values'
         $headingAndValues = @{AboutHeading='<script>Heading</script>';AcademyDescription='Updated verification description';Mission='Verification mission';Vision='Verification vision';CoreValuesText="Curiosity`r`n  Independent thought  `r`n`r`nRespect`r`nWisdom"}
         $combined = Submit-Form $admin '/UniversityInformation' $headingAndValues
         Assert-Check ($combined.Status -eq 302 -and (Invoke-TestSql 'SELECT COUNT(*) FROM dbo.CoreValuesTable;') -eq '4' -and (Invoke-TestSql "SELECT COUNT(*) FROM dbo.CoreValuesTable WHERE Title=N'Independent thought';") -eq '1') 'Combined editor stores trimmed values as individual ordered records'
