@@ -4,6 +4,18 @@ Last verified: 2026-11-19.
 
 ## Latest error check
 
+- 2026-11-19 sign-in availability diagnosis: confirmed the displayed temporary
+  error is the login exception handler, distinct from credential rejection.
+  Both MSSQLSERVER and MSSQL$MSSQLSERVER01 services were Running; the configured
+  app target is localhost / Ravenclaw University Db with Windows authentication.
+  Restricted SQL access failed with access denied; two local-access read-only
+  checks then failed with Shared Memory prelogin/login timeouts, including a
+  15-second retry. No database query completed, so current schema/account state
+  remains unverified. System memory sample: 890 MB free of 7,561 MB; this alone
+  does not establish the timeout's cause. No service restart, configuration,
+  application code or database changes were made. SQL responsiveness and a
+  successful application sign-in still need verification after recovery.
+
 - 2026-11-19 learning comments: reviewed the database-context access/mapping
   comments, content-service summary and AboutImagesTable whitespace cleanup.
   Changes affect comments/formatting only; whitespace verification passed.
