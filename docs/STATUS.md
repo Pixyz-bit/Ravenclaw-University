@@ -4,6 +4,16 @@ Last verified: 2026-11-19.
 
 ## Latest error check
 
+- 2026-11-19 hero-upload diagnosis: user confirmed a 12.2 MB image and
+  ERR_CONNECTION_ABORTED after Save at http://localhost:5182/UniversityInformation.
+  This exceeds the controller's 6 MiB request limit and the image service's 5 MiB
+  file limit. The request can be rejected before normal image validation returns.
+  The running app still listened on 5182; an anonymous editor GET redirected to
+  login successfully. This reported error is not explained by using port 7008.
+  Recommend a supported image under 5 MiB. Client code currently hides previews
+  for oversized images but does not block submission; clearer client-side rejection
+  remains unfinished. No live upload was submitted, no limits or content changed.
+
 - 2026-11-19 SQL/upload availability diagnosis: Windows Application events from
   the configured default instance show repeated error 701 at 09:49 (insufficient
   memory in default/internal pools), plus earlier 17890 paging warnings. Both
