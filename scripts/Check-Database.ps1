@@ -19,6 +19,7 @@ SELECT t.name AS TableName, c.name AS ColumnName, ty.name AS SqlType,
 FROM sys.tables t JOIN sys.columns c ON c.object_id=t.object_id
 JOIN sys.types ty ON ty.user_type_id=c.user_type_id
 WHERE t.is_ms_shipped=0 ORDER BY t.name,c.column_id;
+SELECT 'RAVENCLAW_METADATA_COMPLETE' AS DiagnosticResult;
 '@
 $startInfo = [Diagnostics.ProcessStartInfo]::new($sqlcmd)
 $startInfo.UseShellExecute = $false
@@ -42,6 +43,13 @@ try {
     $standardError = $errors.GetAwaiter().GetResult()
     if ($process.ExitCode -ne 0) {
         throw "SQL diagnostic failed (exit $($process.ExitCode)). $standardError $standardOutput"
+    }
+    # sqlcmd can return zero after printing a timeout. Require evidence that the
+    # final statement completed instead of trusting the process exit code alone.
+    if ($standardOutput -notmatch '(?m)^RAVENCLAW_METADATA_COMPLETE\s*$' -or
+        -not [string]::IsNullOrWhiteSpace($standardError) -or
+        "$standardOutput $standardError" -match '(?i)timeout expired|sqlcmd: error:') {
+        throw "SQL diagnostic did not complete successfully. $standardError $standardOutput"
     }
     Write-Output $standardOutput
     Write-Output 'Database metadata read passed. No database changes were made.'

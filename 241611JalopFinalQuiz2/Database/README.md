@@ -70,6 +70,8 @@ the same trusted-development-certificate policy as the local application. Login
 and query timeouts are bounded, with a 20-second overall process limit. It never
 restarts SQL Server or changes data/configuration. Optional Server/Database
 parameters select the intended local development target.
+Success requires the query's final completion marker as well as a zero exit code
+and no error output; a timeout printed by sqlcmd cannot count as a passing check.
 
 From the MVC project directory (the folder containing the .csproj), run:
 

@@ -4,6 +4,23 @@ Last verified: 2026-11-19.
 
 ## Latest error check
 
+- 2026-11-19 requested SQL recovery: initial reads hung again. Direct service
+  control lacked administrator rights; Windows administrator helpers were used.
+  The first restart timed out while SQLSERVERAGENT was StopPending. A subsequent
+  helper completed the MSSQLSERVER restart and restored SQLSERVERAGENT; service
+  inspection confirmed both Running and a new engine PID (21916 -> 23732).
+  The recovery helper also supports clearing a stalled SQL Agent process, but
+  its log shows that branch was not needed. The other SQL instance was unchanged.
+  Corrected Check-Database.ps1 to require a final query completion marker, reject
+  error output and detect reported timeouts even if sqlcmd returns zero. Parser
+  validation and four guard cases passed: complete output, zero-exit timeout,
+  partial output and stderr despite completion. The real metadata read passed
+  after restart (seven tables/35 columns), followed by the app's EF university,
+  profile and office-time reads in 63/37/8 ms. SQL's physical-memory-low flag
+  remains 1: service recovery is verified, permanent memory-pressure resolution
+  is not. No database records/schema, memory settings or application behavior
+  changed. Recovery logs are ignored under TestResults/LocalRun.
+
 - 2026-11-19 pasted sign-in-log review: confirmed fast 1-8 ms reads followed by
   35-second session/account query timeouts and a post-login connection timeout.
   ValidatePrincipal signs out when its read fails; login then displays the generic
