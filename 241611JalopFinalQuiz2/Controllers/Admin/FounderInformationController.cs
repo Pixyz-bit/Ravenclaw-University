@@ -19,17 +19,17 @@ public class FounderInformationController(UniversityDbContext database, ILogger<
         {
             var item = await database.FounderTables.AsNoTracking().SingleOrDefaultAsync();
             if (id > 0 && item?.FounderId != id) return NotFound();
-            return View("~/Views/Admin/FounderInformation.cshtml", item is null ? new FounderInformationViewModel() : new FounderInformationViewModel
+            return View("~/Views/Admin/FounderInformation.cshtml", item is null ? new FounderViewModel() : new FounderViewModel
             {
                 Id = item.FounderId, FounderName = item.FounderName,
                 Description = item.Description
             });
         }
-        catch (Exception exception) { return Unavailable(exception, new FounderInformationViewModel()); }
+        catch (Exception exception) { return Unavailable(exception, new FounderViewModel()); }
     }
 
     [HttpPost, ValidateAntiForgeryToken]
-    public async Task<IActionResult> Index(FounderInformationViewModel model)
+    public async Task<IActionResult> Index(FounderViewModel model)
     {
         if (model.Id <= 0) return NotFound();
         try
@@ -48,7 +48,7 @@ public class FounderInformationController(UniversityDbContext database, ILogger<
         catch (Exception exception) { return Unavailable(exception, model); }
     }
 
-    private IActionResult Unavailable(Exception exception, FounderInformationViewModel model)
+    private IActionResult Unavailable(Exception exception, FounderViewModel model)
     {
         logger.LogError(exception, "Founder information could not be loaded or saved.");
         Response.StatusCode = 503;

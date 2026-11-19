@@ -19,7 +19,7 @@ public class UniversityInformationController(UniversityDbContext database, Image
         try
         {
             var information = await database.AcademyInfoTables.AsNoTracking().OrderBy(x => x.AcademyInfoId).FirstOrDefaultAsync();
-            var model = information is null ? new UniversityInformationViewModel() : new UniversityInformationViewModel
+            var model = information is null ? new HeroAndAboutViewModel() : new HeroAndAboutViewModel
             {
                 HeroImg = information.HeroImg,
                 AboutHeading = information.AboutHeading,
@@ -31,11 +31,11 @@ public class UniversityInformationController(UniversityDbContext database, Image
                 .OrderBy(x => x.CoreValueId).Select(x => x.Title).ToListAsync());
             return View("~/Views/Admin/UniversityInformation.cshtml", model);
         }
-        catch (Exception exception) { return Unavailable(exception, new UniversityInformationViewModel()); }
+        catch (Exception exception) { return Unavailable(exception, new HeroAndAboutViewModel()); }
     }
 
     [HttpPost, ValidateAntiForgeryToken, RequestSizeLimit(6 * 1024 * 1024)]
-    public async Task<IActionResult> Index(UniversityInformationViewModel model)
+    public async Task<IActionResult> Index(HeroAndAboutViewModel model)
     {
         string? uploadedPath = null;
         try
@@ -83,7 +83,7 @@ public class UniversityInformationController(UniversityDbContext database, Image
         catch (Exception exception) { images.Discard(uploadedPath); return Unavailable(exception, model); }
     }
 
-    private IActionResult Unavailable(Exception exception, UniversityInformationViewModel model)
+    private IActionResult Unavailable(Exception exception, HeroAndAboutViewModel model)
     {
         logger.LogError(exception, "University information could not be loaded or saved.");
         Response.StatusCode = 503;

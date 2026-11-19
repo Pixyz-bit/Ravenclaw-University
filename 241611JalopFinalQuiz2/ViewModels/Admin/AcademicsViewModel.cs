@@ -5,7 +5,7 @@ using _241611JalopFinalQuiz2.Models;
 
 namespace _241611JalopFinalQuiz2.ViewModels;
 
-public class AcademicProgramsViewModel : IAdminSectionViewModel
+public class AcademicsViewModel : IAdminSectionViewModel
 {
     public ContentSection Section => ContentSection.Programs;
     public int Id { get; set; }

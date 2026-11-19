@@ -20,7 +20,7 @@ public class AcademicProgramsController(UniversityDbContext database, ImageUploa
         {
             var item = id == 0 ? null : await database.ProgramsTables.AsNoTracking().SingleOrDefaultAsync(x => x.SubjectId == id);
             if (id > 0 && item is null) return NotFound();
-            var model = item is null ? new AcademicProgramsViewModel() : new AcademicProgramsViewModel
+            var model = item is null ? new AcademicsViewModel() : new AcademicsViewModel
             {
                 Id = item.SubjectId,
                 SubjectName = item.SubjectName,
@@ -31,11 +31,11 @@ public class AcademicProgramsController(UniversityDbContext database, ImageUploa
             model.Items = await database.ProgramsTables.AsNoTracking().OrderBy(x => x.SubjectId).ToListAsync();
             return View("~/Views/Admin/AcademicPrograms.cshtml", model);
         }
-        catch (Exception exception) { return Unavailable(exception, new AcademicProgramsViewModel()); }
+        catch (Exception exception) { return Unavailable(exception, new AcademicsViewModel()); }
     }
 
     [HttpPost, ValidateAntiForgeryToken, RequestSizeLimit(6 * 1024 * 1024)]
-    public async Task<IActionResult> Index(AcademicProgramsViewModel model)
+    public async Task<IActionResult> Index(AcademicsViewModel model)
     {
         if (model.Id < 0) return NotFound();
         string? uploadedPath = null;
@@ -82,10 +82,10 @@ public class AcademicProgramsController(UniversityDbContext database, ImageUploa
             TempData["StatusMessage"] = "Academic programs deleted.";
             return RedirectToAction(nameof(Index), new { id = (int?)null });
         }
-        catch (Exception exception) { return Unavailable(exception, new AcademicProgramsViewModel { Id = id }); }
+        catch (Exception exception) { return Unavailable(exception, new AcademicsViewModel { Id = id }); }
     }
 
-    private IActionResult Unavailable(Exception exception, AcademicProgramsViewModel model)
+    private IActionResult Unavailable(Exception exception, AcademicsViewModel model)
     {
         logger.LogError(exception, "Academic programs could not be loaded or saved.");
         Response.StatusCode = 503;

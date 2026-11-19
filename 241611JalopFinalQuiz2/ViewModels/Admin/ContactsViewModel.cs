@@ -5,7 +5,7 @@ using _241611JalopFinalQuiz2.Models;
 
 namespace _241611JalopFinalQuiz2.ViewModels;
 
-public class ContactInformationViewModel : IAdminSectionViewModel, IValidatableObject
+public class ContactsViewModel : IAdminSectionViewModel, IValidatableObject
 {
     public ContentSection Section => ContentSection.Contacts;
     public int Id { get; set; }

@@ -19,7 +19,7 @@ public class ContactInformationController(UniversityDbContext database, ILogger<
         {
             var item = await database.ContactsTables.AsNoTracking().OrderBy(x => x.ContactId).FirstOrDefaultAsync();
 
-            var model = item is null ? new ContactInformationViewModel() : new ContactInformationViewModel
+            var model = item is null ? new ContactsViewModel() : new ContactsViewModel
             {
                 Id = item.ContactId,
                 AcademyAddress = item.AcademyAddress,
@@ -32,11 +32,11 @@ public class ContactInformationController(UniversityDbContext database, ILogger<
 
             return View("~/Views/Admin/ContactInformation.cshtml", model);
         }
-        catch (Exception exception) { return Unavailable(exception, new ContactInformationViewModel()); }
+        catch (Exception exception) { return Unavailable(exception, new ContactsViewModel()); }
     }
 
     [HttpPost, ValidateAntiForgeryToken]
-    public async Task<IActionResult> Index(ContactInformationViewModel model)
+    public async Task<IActionResult> Index(ContactsViewModel model)
     {
         if (model.Id < 0) return NotFound();
         try
@@ -65,7 +65,7 @@ public class ContactInformationController(UniversityDbContext database, ILogger<
         catch (Exception exception) { return Unavailable(exception, model); }
     }
 
-    private IActionResult Unavailable(Exception exception, ContactInformationViewModel model)
+    private IActionResult Unavailable(Exception exception, ContactsViewModel model)
     {
         logger.LogError(exception, "Contact information could not be loaded or saved.");
         Response.StatusCode = 503;

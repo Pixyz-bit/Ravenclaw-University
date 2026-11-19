@@ -4,6 +4,13 @@ Last verified: 2026-11-20.
 
 ## Latest error check
 
+- 2026-11-20 admin ViewModels: moved the five Manage Website form models into
+  ViewModels/Admin and renamed the Hero and About, Academics, Founder and Contacts
+  classes to match the sidebar. Core values remain on the Hero and About form.
+  Build passed without warnings or errors and all 168 disposable HTTP/SQL checks
+  passed. Restarted the local app on port 5182 and verified the custom 404 at
+  /dwe and HTTP 200 at /Account/Login.
+
 - 2026-11-20 custom 404 page: unmatched URLs show the Ravenclaw University
   account layout with a link home and keep HTTP 404. Build passed without
   warnings or errors. Isolated HTTP checks covered nested URLs, retired routes,

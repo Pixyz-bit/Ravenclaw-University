@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 namespace _241611JalopFinalQuiz2.ViewModels;
 
 // Form fields for University information only. The database entity stays database-first.
-public class UniversityInformationViewModel : IAdminSectionViewModel, IValidatableObject
+public class HeroAndAboutViewModel : IAdminSectionViewModel, IValidatableObject
 {
     public ContentSection Section => ContentSection.University;
     [Microsoft.AspNetCore.Mvc.ModelBinding.BindNever]

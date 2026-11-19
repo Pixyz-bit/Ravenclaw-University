@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace _241611JalopFinalQuiz2.ViewModels;
 
-public class FounderInformationViewModel : IAdminSectionViewModel
+public class FounderViewModel : IAdminSectionViewModel
 {
     public ContentSection Section => ContentSection.Founders;
     public int Id { get; set; }
